@@ -6,3 +6,4 @@ tmp
 yarn-error.log
 yarn.lock
 xlsx
+puppeteer-examples
