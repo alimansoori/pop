@@ -1,0 +1,76 @@
+
+function categories() {
+    return [
+        // Office
+        // "https://www.restockit.com/office/copy-printer-paper",
+        // "https://www.restockit.com/technology/printers-all-in-one-machines",
+        // "https://www.restockit.com/technology/copiers-scanners-fax-machines",
+        // "https://www.restockit.com/technology/shredders",
+        // "https://www.restockit.com/technology/aidc-pos-products",
+        // "https://www.restockit.com/technology/surge-ups-batteries",
+        // "https://www.restockit.com/office/binders-file-folders-accessories/binders-binding",
+        // "https://www.restockit.com/office/binders-file-folders-accessories/filing-folders-accessories",
+        // "https://www.restockit.com/office/pens-writing-correction",
+        // "https://www.restockit.com/office/paper-pads-clipboards",
+        // "https://www.restockit.com/office/labels-label-makers",
+        // "https://www.restockit.com/office/tapes-adhesives-clips-rubber-bands",
+        // "https://www.restockit.com/office/envelopes-forms-stamps",
+        // "https://www.restockit.com/office/mailroom-shipping",
+        // "https://www.restockit.com/technology/keyboards-mice-web-cams-pc-speakers-microphones",
+        // "https://www.restockit.com/office/school",
+        // "https://www.restockit.com/office/school/calculators",
+        // "https://www.restockit.com/office/calendars-planners-organizers",
+        // "https://www.restockit.com/office/tapes-adhesives-clips-rubber-bands/clips-push-pins-fasteners",
+        // "https://www.restockit.com/office/desk-organizers-accessories",
+        // "https://www.restockit.com/office/presentation-boards/dry-erase-boards",
+        // "https://www.restockit.com/office/binders-file-folders-accessories/laminators-laminating",
+        // "https://www.restockit.com/office/presentation-boards",
+        // "https://www.restockit.com/office/staplers-punches-scissors-trimmers/scissors-rulers",
+        // "https://www.restockit.com/office/staplers-punches-scissors-trimmers/staplers-staples-removers",
+        // "https://www.restockit.com/office/sticky-notes-flags",
+
+        // 2
+        // "https://www.restockit.com/technology/ink-toner",
+        // "https://www.restockit.com/office-furniture/office-decorations",
+        // "https://www.restockit.com/technology/ergonomics-keyboard-managers/chair-cushions-foot-rests-back-rests/foot-rests",
+        // "https://www.restockit.com/technology/ergonomics-keyboard-managers/chair-cushions-foot-rests-back-rests/chair-cushions",
+        // "https://www.restockit.com/technology/ergonomics-keyboard-managers/chair-cushions-foot-rests-back-rests/back-rests",
+        // "https://www.restockit.com/office-furniture/office-panels-partitions",
+        // "https://www.restockit.com/printers-ink-toner",
+        // "https://www.restockit.com/technology/copiers-scanners-fax-machines",
+        // "https://www.restockit.com/technology/consumer-electronics",
+        // "https://www.restockit.com/technology/surge-ups-batteries",
+        // "https://www.restockit.com/technology/keyboards-mice-web-cams-pc-speakers-microphones",
+        // "https://www.restockit.com/office-furniture/office-seating/chair-mats-casters-doorstops/chair-mats",
+        // "https://www.restockit.com/disposable-cups-lids",
+        // "https://www.restockit.com/food-breakroom/coffee-coffee-service/",
+        // "https://www.restockit.com/disposable-plates-bowls-platters",
+        // "https://www.restockit.com/disposable-cutlery",
+        // "https://www.restockit.com/food-breakroom/cups-plates-bowls-utensils-napkins/napkins",
+        // "https://www.restockit.com/paper-towels-tissues-dispensers",
+        // "https://www.restockit.com/food-breakroom/water-beverages",
+        // "https://www.restockit.com/food-breakroom/food-snacks",
+        // "https://www.restockit.com/cleaning/cleaning-chemicals/all-purpose-cleaners",
+        // "https://www.restockit.com/restaurant/kitchen/warewashing",
+        // "https://www.restockit.com/cleaning/cleaning-chemicals/disinfecting-sanitizing-cleaners",
+        // "https://www.restockit.com/cleaning/cleaning-chemicals/disinfecting-sanitizing-wipes",
+        // "https://www.restockit.com/cleaning/cleaning-chemicals/glass-cleaners",
+        // "https://www.restockit.com/cleaning/cleaning-chemicals/scouring-cleaners",
+        // "https://www.restockit.com/cleaning/cleaning-tools/sponges",
+        // "https://www.restockit.com/medical/first-aid",
+
+        // 3
+        "https://www.restockit.com/restaurant/kitchen/food-wrap-bags-takeout-containers",
+        "https://www.restockit.com/restaurant/kitchen/warewashing",
+        "https://www.restockit.com/restaurant/kitchen",
+        "https://www.restockit.com/restaurant/bar",
+        "https://www.restockit.com/restaurant/kitchen/kitchen-storage",
+        "https://www.restockit.com/restaurant/kitchen/bakery",
+        "https://www.restockit.com/restaurant/glassware",
+        "https://www.restockit.com/restaurant/dining-room",
+    ]
+}
+
+export default categories
+
+//Chemicals-Lubricants

@@ -1,0 +1,8 @@
+node_modules/*
+.idea
+csv/*
+dist/*
+tmp
+yarn-error.log
+yarn.lock
+xlsx
