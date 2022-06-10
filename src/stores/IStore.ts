@@ -4,6 +4,7 @@ import ISelectors from "./ISelectors";
 import IStoreOptions from "./IStoreOptions";
 
 export default interface IStore {
+    productIsExist(): boolean
     getPrice(): number
     getPage(): Page
     getUrl(): string

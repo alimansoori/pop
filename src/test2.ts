@@ -10,19 +10,14 @@ import {askQuestion} from "./lib/helper";
 async function main() {
     try {
 
-        const startFrom = await askQuestion("Start from row ? ");
-        const date = await askQuestion("Date for save ? ");
-
-        // console.log(startFrom)
-
-        /*const page = await myPage()
+        const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.miniaturemarket.com/upr18652.html"
+            "https://www.zumiez.com/independent-raw-139-stage-11-skateboard-truck.html"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
-        console.log("Source is in stock: " + store.isAvailability())*/
+        console.log("Source is in stock: " + store.isAvailability())
 
         /*const keepa = new Keepa({
             asin: "B00BUTD1XS",

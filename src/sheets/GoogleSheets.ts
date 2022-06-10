@@ -163,6 +163,10 @@ export default class GoogleSheets {
                     }
                 }*/
 
+                if (!store.productIsExist()) {
+                    rows[i]['Category'] = "Not Exist"
+                }
+
                 rows[i]['Source'] = store.getDomain()
 
                 // rows[i]['Image'] = `=I${i+2}`

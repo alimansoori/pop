@@ -7,3 +7,6 @@ yarn-error.log
 yarn.lock
 xlsx
 puppeteer-examples
+gitkraken_rsa.pub
+
+gitkraken_rsa

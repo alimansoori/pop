@@ -25,6 +25,8 @@ abstract class Store implements IStore, IProductDetails {
     private readonly selectorsP: ISelectors
     private readonly optionsP: IStoreOptions
     protected loadType: EnumLoadType = EnumLoadType.LOAD
+    protected productExist: boolean = true
+    protected siteIsBlocked: boolean = false
 
     protected constructor(page: Page, url: string) {
         this.page = page
@@ -166,6 +168,10 @@ abstract class Store implements IStore, IProductDetails {
                 url = this.getUrl()
         }
 
+        if (this.siteIsBlocked) {
+            url = scrapUrl
+        }
+
         await this.page.goto(url, {timeout: 100000, waitUntil: this.loadType})
         await this.availibilityCalculate()
         await this.priceCalculate()
@@ -240,6 +246,7 @@ abstract class Store implements IStore, IProductDetails {
 
         } catch (e: any) {
             console.log(e.message)
+            this.productExist = false
             this.setAvailability(false)
         }
     }
@@ -256,13 +263,15 @@ abstract class Store implements IStore, IProductDetails {
             } else if (jsonSchemaParse?.['@graph']) {
                 this.iterateAvalabilitySchemas(jsonSchemaParse?.['@graph'])
                 return
+            } else if (jsonSchemaParse?.['@type'] === "ItemList" && jsonSchemaParse?.['itemListElement']) {
+                this.iterateAvalabilitySchemas([jsonSchemaParse?.['itemListElement'][0]['item']])
+                return
             }
             this.offerCalc(jsonSchemaParse)
         }
     }
 
     offerCalc(jsonSchemaParse: any) {
-
         if (jsonSchemaParse?.offers) {
             if (jsonSchemaParse?.offers?.offers) {
                 this.offerCalc(jsonSchemaParse?.offers)
@@ -339,6 +348,9 @@ abstract class Store implements IStore, IProductDetails {
             } else if (jsonSchemaParse?.['@graph']) {
                 this.iteratePriceSchemas(jsonSchemaParse?.['@graph'])
                 return
+            } else if (jsonSchemaParse?.['@type'] === "ItemList" && jsonSchemaParse?.['itemListElement']) {
+                this.iteratePriceSchemas([jsonSchemaParse?.['itemListElement'][0]['item']])
+                return
             }
             this.priceCalc(jsonSchemaParse)
         }
@@ -370,6 +382,10 @@ abstract class Store implements IStore, IProductDetails {
                 }
             }
         }
+    }
+
+    productIsExist(): boolean {
+        return this.productExist
     }
 }
 

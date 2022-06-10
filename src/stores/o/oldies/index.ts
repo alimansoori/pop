@@ -2,7 +2,7 @@ import Store from "../../Store";
 import {Page} from "puppeteer";
 import {textToNumber} from "../../../lib/helper";
 
-export default class Woot extends Store {
+export default class Oldies extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
     }
@@ -27,7 +27,7 @@ export default class Woot extends Store {
         try {
             await this.page.waitForSelector('*[itemprop="price"]', {timeout: 3000})
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', elem => elem.textContent)
+                await this.page.$eval('*[itemprop="price"]', elem => elem.getAttribute("content"))
             )
 
             this.setPrice(price)

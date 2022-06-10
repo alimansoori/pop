@@ -198,6 +198,14 @@ import Pishposhbaby from "./p/pishposhbaby";
 import Leatherman from "./l/leatherman";
 import Bathandbodyworks from "./b/bathandbodyworks";
 import Ulta from "./u/ulta";
+import Oldies from "./o/oldies";
+import Boardlandia from "./b/boardlandia";
+import Glossier from "./g/glossier";
+import Americanedgeknives from "./a/americanedgeknives";
+import Keurig from "./k/keurig";
+import Babyearth from "./b/babyearth";
+import Brandscycle from "./b/brandscycle";
+import Zumiez from "./z/zumiez";
 
 export default class SourceSiteFactory {
     static create(page: Page, url: string): IStore {
@@ -244,7 +252,9 @@ export default class SourceSiteFactory {
         else if (domain === 'altomusic') return new Altomusic(page, url)
         else if (domain === 'allstarhealth') return new Allstarhealth(page, url)
         else if (domain === 'artsupplywarehouse') return new Artsupplywarehouse(page, url)
+        else if (domain === 'americanedgeknives') return new Americanedgeknives(page, url)
         else if (domain === 'backcountry') return new Backcountry(page, url)
+        else if (domain === 'babyearth') return new Babyearth(page, url)
         else if (domain === 'bangalla') return new Bangalla(page, url)
         else if (domain === 'bathandbodyworks') return new Bathandbodyworks(page, url)
         else if (domain === 'barnesandnoble') return new Barnesandnoble(page, url)
@@ -259,6 +269,7 @@ export default class SourceSiteFactory {
         else if (domain === 'bigbangtoyslv') return new Bigbangtoyslv(page, url)
         else if (domain === 'biglots') return new Biglots(page, url)
         else if (domain === 'bloomingdales') return new Bloomingdales(page, url)
+        else if (domain === 'boardlandia') return new Boardlandia(page, url)
         else if (domain === 'boscovs') return new Boscovs(page, url)
         else if (domain === 'bhphotovideo') return new Bhphotovideo(page, url)
         else if (domain === 'banggood') return new Banggood(page, url)
@@ -267,6 +278,7 @@ export default class SourceSiteFactory {
         else if (domain === 'boxed') return new Boxed(page, url)
         else if (domain === 'burkesoutlet') return new Burkesoutlet(page, url)
         else if (domain === 'buybuybaby') return new Buybuybaby(page, url)
+        else if (domain === 'brandscycle') return new Brandscycle(page, url)
         // else if (domain === 'cabelas') return new Cabelas(page, url)
         else if (domain === 'calendars') return new Calendars(page, url)
         else if (domain === 'campmor') return new Campmor(page, url)
@@ -299,6 +311,7 @@ export default class SourceSiteFactory {
         else if (domain === 'gamenerdz') return new Gamenerdz(page, url)
         else if (domain === 'galactictoys') return new Galactictoys(page, url)
         else if (domain === 'gamestop') return new Gamestop(page, url)
+        else if (domain === 'glossier') return new Glossier(page, url)
         else if (domain === 'gearx') return new Gearx(page, url)
         else if (domain === 'geekbuying') return new Geekbuying(page, url)
         else if (domain === 'geminicollectibles') return new Geminicollectibles(page, url)
@@ -321,6 +334,7 @@ export default class SourceSiteFactory {
         else if (domain === 'jcpenney') return new Jcpenney(page, url)
         else if (domain === 'jensonusa') return new Jensonusa(page, url)
         else if (domain === 'katom') return new Katom(page, url)
+        else if (domain === 'keurig') return new Keurig(page, url)
         else if (domain === 'knifecenter') return new Knifecenter(page, url)
         else if (domain === 'kohls') return new Kohls(page, url)
         // else if (domain === 'lakeside') return new Lakeside(page, url)
@@ -344,6 +358,7 @@ export default class SourceSiteFactory {
         else if (domain === 'neweggbusiness') return new Neweggbusiness(page, url)
         else if (domain === 'nordstrom') return new Nordstrom(page, url)
         else if (domain === 'nothingbutsavings') return new Nothingbutsavings(page, url)
+        else if (domain === 'oldies') return new Oldies(page, url)
         else if (domain === 'officedepot') return new Officedepot(page, url)
         else if (domain === 'overstock') return new Overstock(page, url)
         else if (domain === 'overtons') return new Overtons(page, url)
@@ -402,6 +417,7 @@ export default class SourceSiteFactory {
         else if (domain === 'zulily') return new Zulily(page, url)
         else if (domain === 'zzounds') return new Zzounds(page, url)
         else if (domain === 'zoro') return new Zoro(page, url)
+        else if (domain === 'zumiez') return new Zumiez(page, url)
         else if (domain === 'zavvi') return new Zavvi(page, url)
         else throw new Error(`>>>> Domain ${domain} is not defined`)
     }
