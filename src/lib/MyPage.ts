@@ -8,10 +8,10 @@ export async function myPage(): Promise<Page> {
     puppeteer.use(StealthPlugin())
 
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         defaultViewport: null,
-        // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-        executablePath: "C:\\chrome-win\\chrome.exe",
+        executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        // executablePath: "C:\\chrome-win\\chrome.exe",
         ignoreHTTPSErrors: true,
         args: [
             // `--disable-extensions-except=${azInsight}`,
