@@ -7,16 +7,17 @@ import {fetchDataAzInsight} from "../sites/amazon/azInsight";
 import {Schema} from "mongoose";
 import Keepa from "../lib/Keepa";
 import MyDate from "../lib/MyDate";
+import {myPage} from "../lib/MyPage";
 
 export default class GoogleSheets {
-    private page
+    // private page
     private doc
     private startFrom: number
     private dateSave: string
 
-    constructor(page: Page, startFrom: any, dateSave: any) {
+    constructor(startFrom: any, dateSave: any) {
         this.doc = new GoogleSpreadsheet('15Xz1TZJKkOG5O5fZ7MeH6hQKoS4in8g-VF8dRBnczKY')
-        this.page = page
+        // this.page = page
         this.startFrom = parseInt(startFrom)
         this.dateSave = dateSave
 
@@ -82,9 +83,10 @@ export default class GoogleSheets {
         return `${month}/${day}/${year}`
     }
 
-    async sourceSite(url: string): Promise<IStore> {
+    async sourceSite(page: Page, url: string): Promise<IStore> {
+
         const store = await SourceSiteFactory.create(
-            this.page,
+            page,
             url
         )
 
@@ -116,10 +118,12 @@ export default class GoogleSheets {
             console.log(rows[i]['Amazon URL'])
             console.log(rows[i]['Source URL'])
             try {
-                const store = await this.sourceSite(rows[i]['Source URL'])
+                const page = await myPage()
+                const store = await this.sourceSite(page, rows[i]['Source URL'])
                 await store.scrape()
                 console.log("Source Price is: " + store.getPrice())
                 console.log("Source is in stock: " + store.isAvailability())
+                await page.close()
 
                 if (store.getPrice() > 0 && store.isAvailability()) {
                     const keepa = new Keepa({

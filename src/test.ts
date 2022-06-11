@@ -11,9 +11,9 @@ async function main() {
         // await amzLogin.login()
         const startFrom = await askQuestion("Start from row ? ");
         const date = await askQuestion("Date for save ? ");
-        const page = await myPage()
+        // const page = await myPage()
 
-        new GoogleSheets(page, startFrom, date)
+        new GoogleSheets(startFrom, date)
         // const amzLogin = new AzInsight(page)
 
         /*await page.mouse.wheel({
@@ -41,6 +41,7 @@ async function main() {
         // await page.goto('http://api.scraperapi.com?api_key=099810671d1f06b8566e49204616a055&country_code=us&render=true&url=https://www.amazon.com/dp/B08TM6WWDC/')
         // await page.goto('https://www.wayfair.com/kitchen-tabletop/cat/kitchen-tabletop-c45667.html')
     } catch (e: any) {
+        console.log("EEEEEEEEEEEEE")
         console.log(e.message)
     }
 }
