@@ -13,7 +13,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.zumiez.com/independent-raw-139-stage-11-skateboard-truck.html"
+            "https://www.scheels.com/p/wilson-k2-pee-wee-composite-football/02638880090.html"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

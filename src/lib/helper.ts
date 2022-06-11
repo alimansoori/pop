@@ -2,7 +2,6 @@ import puppeteer, {Page} from "puppeteer";
 import Jimp from "jimp";
 import sleep from "../utils/sleep";
 import fs from "fs"
-import compare from "../utils/compare";
 import readline from "readline";
 
 export async function initPage(): Promise<Page> {
@@ -251,36 +250,6 @@ export async function amazonData(page: Page, cost: string, amzUrl: string) {
 
 }
 
-export async function compareImages(page: Page, image1Url: string, image2Url: string): Promise<boolean> {
-    console.log('Start Images Comparing ...')
-    console.log(`Image 1: ${image1Url}`)
-    console.log(`Image 2: ${image2Url}`)
-
-    try {
-        // const image1 = await Jimp.read(image1Url);
-        // const image2 = await Jimp.read(image2Url);
-        // Perceived distance
-        // const distance = Jimp.distance(image1, image2);
-        // Pixel difference
-        // const diff = Jimp.diff(image1, image2);
-
-        const resCom = await compare(page, image1Url, image2Url)
-        const distance = resCom.distance
-        const diff = resCom.diff
-
-        console.log(`compareImages: distance: ${distance.toFixed(3)}, diff.percent: ${diff.percent.toFixed(3)}`);
-        if (distance < 0.15 || diff.percent < 0.15) {
-            console.log("compareImages: Images match!");
-            return true;
-        } else {
-            console.log("compareImages: Images do NOT match!");
-            return false;
-        }
-    } catch (e: any) {
-        console.log("compareImages: Problem in images buffer!" + e.message);
-        return false
-    }
-}
 
 export async function bingSearch(page: Page, search: string): Promise<boolean | string | null> {
     const url = "https://bing.com/search?q=site:amazon.com " + stringToUrl(search)
