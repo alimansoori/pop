@@ -208,7 +208,7 @@ import Brandscycle from "./b/brandscycle";
 import Zumiez from "./z/zumiez";
 
 export default class SourceSiteFactory {
-    static create(page: Page, url: string): IStore {
+    static async create(page: Page, url: string): Promise<IStore> {
         let domain: string | undefined = url
         if (Url.isValidHttpUrl(url)) {
             domain = Url.getDomain(url)
@@ -224,7 +224,7 @@ export default class SourceSiteFactory {
         else if (domain === '4wd') return new Wd4(page, url)
         // else if (domain === '4sgm') return new Sgm(page, url)
         else if (domain === '4wheelparts') return new Wheelparts4(page, url)
-        // else if (domain === '511tactical') return new Tactical(page, url)
+            // else if (domain === '511tactical') return new Tactical(page, url)
         // else if (domain === 'a4c') return new A4c(page, url)
         else if (domain === 'a-zapplianceparts') return new AZapplianceparts(page, url)
         else if (domain === 'aaatoysandcollectibles') return new Aaatoysandcollectibles(page, url)
@@ -419,6 +419,9 @@ export default class SourceSiteFactory {
         else if (domain === 'zoro') return new Zoro(page, url)
         else if (domain === 'zumiez') return new Zumiez(page, url)
         else if (domain === 'zavvi') return new Zavvi(page, url)
-        else throw new Error(`>>>> Domain ${domain} is not defined`)
+        else {
+            await page.close()
+            throw new Error(`>>>> Domain ${domain} is not defined`)
+        }
     }
 }
