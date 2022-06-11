@@ -5,6 +5,16 @@ import {Page} from "puppeteer";
 export async function myPage(): Promise<Page> {
     // const azInsight = "C:\\Users\\Lion\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\gefiflkplklbfkcjjcbobokclopbigfg\\3.4.2_0\\"
 
+    try {
+        return await createPage()
+    } catch (e: any) {
+        return await createPage()
+    }
+}
+
+export async function createPage(): Promise<Page> {
+    // const azInsight = "C:\\Users\\Lion\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\gefiflkplklbfkcjjcbobokclopbigfg\\3.4.2_0\\"
+
     puppeteer.use(StealthPlugin())
 
     const browser = await puppeteer.launch({
@@ -17,30 +27,6 @@ export async function myPage(): Promise<Page> {
             // `--disable-extensions-except=${azInsight}`,
             // `--load-extension=${azInsight}`,
             `--window-size=1440,800`,
-            // '--disable-background-networking',
-            // '--enable-features=NetworkService,NetworkServiceInProcess',
-            // '--disable-background-timer-throttling',
-            // '--disable-backgrounding-occluded-windows',
-            // '--disable-breakpad',
-            // '--disable-client-side-phishing-detection',
-            // '--disable-component-extensions-with-background-pages',
-            // '--disable-default-apps',
-            // '--disable-dev-shm-usage',
-            // '--disable-extensions',
-            // '--disable-features=Translate',
-            // '--disable-hang-monitor',
-            // '--disable-ipc-flooding-protection',
-            // '--disable-popup-blocking',
-            // '--disable-prompt-on-repost',
-            // '--disable-renderer-backgrounding',
-            // '--disable-sync',
-            // '--force-color-profile=srgb',
-            // '--metrics-recording-only',
-            // '--no-first-run',
-            // '--enable-automation',
-            // '--password-store=basic',
-            // '--use-mock-keychain',
-            // '--enable-blink-features=IdleDetection',
         ]
     })
 
