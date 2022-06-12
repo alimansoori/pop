@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer-extra";
+import puppeteer from "puppeteer";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import {Page} from "puppeteer";
 
@@ -8,6 +8,7 @@ export async function myPage(): Promise<Page> {
     try {
         return await createPage()
     } catch (e: any) {
+        console.log(e.message)
         return await createPage()
     }
 }
@@ -15,10 +16,10 @@ export async function myPage(): Promise<Page> {
 export async function createPage(): Promise<Page> {
     // const azInsight = "C:\\Users\\Lion\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\gefiflkplklbfkcjjcbobokclopbigfg\\3.4.2_0\\"
 
-    puppeteer.use(StealthPlugin())
+    // puppeteer.use(StealthPlugin())
 
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         defaultViewport: null,
         executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
         // executablePath: "C:\\chrome-win\\chrome.exe",
