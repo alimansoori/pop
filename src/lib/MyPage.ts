@@ -17,6 +17,7 @@ export async function createPage(): Promise<Page> {
     // const azInsight = "C:\\Users\\Lion\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\gefiflkplklbfkcjjcbobokclopbigfg\\3.4.2_0\\"
 
     // puppeteer.use(StealthPlugin())
+    process.setMaxListeners(0)
 
     const browser = await puppeteer.launch({
         headless: false,

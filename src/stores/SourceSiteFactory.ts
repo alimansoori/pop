@@ -206,12 +206,18 @@ import Keurig from "./k/keurig";
 import Babyearth from "./b/babyearth";
 import Brandscycle from "./b/brandscycle";
 import Zumiez from "./z/zumiez";
+import Petsense from "./p/petsense";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
         let domain: string | undefined = url
         if (Url.isValidHttpUrl(url)) {
             domain = Url.getDomain(url)
+        }
+
+        if (domain === "tacticalbucket") {
+            await page.goto(url, {waitUntil: "domcontentloaded"})
+            domain = Url.getDomain(page.url())
         }
 
         // if (!domain) return new Store(page, url)
@@ -365,6 +371,7 @@ export default class SourceSiteFactory {
         else if (domain === 'partytoyz') return new Partytoyz(page, url)
         else if (domain === 'petflow') return new Petflow(page, url)
         else if (domain === 'petedge') return new Petedge(page, url)
+        else if (domain === 'petsense') return new Petsense(page, url)
         else if (domain === 'petswarehouse') return new Petswarehouse(page, url)
         else if (domain === 'poptoys') return new Poptoys(page, url)
         else if (domain === 'pishposhbaby') return new Pishposhbaby(page, url)

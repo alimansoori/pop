@@ -43,7 +43,11 @@ export default class GoogleSheets {
             'Sell Approval',
             'ASIN',
             'Source URL',
+            'Source IMG',
+            'Source Image',
             'Amazon URL',
+            'Amazon IMG',
+            'Amazon Image',
             'Image',
             'Category',
             'IN Stock',
@@ -139,7 +143,7 @@ export default class GoogleSheets {
                     rows[i]['Category'] = keepa.category
                     rows[i]['ROI'] = keepa.roi
                     rows[i]['BSR'] = keepa.bsr
-                    rows[i]['Image'] = keepa.image
+                    rows[i]['Amazon IMG'] = keepa.image
 
                     if (keepa?.hasBadge) {
                         // rows[i]['Updated'] = this.currentDate()
@@ -174,6 +178,7 @@ export default class GoogleSheets {
                 rows[i]['Source'] = store.getDomain()
 
                 // rows[i]['Image'] = `=I${i+2}`
+                rows[i]['Source URL'] = page.url()
                 rows[i]['IN Stock'] = store.isAvailability() ? "TRUE": "FALSE"
                 rows[i]['Source Price'] = store.getPrice()
                 await rows[i].save()

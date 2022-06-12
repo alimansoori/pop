@@ -13,7 +13,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.scheels.com/p/wilson-k2-pee-wee-composite-football/02638880090.html"
+            "https://premium.tacticalbucket.com/NOTZFQ/eJwFwVESgCAIBcATKf-b-dpqFXOhoY4HD9dlvE8oMoM+tCOMRRWV9aptfmcLrnHjAvbJ0Honwbwg1W1PrT5Zw-b-cEIaHQ==/petsense.com/p"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

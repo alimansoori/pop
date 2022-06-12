@@ -12,7 +12,7 @@ export default class Acurite extends Store {
             await this.page.waitForSelector('p[title="Availability"] > span', {timeout: 10000})
             const availability = await this.page.$eval('p[title="Availability"] > span', elem => elem.textContent)
 
-            if (availability?.toLowerCase() === "in stock") {
+            if (availability?.toLowerCase().includes("in stock")) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
