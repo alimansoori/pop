@@ -21,12 +21,13 @@ export async function createPage(): Promise<Page> {
     const browser = await puppeteer.launch({
         headless: false,
         defaultViewport: null,
-        executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-        // executablePath: "C:\\chrome-win\\chrome.exe",
+        // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        executablePath: "C:\\chrome-win\\chrome.exe",
         ignoreHTTPSErrors: true,
         args: [
             // `--disable-extensions-except=${azInsight}`,
             // `--load-extension=${azInsight}`,
+            `--disable-site-isolation-trials`,
             `--window-size=1440,800`,
         ]
     })

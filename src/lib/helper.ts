@@ -2,7 +2,6 @@ import puppeteer, {Page} from "puppeteer";
 import Jimp from "jimp";
 import sleep from "../utils/sleep";
 import fs from "fs"
-import readline from "readline";
 
 export async function initPage(): Promise<Page> {
     const revseller = "C:\\Users\\Lion\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\gobliffocflfaekfcaccndlffkhcafhb\\2.5.3_0\\"

@@ -1,4 +1,4 @@
-import {click, getNumber, getText, initPage, shouldNotExist, textToNumber, typeText} from "../../lib/helper";
+import {click, getNumber, getText, shouldNotExist, textToNumber, typeText} from "../../lib/helper";
 import {Page} from "puppeteer";
 import sleep from "../../utils/sleep";
 
