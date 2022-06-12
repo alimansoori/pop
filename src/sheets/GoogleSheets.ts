@@ -48,7 +48,6 @@ export default class GoogleSheets {
             'Amazon URL',
             'Amazon IMG',
             'Amazon Image',
-            'Image',
             'Category',
             'IN Stock',
             'Source Price',
