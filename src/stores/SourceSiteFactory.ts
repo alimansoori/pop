@@ -207,6 +207,7 @@ import Babyearth from "./b/babyearth";
 import Brandscycle from "./b/brandscycle";
 import Zumiez from "./z/zumiez";
 import Petsense from "./p/petsense";
+import Alltimetoys from "./a/alltimetoys";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -217,6 +218,7 @@ export default class SourceSiteFactory {
 
         if (domain === "tacticalbucket") {
             await page.goto(url, {waitUntil: "domcontentloaded"})
+            url = page.url()
             domain = Url.getDomain(page.url())
         }
 
@@ -256,6 +258,7 @@ export default class SourceSiteFactory {
         // else if (domain === 'design-milk') return new DesignMilk(page, url)
         else if (domain === 'airgas') return new Airgas(page, url)
         else if (domain === 'altomusic') return new Altomusic(page, url)
+        else if (domain === 'alltimetoys') return new Alltimetoys(page, url)
         else if (domain === 'allstarhealth') return new Allstarhealth(page, url)
         else if (domain === 'artsupplywarehouse') return new Artsupplywarehouse(page, url)
         else if (domain === 'americanedgeknives') return new Americanedgeknives(page, url)

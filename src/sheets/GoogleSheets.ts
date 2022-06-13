@@ -128,6 +128,11 @@ export default class GoogleSheets {
                 console.log("Source is in stock: " + store.isAvailability())
                 await page.close()
 
+                rows[i]['Amazon IMG'] = rows[i]['Amazon IMG']
+                rows[i]['Source IMG'] = rows[i]['Source IMG']
+                rows[i]['Source Image'] = rows[i]['Source Image']
+                rows[i]['Amazon Image'] = rows[i]['Amazon Image']
+
                 if (store.getPrice() > 0 && store.isAvailability()) {
                     const keepa = new Keepa({
                         asin: rows[i]['ASIN'],
@@ -177,7 +182,7 @@ export default class GoogleSheets {
                 rows[i]['Source'] = store.getDomain()
 
                 // rows[i]['Image'] = `=I${i+2}`
-                rows[i]['Source URL'] = page.url()
+                rows[i]['Source URL'] = store.getUrl()
                 rows[i]['IN Stock'] = store.isAvailability() ? "TRUE": "FALSE"
                 rows[i]['Source Price'] = store.getPrice()
                 await rows[i].save()
