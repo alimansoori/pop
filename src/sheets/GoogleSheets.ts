@@ -10,14 +10,14 @@ import MyDate from "../lib/MyDate";
 import {myPage} from "../lib/MyPage";
 
 export default class GoogleSheets {
-    // private page
+    private page
     private doc
     private startFrom: number
     private dateSave: string
 
-    constructor(startFrom: any, dateSave: any) {
+    constructor(page: Page, startFrom: any, dateSave: any) {
         this.doc = new GoogleSpreadsheet('15Xz1TZJKkOG5O5fZ7MeH6hQKoS4in8g-VF8dRBnczKY')
-        // this.page = page
+        this.page = page
         this.startFrom = parseInt(startFrom)
         this.dateSave = dateSave
 
@@ -121,12 +121,12 @@ export default class GoogleSheets {
             console.log(rows[i]['Amazon URL'])
             console.log(rows[i]['Source URL'])
             try {
-                const page = await myPage()
-                const store = await this.sourceSite(page, rows[i]['Source URL'])
+                // const page = await myPage()
+                const store = await this.sourceSite(this.page, rows[i]['Source URL'])
                 await store.scrape()
                 console.log("Source Price is: " + store.getPrice())
                 console.log("Source is in stock: " + store.isAvailability())
-                await page.close()
+                // await this.page.close()
 
                 rows[i]['Amazon IMG'] = rows[i]['Amazon IMG']
                 rows[i]['Source IMG'] = rows[i]['Source IMG']
