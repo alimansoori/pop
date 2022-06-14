@@ -11,9 +11,9 @@ async function main() {
         // await amzLogin.login()
         const startFrom = await askQuestion("Start from row ? ");
         const date = await askQuestion("Date for save ? ");
-        const page = await myPage()
+        // const page = await myPage()
 
-        new GoogleSheets(page, startFrom, date)
+        new GoogleSheets(startFrom, date)
         // const amzLogin = new AzInsight(page)
 
         /*await page.mouse.wheel({
