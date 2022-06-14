@@ -172,7 +172,11 @@ abstract class Store implements IStore, IProductDetails {
             url = scrapUrl
         }
 
-        await this.page.goto(url, {timeout: 100000, waitUntil: this.loadType})
+        try {
+            await this.page.goto(url, {timeout: 100000, waitUntil: this.loadType})
+        } catch (e: any) {
+            await this.page.close()
+        }
         await this.availibilityCalculate()
         await this.priceCalculate()
 

@@ -220,7 +220,11 @@ export default class SourceSiteFactory {
             }
 
             if (domain === "tacticalbucket") {
-                await page.goto(url, {waitUntil: "domcontentloaded"})
+                try {
+                    await page.goto(url, {waitUntil: "domcontentloaded"})
+                } catch (e: any) {
+                    await page.close()
+                }
                 url = page.url()
                 domain = Url.getDomain(page.url())
             }
