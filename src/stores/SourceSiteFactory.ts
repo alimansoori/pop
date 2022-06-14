@@ -208,6 +208,8 @@ import Brandscycle from "./b/brandscycle";
 import Zumiez from "./z/zumiez";
 import Petsense from "./p/petsense";
 import Alltimetoys from "./a/alltimetoys";
+import Getsmartcatalog from "./g/getsmartcatalog";
+import Tfaw from "./t/tfaw";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -321,6 +323,7 @@ export default class SourceSiteFactory {
             else if (domain === 'gamenerdz') return new Gamenerdz(page, url)
             else if (domain === 'galactictoys') return new Galactictoys(page, url)
             else if (domain === 'gamestop') return new Gamestop(page, url)
+            else if (domain === 'getsmartcatalog') return new Getsmartcatalog(page, url)
             else if (domain === 'glossier') return new Glossier(page, url)
             else if (domain === 'gearx') return new Gearx(page, url)
             else if (domain === 'geekbuying') return new Geekbuying(page, url)
@@ -408,6 +411,7 @@ export default class SourceSiteFactory {
             else if (domain === 'shumistore') return new Shumistore(page, url)
             else if (domain === 'scheels') return new Scheels(page, url)
             else if (domain === 'target') return new Target(page, url)
+            else if (domain === 'tfaw') return new Tfaw(page, url)
             else if (domain === 'thatpetplace') return new Thatpetplace(page, url)
             else if (domain === 'theisens') return new Theisens(page, url)
             else if (domain === 'tf2sshop') return new Tf2sshop(page, url)

@@ -2,11 +2,10 @@ import Store from "../../Store";
 import {Page} from "puppeteer";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
 
-export default class Toywiz extends Store {
+export default class Tfaw extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
         this.loadType = EnumLoadType.DOC_LOADED
-        this.siteIsBlocked = true
     }
 
     async availibilityCalculate(): Promise<void> {

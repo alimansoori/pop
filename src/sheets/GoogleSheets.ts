@@ -3,8 +3,6 @@ import {keys} from "../keys";
 import {Page} from "puppeteer";
 import SourceSiteFactory from "../stores/SourceSiteFactory";
 import IStore from "../stores/IStore";
-import {fetchDataAzInsight} from "../sites/amazon/azInsight";
-import {Schema} from "mongoose";
 import Keepa from "../lib/Keepa";
 import MyDate from "../lib/MyDate";
 import {myPage} from "../lib/MyPage";
@@ -99,12 +97,18 @@ export default class GoogleSheets {
     }
 
     async iterateRows(dataBaseSheet: GoogleSpreadsheetWorksheet) {
-        const rows = await dataBaseSheet.getRows(/*{
-                offset:6,
-                limit: 10
-            }*/)
+        let rows = await dataBaseSheet.getRows()
+        let rowsLength = rows.length
 
-        for (let i = this.startFrom; i < rows.length; i++) {
+        for (let i = this.startFrom; i < rowsLength; i++) {
+            rows = await dataBaseSheet.getRows()
+            rowsLength = rows.length
+
+            if (i >= (rowsLength - 2)) {
+                i = 0
+                continue
+            }
+
             if (!rows[i]['Source URL'] || !rows[i]['Amazon URL']) {
                 console.log(`>>>> row ${rows[i].rowIndex} Source URL OR Amazon URL not exist`)
                 continue
@@ -155,26 +159,6 @@ export default class GoogleSheets {
                     }
                 }
 
-
-                /*if (store.getPrice() > 0 && store.isAvailability()) {
-                    const amzData = await fetchDataAzInsight(this.page, rows[i]['Amazon URL'], store.getPrice())
-                    rows[i]['Top'] = amzData?.top
-                    rows[i]['Net'] = amzData?.net
-                    rows[i]['BSR'] = amzData?.bsr
-                    rows[i]['Category'] = amzData?.category
-                    // rows[i]['90-D BSR'] = amzData?.bsr90
-                    // rows[i]['Offers'] = amzData?.offers
-                    rows[i]['Sell Price'] = amzData?.sellPrice
-                    rows[i]['ROI'] = amzData?.roi
-                    // rows[i]['Monthly Sales'] = amzData.sales
-                    rows[i]['30-D Amazon In Stock'] = amzData?.amz ? "TRUE" : "FALSE"
-                    // rows[i]['30-D Badge'] = amzData.badge30 ? "Yes" : "No"
-                    // rows[i]['90-D Badge'] = amzData.badge90 ? "Yes" : "No"
-                    if (amzData?.badge30) {
-                        rows[i]['Updated'] = this.currentDate()
-                    }
-                }*/
-
                 if (!store.productIsExist()) {
                     rows[i]['Category'] = "Not Exist"
                 }
@@ -187,18 +171,6 @@ export default class GoogleSheets {
                 rows[i]['Source Price'] = store.getPrice()
                 await rows[i].save()
 
-                // sourceCell.value = store.getDomain()
-                // updatedCell.value = this.currentDate()
-                // // @ts-ignore
-                // inStockCell.value = store.isAvailability();
-                // console.log(await sourcePriceCell.valueType)
-                // sourcePriceCell.value = store.getPrice()
-                //
-                // await dataBaseSheet.saveUpdatedCells()
-
-                if (i === (rows.length - 2)) {
-                    i = 0
-                }
             } catch (e: any) {
                 console.log(e.message)
                 continue

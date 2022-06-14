@@ -6,6 +6,7 @@ import Keepa from "./lib/Keepa";
 import MyDate from "./lib/MyDate";
 import SourceSiteFactory from "./stores/SourceSiteFactory";
 import {askQuestion} from "./lib/helper";
+import sleep from "./utils/sleep";
 
 async function main() {
     try {
@@ -13,7 +14,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://premium.tacticalbucket.com/NOTZFQ/eJwFwVESgCAIBcATKf-b-dpqFXOhoY4HD9dlvE8oMoM+tCOMRRWV9aptfmcLrnHjAvbJ0Honwbwg1W1PrT5Zw-b-cEIaHQ==/petsense.com/p"
+            "https://www.rainbowresource.com/product/074655/Ankylosaurus-Mini-Puzzle-48-pieces.html"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
