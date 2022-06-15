@@ -125,9 +125,6 @@ abstract class Store implements IStore, IProductDetails {
             case "boxed":
                 url = url = scrapUrl
             break
-            case "wayfair":
-                url = url = scrapUrl
-            break
             case "knifecenter":
                 url = url = scrapUrl
             break
@@ -281,13 +278,7 @@ abstract class Store implements IStore, IProductDetails {
                 this.offerCalc(jsonSchemaParse?.offers)
                 return
             }
-            if (jsonSchemaParse?.offers?.availability === 'https://schema.org/InStock' ||
-                jsonSchemaParse?.offers?.availability === 'http://schema.org/InStock' ||
-                jsonSchemaParse?.offers?.availability === 'https://www.schema.org/InStock' ||
-                jsonSchemaParse?.offers?.availability === 'http://www.schema.org/InStock' ||
-                jsonSchemaParse?.offers?.availability === 'InStock' ||
-                jsonSchemaParse?.offers?.availability === 'instock'
-            ) {
+            if (jsonSchemaParse?.offers?.availability?.toLowerCase()?.includes("instock")) {
                 this.setAvailability(true)
             } else if (Array.isArray(jsonSchemaParse?.offers)) {
                 if (jsonSchemaParse?.offers[0]['availability'] === 'https://schema.org/InStock' ||
@@ -303,13 +294,7 @@ abstract class Store implements IStore, IProductDetails {
         } else if (Array.isArray(jsonSchemaParse) && jsonSchemaParse.length) {
             for (let i = 0; i < jsonSchemaParse.length; i++) {
                 if (jsonSchemaParse[i]?.offers) {
-                    if (jsonSchemaParse[i]?.offers?.availability === 'https://schema.org/InStock' ||
-                        jsonSchemaParse[i]?.offers?.availability === 'http://schema.org/InStock' ||
-                        jsonSchemaParse[i]?.offers?.availability === 'https://www.schema.org/InStock' ||
-                        jsonSchemaParse[i]?.offers?.availability === 'http://www.schema.org/InStock' ||
-                        jsonSchemaParse[i]?.offers?.availability === 'InStock' ||
-                        jsonSchemaParse[i]?.offers?.availability === 'instock'
-                    ) {
+                    if (jsonSchemaParse[i]?.offers?.availability?.toLowerCase()?.includes("instock")) {
                         this.setAvailability(true)
                     } else if (Array.isArray(jsonSchemaParse[0]?.offers)) {
                         if (jsonSchemaParse[i]?.offers[0]['availability'] === 'https://schema.org/InStock' ||
@@ -368,9 +353,17 @@ abstract class Store implements IStore, IProductDetails {
             }
             if (jsonSchemaParse?.offers?.price) {
                 this.setPrice(jsonSchemaParse?.offers?.price)
-            } else if (Array.isArray(jsonSchemaParse?.offers) && jsonSchemaParse?.offers?.length) {
+            } else if (jsonSchemaParse?.offers?.highPrice) {
+                this.setPrice(jsonSchemaParse?.offers?.highPrice)
+            } else if (jsonSchemaParse?.offers?.lowPrice) {
+                this.setPrice(jsonSchemaParse?.offers?.lowPrice)
+            }else if (Array.isArray(jsonSchemaParse?.offers) && jsonSchemaParse?.offers?.length) {
                 if (jsonSchemaParse?.offers[0]['price']) {
                     this.setPrice(jsonSchemaParse?.offers[0]['price'])
+                } else if (jsonSchemaParse?.offers[0]['highPrice']) {
+                    this.setPrice(jsonSchemaParse?.offers[0]['highPrice'])
+                } else if (jsonSchemaParse?.offers[0]['lowPrice']) {
+                    this.setPrice(jsonSchemaParse?.offers[0]['lowPrice'])
                 }
             }
         } else if (Array.isArray(jsonSchemaParse) && jsonSchemaParse.length) {
@@ -381,6 +374,10 @@ abstract class Store implements IStore, IProductDetails {
                     } else if (Array.isArray(jsonSchemaParse[0]?.offers)) {
                         if (jsonSchemaParse[i]?.offers[0]['price']) {
                             this.setPrice(jsonSchemaParse[i]?.offers[0]['price'])
+                        } else if (jsonSchemaParse[i]?.offers[0]['lowPrice']) {
+                            this.setPrice(jsonSchemaParse[i]?.offers[0]['lowPrice'])
+                        } else if (jsonSchemaParse[i]?.offers[0]['highPrice']) {
+                            this.setPrice(jsonSchemaParse[i]?.offers[0]['highPrice'])
                         }
                     }
                 }

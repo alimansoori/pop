@@ -1,18 +1,19 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
+import {EnumLoadType} from "../../../@types/EnumLoadType";
 import {textToNumber} from "../../../lib/helper";
 
-export default class Oldies extends Store {
+export default class Woodcraft extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
     }
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('link[itemprop="availability"]', {timeout: 10000})
-            const availability = await this.page.$eval('link[itemprop="availability"]', elem => elem.getAttribute('href'))
+            await this.page.waitForSelector('div.product-details__add-to-cart-action > button[value="add_to_cart"]', {timeout: 10000})
+            const availability = await this.page.$eval('div.product-details__add-to-cart-action > button[value="add_to_cart"]', elem => elem.textContent)
 
-            if (availability?.toLowerCase().includes("instock") || availability?.toLowerCase().includes("in stock")) {
+            if (availability?.toLowerCase().includes("add to cart")) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -25,9 +26,9 @@ export default class Oldies extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="price"]', {timeout: 3000})
+            await this.page.waitForSelector('div.product-details__prices *[itemprop="price"]', {timeout: 3000})
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', elem => elem.getAttribute("content"))
+                await this.page.$eval('div.product-details__prices *[itemprop="price"]', elem => elem.textContent)
             )
 
             this.setPrice(price)

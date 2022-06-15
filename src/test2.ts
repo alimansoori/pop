@@ -14,7 +14,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.rainbowresource.com/product/074655/Ankylosaurus-Mini-Puzzle-48-pieces.html"
+            "https://vminnovations.com/collections/sporting-goods/products/yardgames-giant-tumbling-wood-stacking-game-56-natural-pine-blocks-open-box"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

@@ -210,6 +210,12 @@ import Petsense from "./p/petsense";
 import Alltimetoys from "./a/alltimetoys";
 import Getsmartcatalog from "./g/getsmartcatalog";
 import Tfaw from "./t/tfaw";
+import Gamersguildaz from "./g/gamersguildaz";
+import Worldmarket from "./w/worldmarket";
+import Worldmusicsupply from "./w/worldmusicsupply";
+import Woodcraft from "./w/woodcraft";
+import Wdrake from "./w/wdrake";
+import Vminnovations from "./v/vminnovations";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -327,6 +333,7 @@ export default class SourceSiteFactory {
             else if (domain === 'gamenerdz') return new Gamenerdz(page, url)
             else if (domain === 'galactictoys') return new Galactictoys(page, url)
             else if (domain === 'gamestop') return new Gamestop(page, url)
+            else if (domain === 'gamersguildaz') return new Gamersguildaz(page, url)
             else if (domain === 'getsmartcatalog') return new Getsmartcatalog(page, url)
             else if (domain === 'glossier') return new Glossier(page, url)
             else if (domain === 'gearx') return new Gearx(page, url)
@@ -427,10 +434,15 @@ export default class SourceSiteFactory {
             else if (domain === 'ulta') return new Ulta(page, url)
             else if (domain === 'vipoutlet') return new Vipoutlet(page, url)
             else if (domain === 'vitacost') return new Vitacost(page, url)
+            else if (domain === 'vminnovations') return new Vminnovations(page, url)
             else if (domain === 'walmart') return new Walmart(page, url)
             else if (domain === 'walgreens') return new Walgreens(page, url)
             else if (domain === 'wayfair') return new Wayfair(page, url)
             else if (domain === 'woot') return new Woot(page, url)
+            else if (domain === 'woodcraft') return new Woodcraft(page, url)
+            else if (domain === 'worldmarket') return new Worldmarket(page, url)
+            else if (domain === 'wdrake') return new Wdrake(page, url)
+            else if (domain === 'worldmusicsupply') return new Worldmusicsupply(page, url)
             else if (domain === 'webstaurantstore') return new Webstaurantstore(page, url)
             else if (domain === 'williams-sonoma') return new WilliamsSonoma(page, url)
             else if (domain === 'zulily') return new Zulily(page, url)
