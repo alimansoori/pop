@@ -36,7 +36,6 @@ export default class GoogleSheets {
 
         await dataBaseSheet.setHeaderRow([
             'Date',
-            'Updated',
             'Source',
             'Sell Approval',
             'ASIN',
@@ -114,9 +113,9 @@ export default class GoogleSheets {
                 continue
             }
 
-            const updated = new Date(rows[i]['Updated'])
+            const updated = new Date(rows[i]['Date'])
             const current = new Date(this.currentDate())
-            if (rows[i]['Updated'] && MyDate.dateDiff(current, updated) < 30) {
+            if (rows[i]['Date'] && MyDate.dateDiff(current, updated) < 30) {
                 console.log(`Next >>>`)
                 continue
             }
@@ -154,8 +153,8 @@ export default class GoogleSheets {
                     rows[i]['Amazon IMG'] = keepa.image
 
                     if (keepa?.hasBadge) {
-                        // rows[i]['Updated'] = this.currentDate()
-                        rows[i]['Updated'] = this.dateSave
+                        // rows[i]['Date'] = this.currentDate()
+                        rows[i]['Date'] = this.dateSave
                     }
                 }
 
