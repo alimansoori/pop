@@ -14,7 +14,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://vminnovations.com/collections/sporting-goods/products/yardgames-giant-tumbling-wood-stacking-game-56-natural-pine-blocks-open-box"
+            "https://www.seriouspuzzles.com/game-of-thrones-red-keep-314pc-4d-jigsaw-puzzle-by-4d-cityscape/"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
