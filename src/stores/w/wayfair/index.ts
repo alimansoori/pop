@@ -5,7 +5,7 @@ import {EnumLoadType} from "../../../@types/EnumLoadType";
 export default class Wayfair extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
-        // this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.DOC_LOADED
         this.siteIsBlocked = true
     }
 

@@ -222,6 +222,8 @@ import Groupon from "./g/groupon";
 import Menards from "./m/menards";
 import Puzzlewarehouse from "./p/puzzlewarehouse";
 import Seriouspuzzles from "./s/seriouspuzzles";
+import Cvs from "./c/cvs";
+import Microcenter from "./m/microcenter";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -310,6 +312,7 @@ export default class SourceSiteFactory {
             // else if (domain === 'cabelas') return new Cabelas(page, url)
             else if (domain === 'calendars') return new Calendars(page, url)
             else if (domain === 'campmor') return new Campmor(page, url)
+            else if (domain === 'cvs') return new Cvs(page, url)
             else if (domain === 'campsaver') return new Campsaver(page, url)
             else if (domain === 'campingworld') return new Campingworld(page, url)
             else if (domain === 'carealotpets') return new Carealotpets(page, url)
@@ -383,6 +386,7 @@ export default class SourceSiteFactory {
             else if (domain === 'miniaturemarket') return new Miniaturemarket(page, url)
             else if (domain === 'moosejaw') return new Moosejaw(page, url)
             else if (domain === 'myotcstore') return new Myotcstore(page, url)
+            else if (domain === 'microcenter') return new Microcenter(page, url)
             else if (domain === 'mysimpleproducts') return new Mysimpleproducts(page, url)
             else if (domain === 'musiciansfriend') return new Musiciansfriend(page, url)
             // else if (domain === 'netrition') return new Netrition(page, url)
