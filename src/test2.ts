@@ -14,7 +14,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.microcenter.com/product/625803/amcrest-prohd-security-camera-black"
+            "https://www.albeebaby.com/tonies-super-wings-a-world-of-adventure.html"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

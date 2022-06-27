@@ -1,6 +1,5 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
 
 export default class Ulta extends Store {

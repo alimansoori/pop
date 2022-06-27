@@ -224,6 +224,7 @@ import Puzzlewarehouse from "./p/puzzlewarehouse";
 import Seriouspuzzles from "./s/seriouspuzzles";
 import Cvs from "./c/cvs";
 import Microcenter from "./m/microcenter";
+import Albeebaby from "./a/albeebaby";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -279,6 +280,7 @@ export default class SourceSiteFactory {
             // else if (domain === 'design-milk') return new DesignMilk(page, url)
             else if (domain === 'airgas') return new Airgas(page, url)
             else if (domain === 'altomusic') return new Altomusic(page, url)
+            else if (domain === 'albeebaby') return new Albeebaby(page, url)
             else if (domain === 'alltimetoys') return new Alltimetoys(page, url)
             else if (domain === 'allstarhealth') return new Allstarhealth(page, url)
             else if (domain === 'artsupplywarehouse') return new Artsupplywarehouse(page, url)
