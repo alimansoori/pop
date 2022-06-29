@@ -14,7 +14,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.albeebaby.com/tonies-super-wings-a-world-of-adventure.html"
+            "https://innexinc.com/index.php/brands/rubik-s-charaction-cube-puzzle-demon-slayer-tanjiro-kamado.html"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
