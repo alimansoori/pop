@@ -12,7 +12,7 @@ export default class Barnesandnoble extends Store {
             await this.page.waitForSelector('link[itemprop="availability"]', {timeout: 10000})
             const availability = await this.page.$eval('link[itemprop="availability"]', elem => elem.getAttribute('href'))
 
-            if (availability === 'http://schema.org/InStock') {
+            if (availability?.toLowerCase().includes("instock") || availability?.toLowerCase().includes("in stock")) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)

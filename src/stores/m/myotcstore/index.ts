@@ -6,6 +6,8 @@ import {textToNumber} from "../../../lib/helper";
 export default class Myotcstore extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
+
+
     }
 
     async availibilityCalculate(): Promise<void> {

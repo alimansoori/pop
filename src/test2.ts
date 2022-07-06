@@ -1,12 +1,5 @@
-import GoogleSheets from "./sheets/GoogleSheets";
 import {myPage} from "./lib/MyPage";
-import AmzLogin from "./amazon/AmzLogin";
-import ProfitRoiCalculate from "./lib/ProfitRoiCalculate";
-import Keepa from "./lib/Keepa";
-import MyDate from "./lib/MyDate";
 import SourceSiteFactory from "./stores/SourceSiteFactory";
-import {askQuestion} from "./lib/helper";
-import sleep from "./utils/sleep";
 
 async function main() {
     try {
@@ -14,7 +7,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://innexinc.com/index.php/brands/rubik-s-charaction-cube-puzzle-demon-slayer-tanjiro-kamado.html"
+            "https://www.pokemoncenter.com/product/701-03839/weezing-sitting-cuties-plush-6-in"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

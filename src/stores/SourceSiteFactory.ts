@@ -234,6 +234,7 @@ import Palmettostatearmory from "./p/palmettostatearmory";
 import Nextwarehouse from "./n/nextwarehouse";
 import Shopdisney from "./s/shopdisney";
 import Innexinc from "./i/innexinc";
+import Pokemoncenter from "./p/pokemoncenter";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -417,6 +418,7 @@ export default class SourceSiteFactory {
             else if (domain === 'overtons') return new Overtons(page, url)
             else if (domain === 'partytoyz') return new Partytoyz(page, url)
             else if (domain === 'petflow') return new Petflow(page, url)
+            else if (domain === 'pokemoncenter') return new Pokemoncenter(page, url)
             else if (domain === 'palmettostatearmory') return new Palmettostatearmory(page, url)
             else if (domain === 'petedge') return new Petedge(page, url)
             else if (domain === 'petsense') return new Petsense(page, url)
@@ -496,3 +498,6 @@ export default class SourceSiteFactory {
         }
     }
 }
+
+// provantage
+// pokemoncenter
