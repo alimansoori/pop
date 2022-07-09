@@ -7,7 +7,17 @@ export default class Myotcstore extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
 
-
+        this.setScrollDown(true)
+            .setCategoriesUrl(categories)
+            .selectors()
+                .setCategoryBlock('*[id="product-listing-container"] ul > li.product')
+                .setCategoryProductTitle('h4.card-title')
+                .setCategoryProductPrice('span.price.price--withoutTax')
+                .setAddToCartBtn('div.card-figcaption--action-buttons > a.button:not(.button--secondary)')
+                .setCategoryProductImg('div.card-img-container > img')
+                .setCategoryProductUrl('figure.card-figure > a')
+                .setCategoryPagination('page')
+                .setNextPage('nav > ul > li.pagination-item.pagination-item--next')
     }
 
     async availibilityCalculate(): Promise<void> {

@@ -21,4 +21,5 @@ export default interface IStore {
     hasScrollDown(): boolean
     setScrollDown(isScrollDown: boolean): this
     scrape(): Promise<void>
+    scrapeWholeSite(): Promise<void>
 }

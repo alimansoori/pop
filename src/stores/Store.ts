@@ -195,12 +195,13 @@ abstract class Store implements IStore, IProductDetails {
             return document.body.scrollHeight
         });
 
-        for (let i = 0; i < pageHeight; i = i + 100) {
+        for (let i = 0; i < pageHeight; i = i + 50) {
             await this.page.mouse.wheel({deltaY: i})
-            await sleep(500)
+            await sleep(400)
         }
         return true
     }
+
     protected hasNextPage = async (): Promise<boolean> => {
         if (!this.selectors().getNextPage()) return false
 
@@ -387,6 +388,25 @@ abstract class Store implements IStore, IProductDetails {
 
     productIsExist(): boolean {
         return this.productExist
+    }
+
+    async scrapeWholeSite(): Promise<void> {
+        for (let i = 0; i < this.categoriesUrl.length; i++) {
+            await this.pageNav(i)
+        }
+    }
+
+    private async pageNav(index: number): Promise<void> {
+        await this.page.goto(this.categoriesUrl[index], {waitUntil: "load"})
+
+        // Scroll
+        await this.scrollDown()
+
+        // Next Page
+
+        if (await this.hasNextPage()) {
+
+        }
     }
 }
 

@@ -135,6 +135,16 @@ export default class Keepa {
             this.profit = profitClass.netProfit
             this.roi = profitClass.roi
 
+            const profitClassBuyBox = new ProfitRoiCalculate({
+                sellPrice: this.buyboxPrice ? this.buyboxPrice : (this.avgBuyBox30Day ? this.avgBuyBox30Day : 0),
+                buyCost: this.input.sourcePrice,
+                packageLength: this.product?.packageLength * 0.0393701,
+                packageWidth: this.product?.packageWidth * 0.0393701,
+                packageHeight: this.product?.packageHeight * 0.0393701,
+                packageWeight: this.product?.packageWeight * 0.00220462,
+                category: this.category
+            })
+
             const profitClassBadge = new ProfitRoiCalculate({
                 sellPrice: this.avgBuyBox30Day,
                 buyCost: this.input.sourcePrice,
@@ -146,10 +156,8 @@ export default class Keepa {
             })
 
             if (
-                profitClassBadge.netProfit > 5.5 &&
-                profitClass.netProfit > 5.5 &&
-                profitClassBadge.roi > 20 &&
-                profitClass.roi > 30 &&
+                profitClassBuyBox.netProfit > 5.5 &&
+                profitClassBuyBox.roi > 30 &&
                 this.top
             ) {
                 this.hasBadge = true

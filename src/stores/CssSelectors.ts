@@ -3,7 +3,7 @@ import {TypePriceSelector, TypePriceSelectors} from "../@types/TypePriceSelector
 
 export default class CssSelectors implements ISelectors {
     private categoryBlock: string = ''
-    private categoryMultiplication: string = ''
+    private categoryMultiplication: string = 'page'
     private categoryPagination: string = ''
     private categoryProductAvailability: string = ''
     private categoryProductBlock: string = ''

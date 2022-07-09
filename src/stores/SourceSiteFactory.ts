@@ -235,6 +235,7 @@ import Nextwarehouse from "./n/nextwarehouse";
 import Shopdisney from "./s/shopdisney";
 import Innexinc from "./i/innexinc";
 import Pokemoncenter from "./p/pokemoncenter";
+import Pamperedchef from "./p/pamperedchef";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -417,6 +418,7 @@ export default class SourceSiteFactory {
             else if (domain === 'overstock') return new Overstock(page, url)
             else if (domain === 'overtons') return new Overtons(page, url)
             else if (domain === 'partytoyz') return new Partytoyz(page, url)
+            else if (domain === 'pamperedchef') return new Pamperedchef(page, url)
             else if (domain === 'petflow') return new Petflow(page, url)
             else if (domain === 'pokemoncenter') return new Pokemoncenter(page, url)
             else if (domain === 'palmettostatearmory') return new Palmettostatearmory(page, url)

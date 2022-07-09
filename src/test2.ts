@@ -7,11 +7,11 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.pokemoncenter.com/product/701-03839/weezing-sitting-cuties-plush-6-in"
+            "https://www.myotcstore.com/"
         )
-        await store.scrape()
-        console.log("Source Price is: " + store.getPrice())
-        console.log("Source is in stock: " + store.isAvailability())
+        await store.scrapeWholeSite()
+        // console.log("Source Price is: " + store.getPrice())
+        // console.log("Source is in stock: " + store.isAvailability())
 
         /*const keepa = new Keepa({
             asin: "B00BUTD1XS",
