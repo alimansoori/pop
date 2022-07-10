@@ -40,9 +40,11 @@ export default class GoogleSheets {
             'Sell Approval',
             'ASIN',
             'Source URL',
+            'Source Number',
             'Source IMG',
             'Source Image',
             'Amazon URL',
+            'Amazon Number',
             'Amazon IMG',
             'Amazon Image',
             'Category',
@@ -123,6 +125,10 @@ export default class GoogleSheets {
             console.log(`Start Row: ${i+2}`)
             console.log(rows[i]['Amazon URL'])
             console.log(rows[i]['Source URL'])
+
+            const amazonNumber: number = rows[i]['Amazon Number'] ? parseInt(rows[i]['Amazon Number']) : 1
+            const sourceNumber: number = rows[i]['Source Number'] ? parseInt(rows[i]['Source Number']) : 1
+
             try {
                 const page = await myPage()
                 const store = await this.sourceSite(page, rows[i]['Source URL'])
@@ -139,7 +145,8 @@ export default class GoogleSheets {
                 if (store.getPrice() > 0 && store.isAvailability()) {
                     const keepa = new Keepa({
                         asin: rows[i]['ASIN'],
-                        sourcePrice: store.getPrice()
+                        sourcePrice: store.getPrice() * sourceNumber,
+                        amazonNumber
                     })
                     await keepa.fetchByKeepa()
                     rows[i]['30-D Amazon In Stock'] = keepa.amazonInStock

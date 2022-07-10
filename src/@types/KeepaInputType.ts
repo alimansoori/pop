@@ -1,4 +1,5 @@
 export type KeepaInputType = {
     asin: string,
-    sourcePrice: number
+    sourcePrice: number,
+    amazonNumber: number,
 }

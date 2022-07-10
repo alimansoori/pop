@@ -123,7 +123,7 @@ export default class Keepa {
             this.product?.packageWidth
         ) {
             const profitClass = new ProfitRoiCalculate({
-                sellPrice: this.sellPrice,
+                sellPrice: this.sellPrice * this.input.amazonNumber,
                 buyCost: this.input.sourcePrice,
                 packageLength: this.product?.packageLength * 0.0393701,
                 packageWidth: this.product?.packageWidth * 0.0393701,
@@ -136,7 +136,7 @@ export default class Keepa {
             this.roi = profitClass.roi
 
             const profitClassBuyBox = new ProfitRoiCalculate({
-                sellPrice: this.buyboxPrice ? this.buyboxPrice : (this.avgBuyBox30Day ? this.avgBuyBox30Day : 0),
+                sellPrice: (this.buyboxPrice ? this.buyboxPrice : (this.avgBuyBox30Day ? this.avgBuyBox30Day : 0)) * this.input.amazonNumber,
                 buyCost: this.input.sourcePrice,
                 packageLength: this.product?.packageLength * 0.0393701,
                 packageWidth: this.product?.packageWidth * 0.0393701,
@@ -146,7 +146,7 @@ export default class Keepa {
             })
 
             const profitClassBadge = new ProfitRoiCalculate({
-                sellPrice: this.avgBuyBox30Day,
+                sellPrice: this.avgBuyBox30Day * this.input.amazonNumber,
                 buyCost: this.input.sourcePrice,
                 packageLength: this.product?.packageLength * 0.0393701,
                 packageWidth: this.product?.packageWidth * 0.0393701,
