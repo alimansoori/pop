@@ -7,11 +7,11 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.myotcstore.com/"
+            "https://www.vitaminshoppe.com/p/skin-brightening-kit-1-kit/hpp1015"
         )
-        await store.scrapeWholeSite()
-        // console.log("Source Price is: " + store.getPrice())
-        // console.log("Source is in stock: " + store.isAvailability())
+        await store.scrape()
+        console.log("Source Price is: " + store.getPrice())
+        console.log("Source is in stock: " + store.isAvailability())
 
         /*const keepa = new Keepa({
             asin: "B00BUTD1XS",

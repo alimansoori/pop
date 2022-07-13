@@ -20,7 +20,7 @@ export async function createPage(): Promise<Page> {
     process.setMaxListeners(0)
 
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         defaultViewport: null,
         // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
         executablePath: "C:\\chrome-win\\chrome.exe",
