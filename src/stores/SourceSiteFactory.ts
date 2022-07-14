@@ -242,6 +242,9 @@ import Joann from "./j/joann";
 import Funko from "./f/funko";
 import Evo from "./e/evo";
 import Vitaminshoppe from "./v/vitaminshoppe";
+import Tigerchef from "./t/tigerchef";
+import Boxzillacollectibles from "./b/boxzillacollectibles";
+import Newark from "./n/newark";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -326,6 +329,7 @@ export default class SourceSiteFactory {
             else if (domain === 'bjs') return new Bjs(page, url)
             else if (domain === 'boxed') return new Boxed(page, url)
             else if (domain === 'boxlunch') return new Boxlunch(page, url)
+            else if (domain === 'boxzillacollectibles') return new Boxzillacollectibles(page, url)
             else if (domain === 'bbtoystore') return new Bbtoystore(page, url)
             else if (domain === 'burkesoutlet') return new Burkesoutlet(page, url)
             else if (domain === 'buybuybaby') return new Buybuybaby(page, url)
@@ -416,6 +420,7 @@ export default class SourceSiteFactory {
             else if (domain === 'mysimpleproducts') return new Mysimpleproducts(page, url)
             else if (domain === 'musiciansfriend') return new Musiciansfriend(page, url)
             // else if (domain === 'netrition') return new Netrition(page, url)
+            else if (domain === 'newark') return new Newark(page, url)
             else if (domain === 'newegg') return new Newegg(page, url)
             else if (domain === 'neweggbusiness') return new Neweggbusiness(page, url)
             else if (domain === 'nextwarehouse') return new Nextwarehouse(page, url)
@@ -472,6 +477,7 @@ export default class SourceSiteFactory {
             else if (domain === 'target') return new Target(page, url)
             else if (domain === 'tfaw') return new Tfaw(page, url)
             else if (domain === 'thatpetplace') return new Thatpetplace(page, url)
+            else if (domain === 'tigerchef') return new Tigerchef(page, url)
             else if (domain === 'theisens') return new Theisens(page, url)
             else if (domain === 'tf2sshop') return new Tf2sshop(page, url)
             else if (domain === 'toyshnip') return new Toyshnip(page, url)

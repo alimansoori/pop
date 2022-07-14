@@ -7,7 +7,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.vitaminshoppe.com/p/skin-brightening-kit-1-kit/hpp1015"
+            "https://www.newark.com/knipex/86-03-125/plier-combination-23mm-125mm/dp/78X4341?MER=TARG-MER-PDP-RECO-STM71168"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
