@@ -245,6 +245,8 @@ import Vitaminshoppe from "./v/vitaminshoppe";
 import Tigerchef from "./t/tigerchef";
 import Boxzillacollectibles from "./b/boxzillacollectibles";
 import Newark from "./n/newark";
+import UnitedStatesFlag from "./u/united-states-flag";
+import Kikocosmetics from "./k/kikocosmetics";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -399,6 +401,7 @@ export default class SourceSiteFactory {
             else if (domain === 'jensonusa') return new Jensonusa(page, url)
             else if (domain === 'katom') return new Katom(page, url)
             else if (domain === 'keurig') return new Keurig(page, url)
+            else if (domain === 'kikocosmetics') return new Kikocosmetics(page, url)
             else if (domain === 'knifecenter') return new Knifecenter(page, url)
             else if (domain === 'kohls') return new Kohls(page, url)
             // else if (domain === 'lakeside') return new Lakeside(page, url)
@@ -489,6 +492,7 @@ export default class SourceSiteFactory {
             else if (domain === 'trisports') return new Trisports(page, url)
             else if (domain === 'udans') return new Udans(page, url)
             else if (domain === 'ulta') return new Ulta(page, url)
+            else if (domain === 'united-states-flag') return new UnitedStatesFlag(page, url)
             else if (domain === 'vipoutlet') return new Vipoutlet(page, url)
             else if (domain === 'vitacost') return new Vitacost(page, url)
             else if (domain === 'vminnovations') return new Vminnovations(page, url)

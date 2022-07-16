@@ -7,7 +7,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.newark.com/knipex/86-03-125/plier-combination-23mm-125mm/dp/78X4341?MER=TARG-MER-PDP-RECO-STM71168"
+            "https://www.kikocosmetics.com/en-us/accessories/brushes/brush-holder/Brush-Holder/p-KM0050204100044"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

@@ -40,7 +40,6 @@ export default class GoogleSheets {
             'Sell Approval',
             'ASIN',
             'Source URL',
-            'Source Number',
             'Source IMG',
             'Source Image',
             'Amazon URL',
@@ -126,8 +125,9 @@ export default class GoogleSheets {
             console.log(rows[i]['Amazon URL'])
             console.log(rows[i]['Source URL'])
 
-            const amazonNumber: number = rows[i]['Amazon Number'] ? parseInt(rows[i]['Amazon Number']) : 1
-            const sourceNumber: number = rows[i]['Source Number'] ? parseInt(rows[i]['Source Number']) : 1
+            const amazonNumber: number = rows[i]['Amazon Number'] ? parseFloat(rows[i]['Amazon Number']) : 1
+
+            // console.log(amazonNumber)
 
             try {
                 const page = await myPage()
