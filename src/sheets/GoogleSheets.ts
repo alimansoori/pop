@@ -145,8 +145,7 @@ export default class GoogleSheets {
                 if (store.getPrice() > 0 && store.isAvailability()) {
                     const keepa = new Keepa({
                         asin: rows[i]['ASIN'],
-                        sourcePrice: store.getPrice() * sourceNumber,
-                        amazonNumber
+                        sourcePrice: store.getPrice() * amazonNumber
                     })
                     await keepa.fetchByKeepa()
                     rows[i]['30-D Amazon In Stock'] = keepa.amazonInStock
