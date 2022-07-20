@@ -7,7 +7,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.kikocosmetics.com/en-us/accessories/brushes/brush-holder/Brush-Holder/p-KM0050204100044"
+            "https://ulonet.com/product/dead-blow-hammer-set-3-piece-1-2-and-3-lbs/"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

@@ -1,16 +1,11 @@
 import Url from "../lib/Url";
-import Store from "./Store";
 import {Page} from "puppeteer";
 import Target from "./t/target";
 import IStore from "./IStore";
 import Bulbs1000 from "./1/1000bulbs";
 import Sale1 from "./1/1sale";
-import Sgm from "./1/4sgm";
 import Wheelparts4 from "./1/4wheelparts";
-import Tactical from "./1/511tactical";
-import A4c from "./a/a4c";
 import Abesofmaine from "./a/abesofmaine";
-import Abt from "./a/abt";
 import Academy from "./a/academy";
 import Accessorygeeks from "./a/accessorygeeks";
 import Acehardware from "./a/acehardware";
@@ -22,13 +17,11 @@ import Adagio from "./a/adagio";
 import Adenandanais from "./a/adenandanais";
 import Adorama from "./a/adorama";
 import Advanceautoparts from "./a/advanceautoparts";
-import DesignMilk from "./d/design-milk";
 import Airgas from "./a/airgas";
 import Artsupplywarehouse from "./a/artsupplywarehouse";
 import Backcountry from "./b/backcountry";
 import Bangalla from "./b/bangalla";
 import Barnesandnoble from "./b/barnesandnoble";
-import Basspro from "./b/basspro";
 import Beallsflorida from "./b/beallsflorida";
 import Bedbathandbeyond from "./b/bedbathandbeyond";
 import Belk from "./b/belk";
@@ -38,12 +31,10 @@ import Bigbadtoystore from "./b/bigbadtoystore";
 import Biglots from "./b/biglots";
 import Bloomingdales from "./b/bloomingdales";
 import Banggood from "./b/banggood";
-import Bookpal from "./b/bookpal";
 import Bjs from "./b/bjs";
 import Boxed from "./b/boxed";
 import Burkesoutlet from "./b/burkesoutlet";
 import Buybuybaby from "./b/buybuybaby";
-import Cabelas from "./c/cabelas";
 import Calendars from "./c/calendars";
 import Campmor from "./c/campmor";
 import Campsaver from "./c/campsaver";
@@ -82,10 +73,8 @@ import Iherb from "./i/iherb";
 import Ikea from "./i/ikea";
 import Jefferspet from "./j/jefferspet";
 import Jensonusa from "./j/jensonusa";
-import Kmart from "./k/kmart";
 import Knifecenter from "./k/knifecenter";
 import Kohls from "./k/kohls";
-import Lakeside from "./l/lakeside";
 import Lowes from "./l/lowes";
 import Lovelyskin from "./l/lovelyskin";
 import Ltdcommodities from "./l/ltdcommodities";
@@ -102,18 +91,15 @@ import Altomusic from "./a/altomusic";
 import Walmart from "./w/walmart";
 import Baseballmonkey from "./b/baseballmonkey";
 import Macys from "./m/macys";
-import Meijer from "./m/meijer";
 import Michaels from "./m/michaels";
 import Midwayusa from "./m/midwayusa";
 import Miniaturemarket from "./m/miniaturemarket";
 import Moosejaw from "./m/moosejaw";
-import Netrition from "./n/netrition";
 import Newegg from "./n/newegg";
 import Nothingbutsavings from "./n/nothingbutsavings";
 import Officedepot from "./o/officedepot";
 import Partytoyz from "./p/partytoyz";
 import Petedge from "./p/petedge";
-import Pfaltzgraff from "./p/pfaltzgraff";
 import Pharmaca from "./p/pharmaca";
 import Quill from "./q/quill";
 import Redtoolstore from "./r/redtoolstore";
@@ -193,7 +179,6 @@ import Shop4megastore from "./s/shop4megastore";
 import Bhphotovideo from "./b/bhphotovideo";
 import Vipoutlet from "./v/vipoutlet";
 import Zavvi from "./z/zavvi";
-import Playerschoicevideogames from "./p/playerschoicevideogames";
 import Pishposhbaby from "./p/pishposhbaby";
 import Leatherman from "./l/leatherman";
 import Bathandbodyworks from "./b/bathandbodyworks";
@@ -234,7 +219,6 @@ import Palmettostatearmory from "./p/palmettostatearmory";
 import Nextwarehouse from "./n/nextwarehouse";
 import Shopdisney from "./s/shopdisney";
 import Innexinc from "./i/innexinc";
-import Pokemoncenter from "./p/pokemoncenter";
 import Pamperedchef from "./p/pamperedchef";
 import Toofaced from "./t/toofaced";
 import Nobleknight from "./n/nobleknight";
@@ -247,6 +231,15 @@ import Boxzillacollectibles from "./b/boxzillacollectibles";
 import Newark from "./n/newark";
 import UnitedStatesFlag from "./u/united-states-flag";
 import Kikocosmetics from "./k/kikocosmetics";
+import Hdstrading from "./h/hdstrading";
+import Toolbarn from "./t/toolbarn";
+import Landmsupply from "./l/landmsupply";
+import Tartecosmetics from "./t/tartecosmetics";
+import Truegether from "./t/truegether";
+import Bambibaby from "./b/bambibaby";
+import Farmandfleet from "./f/farmandfleet";
+import Jomashop from "./j/jomashop";
+import Ulonet from "./u/ulonet";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -310,6 +303,7 @@ export default class SourceSiteFactory {
             else if (domain === 'backcountry') return new Backcountry(page, url)
             else if (domain === 'babyearth') return new Babyearth(page, url)
             else if (domain === 'bangalla') return new Bangalla(page, url)
+            else if (domain === 'bambibaby') return new Bambibaby(page, url)
             else if (domain === 'bathandbodyworks') return new Bathandbodyworks(page, url)
             else if (domain === 'barnesandnoble') return new Barnesandnoble(page, url)
             else if (domain === 'baseballmonkey') return new Baseballmonkey(page, url)
@@ -361,6 +355,7 @@ export default class SourceSiteFactory {
             else if (domain === 'evo') return new Evo(page, url)
             else if (domain === 'everythingkitchens') return new Everythingkitchens(page, url)
             else if (domain === 'familyotc') return new Familyotc(page, url)
+            else if (domain === 'farmandfleet') return new Farmandfleet(page, url)
             else if (domain === 'foodservicedirect') return new Foodservicedirect(page, url)
             else if (domain === 'focuscamera') return new Focuscamera(page, url)
             else if (domain === 'fruugo') return new Fruugo(page, url)
@@ -386,6 +381,7 @@ export default class SourceSiteFactory {
             else if (domain === 'hardwareandtools') return new Hardwareandtools(page, url)
             else if (domain === 'homefurniturelife') return new Homefurniturelife(page, url)
             else if (domain === 'healthypets') return new Healthypets(page, url)
+            else if (domain === 'hdstrading') return new Hdstrading(page, url)
             else if (domain === 'healthyplanetshopping') return new Healthyplanetshopping(page, url)
             else if (domain === 'hobbylobby') return new Hobbylobby(page, url)
             else if (domain === 'homedepot') return new Homedepot(page, url)
@@ -397,6 +393,7 @@ export default class SourceSiteFactory {
             else if (domain === 'insanetoyshop') return new Insanetoyshop(page, url)
             else if (domain === 'jefferspet') return new Jefferspet(page, url)
             else if (domain === 'joann') return new Joann(page, url)
+            else if (domain === 'jomashop') return new Jomashop(page, url)
             else if (domain === 'jcpenney') return new Jcpenney(page, url)
             else if (domain === 'jensonusa') return new Jensonusa(page, url)
             else if (domain === 'katom') return new Katom(page, url)
@@ -405,6 +402,7 @@ export default class SourceSiteFactory {
             else if (domain === 'knifecenter') return new Knifecenter(page, url)
             else if (domain === 'kohls') return new Kohls(page, url)
             // else if (domain === 'lakeside') return new Lakeside(page, url)
+            else if (domain === 'landmsupply') return new Landmsupply(page, url)
             else if (domain === 'legacytoys') return new Legacytoys(page, url)
             else if (domain === 'lowes') return new Lowes(page, url)
             else if (domain === 'leatherman') return new Leatherman(page, url)
@@ -451,7 +449,6 @@ export default class SourceSiteFactory {
             else if (domain === 'presleysoutdoors') return new Presleysoutdoors(page, url)
             else if (domain === 'play-asia') return new PlayAsia(page, url)
             else if (domain === 'pharmaca') return new Pharmaca(page, url)
-            else if (domain === 'playerschoicevideogames') return new Playerschoicevideogames(page, url)
             else if (domain === 'questtoys') return new Questtoys(page, url)
             else if (domain === 'quill') return new Quill(page, url)
             else if (domain === 'rainbowresource') return new Rainbowresource(page, url)
@@ -478,10 +475,12 @@ export default class SourceSiteFactory {
             else if (domain === 'scheels') return new Scheels(page, url)
             else if (domain === 'shopdisney') return new Shopdisney(page, url)
             else if (domain === 'target') return new Target(page, url)
+            else if (domain === 'tartecosmetics') return new Tartecosmetics(page, url)
             else if (domain === 'tfaw') return new Tfaw(page, url)
             else if (domain === 'thatpetplace') return new Thatpetplace(page, url)
             else if (domain === 'tigerchef') return new Tigerchef(page, url)
             else if (domain === 'theisens') return new Theisens(page, url)
+            else if (domain === 'toolbarn') return new Toolbarn(page, url)
             else if (domain === 'tf2sshop') return new Tf2sshop(page, url)
             else if (domain === 'toyshnip') return new Toyshnip(page, url)
             else if (domain === 'toofaced') return new Toofaced(page, url)
@@ -490,8 +489,10 @@ export default class SourceSiteFactory {
             else if (domain === 'toyarena') return new Toyarena(page, url)
             else if (domain === 'toygamewiz') return new Toygamewiz(page, url)
             else if (domain === 'trisports') return new Trisports(page, url)
+            else if (domain === 'truegether') return new Truegether(page, url)
             else if (domain === 'udans') return new Udans(page, url)
             else if (domain === 'ulta') return new Ulta(page, url)
+            else if (domain === 'ulonet') return new Ulonet(page, url)
             else if (domain === 'united-states-flag') return new UnitedStatesFlag(page, url)
             else if (domain === 'vipoutlet') return new Vipoutlet(page, url)
             else if (domain === 'vitacost') return new Vitacost(page, url)
