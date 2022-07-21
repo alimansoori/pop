@@ -240,6 +240,7 @@ import Bambibaby from "./b/bambibaby";
 import Farmandfleet from "./f/farmandfleet";
 import Jomashop from "./j/jomashop";
 import Ulonet from "./u/ulonet";
+import Rshughes from "./r/rshughes";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -460,6 +461,7 @@ export default class SourceSiteFactory {
             else if (domain === 'ringsidecollectibles') return new Ringsidecollectibles(page, url)
             else if (domain === 'rockler') return new Rockler(page, url)
             else if (domain === 'rcwilley') return new Rcwilley(page, url)
+            else if (domain === 'rshughes') return new Rshughes(page, url)
             else if (domain === 'roadrunnersports') return new Roadrunnersports(page, url)
             else if (domain === 'ruralking') return new Ruralking(page, url)
             else if (domain === 'sallybeauty') return new Sallybeauty(page, url)

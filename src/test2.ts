@@ -7,7 +7,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://ulonet.com/product/dead-blow-hammer-set-3-piece-1-2-and-3-lbs/"
+            "https://www.hardwareandtools.com/crescent-193610cvsmn-10-7-16-inch-heavy-duty-fence-tool-solid-joint-pliers-with-cushion-grip-vvwc-4320.html"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
