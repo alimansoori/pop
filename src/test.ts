@@ -1,7 +1,7 @@
 import GoogleSheets from "./sheets/GoogleSheets";
-import {myPage} from "./lib/MyPage";
-import AmzLogin from "./amazon/AmzLogin";
 import {askQuestion} from "./lib/helper";
+import CategorySheet from "./lib/CategorySheet";
+import {EnumCatSheets} from "./@types/EnumCatSheets";
 
 async function main() {
     try {
@@ -9,11 +9,12 @@ async function main() {
         // amazon login
         // const amzLogin = new AmzLogin(page)
         // await amzLogin.login()
-        const startFrom = await askQuestion("Start from row ? ");
-        const date = await askQuestion("Date for save ? ");
+        let category = await askQuestion("Which category? ");
+        const startFrom = await askQuestion("Start from row? ");
+        const date = await askQuestion("Date for save? ");
         // const page = await myPage()
 
-        new GoogleSheets(startFrom, date)
+        new GoogleSheets(startFrom, date, typeof category === "string" ? CategorySheet.selectSheetKey(category) : EnumCatSheets.DEFAULT)
         // const amzLogin = new AzInsight(page)
 
         /*await page.mouse.wheel({

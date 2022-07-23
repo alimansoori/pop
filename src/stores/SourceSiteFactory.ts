@@ -520,7 +520,7 @@ export default class SourceSiteFactory {
             else if (domain === 'zumiez') return new Zumiez(page, url)
             else if (domain === 'zavvi') return new Zavvi(page, url)
                 else {
-                    await page.close()
+                    // await page.close()
                     throw new Error(`>>>> Domain ${domain} is not defined`)
                 }
         } catch (e: any) {

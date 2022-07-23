@@ -6,6 +6,7 @@ import IStore from "../stores/IStore";
 import Keepa from "../lib/Keepa";
 import MyDate from "../lib/MyDate";
 import {myPage} from "../lib/MyPage";
+import {EnumCatSheets} from "../@types/EnumCatSheets";
 
 export default class GoogleSheets {
     // private page
@@ -13,8 +14,8 @@ export default class GoogleSheets {
     private startFrom: number
     private dateSave: string
 
-    constructor(startFrom: any, dateSave: any) {
-        this.doc = new GoogleSpreadsheet('15Xz1TZJKkOG5O5fZ7MeH6hQKoS4in8g-VF8dRBnczKY')
+    constructor(startFrom: any, dateSave: any, category: EnumCatSheets) {
+        this.doc = new GoogleSpreadsheet(category)
         // this.page = page
         this.startFrom = parseInt(startFrom)
         this.dateSave = dateSave
