@@ -32,7 +32,7 @@ export default class GoogleSheets {
         });
 
         await this.doc.loadInfo()
-        const dataBaseSheet = await this.doc.sheetsByTitle['test']
+        const dataBaseSheet = await this.doc.sheetsByTitle['data']
 
         await dataBaseSheet.setHeaderRow([
             'Date',

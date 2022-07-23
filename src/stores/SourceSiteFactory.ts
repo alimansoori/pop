@@ -241,6 +241,8 @@ import Farmandfleet from "./f/farmandfleet";
 import Jomashop from "./j/jomashop";
 import Ulonet from "./u/ulonet";
 import Rshughes from "./r/rshughes";
+import Solidsignal from "./s/solidsignal";
+import Regowholesale from "./r/regowholesale";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -458,6 +460,7 @@ export default class SourceSiteFactory {
             else if (domain === 'reptilesupplyco') return new Reptilesupplyco(page, url)
             else if (domain === 'revzilla') return new Revzilla(page, url)
             else if (domain === 'restaurantsupply') return new Restaurantsupply(page, url)
+            else if (domain === 'regowholesale') return new Regowholesale(page, url)
             else if (domain === 'ringsidecollectibles') return new Ringsidecollectibles(page, url)
             else if (domain === 'rockler') return new Rockler(page, url)
             else if (domain === 'rcwilley') return new Rcwilley(page, url)
@@ -468,6 +471,7 @@ export default class SourceSiteFactory {
             else if (domain === 'samsclub') return new Samsclub(page, url)
             else if (domain === 'sephora') return new Sephora(page, url)
             else if (domain === 'seriouspuzzles') return new Seriouspuzzles(page, url)
+            else if (domain === 'solidsignal') return new Solidsignal(page, url)
             else if (domain === 'surlatable') return new Surlatable(page, url)
             else if (domain === 'surethingtoys') return new Surethingtoys(page, url)
             else if (domain === 'sierra') return new Sierra(page, url)

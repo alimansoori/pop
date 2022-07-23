@@ -7,7 +7,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.hardwareandtools.com/crescent-193610cvsmn-10-7-16-inch-heavy-duty-fence-tool-solid-joint-pliers-with-cushion-grip-vvwc-4320.html"
+            "https://regowholesale.com/collections/all/products/fabuloso-lavender-56oz-6pk"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

@@ -2,7 +2,7 @@ import Store from "../../Store";
 import {Page} from "puppeteer";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
 
-export default class Restaurantsupply extends Store {
+export default class Solidsignal extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
         this.loadType = EnumLoadType.DOC_LOADED
