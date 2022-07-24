@@ -7,7 +7,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://regowholesale.com/collections/all/products/fabuloso-lavender-56oz-6pk"
+            "https://www.atomicempire.com/Item/285346"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

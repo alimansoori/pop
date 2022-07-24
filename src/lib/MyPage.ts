@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import {Page} from "puppeteer";
 
@@ -15,7 +15,7 @@ export async function myPage(): Promise<Page> {
 
 export async function createPage(): Promise<Page> {
     // const azInsight = "C:\\Users\\Lion\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\gefiflkplklbfkcjjcbobokclopbigfg\\3.4.2_0\\"
-    // puppeteer.use(StealthPlugin())
+    puppeteer.use(StealthPlugin())
     process.setMaxListeners(0)
 
     const browser = await puppeteer.launch({
