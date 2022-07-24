@@ -25,6 +25,7 @@
     "puppeteer": "^14.3.0",
     "puppeteer-extra": "^3.3.4",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
+    "puppeteer-extra-plugin-user-data-dir": "^2.4.0",
     "user-agents": "^1.0.952"
   },
   "devDependencies": {
