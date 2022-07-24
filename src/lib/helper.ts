@@ -1,5 +1,4 @@
 import puppeteer, {Page} from "puppeteer";
-import Jimp from "jimp";
 import sleep from "../utils/sleep";
 import fs from "fs"
 

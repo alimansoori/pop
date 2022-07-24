@@ -1,5 +1,4 @@
 import {Page} from "puppeteer";
-import cheerio from "cheerio";
 
 function getAmazonImages($: any) {
     const imagesElement = $("script[type='text/javascript']:contains('colorImages')")
@@ -17,7 +16,7 @@ function getAmazonImages($: any) {
 
 async function amazonPageScrap(page: Page, url: string) {
 
-    await page.goto(url, {waitUntil: "domcontentloaded"})
+    /*await page.goto(url, {waitUntil: "domcontentloaded"})
     // await page.waitForSelector('body');
 
     const html = await page.content()
@@ -35,7 +34,7 @@ async function amazonPageScrap(page: Page, url: string) {
         price: parseFloat(price1 ? price1 : price2),
         soldBy,
         images: getAmazonImages($)
-    }
+    }*/
 
 
     /*return await page.evaluate(() => {
