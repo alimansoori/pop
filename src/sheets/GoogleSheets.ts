@@ -143,7 +143,7 @@ export default class GoogleSheets {
                 rows[i]['Source Image'] = rows[i]['Source Image']
                 rows[i]['Amazon Image'] = rows[i]['Amazon Image']
 
-                if (store.getPrice() > 0/* && store.isAvailability()*/) {
+                if (store.getPrice() > 0 && store.isAvailability()) {
                     const keepa = new Keepa({
                         asin: rows[i]['ASIN'],
                         sourcePrice: store.getPrice() * amazonNumber
