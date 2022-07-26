@@ -38,15 +38,15 @@ export default class GoogleSheets {
         await dataBaseSheet.setHeaderRow([
             'Date',
             'Source',
-            'Sell Approval',
+            // 'Sell Approval',
             'ASIN',
             'Source URL',
-            'Source IMG',
-            'Source Image',
+            // 'Source IMG',
+            // 'Source Image',
             'Amazon URL',
             'Amazon Number',
-            'Amazon IMG',
-            'Amazon Image',
+            // 'Amazon IMG',
+            // 'Amazon Image',
             'Category',
             'IN Stock',
             'Source Price',
@@ -138,10 +138,10 @@ export default class GoogleSheets {
                 console.log("Source is in stock: " + store.isAvailability())
                 await page.close()
 
-                rows[i]['Amazon IMG'] = rows[i]['Amazon IMG']
-                rows[i]['Source IMG'] = rows[i]['Source IMG']
-                rows[i]['Source Image'] = rows[i]['Source Image']
-                rows[i]['Amazon Image'] = rows[i]['Amazon Image']
+                // rows[i]['Amazon IMG'] = rows[i]['Amazon IMG']
+                // rows[i]['Source IMG'] = rows[i]['Source IMG']
+                // rows[i]['Source Image'] = rows[i]['Source Image']
+                // rows[i]['Amazon Image'] = rows[i]['Amazon Image']
 
                 if (store.getPrice() > 0 && store.isAvailability()) {
                     const keepa = new Keepa({
@@ -157,7 +157,7 @@ export default class GoogleSheets {
                     rows[i]['Category'] = keepa.category
                     rows[i]['ROI'] = keepa.roi
                     rows[i]['BSR'] = keepa.bsr
-                    rows[i]['Amazon IMG'] = keepa.image
+                    // rows[i]['Amazon IMG'] = keepa.image
 
                     if (keepa?.hasBadge) {
                         // rows[i]['Date'] = this.currentDate()
