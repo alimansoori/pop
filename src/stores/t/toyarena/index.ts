@@ -12,10 +12,10 @@ export default class Toyarena extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('link[itemprop="availability"]', {timeout: 10000})
-            const availability = await this.page.$eval('link[itemprop="availability"]', elem => elem.getAttribute('href'))
+            await this.page.waitForSelector('[id="addToCartText-product-template"]', {timeout: 10000})
+            const availability = await this.page.$eval('[id="addToCartText-product-template"]', elem => elem.textContent)
 
-            if (availability?.toLowerCase().includes("instock") || availability?.toLowerCase().includes("in stock")) {
+            if (availability?.toLowerCase().includes("add to cart")) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)

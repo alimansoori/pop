@@ -1,6 +1,7 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
+import {textToNumber} from "../../../lib/helper";
 
 export default class Tfaw extends Store {
     constructor(page: Page, url: string) {
@@ -9,10 +10,24 @@ export default class Tfaw extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+        try {
+            await this.page.waitForSelector('button[id="product-addtocart-button"]', {timeout: 10000})
+            this.setAvailability(true)
+        } catch (e: any) {
+            this.setAvailability(false)
+        }
     }
 
     async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        try {
+            await this.page.waitForSelector('[data-price-type="finalPrice"]', {timeout: 3000})
+            const price = textToNumber(
+                await this.page.$eval('[data-price-type="finalPrice"]', elem => elem.getAttribute("data-price-amount"))
+            )
+
+            this.setPrice(price)
+        } catch (e: any) {
+            this.setPrice(NaN)
+        }
     }
 }

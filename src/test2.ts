@@ -7,7 +7,7 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.atomicempire.com/Item/285346"
+            "https://www.tfaw.com/neca-61900-the-boys-7-scale-action-figure-ultimate-homelander.html"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())

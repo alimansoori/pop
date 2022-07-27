@@ -1,47 +1,18 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import {EnumLoadType} from "../../../@types/EnumLoadType";
 
 export default class Bedbathandbeyond extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('script[id="schemaGraph"]', {timeout: 10000})
-            const jsonSchema = await this.page.$eval('script[id="schemaGraph"]', elem => elem.textContent)
-            if (jsonSchema) {
-                const jsonSchemaParse = JSON.parse(jsonSchema)
-                if (jsonSchemaParse['@graph'][3]['offers']['availability'] === 'https://schema.org/InStock') {
-                    this.setAvailability(true)
-                } else {
-                    this.setAvailability(false)
-                }
-            }
-
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+    /*async availibilityCalculate(): Promise<void> {
+        await this.checkAvailibilityBySchemas('script[id="pdpSchemaGraph"]', {hidden: true})
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('script[id="schemaGraph"]', {timeout: 10000})
-            const jsonSchema = await this.page.$eval('script[id="schemaGraph"]', elem => elem.textContent)
-            if (jsonSchema) {
-                const jsonSchemaParse = JSON.parse(jsonSchema)
-                if (jsonSchemaParse['@graph'][3]['offers']['price']) {
-                    this.setPrice(textToNumber(jsonSchemaParse['@graph'][3]['offers']['price']))
-                } else if (jsonSchemaParse['@graph'][3]['offers']['highPrice']) {
-                    this.setPrice(textToNumber(jsonSchemaParse['@graph'][3]['offers']['highPrice']))
-                } else {
-                    this.setPrice(NaN)
-                }
-            }
-
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
-    }
+        await this.checkPriceBySchemas('script[id="pdpSchemaGraph"]', {hidden: true})
+    }*/
 }

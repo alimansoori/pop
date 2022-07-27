@@ -251,6 +251,7 @@ import Booksamillion from "./b/booksamillion";
 import Coolstuffinc from "./c/coolstuffinc";
 import Stockx from "./s/stockx";
 import Atomicempire from "./a/atomicempire";
+import Pippd from "./p/pippd";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -461,6 +462,7 @@ export default class SourceSiteFactory {
             else if (domain === 'popmarket') return new Popmarket(page, url)
             else if (domain === 'poptoys') return new Poptoys(page, url)
             else if (domain === 'popsandbeyond') return new Popsandbeyond(page, url)
+            else if (domain === 'pippd') return new Pippd(page, url)
             else if (domain === 'pishposhbaby') return new Pishposhbaby(page, url)
             else if (domain === 'puzzlewarehouse') return new Puzzlewarehouse(page, url)
             else if (domain === 'popinabox') return new Popinabox(page, url)

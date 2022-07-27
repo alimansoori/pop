@@ -1,16 +1,40 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
+import {textToNumber} from "../../../lib/helper";
+import {EnumLoadType} from "../../../@types/EnumLoadType";
 
 export default class Fun extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+        try {
+            await this.page.waitForSelector('meta[property="product:availability"]', {timeout: 10000})
+            const availability = await this.page.$eval('meta[property="product:availability"]', elem => elem.getAttribute('content'))
+
+            if (availability?.toLowerCase().includes("instock") || availability?.toLowerCase().includes("in stock")) {
+                this.setAvailability(true)
+            } else {
+                this.setAvailability(false)
+            }
+        } catch (e: any) {
+            this.productExist = false
+            this.setAvailability(false)
+        }
     }
 
     async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        try {
+            await this.page.waitForSelector('meta[property="product:price:amount"]', {timeout: 3000})
+            const price = textToNumber(
+                await this.page.$eval('meta[property="product:price:amount"]', elem => elem.getAttribute("content"))
+            )
+
+            this.setPrice(price)
+        } catch (e: any) {
+            this.setPrice(NaN)
+        }
     }
 }

@@ -1,6 +1,8 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
+import {textToNumber} from "../../../lib/helper";
+import sleep from "../../../utils/sleep";
 
 export default class Gamestop extends Store {
     constructor(page: Page, url: string) {
@@ -9,10 +11,27 @@ export default class Gamestop extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+        try {
+            await this.page.waitForSelector('label[data-testid="attribute-New-label"] > div:not(.attribute-strikethrough-unselected)', {timeout: 10000})
+            await this.page.click('label[data-testid="attribute-New-label"] > div:not(.attribute-strikethrough-unselected)')
+            await sleep(3000)
+
+            this.setAvailability(true)
+        } catch (e: any) {
+            this.setAvailability(false)
+        }
     }
 
     async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        try {
+            await this.page.waitForSelector('span[data-testid="price-default"]', {timeout: 3000})
+            const price = textToNumber(
+                await this.page.$eval('span[data-testid="price-default"]', elem => elem.textContent)
+            )
+
+            this.setPrice(price)
+        } catch (e: any) {
+            this.setPrice(NaN)
+        }
     }
 }

@@ -121,22 +121,22 @@ abstract class Store implements IStore, IProductDetails {
         switch (this.getDomain()) {
             case "walmart":
                 url = scrapUrl
-            break
+                break
             case "boxed":
                 url = url = scrapUrl
-            break
+                break
             case "knifecenter":
                 url = url = scrapUrl
-            break
+                break
             case "pharmaca":
                 url = url = scrapUrl
-            break
+                break
             // case "macys":
             //     url = url = scrapUrl
             // break
             case "acmetools":
                 url = url = scrapUrl
-            break
+                break
             // case "colourpop":
             //     url = url = scrapUrl
             // break
@@ -239,12 +239,16 @@ abstract class Store implements IStore, IProductDetails {
         return Promise.resolve(undefined);
     }
 
-    protected async checkAvailibilityBySchemas(selector: string): Promise<void> {
+    protected async checkAvailibilityBySchemas(selector: string, options = {}): Promise<void> {
+        let newOption = {
+            timeout: 10000,
+            ...options
+        }
         try {
-            await this.page.waitForSelector(selector, {timeout: 10000})
+            await this.page.waitForSelector(selector, newOption)
             const jsonSchemas = await this.page.$$eval(selector, elem => elem.map(el => el.textContent?.trim().replace(';', '')))
 
-             this.iterateAvalabilitySchemas(jsonSchemas)
+            this.iterateAvalabilitySchemas(jsonSchemas)
 
         } catch (e: any) {
             console.log(e.message)
@@ -275,39 +279,43 @@ abstract class Store implements IStore, IProductDetails {
 
     offerCalc(jsonSchemaParse: any) {
         if (jsonSchemaParse?.offers) {
-            if (jsonSchemaParse?.offers?.offers) {
-                this.offerCalc(jsonSchemaParse?.offers)
-                return
+            this.jsonSchemaCalc(jsonSchemaParse)
+        } else if (Array.isArray(jsonSchemaParse) && jsonSchemaParse.length) {
+            for (let i = 0; i < jsonSchemaParse.length; i++) {
+                this.jsonSchemaCalc(jsonSchemaParse[i])
             }
-            if (jsonSchemaParse?.offers?.availability?.toLowerCase()?.includes("instock")) {
-                this.setAvailability(true)
-            } else if (Array.isArray(jsonSchemaParse?.offers)) {
-                if (jsonSchemaParse?.offers[0]['availability'] === 'https://schema.org/InStock' ||
-                    jsonSchemaParse?.offers[0]['availability'] === 'http://schema.org/InStock' ||
-                    jsonSchemaParse?.offers[0]['availability'] === 'https://www.schema.org/InStock' ||
-                    jsonSchemaParse?.offers[0]['availability'] === 'http://www.schema.org/InStock' ||
-                    jsonSchemaParse?.offers[0]['availability'] === 'InStock' ||
-                    jsonSchemaParse?.offers[0]['availability'] === 'instock'
+        }
+    }
+
+    jsonSchemaCalc(jsonSchemaParse: any) {
+        if (jsonSchemaParse?.offers?.offers) {
+            this.offerCalc(jsonSchemaParse?.offers)
+            return
+        }
+        if (
+            jsonSchemaParse?.offers?.availability?.toLowerCase()?.includes("instock")
+        ) {
+            this.setAvailability(true)
+            if (
+                jsonSchemaParse?.offers?.itemCondition?.toLowerCase()?.includes("used") ||
+                jsonSchemaParse?.offers?.itemCondition?.toLowerCase()?.includes("preorder") ||
+                jsonSchemaParse?.offers?.itemCondition?.toLowerCase()?.includes("pre-order")
+            ) {
+                this.setAvailability(false)
+            }
+        } else if (Array.isArray(jsonSchemaParse?.offers)) {
+            for (let i = 0; i < jsonSchemaParse?.offers.length; i++) {
+                if (jsonSchemaParse?.offers[i]?.availability?.toLowerCase()?.includes("instock")
                 ) {
                     this.setAvailability(true)
                 }
-            }
-        } else if (Array.isArray(jsonSchemaParse) && jsonSchemaParse.length) {
-            for (let i = 0; i < jsonSchemaParse.length; i++) {
-                if (jsonSchemaParse[i]?.offers) {
-                    if (jsonSchemaParse[i]?.offers?.availability?.toLowerCase()?.includes("instock")) {
-                        this.setAvailability(true)
-                    } else if (Array.isArray(jsonSchemaParse[0]?.offers)) {
-                        if (jsonSchemaParse[i]?.offers[0]['availability'] === 'https://schema.org/InStock' ||
-                            jsonSchemaParse[i]?.offers[0]['availability'] === 'http://schema.org/InStock' ||
-                            jsonSchemaParse[i]?.offers[0]['availability'] === 'https://www.schema.org/InStock' ||
-                            jsonSchemaParse[i]?.offers[0]['availability'] === 'http://www.schema.org/InStock' ||
-                            jsonSchemaParse[i]?.offers[0]['availability'] === 'InStock' ||
-                            jsonSchemaParse[i]?.offers[0]['availability'] === 'instock'
-                        ) {
-                            this.setAvailability(true)
-                        }
-                    }
+                if (
+                    jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes("used") ||
+                    jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes("preorder") ||
+                    jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes("pre-order")
+                ) {
+                    this.setAvailability(false)
+                    continue
                 }
             }
         }
@@ -317,9 +325,13 @@ abstract class Store implements IStore, IProductDetails {
         return Promise.resolve(undefined);
     }
 
-    protected async checkPriceBySchemas(selector: string): Promise<void> {
+    protected async checkPriceBySchemas(selector: string, options = {}): Promise<void> {
+        let newOption = {
+            timeout: 10000,
+            ...options
+        }
         try {
-            await this.page.waitForSelector(selector, {timeout: 10000})
+            await this.page.waitForSelector(selector, newOption)
             const jsonSchemas = await this.page.$$eval(selector, elem => elem.map(el => el.textContent?.trim().replace(';', '')))
             this.iteratePriceSchemas(jsonSchemas)
         } catch (e: any) {
@@ -358,7 +370,7 @@ abstract class Store implements IStore, IProductDetails {
                 this.setPrice(jsonSchemaParse?.offers?.highPrice)
             } else if (jsonSchemaParse?.offers?.lowPrice) {
                 this.setPrice(jsonSchemaParse?.offers?.lowPrice)
-            }else if (Array.isArray(jsonSchemaParse?.offers) && jsonSchemaParse?.offers?.length) {
+            } else if (Array.isArray(jsonSchemaParse?.offers) && jsonSchemaParse?.offers?.length) {
                 if (jsonSchemaParse?.offers[0]['price']) {
                     this.setPrice(jsonSchemaParse?.offers[0]['price'])
                 } else if (jsonSchemaParse?.offers[0]['highPrice']) {
