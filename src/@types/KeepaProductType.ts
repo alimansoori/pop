@@ -11,6 +11,7 @@ export type KeepaProductType = {
     packageWidth: number,
     packageWeight: number,
     packageQuantity: number,
+    buyBoxIsAmazon: boolean,
     categoryTree: any[] | null,
     stats: {
         buyBoxPrice: number,

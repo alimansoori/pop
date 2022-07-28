@@ -328,7 +328,7 @@ export default class SourceSiteFactory {
             else if (domain === 'bigapplecollectibles') return new Bigapplecollectibles(page, url)
             else if (domain === 'bigbadtoystore') return new Bigbadtoystore(page, url)
             else if (domain === 'bigbangtoyslv') return new Bigbangtoyslv(page, url)
-            else if (domain === 'biglots') return new Biglots(page, url)
+            // else if (domain === 'biglots') return new Biglots(page, url)
             else if (domain === 'bloomingdales') return new Bloomingdales(page, url)
             else if (domain === 'boardlandia') return new Boardlandia(page, url)
             else if (domain === 'boscovs') return new Boscovs(page, url)

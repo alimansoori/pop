@@ -51,6 +51,8 @@ export default class CategorySheet {
                 return EnumCatSheets.CELL_PHONES
             case "computers":
                 return EnumCatSheets.COMPUTERS
+            case "default":
+                return EnumCatSheets.DEFAULT
             default:
                 return EnumCatSheets.DEFAULT
         }

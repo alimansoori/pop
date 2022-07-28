@@ -159,7 +159,7 @@ export default class GoogleSheets {
                     rows[i]['BSR'] = keepa.bsr
                     // rows[i]['Amazon IMG'] = keepa.image
 
-                    if (keepa?.hasBadge) {
+                    if (keepa?.hasBadge && !keepa.buyBoxIsAmazon) {
                         // rows[i]['Date'] = this.currentDate()
                         rows[i]['Date'] = this.dateSave
                     }

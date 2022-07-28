@@ -1,5 +1,6 @@
 import {myPage} from "./lib/MyPage";
 import SourceSiteFactory from "./stores/SourceSiteFactory";
+import Keepa from "./lib/Keepa";
 
 async function main() {
     try {
@@ -7,15 +8,15 @@ async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.tfaw.com/neca-61900-the-boys-7-scale-action-figure-ultimate-homelander.html"
+            "https://www.walmart.com/ip/Funko-POP-Movies-Hamilton-Alexander-Hamilton-Blue-Coat-Walmart-Exclusive/511577000"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
         console.log("Source is in stock: " + store.isAvailability())
 
         /*const keepa = new Keepa({
-            asin: "B00BUTD1XS",
-            sourcePrice: 7.87
+            asin: "B00ZQG7VDM",
+            sourcePrice: 2.67
         })
         await keepa.fetchByKeepa()
 

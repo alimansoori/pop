@@ -1,6 +1,5 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
-import {categories} from "./categories";
 import {textToNumber} from "../../../lib/helper";
 
 export default class Theisens extends Store {
@@ -10,7 +9,7 @@ export default class Theisens extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[id="addToCartBtn"]', {timeout: 10000})
+            await this.page.waitForSelector('button[id="addToCartBtn"]', {timeout: 5000, visible:true})
             const availability = await this.page.$eval('button[id="addToCartBtn"]', elem => elem.textContent)
 
             if (availability?.toLowerCase().includes('add to cart')) {
