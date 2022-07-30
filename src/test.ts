@@ -49,3 +49,6 @@ export async function main() {
 }
 
 main()
+
+// netstat -ano | findstr :3000
+// tskill typeyourPIDhere

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node ./dist/sites/acehardware",
+    "start": "node ./dist/App.js",
     "test": "mocha --timeout=30000 src/__tests__",
     "watch": "tsc.cmd --watch"
   },
@@ -25,6 +26,7 @@
     "dotenv": "^16.0.1",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "forever": "^4.0.3",
     "google-spreadsheet": "^3.2.0",
     "http-errors": "~1.6.3",
     "mongoose": "^6.0.12",

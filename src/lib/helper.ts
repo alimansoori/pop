@@ -11,7 +11,7 @@ export async function writeSetting(jsonData: any) {
     await fs.promises.writeFile("setting.json", JSON.stringify(jsonData));
 }
 
-export function pidIsRunning(pid: number) {
+export async function pidIsRunning(pid: number) {
     try {
         process.kill(pid);
         return true;
