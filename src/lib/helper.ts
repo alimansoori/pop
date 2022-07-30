@@ -2,6 +2,33 @@ import puppeteer, {Page} from "puppeteer";
 import sleep from "../utils/sleep";
 import fs from "fs"
 
+export async function loadSetting() {
+    const data = await fs.promises.readFile("setting.json", 'utf8');
+    return JSON.parse(data);
+}
+
+export async function writeSetting(jsonData: any) {
+    await fs.promises.writeFile("setting.json", JSON.stringify(jsonData));
+}
+
+export function pidIsRunning(pid: number) {
+    try {
+        process.kill(pid);
+        return true;
+    } catch(e) {
+        return false;
+    }
+}
+
+
+export function tomorrowDate() {
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+
+    return tomorrow.toLocaleDateString("en-US")
+}
+
 export async function initPage(): Promise<Page> {
     const revseller = "C:\\Users\\Lion\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\gobliffocflfaekfcaccndlffkhcafhb\\2.5.3_0\\"
     const sellerAssistantApp = "C:\\Users\\Lion\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\ngddmlfbgokkcfbmnniahfbffdohlhgf\\0.25.1_0\\"

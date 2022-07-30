@@ -131,36 +131,9 @@ abstract class Store implements IStore, IProductDetails {
             case "pharmaca":
                 url = url = scrapUrl
                 break
-            // case "macys":
-            //     url = url = scrapUrl
-            // break
             case "acmetools":
                 url = url = scrapUrl
                 break
-            // case "colourpop":
-            //     url = url = scrapUrl
-            // break
-            // case "bestbuy":
-            //     url = url = scrapUrl
-            // break
-            // case "gamestop":
-            //     url = url = scrapUrl
-            // break
-            // case "dillards":
-            //     url = url = scrapUrl
-            // break
-            // case "partycity":
-            //     url = url = scrapUrl
-            // break
-            // case "nordstrom":
-            //     url = url = scrapUrl
-            // break
-            // case "insanetoyshop":
-            //     url = url = scrapUrl
-            // break
-            // case "musiciansfriend":
-            //     url = url = scrapUrl
-            // break
             default:
                 url = this.getUrl()
         }

@@ -1,14 +1,12 @@
 import {myPage} from "./lib/MyPage";
 import SourceSiteFactory from "./stores/SourceSiteFactory";
-import Keepa from "./lib/Keepa";
 
-async function main() {
+export async function main() {
     try {
-
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.walmart.com/ip/Funko-POP-Movies-Hamilton-Alexander-Hamilton-Blue-Coat-Walmart-Exclusive/511577000"
+            "https://toywiz.com/marvel-legends-the-unbeatable-squirrel-girl-action-figure-vehicle/"
         )
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
@@ -27,6 +25,5 @@ async function main() {
         console.log(e.message)
     }
 }
-
 
 main()

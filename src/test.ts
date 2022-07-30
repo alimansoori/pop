@@ -2,19 +2,20 @@ import GoogleSheets from "./sheets/GoogleSheets";
 import {askQuestion} from "./lib/helper";
 import CategorySheet from "./lib/CategorySheet";
 import {EnumCatSheets} from "./@types/EnumCatSheets";
+import {myPage} from "./lib/MyPage";
 
-async function main() {
+export async function main() {
     try {
 
         // amazon login
         // const amzLogin = new AmzLogin(page)
         // await amzLogin.login()
-        let category = await askQuestion("Which category? ");
-        const startFrom = await askQuestion("Start from row? ");
-        const date = await askQuestion("Date for save? ");
+        // let category = await askQuestion("Which category? ");
+        // const startFrom = await askQuestion("Start from row? ");
+        // const date = await askQuestion("Date for save? ");
         // const page = await myPage()
 
-        new GoogleSheets(startFrom, date, typeof category === "string" ? CategorySheet.selectSheetKey(category) : EnumCatSheets.DEFAULT)
+        new GoogleSheets()
         // const amzLogin = new AzInsight(page)
 
         /*await page.mouse.wheel({
