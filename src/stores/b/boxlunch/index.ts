@@ -9,7 +9,13 @@ export default class Boxlunch extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+        try {
+            await this.page.waitForSelector('div.availability-msg-text.instock', {timeout: 5000})
+
+            this.setAvailability(true)
+        } catch (e: any) {
+            this.setAvailability(false)
+        }
     }
 
     async priceCalculate(): Promise<void> {

@@ -6,8 +6,9 @@ export async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://toywiz.com/marvel-legends-the-unbeatable-squirrel-girl-action-figure-vehicle/"
+            "https://supplyepic.com/products/marvel-legends-80th-aniversary-series-the-mighty-thor-6-loose-action-figure?variant=31122290901077"
         )
+
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
         console.log("Source is in stock: " + store.isAvailability())

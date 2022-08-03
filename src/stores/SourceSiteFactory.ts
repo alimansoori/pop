@@ -252,6 +252,9 @@ import Coolstuffinc from "./c/coolstuffinc";
 import Stockx from "./s/stockx";
 import Atomicempire from "./a/atomicempire";
 import Pippd from "./p/pippd";
+import Officesupply from "./o/officesupply";
+import Pureformulas from "./p/pureformulas";
+import Supplyepic from "./s/supplyepic";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -448,6 +451,7 @@ export default class SourceSiteFactory {
             else if (domain === 'nothingbutsavings') return new Nothingbutsavings(page, url)
             else if (domain === 'oldies') return new Oldies(page, url)
             else if (domain === 'officedepot') return new Officedepot(page, url)
+            else if (domain === 'officesupply') return new Officesupply(page, url)
             else if (domain === 'overstock') return new Overstock(page, url)
             else if (domain === 'overtons') return new Overtons(page, url)
             else if (domain === 'partytoyz') return new Partytoyz(page, url)
@@ -468,6 +472,7 @@ export default class SourceSiteFactory {
             else if (domain === 'popinabox') return new Popinabox(page, url)
             else if (domain === 'presleysoutdoors') return new Presleysoutdoors(page, url)
             else if (domain === 'play-asia') return new PlayAsia(page, url)
+            else if (domain === 'pureformulas') return new Pureformulas(page, url)
             else if (domain === 'pharmaca') return new Pharmaca(page, url)
             else if (domain === 'questtoys') return new Questtoys(page, url)
             else if (domain === 'quill') return new Quill(page, url)
@@ -491,6 +496,7 @@ export default class SourceSiteFactory {
             else if (domain === 'solidsignal') return new Solidsignal(page, url)
             else if (domain === 'surlatable') return new Surlatable(page, url)
             else if (domain === 'surethingtoys') return new Surethingtoys(page, url)
+            else if (domain === 'supplyepic') return new Supplyepic(page, url)
             else if (domain === 'sierra') return new Sierra(page, url)
             else if (domain === 'staples') return new Staples(page, url)
             else if (domain === 'stockx') return new Stockx(page, url)
