@@ -240,7 +240,7 @@ async function getPKQ(page: Page): Promise<number> {
         const selector = "(//div[@id='az-app-container']//strong[contains(text(),'Package Qty. ')])[1]"
 
         await page.waitForXPath(selector, {timeout: 500})
-        let elHandle = await page.$x(selector);
+        const elHandle = await page.$x(selector);
         const data = await page.evaluate(el => el.parentElement.getAttribute('data'), elHandle[0])
 
         return textToNumber(data)
@@ -256,7 +256,7 @@ async function hasVariations(page: Page): Promise<number> {
         const selector = "(//div[@id='az-app-container']//span[contains(text(),'Variations')])[1]"
 
         await page.waitForXPath(selector, {timeout: 500})
-        let elHandle = await page.$x(selector);
+        const elHandle = await page.$x(selector);
         await page.evaluate(el => el.parentElement.click(), elHandle[0])
         await sleep(2000)
         const vars = await getText(page, 'div#az-app-container div#home-page div.Variations-Component > div:nth-child(2) > div:nth-child(1) > strong')
@@ -276,7 +276,7 @@ async function getASIN(page: Page): Promise<string> {
         const xPathSelector = "(//div[@id='az-app-container']//span[contains(text(),'ASIN:')])[1]"
 
         await page.waitForXPath(xPathSelector, {timeout: 500})
-        let elHandle = await page.$x(xPathSelector);
+        const elHandle = await page.$x(xPathSelector);
         return await page.evaluate(el => el.getAttribute('data'), elHandle[0])
 
     } catch (e: any) {
@@ -291,7 +291,7 @@ async function getUPC(page: Page): Promise<string> {
         const xPathSelector = "(//div[@id='az-app-container']//strong[contains(text(),'UPC: ')])[1]"
 
         await page.waitForXPath(xPathSelector, {timeout: 500})
-        let elHandle = await page.$x(xPathSelector);
+        const elHandle = await page.$x(xPathSelector);
         return await page.evaluate(el => el.getAttribute('data'), elHandle[0])
 
     } catch (e: any) {
@@ -305,13 +305,13 @@ async function getSize(page: Page): Promise<string> {
         await sleep(200)
         const xPathSelector = "(//div[@id='az-app-container']//strong[contains(text(),'Small standard')])[1]"
         await page.waitForXPath(xPathSelector, {timeout: 100})
-        let elHandle = await page.$x(xPathSelector);
+        const elHandle = await page.$x(xPathSelector);
         return await page.evaluate(el => el.textContent, elHandle[0])
     } catch (e: any) {
         try {
             const xPathSelector = "(//div[@id='az-app-container']//strong[contains(text(),'Large standard')])[1]"
             await page.waitForXPath(xPathSelector, {timeout: 100})
-            let elHandle = await page.$x(xPathSelector);
+            const elHandle = await page.$x(xPathSelector);
             return await page.evaluate(el => el.textContent, elHandle[0])
         } catch (e: any) {
             return 'oversize'

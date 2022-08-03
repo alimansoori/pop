@@ -27,7 +27,7 @@ export default class AmzLogin {
     async login(): Promise<boolean> {
         try {
             if (this.isLoginAmz) {
-                console.log('is login ago')
+                // console.log('is login ago')
                 return true
             }
             await this.page.goto(this.loginUrl)
@@ -48,11 +48,11 @@ export default class AmzLogin {
             await sleep(1000, 2000)
             await this.page.click(this.submitSelector)
             await this.page.waitForNavigation()
-            console.log('amazonLogin Success')
+            // console.log('amazonLogin Success')
             this.isLoginAmz = true
             return true
         } catch (err) {
-            console.log('amazonLogin.ts Error: ', err)
+            // console.log('amazonLogin.ts Error: ', err)
             this.isLoginAmz = false
             return false
         }

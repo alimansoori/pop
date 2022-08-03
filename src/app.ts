@@ -1,22 +1,29 @@
-import {main} from "./test";
-import {myPage} from "./lib/MyPage";
-import {loadSetting, pidIsRunning} from "./lib/helper";
+import express from "express";
 import GoogleSheets from "./sheets/GoogleSheets";
-import sleep from "./utils/sleep";
+import path from "path";
+import expressLayouts from "express-ejs-layouts"
+import dotenv from "dotenv"
+import * as routes from './routes'
 
-var express = require('express');
+dotenv.config()
 
-var app = express();
+const app = express();
 
+// setup layouts
+app.use(expressLayouts)
+app.set('layout', 'layouts/layout');
+// setting view engin
+app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
+
+routes.register(app)
 app.get("/", async function (req: any, res: any) {
-    let sheet = new GoogleSheets()
-    res.send("Start ...")
+    res.render("index")
 })
 
-app.get("/exit", async function (req: any, res: any) {
-    let jsonSetting = await loadSetting()
-    pidIsRunning(jsonSetting["pid"])
-    res.send("Exit Process!")
+app.get("/start", async function (req: any, res: any) {
+    const sheet = new GoogleSheets()
+    res.send("Start ...")
 })
 
 app.get("/reboot", (req: any, res: any)=> {
@@ -30,6 +37,6 @@ app.get("/reboot", (req: any, res: any)=> {
     process.exit();
 })
 
-app.listen(3000, () => {
-    console.log(`Example app listening on port ${3000}`)
+app.listen(process.env.PORT, () => {
+    console.log(`Example app listening on port ${process.env.PORT}`)
 })

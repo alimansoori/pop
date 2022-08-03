@@ -85,7 +85,7 @@ export default class Scraper implements IScraper {
     private productsPageScrape = async (productsPageUrl: string) => {
         try {
             if (this.webSite.selectors().getSeeMore()) {
-                let i = 1
+                const i = 1
                 while (await this.hasSelector(this.webSite.selectors().getSeeMore())) {
                     if (await this.hasSelector(this.webSite.selectors().getSeeMore())) {
                         await this.scrollDown()
@@ -167,9 +167,9 @@ export default class Scraper implements IScraper {
         )
 
         const products = await this.page.$$eval(this.webSite.selectors().getCategoryProductBlock(), (productsElements, _args) => {
-            const selectors = JSON.parse(<string>_args)
+            const selectors = JSON.parse(_args as string)
             console.log(_args)
-            let prs: any[] = []
+            const prs: any[] = []
             for (let i = 0; i < productsElements.length; i++) {
                 let title
                 if (productsElements[i]?.querySelector(selectors?.categoryProductTitleSelector)?.tagName === 'IMG') {
@@ -183,7 +183,7 @@ export default class Scraper implements IScraper {
                         url: productsElements[i]?.querySelector(selectors?.categoryProductUrlSelector)?.getAttribute('href'),
                         img: productsElements[i]?.querySelector(selectors?.categoryProductImageSelector)?.getAttribute('src'),
                         price: productsElements[i]?.querySelector(selectors?.categoryProductPriceSelector)?.textContent.trim(),
-                        title: title,
+                        title,
                         availability: null
                     })
                 } else {
@@ -191,7 +191,7 @@ export default class Scraper implements IScraper {
                         url: productsElements[i]?.querySelector(selectors?.categoryProductUrlSelector)?.getAttribute('href'),
                         img: productsElements[i]?.querySelector(selectors?.categoryProductImageSelector)?.getAttribute('src'),
                         price: productsElements[i]?.querySelector(selectors?.categoryProductPriceSelector)?.textContent.trim(),
-                        title: title,
+                        title,
                         availability: null
                     })
                 }
@@ -215,14 +215,14 @@ export default class Scraper implements IScraper {
 
     protected saveCSV = (products: any[]) => {
         for (let i = 0; i < products.length; i++) {
-            if (textToNumber(products[i]['price']) > 60) continue
+            if (textToNumber(products[i].price) > 60) continue
             let url = products[i].url
             // @ts-ignore
             if (!Url.isValidHttpUrl(url)) {
                 url = this.webSite.getUrl() + products[i].url
             }
             save2csv(`${this.webSite.getDomain()}.csv`, [{
-                url: url,
+                url,
                 img: products[i].img,
                 price: products[i].price,
                 title: products[i].title,

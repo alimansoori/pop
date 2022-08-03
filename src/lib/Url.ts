@@ -2,7 +2,7 @@ import {URL} from "url";
 
 export default class Url {
     static getDomain(url: string): string | undefined {
-        let regex_var = new RegExp(/(\.[^\.]{0,2})(\.[^\.]{0,2})(\.*$)|(\.[^\.]*)(\.*$)/);
+        const regex_var = new RegExp(/(\.[^\.]{0,2})(\.[^\.]{0,2})(\.*$)|(\.[^\.]*)(\.*$)/);
         return ((new URL(url)).hostname).replace(regex_var, '').split('.').pop();
     }
 

@@ -309,7 +309,7 @@ export async function compareProductToAmz(page: Page, product: any): Promise<any
 
 
 export function csvToArray(csvPath: string) {
-    let data = fs.readFileSync(csvPath)
+    const data = fs.readFileSync(csvPath)
         .toString() // convert Buffer to string
         .split('\n') // split string to lines
         .map(e => e.trim()) // remove white spaces for each line

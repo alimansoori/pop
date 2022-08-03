@@ -2,7 +2,7 @@
 function save2csv(fileName: string, data: any[]) {
     const fs = require("fs")
     const csvWriter = require('csv-write-stream');
-    var writer = csvWriter({sendHeaders: false}); //Instantiate var
+    let writer = csvWriter({sendHeaders: false}); // Instantiate var
     // const csvFilename = "C:\some\path\myfile.csv";
 
 // If CSV file does not exist, create it and add the headers

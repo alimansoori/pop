@@ -66,7 +66,7 @@ export default class Keepa {
 
         // category
         if (Array.isArray(this.product?.categoryTree)) {
-            this.category = this.product?.categoryTree[0]['name']
+            this.category = this.product?.categoryTree[0].name
         }
 
         // BSR
@@ -184,7 +184,7 @@ export default class Keepa {
             }
 
             if (data[i].toString().length > 6 && price === -1) {
-                let dateDiff = this.dateDiffInDay(
+                const dateDiff = this.dateDiffInDay(
                     new Date(),
                     new Date( this.keepaTimeToTimestamp(data[i]) )
                 );
@@ -202,19 +202,19 @@ export default class Keepa {
 
         let dateTimeStamp = NaN
         let index = -1
-        let newData = []
+        const newData = []
         let newDataValue: any = {}
         for(let i = 0; i < data.length; i++) {
 
             if(data[i].toString().length > 6) {
                 newDataValue = {}
                 dateTimeStamp = this.keepaTimeToTimestamp(data[i]);
-                let diffDate = this.dateDiffInDay(
+                const diffDate = this.dateDiffInDay(
                     new Date(),
                     new Date(dateTimeStamp)
                 )
 
-                let lastDiffDate = this.dateDiffInDay(
+                const lastDiffDate = this.dateDiffInDay(
                     new Date(),
                     new Date(this.keepaTimeToTimestamp(data[data.length - 3]))
                 );
@@ -223,19 +223,19 @@ export default class Keepa {
 
                 if (diffDate > 40 && lastDiffDate < 40) continue;
                 index++
-                newDataValue['keepaTime'] = data[i]
-                newDataValue['timestamp'] = dateTimeStamp
+                newDataValue.keepaTime = data[i]
+                newDataValue.timestamp = dateTimeStamp
             }
 
-            if ((data[i] === -1 || data[i] === 0) && newDataValue['timestamp']) {
-                newDataValue['type'] = data[i]
+            if ((data[i] === -1 || data[i] === 0) && newDataValue.timestamp) {
+                newDataValue.type = data[i]
             }
 
-            if ( data[i] > 0 && (data[i].toString().length < 6) && newDataValue['timestamp']) {
-                newDataValue['price'] = data[i]
+            if ( data[i] > 0 && (data[i].toString().length < 6) && newDataValue.timestamp) {
+                newDataValue.price = data[i]
             }
 
-            if (Object.keys(newDataValue).length !== 0 && newDataValue['timestamp']) {
+            if (Object.keys(newDataValue).length !== 0 && newDataValue.timestamp) {
                 newData[index] = newDataValue
             }
 
@@ -248,22 +248,22 @@ export default class Keepa {
         let sumPrices = 0
 
         for (let i = 0; i < newData.length; i++) {
-            if (!preTimeStamp && newData[i]['type'] === 0) {
-                preTimeStamp = newData[i]['timestamp']
-                prePrice = newData[i]['price']
+            if (!preTimeStamp && newData[i].type === 0) {
+                preTimeStamp = newData[i].timestamp
+                prePrice = newData[i].price
             }
 
             if (preTimeStamp && prePrice) {
-                let diffDays = this.dateDiffInDay(
-                    new Date(newData[i]['timestamp']),
+                const diffDays = this.dateDiffInDay(
+                    new Date(newData[i].timestamp),
                     new Date(preTimeStamp)
                 )
                 days = days + (diffDays === 0 ? 1 : diffDays);
                 sumPrices = sumPrices + ((diffDays === 0 ? 1 : diffDays) * prePrice);
-                preTimeStamp = newData[i]['timestamp']
-                prePrice = newData[i]['price']
+                preTimeStamp = newData[i].timestamp
+                prePrice = newData[i].price
             }
-            if (newData[i]['type'] !== 0) {
+            if (newData[i].type !== 0) {
                 preTimeStamp = NaN;
                 prePrice = 0
             }
@@ -281,19 +281,19 @@ export default class Keepa {
 
         let dateTimeStamp = NaN
         let index = -1
-        let newData = []
+        const newData = []
         let newDataValue: any = {}
         for(let i = 0; i < data.length; i++) {
 
             if(data[i].toString().length > 6) {
                 newDataValue = {}
                 dateTimeStamp = this.keepaTimeToTimestamp(data[i]);
-                let diffDate = this.dateDiffInDay(
+                const diffDate = this.dateDiffInDay(
                     new Date(),
                     new Date(dateTimeStamp)
                 )
 
-                let lastDiffDate = this.dateDiffInDay(
+                const lastDiffDate = this.dateDiffInDay(
                     new Date(),
                     new Date(this.keepaTimeToTimestamp(data[data.length - 2]))
                 );
@@ -302,21 +302,21 @@ export default class Keepa {
 
                 if (diffDate > 40 && lastDiffDate < 40) continue;
                 index++
-                newDataValue['keepaTime'] = data[i]
-                newDataValue['timestamp'] = dateTimeStamp
+                newDataValue.keepaTime = data[i]
+                newDataValue.timestamp = dateTimeStamp
             }
 
-            if ((data[i] === -1 || data[i] === 0) && newDataValue['timestamp']) {
-                newDataValue['type'] = data[i]
+            if ((data[i] === -1 || data[i] === 0) && newDataValue.timestamp) {
+                newDataValue.type = data[i]
             } else {
-                newDataValue['type'] = 0
+                newDataValue.type = 0
             }
 
-            if ( data[i] > 0 && (data[i].toString().length < 6) && newDataValue['timestamp']) {
-                newDataValue['price'] = data[i]
+            if ( data[i] > 0 && (data[i].toString().length < 6) && newDataValue.timestamp) {
+                newDataValue.price = data[i]
             }
 
-            if (Object.keys(newDataValue).length !== 0 && newDataValue['timestamp']) {
+            if (Object.keys(newDataValue).length !== 0 && newDataValue.timestamp) {
                 newData[index] = newDataValue
             }
 
@@ -329,22 +329,22 @@ export default class Keepa {
         let sumPrices = 0
 
         for (let i = 0; i < newData.length; i++) {
-            if (!preTimeStamp && newData[i]['type'] === 0) {
-                preTimeStamp = newData[i]['timestamp']
-                prePrice = newData[i]['price']
+            if (!preTimeStamp && newData[i].type === 0) {
+                preTimeStamp = newData[i].timestamp
+                prePrice = newData[i].price
             }
 
             if (preTimeStamp && prePrice) {
-                let diffDays = this.dateDiffInDay(
-                    new Date(newData[i]['timestamp']),
+                const diffDays = this.dateDiffInDay(
+                    new Date(newData[i].timestamp),
                     new Date(preTimeStamp)
                 )
                 days = days + (diffDays === 0 ? 1 : diffDays);
                 sumPrices = sumPrices + ((diffDays === 0 ? 1 : diffDays) * prePrice);
-                preTimeStamp = newData[i]['timestamp']
-                prePrice = newData[i]['price']
+                preTimeStamp = newData[i].timestamp
+                prePrice = newData[i].price
             }
-            if (newData[i]['type'] === -1) {
+            if (newData[i].type === -1) {
                 preTimeStamp = NaN;
                 prePrice = 0
             }
@@ -365,8 +365,8 @@ export default class Keepa {
     }
 
     private dateDiffInDay(date1: Date, date2: Date) {
-        let t1 = date1.getTime();
-        let t2 = date2.getTime();
+        const t1 = date1.getTime();
+        const t2 = date2.getTime();
 
         return Math.floor((t1-t2)/(24*3600*1000));
     }

@@ -26,7 +26,7 @@ export default class Airgas extends Store {
             await this.page.waitForSelector('script[type="application/ld+json"]', {timeout: 10000})
             const jsonSchemas = await this.page.$$eval('script[type="application/ld+json"]', elem => elem.map(el => el.textContent))
             for (let i = 0; i < jsonSchemas.length; i++) {
-                const jsonSchemaParse = JSON.parse(<string>jsonSchemas[i])
+                const jsonSchemaParse = JSON.parse(jsonSchemas[i] as string)
                 if (jsonSchemaParse?.offers?.price) {
                     this.setPrice(jsonSchemaParse?.offers?.price)
                 }

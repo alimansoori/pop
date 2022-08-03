@@ -71,14 +71,14 @@ export default class CrawlProducts implements ICrawler {
 
     protected saveCSV = (products: any[]) => {
         for (let i = 0; i < products.length; i++) {
-            if (textToNumber(products[i]['price']) > 60) continue
+            if (textToNumber(products[i].price) > 60) continue
             let url = products[i].url
             // @ts-ignore
             if (!Url.isValidHttpUrl(url)) {
                 url = this.store.getUrl() + products[i].url
             }
             save2csv(`${this.store.getDomain()}.csv`, [{
-                url: url,
+                url,
                 img: products[i].img,
                 price: products[i].price,
                 title: products[i].title,
@@ -121,9 +121,9 @@ export default class CrawlProducts implements ICrawler {
         )
 
         const products = await this.page.$$eval(this.store.selectors().getCategoryProductBlock(), (productsElements, _args) => {
-            const selectors = JSON.parse(<string>_args)
+            const selectors = JSON.parse(_args as string)
             console.log(_args)
-            let prs: any[] = []
+            const prs: any[] = []
             for (let i = 0; i < productsElements.length; i++) {
                 let title
                 if (productsElements[i]?.querySelector(selectors?.categoryProductTitleSelector)?.tagName === 'IMG') {
@@ -137,7 +137,7 @@ export default class CrawlProducts implements ICrawler {
                         url: productsElements[i]?.querySelector(selectors?.categoryProductUrlSelector)?.getAttribute('href'),
                         img: productsElements[i]?.querySelector(selectors?.categoryProductImageSelector)?.getAttribute('src'),
                         price: productsElements[i]?.querySelector(selectors?.categoryProductPriceSelector)?.textContent.trim(),
-                        title: title,
+                        title,
                         availability: null
                     })
                 } else {
@@ -145,7 +145,7 @@ export default class CrawlProducts implements ICrawler {
                         url: productsElements[i]?.querySelector(selectors?.categoryProductUrlSelector)?.getAttribute('href'),
                         img: productsElements[i]?.querySelector(selectors?.categoryProductImageSelector)?.getAttribute('src'),
                         price: productsElements[i]?.querySelector(selectors?.categoryProductPriceSelector)?.textContent.trim(),
-                        title: title,
+                        title,
                         availability: null
                     })
                 }

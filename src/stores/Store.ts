@@ -95,7 +95,7 @@ abstract class Store implements IStore, IProductDetails {
                         textToNumber(await this.page.$eval(value.selector, elem => elem.textContent))
                     )
                 } else {
-                    let attr: string = value.attr
+                    const attr: string = value.attr
                     this.setPrice(
                         textToNumber(
                             await this.page.$eval(
@@ -117,7 +117,7 @@ abstract class Store implements IStore, IProductDetails {
     async scrape(): Promise<void> {
         let url = this.getUrl();
 
-        let scrapUrl = "https://api.scraperapi.com/?api_key=4bd0f31c8a7cb7c2dbd60e8b7e79c9f3&country_code=us&url=" + url
+        const scrapUrl = "https://api.scraperapi.com/?api_key=4bd0f31c8a7cb7c2dbd60e8b7e79c9f3&country_code=us&url=" + url
         switch (this.getDomain()) {
             case "walmart":
                 url = scrapUrl
@@ -213,7 +213,7 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     protected async checkAvailibilityBySchemas(selector: string, options = {}): Promise<void> {
-        let newOption = {
+        const newOption = {
             timeout: 10000,
             ...options
         }
@@ -234,7 +234,7 @@ abstract class Store implements IStore, IProductDetails {
         for (let i = 0; i < jsonSchemas.length; i++) {
             let jsonSchemaParse = jsonSchemas[i]
 
-            jsonSchemaParse = (typeof jsonSchemas[i] === 'string') ? JSON.parse(<string>jsonSchemas[i]) : jsonSchemas[i]
+            jsonSchemaParse = (typeof jsonSchemas[i] === 'string') ? JSON.parse(jsonSchemas[i] as string) : jsonSchemas[i]
             if (jsonSchemaParse?.mainEntity) {
                 jsonSchemaParse = jsonSchemaParse?.mainEntity
             } else if (jsonSchemaParse?.productLdJson) {
@@ -242,8 +242,8 @@ abstract class Store implements IStore, IProductDetails {
             } else if (jsonSchemaParse?.['@graph']) {
                 this.iterateAvalabilitySchemas(jsonSchemaParse?.['@graph'])
                 return
-            } else if (jsonSchemaParse?.['@type'] === "ItemList" && jsonSchemaParse?.['itemListElement']) {
-                this.iterateAvalabilitySchemas([jsonSchemaParse?.['itemListElement'][0]['item']])
+            } else if (jsonSchemaParse?.['@type'] === "ItemList" && jsonSchemaParse.itemListElement) {
+                this.iterateAvalabilitySchemas([jsonSchemaParse.itemListElement[0].item])
                 return
             }
             this.offerCalc(jsonSchemaParse)
@@ -299,7 +299,7 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     protected async checkPriceBySchemas(selector: string, options = {}): Promise<void> {
-        let newOption = {
+        const newOption = {
             timeout: 10000,
             ...options
         }
@@ -315,7 +315,7 @@ abstract class Store implements IStore, IProductDetails {
     private iteratePriceSchemas(jsonSchemas: any[]) {
         for (let i = 0; i < jsonSchemas.length; i++) {
             let jsonSchemaParse = jsonSchemas[i]
-            jsonSchemaParse = (typeof jsonSchemas[i] === 'string') ? JSON.parse(<string>jsonSchemas[i]) : jsonSchemas[i]
+            jsonSchemaParse = (typeof jsonSchemas[i] === 'string') ? JSON.parse(jsonSchemas[i] as string) : jsonSchemas[i]
             if (jsonSchemaParse?.mainEntity) {
                 jsonSchemaParse = jsonSchemaParse?.mainEntity
             } else if (jsonSchemaParse?.productLdJson) {
@@ -323,8 +323,8 @@ abstract class Store implements IStore, IProductDetails {
             } else if (jsonSchemaParse?.['@graph']) {
                 this.iteratePriceSchemas(jsonSchemaParse?.['@graph'])
                 return
-            } else if (jsonSchemaParse?.['@type'] === "ItemList" && jsonSchemaParse?.['itemListElement']) {
-                this.iteratePriceSchemas([jsonSchemaParse?.['itemListElement'][0]['item']])
+            } else if (jsonSchemaParse?.['@type'] === "ItemList" && jsonSchemaParse.itemListElement) {
+                this.iteratePriceSchemas([jsonSchemaParse.itemListElement[0].item])
                 return
             }
             this.priceCalc(jsonSchemaParse)
@@ -344,12 +344,12 @@ abstract class Store implements IStore, IProductDetails {
             } else if (jsonSchemaParse?.offers?.lowPrice) {
                 this.setPrice(jsonSchemaParse?.offers?.lowPrice)
             } else if (Array.isArray(jsonSchemaParse?.offers) && jsonSchemaParse?.offers?.length) {
-                if (jsonSchemaParse?.offers[0]['price']) {
-                    this.setPrice(jsonSchemaParse?.offers[0]['price'])
-                } else if (jsonSchemaParse?.offers[0]['highPrice']) {
-                    this.setPrice(jsonSchemaParse?.offers[0]['highPrice'])
-                } else if (jsonSchemaParse?.offers[0]['lowPrice']) {
-                    this.setPrice(jsonSchemaParse?.offers[0]['lowPrice'])
+                if (jsonSchemaParse?.offers[0].price) {
+                    this.setPrice(jsonSchemaParse?.offers[0].price)
+                } else if (jsonSchemaParse?.offers[0].highPrice) {
+                    this.setPrice(jsonSchemaParse?.offers[0].highPrice)
+                } else if (jsonSchemaParse?.offers[0].lowPrice) {
+                    this.setPrice(jsonSchemaParse?.offers[0].lowPrice)
                 }
             }
         } else if (Array.isArray(jsonSchemaParse) && jsonSchemaParse.length) {
@@ -358,12 +358,12 @@ abstract class Store implements IStore, IProductDetails {
                     if (jsonSchemaParse[i]?.offers?.price) {
                         this.setPrice(jsonSchemaParse[i]?.offers?.price)
                     } else if (Array.isArray(jsonSchemaParse[0]?.offers)) {
-                        if (jsonSchemaParse[i]?.offers[0]['price']) {
-                            this.setPrice(jsonSchemaParse[i]?.offers[0]['price'])
-                        } else if (jsonSchemaParse[i]?.offers[0]['lowPrice']) {
-                            this.setPrice(jsonSchemaParse[i]?.offers[0]['lowPrice'])
-                        } else if (jsonSchemaParse[i]?.offers[0]['highPrice']) {
-                            this.setPrice(jsonSchemaParse[i]?.offers[0]['highPrice'])
+                        if (jsonSchemaParse[i]?.offers[0].price) {
+                            this.setPrice(jsonSchemaParse[i]?.offers[0].price)
+                        } else if (jsonSchemaParse[i]?.offers[0].lowPrice) {
+                            this.setPrice(jsonSchemaParse[i]?.offers[0].lowPrice)
+                        } else if (jsonSchemaParse[i]?.offers[0].highPrice) {
+                            this.setPrice(jsonSchemaParse[i]?.offers[0].highPrice)
                         }
                     }
                 }
