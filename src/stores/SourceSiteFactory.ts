@@ -255,6 +255,9 @@ import Pippd from "./p/pippd";
 import Officesupply from "./o/officesupply";
 import Pureformulas from "./p/pureformulas";
 import Supplyepic from "./s/supplyepic";
+import Healthykin from "./h/healthykin";
+import Pipingrock from "./p/pipingrock";
+import Wwbw from "./w/wwbw";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -399,6 +402,7 @@ export default class SourceSiteFactory {
             else if (domain === 'hardwareandtools') return new Hardwareandtools(page, url)
             else if (domain === 'homefurniturelife') return new Homefurniturelife(page, url)
             else if (domain === 'healthypets') return new Healthypets(page, url)
+            else if (domain === 'healthykin') return new Healthykin(page, url)
             else if (domain === 'hdstrading') return new Hdstrading(page, url)
             else if (domain === 'healthyplanetshopping') return new Healthyplanetshopping(page, url)
             else if (domain === 'hobbylobby') return new Hobbylobby(page, url)
@@ -467,6 +471,7 @@ export default class SourceSiteFactory {
             else if (domain === 'poptoys') return new Poptoys(page, url)
             else if (domain === 'popsandbeyond') return new Popsandbeyond(page, url)
             else if (domain === 'pippd') return new Pippd(page, url)
+            else if (domain === 'pipingrock') return new Pipingrock(page, url)
             else if (domain === 'pishposhbaby') return new Pishposhbaby(page, url)
             else if (domain === 'puzzlewarehouse') return new Puzzlewarehouse(page, url)
             else if (domain === 'popinabox') return new Popinabox(page, url)
@@ -535,6 +540,7 @@ export default class SourceSiteFactory {
             else if (domain === 'woodcraft') return new Woodcraft(page, url)
             else if (domain === 'worldmarket') return new Worldmarket(page, url)
             else if (domain === 'wdrake') return new Wdrake(page, url)
+            else if (domain === 'wwbw') return new Wwbw(page, url)
             else if (domain === 'worldmusicsupply') return new Worldmusicsupply(page, url)
             else if (domain === 'webstaurantstore') return new Webstaurantstore(page, url)
             else if (domain === 'williams-sonoma') return new WilliamsSonoma(page, url)

@@ -6,7 +6,7 @@ export async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://supplyepic.com/products/marvel-legends-80th-aniversary-series-the-mighty-thor-6-loose-action-figure?variant=31122290901077"
+            "https://www.acmetools.com/drill-doctor-left-hand-chuck-da02105pf/662949037228.html"
         )
 
         await store.scrape()
