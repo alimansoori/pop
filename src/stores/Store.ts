@@ -118,7 +118,7 @@ abstract class Store implements IStore, IProductDetails {
         let url = this.getUrl();
 
         const scrapUrl = "https://api.scraperapi.com/?api_key=4bd0f31c8a7cb7c2dbd60e8b7e79c9f3&country_code=us&url=" + url
-        /*switch (this.getDomain()) {
+        switch (this.getDomain()) {
             case "walmart":
                 url = scrapUrl
                 break
@@ -136,7 +136,7 @@ abstract class Store implements IStore, IProductDetails {
                 break
             default:
                 url = this.getUrl()
-        }*/
+        }
 
         if (this.siteIsBlocked) {
             url = scrapUrl

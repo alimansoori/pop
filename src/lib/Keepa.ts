@@ -353,6 +353,7 @@ export default class Keepa {
         return ((sumPrices/100) / days)
     }
 
+    // @ts-ignore
     private keepaFirstImage() {
         const str = this.product?.imagesCSV
         if (!str) return null

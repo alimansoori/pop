@@ -56,6 +56,7 @@ export default class Scraper implements IScraper {
     private categoryNavScrape = async (categoryUrl: string) => {
         try {
             const categories = await this.page.$$eval(this.webSite.selectors().getCategoryBlock(), (links) =>
+                // @ts-ignore
                 links.map((link) => {
                     if (link.hasAttribute('href')) return link.getAttribute('href')
 
