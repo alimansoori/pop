@@ -258,6 +258,8 @@ import Supplyepic from "./s/supplyepic";
 import Healthykin from "./h/healthykin";
 import Pipingrock from "./p/pipingrock";
 import Wwbw from "./w/wwbw";
+import Westmarine from "./w/westmarine";
+import Fugitivetoys from "./f/fugitivetoys";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -385,6 +387,7 @@ export default class SourceSiteFactory {
             else if (domain === 'funko') return new Funko(page, url)
             else if (domain === 'fye') return new Fye(page, url)
             else if (domain === 'fun') return new Fun(page, url)
+            else if (domain === 'fugitivetoys') return new Fugitivetoys(page, url)
             else if (domain === 'gamenerdz') return new Gamenerdz(page, url)
             else if (domain === 'galactictoys') return new Galactictoys(page, url)
             else if (domain === 'gamestop') return new Gamestop(page, url)
@@ -536,6 +539,7 @@ export default class SourceSiteFactory {
             else if (domain === 'walmart') return new Walmart(page, url)
             else if (domain === 'walgreens') return new Walgreens(page, url)
             else if (domain === 'wayfair') return new Wayfair(page, url)
+            else if (domain === 'westmarine') return new Westmarine(page, url)
             else if (domain === 'woot') return new Woot(page, url)
             else if (domain === 'woodcraft') return new Woodcraft(page, url)
             else if (domain === 'worldmarket') return new Worldmarket(page, url)

@@ -2,19 +2,14 @@ import Store from "../../Store";
 import {Page} from "puppeteer";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
 
-export default class Officedepot extends Store {
+export default class Fugitivetoys extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('button[data-auid="SkuPage_OdButton_BtnSidebarAddToCart"]', {timeout: 10000})
-                this.setAvailability(true)
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
     }
 
     async priceCalculate(): Promise<void> {

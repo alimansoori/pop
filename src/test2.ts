@@ -6,22 +6,13 @@ export async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.acmetools.com/drill-doctor-left-hand-chuck-da02105pf/662949037228.html"
+            "https://www.fugitivetoys.com/products/fruits-basket-pop-vinyl-figure-tohru-honda-879?currency=USD&variant=32332074877030&utm_medium=cpc&utm_source=google&utm_campaign=Google%20Shopping"
         )
 
         await store.scrape()
         console.log("Source Price is: " + store.getPrice())
         console.log("Source is in stock: " + store.isAvailability())
 
-        /*const keepa = new Keepa({
-            asin: "B00ZQG7VDM",
-            sourcePrice: 2.67
-        })
-        await keepa.fetchByKeepa()
-
-        console.log(keepa.category)
-        console.log(keepa.profit)*/
-        // console.log(keepa.data)
     } catch (e: any) {
         console.log(e.message)
     }
