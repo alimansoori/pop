@@ -2,6 +2,7 @@ node_modules/*
 .idea
 csv/*
 dist/*
+setting.json
 tmp
 yarn-error.log
 yarn.lock

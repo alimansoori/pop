@@ -9,7 +9,7 @@
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
     "tsc": "tsc.cmd",
     "build22": "npm-run-all clean lint tsc copy-assets",
-    "build": "npm-run-all clean tsc copy-assets",
+    "build": "npm-run-all clean tsc",
     "prestart": "npm run build",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts,ejs,css,js --exec npm run dev:start",
