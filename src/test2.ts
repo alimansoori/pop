@@ -6,7 +6,7 @@ export async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.target.com/p/jurassic-world-amber-collection-tyrannosaurus-rex-38-compy-figures/-/A-81841660"
+            "https://gamersguildaz.com/products/warhammer-40k-tyranids-parasite-of-mortrex-2022-pre-order"
         )
 
         await store.scrape()
