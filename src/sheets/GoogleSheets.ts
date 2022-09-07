@@ -173,9 +173,9 @@ export default class GoogleSheets {
                     }
                 }
 
-                /*if (!store.productIsExist()) {
+                if (!store.productIsExist()) {
                     rows[i]['Category'] = "Not Exist"
-                }*/
+                }
 
                 rows[i].Source = store.getDomain()
 

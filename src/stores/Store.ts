@@ -147,8 +147,12 @@ abstract class Store implements IStore, IProductDetails {
         } catch (e: any) {
             await this.page.close()
         }
-        await this.availibilityCalculate()
-        await this.priceCalculate()
+
+        await this.productExistCalculate()
+        if (this.productIsExist()) {
+            await this.availibilityCalculate()
+            await this.priceCalculate()
+        }
 
         // await this.fetchPrice()
     }
@@ -206,6 +210,10 @@ abstract class Store implements IStore, IProductDetails {
 
     getAddToCartBtnContent(): string {
         return this.addToCartBtnContent;
+    }
+
+    async productExistCalculate(): Promise<void> {
+        return Promise.resolve(undefined);
     }
 
     async availibilityCalculate(): Promise<void> {

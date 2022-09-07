@@ -7,6 +7,14 @@ export default class Target extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+        try {
+            await this.page.waitForSelector('h1[data-test="product-title"]', {timeout: 5000})
+        } catch (e: any) {
+            this.productExist = false
+        }
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             let shippingButton = false

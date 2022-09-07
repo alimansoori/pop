@@ -20,7 +20,6 @@ export default class Joann extends Store {
                 this.setAvailability(false)
             }
         } catch (e: any) {
-            this.productExist = false
             this.setAvailability(false)
         }
     }

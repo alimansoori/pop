@@ -18,7 +18,6 @@ export default class Kikocosmetics extends Store {
                 this.setAvailability(false)
             }
         } catch (e: any) {
-            this.productExist = false
             this.setAvailability(false)
         }
     }

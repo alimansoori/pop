@@ -6,10 +6,11 @@ export async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.fugitivetoys.com/products/fruits-basket-pop-vinyl-figure-tohru-honda-879?currency=USD&variant=32332074877030&utm_medium=cpc&utm_source=google&utm_campaign=Google%20Shopping"
+            "https://www.target.com/p/jurassic-world-amber-collection-tyrannosaurus-rex-38-compy-figures/-/A-81841660"
         )
 
         await store.scrape()
+        store.productIsExist() ? console.log("Product Exist!") : console.log("Product Not Exist!")
         console.log("Source Price is: " + store.getPrice())
         console.log("Source is in stock: " + store.isAvailability())
 

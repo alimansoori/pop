@@ -18,7 +18,6 @@ export default class Woot extends Store {
                 this.setAvailability(false)
             }
         } catch (e: any) {
-            this.productExist = false
             this.setAvailability(false)
         }
     }
