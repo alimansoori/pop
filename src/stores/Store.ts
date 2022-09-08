@@ -11,8 +11,10 @@ import IStoreOptions from "./IStoreOptions";
 import StoreOptions from "./StoreOptions";
 import IProductDetails from "./IProductDetails";
 import {EnumLoadType} from "../@types/EnumLoadType";
+import ProductTitle from "./ProductTitle";
 
 abstract class Store implements IStore, IProductDetails {
+    titleClass: ProductTitle
     protected page: Page
     protected url: string
     protected pageParam: string = 'page'
@@ -33,6 +35,11 @@ abstract class Store implements IStore, IProductDetails {
         this.url = url
         this.selectorsP = new CssSelectors()
         this.optionsP = new StoreOptions()
+        this.titleClass = new ProductTitle()
+    }
+
+    getTitleClass(): ProductTitle {
+        return this.titleClass
     }
 
     selectors(): ISelectors {
@@ -150,6 +157,7 @@ abstract class Store implements IStore, IProductDetails {
 
         await this.productExistCalculate()
         if (this.productIsExist()) {
+            await this.productTitleCalculate()
             await this.availibilityCalculate()
             await this.priceCalculate()
         }
@@ -213,6 +221,10 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     async productExistCalculate(): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    async productTitleCalculate(): Promise<void> {
         return Promise.resolve(undefined);
     }
 

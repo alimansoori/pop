@@ -65,6 +65,7 @@ export default class GoogleSheets {
                 'ROI',
                 'BSR',
                 'Package Quantity',
+                'Note',
                 'Signature',
             ])
 
@@ -172,7 +173,11 @@ export default class GoogleSheets {
                 }
 
                 if (!store.productIsExist()) {
-                    rows[i]['Category'] = "Not Exist"
+                    rows[i]['Note'] = "Product Not Exist"
+                }
+
+                if (!store.getTitleClass().isValid()) {
+                    rows[i]['Note'] = "Title Invalid"
                 }
 
                 rows[i].Source = store.getDomain()

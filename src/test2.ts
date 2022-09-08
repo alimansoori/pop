@@ -1,5 +1,6 @@
 import {myPage} from "./lib/MyPage";
 import SourceSiteFactory from "./stores/SourceSiteFactory";
+import ProductTitle from "./stores/ProductTitle";
 
 export async function main() {
     try {

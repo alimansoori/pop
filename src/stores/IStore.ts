@@ -2,10 +2,12 @@ import {Page} from "puppeteer";
 import {TypePriceSelector, TypePriceSelectors} from "../@types/TypePriceSelectors";
 import ISelectors from "./ISelectors";
 import IStoreOptions from "./IStoreOptions";
+import ProductTitle from "./ProductTitle";
 
 export default interface IStore {
     productIsExist(): boolean
     getPrice(): number
+    getTitleClass(): ProductTitle
     getPage(): Page
     getUrl(): string
     selectors(): ISelectors

@@ -8,6 +8,10 @@ export default class Academy extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productTitleCalculate(): Promise<void> {
+        this.titleClass.setTitle("ffff");
+    }
+
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
     }
