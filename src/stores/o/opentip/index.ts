@@ -3,7 +3,7 @@ import {Page} from "puppeteer";
 import {textToNumber} from "../../../lib/helper";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
 
-export default class Babyearth extends Store {
+export default class Opentip extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
         this.loadType = EnumLoadType.DOC_LOADED
@@ -28,7 +28,7 @@ export default class Babyearth extends Store {
         try {
             await this.page.waitForSelector('*[itemprop="price"]', {timeout: 3000})
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', elem => elem.getAttribute("content"))
+                await this.page.$eval('*[itemprop="price"]', elem => elem.textContent)
             )
 
             this.setPrice(price)

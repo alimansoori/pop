@@ -2,14 +2,10 @@ import Store from "../../Store";
 import {Page} from "puppeteer";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
 
-export default class Academy extends Store {
+export default class Qvc extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
         this.loadType = EnumLoadType.DOC_LOADED
-    }
-
-    async productTitleCalculate(): Promise<void> {
-        // this.titleClass.setTitle("ffff");
     }
 
     async availibilityCalculate(): Promise<void> {

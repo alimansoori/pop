@@ -1,9 +1,9 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
+import {textToNumber} from "../../../lib/helper";
 
-export default class Babyearth extends Store {
+export default class K9cuisine extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
         this.loadType = EnumLoadType.DOC_LOADED
@@ -11,8 +11,8 @@ export default class Babyearth extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('link[itemprop="availability"]', {timeout: 10000})
-            const availability = await this.page.$eval('link[itemprop="availability"]', elem => elem.getAttribute('href'))
+            await this.page.waitForSelector('div[title="Availability"] > span', {timeout: 10000})
+            const availability = await this.page.$eval('div[title="Availability"] > span', elem => elem.textContent)
 
             if (availability?.toLowerCase().includes("instock") || availability?.toLowerCase().includes("in stock")) {
                 this.setAvailability(true)
@@ -26,9 +26,9 @@ export default class Babyearth extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="price"]', {timeout: 3000})
+            await this.page.waitForSelector('span[data-price-type="finalPrice"]', {timeout: 3000})
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', elem => elem.getAttribute("content"))
+                await this.page.$eval('span[data-price-type="finalPrice"]', elem => elem.getAttribute("data-price-amount"))
             )
 
             this.setPrice(price)

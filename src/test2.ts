@@ -1,13 +1,12 @@
 import {myPage} from "./lib/MyPage";
 import SourceSiteFactory from "./stores/SourceSiteFactory";
-import ProductTitle from "./stores/ProductTitle";
 
 export async function main() {
     try {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://gamersguildaz.com/products/warhammer-40k-tyranids-parasite-of-mortrex-2022-pre-order"
+            "https://www.opentip.com/Coleman-Rain-Jacket-Coleman-Youth-S-M-Blue-2000014629-p-8845720.html"
         )
 
         await store.scrape()

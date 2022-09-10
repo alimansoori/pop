@@ -260,6 +260,10 @@ import Pipingrock from "./p/pipingrock";
 import Wwbw from "./w/wwbw";
 import Westmarine from "./w/westmarine";
 import Fugitivetoys from "./f/fugitivetoys";
+import Qvc from "./q/qvc";
+import Hdsupplysolutions from "./h/hdsupplysolutions";
+import K9cuisine from "./k/k9cuisine";
+import Opentip from "./o/opentip";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -407,6 +411,7 @@ export default class SourceSiteFactory {
             else if (domain === 'healthypets') return new Healthypets(page, url)
             else if (domain === 'healthykin') return new Healthykin(page, url)
             else if (domain === 'hdstrading') return new Hdstrading(page, url)
+            else if (domain === 'hdsupplysolutions') return new Hdsupplysolutions(page, url)
             else if (domain === 'healthyplanetshopping') return new Healthyplanetshopping(page, url)
             else if (domain === 'hobbylobby') return new Hobbylobby(page, url)
             else if (domain === 'homedepot') return new Homedepot(page, url)
@@ -426,6 +431,7 @@ export default class SourceSiteFactory {
             else if (domain === 'kikocosmetics') return new Kikocosmetics(page, url)
             else if (domain === 'knifecenter') return new Knifecenter(page, url)
             else if (domain === 'kohls') return new Kohls(page, url)
+            else if (domain === 'k9cuisine') return new K9cuisine(page, url)
             // else if (domain === 'lakeside') return new Lakeside(page, url)
             else if (domain === 'landmsupply') return new Landmsupply(page, url)
             else if (domain === 'legacytoys') return new Legacytoys(page, url)
@@ -461,6 +467,7 @@ export default class SourceSiteFactory {
             else if (domain === 'officesupply') return new Officesupply(page, url)
             else if (domain === 'overstock') return new Overstock(page, url)
             else if (domain === 'overtons') return new Overtons(page, url)
+            else if (domain === 'opentip') return new Opentip(page, url)
             else if (domain === 'partytoyz') return new Partytoyz(page, url)
             else if (domain === 'pamperedchef') return new Pamperedchef(page, url)
             else if (domain === 'petflow') return new Petflow(page, url)
@@ -484,6 +491,7 @@ export default class SourceSiteFactory {
             else if (domain === 'pharmaca') return new Pharmaca(page, url)
             else if (domain === 'questtoys') return new Questtoys(page, url)
             else if (domain === 'quill') return new Quill(page, url)
+            else if (domain === 'qvc') return new Qvc(page, url)
             else if (domain === 'rainbowresource') return new Rainbowresource(page, url)
             else if (domain === 'redtoolstore') return new Redtoolstore(page, url)
             else if (domain === 'rei') return new Rei(page, url)

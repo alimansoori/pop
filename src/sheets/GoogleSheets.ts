@@ -106,7 +106,7 @@ export default class GoogleSheets {
 
         for (let i = startFrom; i < rowsLength; i++) {
             this.jsonSetting.row = i
-            await writeSetting(this.jsonSetting)
+            // await writeSetting(this.jsonSetting)
 
             rows = await dataBaseSheet.getRows()
             rowsLength = rows.length

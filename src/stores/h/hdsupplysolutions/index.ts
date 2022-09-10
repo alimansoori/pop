@@ -3,7 +3,7 @@ import {Page} from "puppeteer";
 import {textToNumber} from "../../../lib/helper";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
 
-export default class Babyearth extends Store {
+export default class Hdsupplysolutions extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
         this.loadType = EnumLoadType.DOC_LOADED
@@ -11,10 +11,10 @@ export default class Babyearth extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('link[itemprop="availability"]', {timeout: 10000})
-            const availability = await this.page.$eval('link[itemprop="availability"]', elem => elem.getAttribute('href'))
+            await this.page.waitForSelector('div.product-detail__description-attributes a[data-hds-tag="product-details__add-to-cart"]', {timeout: 10000})
+            const availability = await this.page.$eval('div.product-detail__description-attributes a[data-hds-tag="product-details__add-to-cart"]', elem => elem.textContent)
 
-            if (availability?.toLowerCase().includes("instock") || availability?.toLowerCase().includes("in stock")) {
+            if (availability?.toLowerCase().includes("add to cart")) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -26,9 +26,9 @@ export default class Babyearth extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="price"]', {timeout: 3000})
+            await this.page.waitForSelector('div.product-detail__description-attributes span[data-hds-tag="price--offerprice"]', {timeout: 3000})
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', elem => elem.getAttribute("content"))
+                await this.page.$eval('div.product-detail__description-attributes span[data-hds-tag="price--offerprice"]', elem => elem.getAttribute("data-price"))
             )
 
             this.setPrice(price)
