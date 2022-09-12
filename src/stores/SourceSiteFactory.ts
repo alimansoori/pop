@@ -264,6 +264,10 @@ import Qvc from "./q/qvc";
 import Hdsupplysolutions from "./h/hdsupplysolutions";
 import K9cuisine from "./k/k9cuisine";
 import Opentip from "./o/opentip";
+import Big5sportinggoods from "./b/big5sportinggoods";
+import Ecosmetics from "./e/ecosmetics";
+import Beautyexpert from "./b/beautyexpert";
+import Beautance from "./b/beautance";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -334,11 +338,14 @@ export default class SourceSiteFactory {
             else if (domain === 'baseballmonkey') return new Baseballmonkey(page, url)
             // else if (domain === 'basspro') return new Basspro(page, url)
             else if (domain === 'beallsflorida') return new Beallsflorida(page, url)
+            else if (domain === 'beautyexpert') return new Beautyexpert(page, url)
+            else if (domain === 'beautance') return new Beautance(page, url)
             else if (domain === 'bedbathandbeyond') return new Bedbathandbeyond(page, url)
             else if (domain === 'belk') return new Belk(page, url)
             else if (domain === 'bestbuy') return new Bestbuy(page, url)
             else if (domain === 'bigapplecollectibles') return new Bigapplecollectibles(page, url)
             else if (domain === 'bigbadtoystore') return new Bigbadtoystore(page, url)
+            else if (domain === 'big5sportinggoods') return new Big5sportinggoods(page, url)
             else if (domain === 'bigbangtoyslv') return new Bigbangtoyslv(page, url)
             // else if (domain === 'biglots') return new Biglots(page, url)
             else if (domain === 'bloomingdales') return new Bloomingdales(page, url)
@@ -380,6 +387,7 @@ export default class SourceSiteFactory {
             else if (domain === 'entirelypets') return new Entirelypets(page, url)
             else if (domain === 'etundra') return new Etundra(page, url)
             else if (domain === 'evo') return new Evo(page, url)
+            else if (domain === 'ecosmetics') return new Ecosmetics(page, url)
             else if (domain === 'everythingkitchens') return new Everythingkitchens(page, url)
             else if (domain === 'familyotc') return new Familyotc(page, url)
             else if (domain === 'farmandfleet') return new Farmandfleet(page, url)

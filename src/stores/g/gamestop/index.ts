@@ -24,7 +24,7 @@ export default class Gamestop extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('span[data-testid="price-default"]', {timeout: 3000})
+            await this.page.waitForSelector('span[data-testid="price-default"]', {timeout: 10000})
             const price = textToNumber(
                 await this.page.$eval('span[data-testid="price-default"]', elem => elem.textContent)
             )

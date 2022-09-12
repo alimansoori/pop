@@ -6,7 +6,7 @@ export async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.walgreens.com/store/c/purpose-gentle-skin-cleansing-bar/ID=prod6191074-product"
+            "https://www.beautance.com/makeup/2311-tarte-cosmetics-shape-tape-contour-concealer-light-0846733016129.html"
         )
 
         await store.scrape()
