@@ -41,12 +41,30 @@ export default class Keepa {
             await axios.get(this.keepaUrl)
                 .then((res: any) => {
                     this.data = res.data
+
+                    console.log(`>>> refillRate: ${res?.data?.refillRate}`)
+                    console.log(`>>> refillIn: ${res.data?.refillIn}`)
+                    console.log(`>>> tokensLeft: ${res?.data?.tokensLeft}`)
+                    console.log(`>>> tokensConsumed: ${res?.data?.tokensConsumed}`)
+                    console.log(`>>> tokenFlowReduction: ${res?.data?.tokenFlowReduction}`)
+                    console.log(`>>> Keepa Error: ${res?.data?.error?.message}`)
                 }).catch(err => {
                     throw new Error(err.message)
                 })
         } catch (err: any) {
-            console.log('60 second wait')
-            await sleep(60000)
+            if (err?.response) {
+                    console.log(`>>> refillRate: ${err?.response?.data?.refillRate}`)
+                    console.log(`>>> refillIn: ${err?.response.data?.refillIn}`)
+                    console.log(`>>> tokensLeft: ${err?.response?.data?.tokensLeft}`)
+                    console.log(`>>> tokensConsumed: ${err?.response?.data?.tokensConsumed}`)
+                    console.log(`>>> tokenFlowReduction: ${err?.response?.data?.tokenFlowReduction}`)
+                    console.log(`>>> Keepa Error: ${err?.response?.data?.error?.message}`)
+                await sleep(err?.response.data?.refillIn)
+            } else {
+                console.log('60 second wait')
+                await sleep(60000)
+            }
+
             await this.fetchByKeepa()
         }
 

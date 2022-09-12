@@ -540,7 +540,7 @@ export default class SourceSiteFactory {
             else if (domain === 'ulta') return new Ulta(page, url)
             else if (domain === 'ulonet') return new Ulonet(page, url)
             else if (domain === 'united-states-flag') return new UnitedStatesFlag(page, url)
-            else if (domain === 'vipoutlet') return new Vipoutlet(page, url)
+            // else if (domain === 'vipoutlet') return new Vipoutlet(page, url)
             else if (domain === 'vitacost') return new Vitacost(page, url)
             else if (domain === 'vminnovations') return new Vminnovations(page, url)
             else if (domain === 'vitaminshoppe') return new Vitaminshoppe(page, url)

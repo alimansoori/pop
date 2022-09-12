@@ -6,7 +6,7 @@ export async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.opentip.com/Coleman-Rain-Jacket-Coleman-Youth-S-M-Blue-2000014629-p-8845720.html"
+            "https://www.walgreens.com/store/c/purpose-gentle-skin-cleansing-bar/ID=prod6191074-product"
         )
 
         await store.scrape()

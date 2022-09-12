@@ -1,7 +1,6 @@
 import puppeteer from "puppeteer";
 import {Page} from "puppeteer";
-import fs from "fs";
-import {loadSetting, pidIsRunning, tomorrowDate, writeSetting} from "./helper";
+// import StealthPlugin from "puppeteer-extra-plugin-stealth";
 
 export async function myPage(): Promise<Page> {
     try {
