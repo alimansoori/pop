@@ -7,8 +7,8 @@ export async function loadSetting(settingFile: string|unknown) {
     return JSON.parse(data);
 }
 
-export async function writeSetting(jsonData: any) {
-    await fs.promises.writeFile("setting.json", JSON.stringify(jsonData));
+export async function writeSetting(jsonData: any, settingFile: string|unknown) {
+    await fs.promises.writeFile(`setting${settingFile}.json`, JSON.stringify(jsonData));
 }
 
 export async function pidIsRunning(pid: number) {
