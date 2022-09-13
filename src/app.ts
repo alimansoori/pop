@@ -24,7 +24,7 @@ app.get("/", async function (req: any, res: any) {
 })
 
 app.get("/start", async function (req: any, res: any) {
-    const sheet = new GoogleSheets()
+    // const sheet = new GoogleSheets()
     res.send("Start ...")
 })
 

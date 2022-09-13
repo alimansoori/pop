@@ -3,7 +3,6 @@ import {askQuestion} from "./lib/helper";
 
 export async function main() {
     const settingFile = await askQuestion("Which setting file? ")
-
     try {
         await run(settingFile)
     } catch (e: any) {
