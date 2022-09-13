@@ -1,11 +1,19 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
-import {EnumLoadType} from "../../../@types/EnumLoadType";
 import {textToNumber} from "../../../lib/helper";
 
 export default class Insanetoyshop extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
+    }
+
+    async productExistCalculate(): Promise<void> {
+        try {
+            await this.page.waitForSelector('h2[itemprop="name"]', {timeout: 10000})
+            this.productExist = true
+        } catch (e: any) {
+            this.productExist = false
+        }
     }
 
     async availibilityCalculate(): Promise<void> {

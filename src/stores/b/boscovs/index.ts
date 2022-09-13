@@ -1,12 +1,11 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
 import {textToNumber} from "../../../lib/helper";
-import {EnumLoadType} from "../../../@types/EnumLoadType";
 
 export default class Boscovs extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
-        this.loadType = EnumLoadType.DOC_LOADED
+        // this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async availibilityCalculate(): Promise<void> {

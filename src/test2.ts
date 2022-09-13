@@ -1,14 +1,12 @@
 import {myPage} from "./lib/MyPage";
 import SourceSiteFactory from "./stores/SourceSiteFactory";
-import {askQuestion} from "./lib/helper";
-import {type} from "os";
 
 export async function main() {
     try {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.beautance.com/makeup/2311-tarte-cosmetics-shape-tape-contour-concealer-light-0846733016129.html"
+            "https://www.hsn.com/products/wrebbit-harry-potter-diagon-alley-450-piece-3d-puzzle/20352240"
         )
 
         await store.scrape()

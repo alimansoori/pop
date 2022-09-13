@@ -9,7 +9,7 @@ export default class Target extends Store {
 
     async productExistCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('h1[data-test="product-title"]', {timeout: 5000})
+            await this.page.waitForSelector('h1[data-test="product-title"]', {timeout: 10000})
         } catch (e: any) {
             this.productExist = false
         }

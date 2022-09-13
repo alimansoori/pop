@@ -9,6 +9,15 @@ export default class Toywiz extends Store {
         this.siteIsBlocked = true
     }
 
+    async productExistCalculate(): Promise<void> {
+        try {
+            await this.page.waitForSelector('script[type="application/ld+json"]', {timeout: 10000})
+            this.productExist = true
+        } catch (e: any) {
+            this.productExist = false
+        }
+    }
+
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
     }

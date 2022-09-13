@@ -9,14 +9,8 @@ export default class Moosejaw extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('link[itemprop="availability"]', {timeout: 10000})
-            const availability = await this.page.$eval('link[itemprop="availability"]', elem => elem.getAttribute('href'))
-
-            if (availability?.toLowerCase() === "http://schema.org/instock" || availability?.toLowerCase() === "https://schema.org/instock") {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
+            await this.page.waitForSelector('a[id="add2CartBtn"]', {timeout: 10000})
+            this.setAvailability(true)
         } catch (e: any) {
             this.setAvailability(false)
         }
@@ -24,9 +18,9 @@ export default class Moosejaw extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('meta[itemprop="price"]', {timeout: 3000})
+            await this.page.waitForSelector('span.price-set > span.price-option, span[id="innerPrice"] > span.price-set-updated', {timeout: 3000})
             const price = textToNumber(
-                await this.page.$eval('meta[itemprop="price"]', elem => elem.getAttribute('content'))
+                await this.page.$eval('span.price-set > span.price-option, span[id="innerPrice"] > span.price-set-updated', elem => elem.textContent)
             )
 
             this.setPrice(price)
