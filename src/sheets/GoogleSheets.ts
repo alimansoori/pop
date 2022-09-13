@@ -14,18 +14,20 @@ import sleep from "../utils/sleep";
 export default class GoogleSheets {
     // private page
     // private category
+    private settingFile: string|unknown
     private doc: any = ""
     private jsonSetting: any = {}
 
-    constructor() {
+    constructor(settingFile: string|unknown) {
         // this.category = category
+        this.settingFile = settingFile
 
         this.auth()
     }
 
     async auth() {
         try {
-            this.jsonSetting = await loadSetting()
+            this.jsonSetting = await loadSetting(this.settingFile)
 
             this.doc = new GoogleSpreadsheet(CategorySheet.selectSheetKey(this.jsonSetting.cat))
 
@@ -106,7 +108,7 @@ export default class GoogleSheets {
 
         for (let i = startFrom; i < rowsLength; i++) {
             this.jsonSetting.row = i
-            // await writeSetting(this.jsonSetting)
+            await writeSetting(this.jsonSetting)
 
             rows = await dataBaseSheet.getRows()
             rowsLength = rows.length

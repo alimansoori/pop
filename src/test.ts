@@ -1,18 +1,21 @@
 import GoogleSheets from "./sheets/GoogleSheets";
+import {askQuestion} from "./lib/helper";
 
 export async function main() {
+    const settingFile = await askQuestion("Which setting file? ")
+
     try {
-        await run()
+        await run(settingFile)
     } catch (e: any) {
-        await run()
+        await run(settingFile)
     }
 }
 
-export async function run() {
+export async function run(settingFile: string|unknown) {
     try {
-        new GoogleSheets()
+        new GoogleSheets(settingFile)
     } catch (e: any) {
-        await run()
+        await run(settingFile)
     }
 }
 

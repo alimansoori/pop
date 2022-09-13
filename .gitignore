@@ -3,6 +3,8 @@ node_modules/*
 csv/*
 dist/*
 setting.json
+setting1.json
+setting2.json
 tmp
 yarn-error.log
 yarn.lock

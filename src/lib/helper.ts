@@ -2,8 +2,8 @@ import puppeteer, {Page} from "puppeteer";
 import sleep from "../utils/sleep";
 import fs from "fs"
 
-export async function loadSetting() {
-    const data = await fs.promises.readFile("setting.json", 'utf8');
+export async function loadSetting(settingFile: string|unknown) {
+    const data = await fs.promises.readFile(`setting${settingFile}.json`, 'utf8');
     return JSON.parse(data);
 }
 

@@ -1,5 +1,7 @@
 import {myPage} from "./lib/MyPage";
 import SourceSiteFactory from "./stores/SourceSiteFactory";
+import {askQuestion} from "./lib/helper";
+import {type} from "os";
 
 export async function main() {
     try {

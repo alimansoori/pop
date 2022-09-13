@@ -168,7 +168,6 @@ import Advancedbionutritionals from "./a/advancedbionutritionals";
 import Nordstrom from "./n/nordstrom";
 import Legacytoys from "./l/legacytoys";
 import Toygamewiz from "./t/toygamewiz";
-import Fruugo from "./f/fruugo";
 import Petflow from "./p/petflow";
 import Insanetoyshop from "./i/insanetoyshop";
 import Roadrunnersports from "./r/roadrunnersports";
@@ -393,7 +392,7 @@ export default class SourceSiteFactory {
             else if (domain === 'farmandfleet') return new Farmandfleet(page, url)
             else if (domain === 'foodservicedirect') return new Foodservicedirect(page, url)
             else if (domain === 'focuscamera') return new Focuscamera(page, url)
-            else if (domain === 'fruugo') return new Fruugo(page, url)
+            // else if (domain === 'fruugo') return new Fruugo(page, url)
             else if (domain === 'fanatics') return new Fanatics(page, url)
             else if (domain === 'fpnyc') return new Fpnyc(page, url)
             else if (domain === 'funko') return new Funko(page, url)
