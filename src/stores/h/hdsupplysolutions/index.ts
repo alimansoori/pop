@@ -9,6 +9,9 @@ export default class Hdsupplysolutions extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.product-detail__description-attributes a[data-hds-tag="product-details__add-to-cart"]', {timeout: 10000})

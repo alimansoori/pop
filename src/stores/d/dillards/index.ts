@@ -6,6 +6,9 @@ export default class Dillards extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="add-to-bag"]', {timeout: 10000})

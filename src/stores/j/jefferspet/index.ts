@@ -7,6 +7,9 @@ export default class Jefferspet extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('meta[property="product:availability"]', {timeout: 10000})

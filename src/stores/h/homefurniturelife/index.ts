@@ -7,6 +7,9 @@ export default class Homefurniturelife extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[name="add-to-cart"]', {timeout: 10000})

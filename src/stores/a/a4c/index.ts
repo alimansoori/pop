@@ -10,4 +10,7 @@ export default class A4c extends Store {
             attr: 'text'
         })
     }
+
+    async productExistCalculate(): Promise<void> {
+    }
 }

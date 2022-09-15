@@ -7,6 +7,9 @@ export default class Chewy extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div[data-testid="buybox"] span.kib-button-default__label', {timeout: 10000})

@@ -7,6 +7,9 @@ export default class Theisens extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="addToCartBtn"]', {timeout: 5000, visible:true})

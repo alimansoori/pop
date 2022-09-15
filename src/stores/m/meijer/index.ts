@@ -10,4 +10,7 @@ export default class Meijer extends Store {
             attr: 'text'
         })
     }
+
+    async productExistCalculate(): Promise<void> {
+    }
 }

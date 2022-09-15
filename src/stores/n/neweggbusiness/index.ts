@@ -7,6 +7,9 @@ export default class Neweggbusiness extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div#main div#product div.item-product > div.item-group div.item-info-group link[itemprop="availability"]', {timeout: 10000})

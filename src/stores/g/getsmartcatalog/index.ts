@@ -8,6 +8,9 @@ export default class Getsmartcatalog extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('link[itemprop="availability"]', {timeout: 10000})

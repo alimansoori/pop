@@ -8,6 +8,9 @@ export default class Mysimpleproducts extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div[title="Availability"] div.instock span', {timeout: 10000})

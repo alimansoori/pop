@@ -9,6 +9,9 @@ export default class Hardwareandtools extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('meta[property="product:availability"]', {timeout: 10000})

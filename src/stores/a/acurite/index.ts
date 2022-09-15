@@ -7,6 +7,9 @@ export default class Acurite extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('p[title="Availability"] > span', {timeout: 10000})

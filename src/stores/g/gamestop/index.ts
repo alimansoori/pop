@@ -10,6 +10,9 @@ export default class Gamestop extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('label[data-testid="attribute-New-label"] > div:not(.attribute-strikethrough-unselected)', {timeout: 10000})

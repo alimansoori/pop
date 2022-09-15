@@ -9,6 +9,9 @@ export default class Supplyepic extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.product_section link[itemprop="availability"]', {timeout: 10000})

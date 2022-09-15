@@ -10,4 +10,7 @@ export default class Kmart extends Store {
             attr: 'text'
         })
     }
+
+    async productExistCalculate(): Promise<void> {
+    }
 }

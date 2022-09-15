@@ -10,4 +10,7 @@ export default class Pfaltzgraff extends Store {
             attr: 'content'
         })
     }
+
+    async productExistCalculate(): Promise<void> {
+    }
 }

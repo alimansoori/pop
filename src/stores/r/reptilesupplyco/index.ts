@@ -7,6 +7,9 @@ export default class Reptilesupplyco extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('p[id="add_to_cart"] > button > span', {timeout: 10000})

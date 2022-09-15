@@ -8,6 +8,9 @@ export default class Keurig extends Store {
         // this.siteIsBlocked = true
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="divAddTOCart"]', {timeout: 10000})

@@ -8,6 +8,9 @@ export default class Shop4megastore extends Store {
         this.loadType = EnumLoadType.NET0
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
     }

@@ -7,6 +7,9 @@ export default class Hobbylobby extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="addToCartButton"]', {timeout: 10000})

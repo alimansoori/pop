@@ -8,6 +8,9 @@ export default class Ecosmetics extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async productTitleCalculate(): Promise<void> {
         // this.titleClass.setTitle("ffff");
     }

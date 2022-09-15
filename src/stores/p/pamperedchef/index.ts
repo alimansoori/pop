@@ -7,6 +7,9 @@ export default class Pamperedchef extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="addAnchor"]', {timeout: 10000})

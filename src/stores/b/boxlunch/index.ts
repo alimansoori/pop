@@ -8,6 +8,9 @@ export default class Boxlunch extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.availability-msg-text.instock', {timeout: 5000})

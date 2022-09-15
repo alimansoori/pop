@@ -8,6 +8,9 @@ export default class Sephora extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[data-at="add_to_basket_btn"] > span', {timeout: 10000})

@@ -7,6 +7,9 @@ export default class Goodmans extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div#itemCallToAction > div.h5', {timeout: 10000})

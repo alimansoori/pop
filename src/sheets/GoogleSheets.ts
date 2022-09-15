@@ -94,7 +94,6 @@ export default class GoogleSheets {
             page,
             url
         )
-
         console.log(store.getDomain())
 
         return store

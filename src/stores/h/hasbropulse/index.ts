@@ -7,6 +7,9 @@ export default class Hasbropulse extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector(' button.product-form__add-to-cart > span > span', {timeout: 10000})

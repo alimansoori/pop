@@ -7,6 +7,9 @@ export default class Bestbuy extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[data-button-state="ADD_TO_CART"]', {timeout: 10000})

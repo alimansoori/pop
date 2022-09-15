@@ -7,6 +7,9 @@ export default class Allstarhealth extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('a.add_btn[title="addtocart"]', {timeout: 10000})

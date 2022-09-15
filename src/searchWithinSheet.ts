@@ -1,12 +1,12 @@
 import GoogleSheets from "./sheets/GoogleSheets";
 import {askQuestion} from "./lib/helper";
 
-export async function main() {
-    const settingFile = await askQuestion("Which setting file? ")
+export async function startSearchWithinSheet() {
+    const whitchSettingFile = await askQuestion("Which setting file? ")
     try {
-        await run(settingFile)
+        await run(whitchSettingFile)
     } catch (e: any) {
-        await run(settingFile)
+        await run(whitchSettingFile)
     }
 }
 
@@ -18,7 +18,7 @@ export async function run(settingFile: string|unknown) {
     }
 }
 
-main()
+startSearchWithinSheet()
 
 // netstat -ano | findstr :3000
 // tskill typeyourPIDhere

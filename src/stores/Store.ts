@@ -220,9 +220,7 @@ abstract class Store implements IStore, IProductDetails {
         return this.addToCartBtnContent;
     }
 
-    async productExistCalculate(): Promise<void> {
-        return Promise.resolve(undefined);
-    }
+    abstract productExistCalculate(): Promise<void>
 
     async productTitleCalculate(): Promise<void> {
         return Promise.resolve(undefined);

@@ -8,6 +8,9 @@ export default class Biglots extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.out-of-stock-msg', {timeout: 10000})

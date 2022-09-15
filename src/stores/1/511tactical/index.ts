@@ -10,4 +10,7 @@ export default class Tactical extends Store {
             attr: 'text'
         })
     }
+
+    async productExistCalculate(): Promise<void> {
+    }
 }

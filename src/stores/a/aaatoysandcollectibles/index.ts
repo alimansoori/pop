@@ -6,6 +6,10 @@ export default class Aaatoysandcollectibles extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
     }
+
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('span[id="AddToCartText"]', {timeout: 10000})

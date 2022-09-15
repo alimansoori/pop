@@ -6,6 +6,9 @@ export default class Boxzillacollectibles extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.tt-wrapper button.btn-addtocart > span:nth-child(2)', {timeout: 10000})

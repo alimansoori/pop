@@ -7,6 +7,9 @@ export default class Moosejaw extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('a[id="add2CartBtn"]', {timeout: 10000})

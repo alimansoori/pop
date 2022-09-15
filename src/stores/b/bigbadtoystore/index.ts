@@ -7,6 +7,9 @@ export default class Bigbadtoystore extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('h2.ada-product-h2.ada-order-h2', {timeout: 10000})

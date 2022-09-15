@@ -6,4 +6,7 @@ export default class Collectionsetc extends Store {
         super(page, url);
 
     }
+
+    async productExistCalculate(): Promise<void> {
+    }
 }

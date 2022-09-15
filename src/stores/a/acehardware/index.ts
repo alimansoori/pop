@@ -10,6 +10,9 @@ export default class Acehardware extends Store {
         // this.siteIsBlocked = true
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled', {timeout: 20000})

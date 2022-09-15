@@ -7,6 +7,9 @@ export default class Etundra extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.product-info meta[itemprop="availability"]', {timeout: 10000})

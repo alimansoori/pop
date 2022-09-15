@@ -7,6 +7,9 @@ export default class Burkesoutlet extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.holder-tighter > div.info-box.ribbon.black', {timeout: 10000})

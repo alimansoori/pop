@@ -8,6 +8,9 @@ export default class Bedbathandbeyond extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     /*async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[id="pdpSchemaGraph"]', {hidden: true})
     }

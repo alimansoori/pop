@@ -10,4 +10,7 @@ export default class Bookpal extends Store {
             attr: 'text'
         })
     }
+
+    async productExistCalculate(): Promise<void> {
+    }
 }

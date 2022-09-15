@@ -268,6 +268,7 @@ import Ecosmetics from "./e/ecosmetics";
 import Beautyexpert from "./b/beautyexpert";
 import Beautance from "./b/beautance";
 import Amoktime from "./a/amoktime";
+import Crystalclassics from "./c/crystalclassics";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -381,6 +382,7 @@ export default class SourceSiteFactory {
             else if (domain === 'christianbook') return new Christianbook(page, url)
             else if (domain === 'costco') return new Costco(page, url)
             else if (domain === 'cyclegear') return new Cyclegear(page, url)
+            else if (domain === 'crystalclassics') return new Crystalclassics(page, url)
             else if (domain === 'deepdiscount') return new Deepdiscount(page, url)
             else if (domain === 'dickssportinggoods') return new Dickssportinggoods(page, url)
             else if (domain === 'dillards') return new Dillards(page, url)

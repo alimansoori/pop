@@ -6,6 +6,9 @@ export default class Entirelypets extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('input[id="vwd-add-to-cart"]', {timeout: 10000})

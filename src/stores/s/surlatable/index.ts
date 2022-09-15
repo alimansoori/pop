@@ -7,6 +7,9 @@ export default class Surlatable extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('fieldset button[id="add-to-cart"]:not([disabled="disabled"])', {timeout: 10000})

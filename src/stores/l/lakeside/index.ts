@@ -10,4 +10,7 @@ export default class Lakeside extends Store {
             attr: 'text'
         })
     }
+
+    async productExistCalculate(): Promise<void> {
+    }
 }

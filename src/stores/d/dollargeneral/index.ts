@@ -7,6 +7,9 @@ export default class Dollargeneral extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('span[class="product__online-stock"]', {timeout: 10000})

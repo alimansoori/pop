@@ -7,6 +7,9 @@ export default class Cduniverse extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.AddToCartButton', {timeout: 10000})

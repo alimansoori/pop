@@ -3,6 +3,7 @@ import {Page} from "puppeteer";
 import {EnumLoadType} from "../../../@types/EnumLoadType";
 
 export default class Academy extends Store {
+
     constructor(page: Page, url: string) {
         super(page, url);
         this.loadType = EnumLoadType.DOC_LOADED

@@ -10,6 +10,9 @@ export default class Toyarena extends Store {
         this.siteIsBlocked = true
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('[id="addToCartText-product-template"]', {timeout: 10000})

@@ -6,6 +6,9 @@ export default class Banggood extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.product-action a.add-cart-btn', {timeout: 10000})

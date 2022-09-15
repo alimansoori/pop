@@ -1,15 +1,20 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
-import {click, textToNumber} from "../../../lib/helper";
+import {click} from "../../../lib/helper";
 import sleep from "../../../utils/sleep";
+import {EnumLoadType} from "../../../@types/EnumLoadType";
 
 export default class Macys extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
+        this.loadType = EnumLoadType.DOC_LOADED
+    }
+
+    async productExistCalculate(): Promise<void> {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.usShippingSelect()
+        // await this.usShippingSelect()
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
     }
 

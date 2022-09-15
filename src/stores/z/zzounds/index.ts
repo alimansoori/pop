@@ -3,8 +3,12 @@ import {Page} from "puppeteer";
 import {textToNumber} from "../../../lib/helper";
 
 export default class Zzounds extends Store {
+
     constructor(page: Page, url: string) {
         super(page, url);
+    }
+
+    async productExistCalculate(): Promise<void> {
     }
 
     async availibilityCalculate(): Promise<void> {

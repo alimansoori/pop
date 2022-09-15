@@ -9,6 +9,9 @@ export default class Nextwarehouse extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         this.setAvailability(true)
     }

@@ -8,6 +8,9 @@ export default class Bigapplecollectibles extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('main[id="MainContent"] div[id="shopify-section-product-template"] script[type="application/ld+json"]')
     }

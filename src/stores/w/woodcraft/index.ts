@@ -8,6 +8,9 @@ export default class Woodcraft extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.product-details__add-to-cart-action > button[value="add_to_cart"]', {timeout: 10000})

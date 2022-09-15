@@ -7,6 +7,9 @@ export default class Beallsflorida extends Store {
         super(page, url);
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="add2CartBtn"]:not(.disabled)', {timeout: 10000})

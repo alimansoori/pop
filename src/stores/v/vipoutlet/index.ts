@@ -9,6 +9,9 @@ export default class Vipoutlet extends Store {
         // this.siteIsBlocked = true
     }
 
+    async productExistCalculate(): Promise<void> {
+    }
+
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
     }
