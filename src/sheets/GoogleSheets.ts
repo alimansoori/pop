@@ -110,8 +110,8 @@ export default class GoogleSheets {
             this.jsonSetting.row = i
             await writeSetting(this.jsonSetting, this.settingFile)
 
-            rows = await dataBaseSheet.getRows()
-            rowsLength = rows.length
+            // rows = await dataBaseSheet.getRows()
+            // rowsLength = rows.length
 
             if (i >= (rowsLength - 2)) {
                 i = 0

@@ -1,15 +1,18 @@
 import Store from "../../Store";
 import {Page} from "puppeteer";
 import {textToNumber} from "../../../lib/helper";
+import {EnumLoadType} from "../../../@types/EnumLoadType";
 
 export default class Acehardware extends Store {
     constructor(page: Page, url: string) {
         super(page, url);
+        this.loadType = EnumLoadType.NET0
+        // this.siteIsBlocked = true
     }
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled', {timeout: 10000})
+            await this.page.waitForSelector('button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled', {timeout: 20000})
             const availability = await this.page.$eval('button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled', elem => elem.getAttribute('id'))
 
             if (availability === "add-to-cart") {

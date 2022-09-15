@@ -6,7 +6,7 @@ export async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            "https://www.hsn.com/products/wrebbit-harry-potter-diagon-alley-450-piece-3d-puzzle/20352240"
+            "https://amoktime.com/hasbro-star-wars-black-series-50th-anniversary-darth-maul-sith-apprentice/"
         )
 
         await store.scrape()

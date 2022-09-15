@@ -249,7 +249,7 @@ import Popsandbeyond from "./p/popsandbeyond";
 import Booksamillion from "./b/booksamillion";
 import Coolstuffinc from "./c/coolstuffinc";
 import Stockx from "./s/stockx";
-import Atomicempire from "./a/atomicempire";
+// import Atomicempire from "./a/atomicempire";
 import Pippd from "./p/pippd";
 import Officesupply from "./o/officesupply";
 import Pureformulas from "./p/pureformulas";
@@ -267,6 +267,7 @@ import Big5sportinggoods from "./b/big5sportinggoods";
 import Ecosmetics from "./e/ecosmetics";
 import Beautyexpert from "./b/beautyexpert";
 import Beautance from "./b/beautance";
+import Amoktime from "./a/amoktime";
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -301,6 +302,7 @@ export default class SourceSiteFactory {
             else if (domain === 'a-zapplianceparts') return new AZapplianceparts(page, url)
             else if (domain === 'aaatoysandcollectibles') return new Aaatoysandcollectibles(page, url)
             else if (domain === 'abbottstore') return new Abbottstore(page, url)
+            else if (domain === 'amoktime') return new Amoktime(page, url)
             else if (domain === 'abesofmaine') return new Abesofmaine(page, url)
             // else if (domain === 'abt') return new Abt(page, url)
             else if (domain === 'academy') return new Academy(page, url)
@@ -312,7 +314,10 @@ export default class SourceSiteFactory {
             else if (domain === 'activepowersports') return new Activepowersports(page, url)
             else if (domain === 'activerideshop') return new Activerideshop(page, url)
             else if (domain === 'acurite') return new Acurite(page, url)
-            else if (domain === 'atomicempire') return new Atomicempire(page, url)
+
+            // از دسترس خارج شده در آینده ادد شود
+            // else if (domain === 'atomicempire') return new Atomicempire(page, url)
+
             else if (domain === 'adafruit') return new Adafruit(page, url)
             else if (domain === 'adagio') return new Adagio(page, url)
             else if (domain === 'adenandanais') return new Adenandanais(page, url)
