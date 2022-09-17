@@ -1,21 +1,22 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Sierra extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('meta[name="og:availability"]', {timeout: 10000})
-            const availability = await this.page.$eval('meta[name="og:availability"]', elem => elem.getAttribute('content'))
+            await this.page.waitForSelector('meta[name="og:availability"]', { timeout: 10000 })
+            const availability = await this.page.$eval('meta[name="og:availability"]', (elem) =>
+                elem.getAttribute('content')
+            )
 
-            if (availability === "in stock") {
+            if (availability === 'in stock') {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -27,9 +28,9 @@ export default class Sierra extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('meta[name="product:price:amount"]', {timeout: 3000})
+            await this.page.waitForSelector('meta[name="product:price:amount"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('meta[name="product:price:amount"]', elem => elem.getAttribute('content'))
+                await this.page.$eval('meta[name="product:price:amount"]', (elem) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

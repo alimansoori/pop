@@ -1,16 +1,15 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
 
 export default class Pfaltzgraff extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
 
         this.addPriceSelector({
             selector: 'meta[property="product:price:amount"]',
-            attr: 'content'
+            attr: 'content',
         })
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 }

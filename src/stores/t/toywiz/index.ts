@@ -1,17 +1,17 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {EnumLoadType} from "../../../@types/EnumLoadType";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Toywiz extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('script[type="application/ld+json"]', {timeout: 10000})
+            await this.page.waitForSelector('script[type="application/ld+json"]', { timeout: 10000 })
             this.productExist = true
         } catch (e: any) {
             this.productExist = false

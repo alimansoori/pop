@@ -1,57 +1,57 @@
-import {EnumCatSheets} from "../@types/EnumCatSheets";
+import { EnumCatSheets } from '../@types/EnumCatSheets'
 
 export default class CategorySheet {
-    static selectSheetKey(category: string|undefined): EnumCatSheets {
+    static selectSheetKey(category: string | undefined): EnumCatSheets {
         switch (category) {
-            case "toys":
+            case 'toys':
                 return EnumCatSheets.TOYS
-            case "office":
+            case 'office':
                 return EnumCatSheets.OFFICE_PRODUCTS
-            case "kitchen":
+            case 'kitchen':
                 return EnumCatSheets.KITCHEN_DINING
-            case "musical":
+            case 'musical':
                 return EnumCatSheets.MUSICAL_INSTRUMENTS
-            case "beauty":
+            case 'beauty':
                 return EnumCatSheets.BEAUTY
-            case "health":
+            case 'health':
                 return EnumCatSheets.HEALTH
-            case "sport":
+            case 'sport':
                 return EnumCatSheets.SPORT
-            case "pet":
+            case 'pet':
                 return EnumCatSheets.PET
-            case "clothing":
+            case 'clothing':
                 return EnumCatSheets.CLOTHING
-            case "tools":
+            case 'tools':
                 return EnumCatSheets.TOOLS
-            case "grocery":
+            case 'grocery':
                 return EnumCatSheets.GROCERY
-            case "patio":
+            case 'patio':
                 return EnumCatSheets.PATIO
-            case "art":
+            case 'art':
                 return EnumCatSheets.ART
-            case "baby":
+            case 'baby':
                 return EnumCatSheets.BABY
-            case "books":
+            case 'books':
                 return EnumCatSheets.BOOKS
-            case "video_games":
+            case 'video_games':
                 return EnumCatSheets.VIDEO_GAMES
-            case "camera":
+            case 'camera':
                 return EnumCatSheets.CAMERA
-            case "consumer":
+            case 'consumer':
                 return EnumCatSheets.CONSUMER_ELECTRONIC
-            case "electronic":
+            case 'electronic':
                 return EnumCatSheets.ELECTRONIC
-            case "home":
+            case 'home':
                 return EnumCatSheets.HOME_KITCHEN
-            case "automotive":
+            case 'automotive':
                 return EnumCatSheets.AUTOMOTIVE
-            case "industrial":
+            case 'industrial':
                 return EnumCatSheets.INDUSTRIAL
-            case "cell":
+            case 'cell':
                 return EnumCatSheets.CELL_PHONES
-            case "computers":
+            case 'computers':
                 return EnumCatSheets.COMPUTERS
-            case "default":
+            case 'default':
                 return EnumCatSheets.DEFAULT
             default:
                 return EnumCatSheets.DEFAULT

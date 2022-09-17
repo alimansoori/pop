@@ -1,8 +1,8 @@
-import GoogleSheets from "./sheets/GoogleSheets";
-import {askQuestion} from "./lib/helper";
+import GoogleSheets from './sheets/GoogleSheets'
+import { askQuestion } from './lib/helper'
 
 export async function startSearchWithinSheet() {
-    const whitchSettingFile = await askQuestion("Which setting file? ")
+    const whitchSettingFile = await askQuestion('Which setting file? ')
     try {
         await run(whitchSettingFile)
     } catch (e: any) {
@@ -10,7 +10,7 @@ export async function startSearchWithinSheet() {
     }
 }
 
-export async function run(settingFile: string|unknown) {
+export async function run(settingFile: string | unknown) {
     try {
         new GoogleSheets(settingFile)
     } catch (e: any) {

@@ -1,21 +1,25 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Empiretoyshop extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('link[itemprop="availability"]', {timeout: 10000})
-            const availability = await this.page.$eval('link[itemprop="availability"]', elem => elem.getAttribute('href'))
+            await this.page.waitForSelector('link[itemprop="availability"]', { timeout: 10000 })
+            const availability = await this.page.$eval('link[itemprop="availability"]', (elem) =>
+                elem.getAttribute('href')
+            )
 
-            if (availability?.toLowerCase() === "http://schema.org/instock" || availability?.toLowerCase() === "https://schema.org/instock") {
+            if (
+                availability?.toLowerCase() === 'http://schema.org/instock' ||
+                availability?.toLowerCase() === 'https://schema.org/instock'
+            ) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -27,10 +31,8 @@ export default class Empiretoyshop extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="price"]', {timeout: 3000})
-            const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', elem => elem.textContent)
-            )
+            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
+            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {

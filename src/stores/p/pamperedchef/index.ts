@@ -1,21 +1,19 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
 
 export default class Pamperedchef extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[id="addAnchor"]', {timeout: 10000})
-            const availability = await this.page.$eval('button[id="addAnchor"]', elem => elem.textContent)
+            await this.page.waitForSelector('button[id="addAnchor"]', { timeout: 10000 })
+            const availability = await this.page.$eval('button[id="addAnchor"]', (elem) => elem.textContent)
 
-            if (availability?.toLowerCase().includes("add to cart")) {
+            if (availability?.toLowerCase().includes('add to cart')) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)

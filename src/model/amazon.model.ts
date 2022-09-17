@@ -1,8 +1,6 @@
-import {database} from "../lib/config/database";
-import {Model} from "sequelize";
+import { Model } from 'sequelize'
 
-class AmazonModel extends Model {
-}
+class AmazonModel extends Model {}
 
 AmazonModel.sync()
 export default AmazonModel

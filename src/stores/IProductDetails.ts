@@ -1,4 +1,3 @@
-
 export default interface IProductDetails {
     productExistCalculate(): Promise<void>
     productTitleCalculate(): Promise<void>

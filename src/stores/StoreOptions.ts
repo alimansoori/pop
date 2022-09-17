@@ -1,11 +1,11 @@
-import IStoreOptions from "./IStoreOptions";
+import IStoreOptions from './IStoreOptions'
 
 export default class StoreOptions implements IStoreOptions {
-    private isCategoryTreeNavigate: boolean = false
+    private isCategoryTreeNavigate = false
 
     setIsCategoryTreeNavigate(isTree: boolean): this {
         this.isCategoryTreeNavigate = isTree
-        return this;
+        return this
     }
 
     hasCategoryTreeNavigate(): boolean {

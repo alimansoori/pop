@@ -1,24 +1,28 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
-import {EnumLoadType} from "../../../@types/EnumLoadType";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Acehardware extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
-        this.loadType = EnumLoadType.NET0
-        // this.siteIsBlocked = true
+        super(page, url)
+        this.loadType = EnumLoadType.LOAD
+        this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled', {timeout: 20000})
-            const availability = await this.page.$eval('button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled', elem => elem.getAttribute('id'))
+            await this.page.waitForSelector('button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled', {
+                timeout: 20000,
+            })
+            const availability = await this.page.$eval(
+                'button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled',
+                (elem) => elem.getAttribute('id')
+            )
 
-            if (availability === "add-to-cart") {
+            if (availability === 'add-to-cart') {
                 this.setAvailability(false)
             } else {
                 this.setAvailability(true)
@@ -30,10 +34,10 @@ export default class Acehardware extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('span[itemprop="price"]', {timeout: 3000})
-            const price = textToNumber(
-                await this.page.$eval('span[itemprop="price"]', elem => elem.textContent)
-            )
+            await this.page.waitForSelector('span[itemprop="price"]', {
+                timeout: 3000,
+            })
+            const price = textToNumber(await this.page.$eval('span[itemprop="price"]', (elem) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {

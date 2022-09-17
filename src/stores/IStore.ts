@@ -1,8 +1,8 @@
-import {Page} from "puppeteer";
-import {TypePriceSelector, TypePriceSelectors} from "../@types/TypePriceSelectors";
-import ISelectors from "./ISelectors";
-import IStoreOptions from "./IStoreOptions";
-import ProductTitle from "./ProductTitle";
+import { Page } from 'puppeteer'
+import { TypePriceSelector } from '../@types/TypePriceSelectors'
+import ISelectors from './ISelectors'
+import IStoreOptions from './IStoreOptions'
+import ProductTitle from './ProductTitle'
 
 export default interface IStore {
     productIsExist(): boolean

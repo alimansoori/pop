@@ -1,21 +1,22 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Scheels extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button#add-to-cart:not([disabled="disabled"])', {timeout: 10000})
-            const availability = await this.page.$eval('button#add-to-cart:not([disabled="disabled"])', elem => elem.getAttribute('value'))
+            await this.page.waitForSelector('button#add-to-cart:not([disabled="disabled"])', { timeout: 10000 })
+            const availability = await this.page.$eval('button#add-to-cart:not([disabled="disabled"])', (elem) =>
+                elem.getAttribute('value')
+            )
 
-            if (availability === "Ship It") {
+            if (availability === 'Ship It') {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -27,9 +28,9 @@ export default class Scheels extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('div#product-content span[itemprop="price"]', {timeout: 3000})
+            await this.page.waitForSelector('div#product-content span[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('div#product-content span[itemprop="price"]', elem => elem.textContent)
+                await this.page.$eval('div#product-content span[itemprop="price"]', (elem) => elem.textContent)
             )
 
             this.setPrice(price)

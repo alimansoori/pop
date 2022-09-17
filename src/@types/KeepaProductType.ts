@@ -1,22 +1,22 @@
 export type KeepaProductType = {
-    csv: any[],
-    categories: number[] | null,
-    imagesCSV: string | null,
-    manufacturer: string | null,
-    title: string | null,
-    asin: string,
+    csv: any[]
+    categories: number[] | null
+    imagesCSV: string | null
+    manufacturer: string | null
+    title: string | null
+    asin: string
     brand: string | null
-    packageHeight: number,
-    packageLength: number,
-    packageWidth: number,
-    packageWeight: number,
-    packageQuantity: number,
-    buyBoxIsAmazon: boolean,
-    categoryTree: any[] | null,
+    packageHeight: number
+    packageLength: number
+    packageWidth: number
+    packageWeight: number
+    packageQuantity: number
+    buyBoxIsAmazon: boolean
+    categoryTree: any[] | null
     stats: {
-        buyBoxPrice: number,
-        buyBoxIsFBA: boolean,
-        buyBoxIsAmazon: boolean,
+        buyBoxPrice: number
+        buyBoxIsFBA: boolean
+        buyBoxIsAmazon: boolean
         buyBoxIsUsed: boolean
     }
 }

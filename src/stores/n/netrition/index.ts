@@ -1,11 +1,10 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
 
 export default class Netrition extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 }

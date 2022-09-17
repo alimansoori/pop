@@ -1,21 +1,20 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Cduniverse extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('div.AddToCartButton', {timeout: 10000})
-            const availability = await this.page.$eval('div.AddToCartButton', elem => elem.textContent)
+            await this.page.waitForSelector('div.AddToCartButton', { timeout: 10000 })
+            const availability = await this.page.$eval('div.AddToCartButton', (elem) => elem.textContent)
 
-            if (availability?.toLowerCase() === "add to cart") {
+            if (availability?.toLowerCase() === 'add to cart') {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -27,10 +26,8 @@ export default class Cduniverse extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('span[itemprop="price"]', {timeout: 3000})
-            const price = textToNumber(
-                await this.page.$eval('span[itemprop="price"]', elem => elem.textContent)
-            )
+            await this.page.waitForSelector('span[itemprop="price"]', { timeout: 3000 })
+            const price = textToNumber(await this.page.$eval('span[itemprop="price"]', (elem) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {

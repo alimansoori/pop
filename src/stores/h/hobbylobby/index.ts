@@ -1,19 +1,20 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Hobbylobby extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[id="addToCartButton"]', {timeout: 10000})
-            const availability = await this.page.$eval('button[id="addToCartButton"]', elem => elem.getAttribute('id'))
+            await this.page.waitForSelector('button[id="addToCartButton"]', { timeout: 10000 })
+            const availability = await this.page.$eval('button[id="addToCartButton"]', (elem) =>
+                elem.getAttribute('id')
+            )
 
             if (availability === 'addToCartButton') {
                 this.setAvailability(true)
@@ -27,16 +28,16 @@ export default class Hobbylobby extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('span[class="current sale-price sale-price-copy"]', {timeout: 3000})
+            await this.page.waitForSelector('span[class="current sale-price sale-price-copy"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('span[class="current sale-price sale-price-copy"]', elem => elem.textContent)
+                await this.page.$eval('span[class="current sale-price sale-price-copy"]', (elem) => elem.textContent)
             )
 
             if (price) this.setPrice(price)
             else {
-                await this.page.waitForSelector('span[class="current current-price-copy"]', {timeout: 3000})
+                await this.page.waitForSelector('span[class="current current-price-copy"]', { timeout: 3000 })
                 const price2 = textToNumber(
-                    await this.page.$eval('span[class="current current-price-copy"]', elem => elem.textContent)
+                    await this.page.$eval('span[class="current current-price-copy"]', (elem) => elem.textContent)
                 )
                 this.setPrice(price2)
             }

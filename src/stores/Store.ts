@@ -1,34 +1,32 @@
-import {Page} from "puppeteer";
-import IStore from "./IStore";
-import {TypePriceSelector, TypePriceSelectors} from "../@types/TypePriceSelectors";
-import Objectt from "../lib/Object";
-import Url from "../lib/Url";
-import {textToNumber} from "../lib/helper";
-import sleep from "../utils/sleep";
-import ISelectors from "./ISelectors";
-import CssSelectors from "./CssSelectors";
-import IStoreOptions from "./IStoreOptions";
-import StoreOptions from "./StoreOptions";
-import IProductDetails from "./IProductDetails";
-import {EnumLoadType} from "../@types/EnumLoadType";
-import ProductTitle from "./ProductTitle";
+import { Page } from 'puppeteer'
+import IStore from './IStore'
+import { TypePriceSelector, TypePriceSelectors } from '../@types/TypePriceSelectors'
+import Url from '../lib/Url'
+import sleep from '../utils/sleep'
+import ISelectors from './ISelectors'
+import CssSelectors from './CssSelectors'
+import IStoreOptions from './IStoreOptions'
+import StoreOptions from './StoreOptions'
+import IProductDetails from './IProductDetails'
+import { EnumLoadType } from '../@types/EnumLoadType'
+import ProductTitle from './ProductTitle'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
     protected page: Page
     protected url: string
-    protected pageParam: string = 'page'
+    protected pageParam = 'page'
     protected categoriesUrl: string[] = []
-    protected addToCartBtnContent: string = ''
-    protected availability: boolean = false
-    protected isScrollDown: boolean = false
-    protected price: number = NaN
+    protected addToCartBtnContent = ''
+    protected availability = false
+    protected isScrollDown = false
+    protected price = NaN
     protected selectorsPrice: TypePriceSelectors = {}
     private readonly selectorsP: ISelectors
     private readonly optionsP: IStoreOptions
     protected loadType: EnumLoadType = EnumLoadType.LOAD
-    protected productExist: boolean = true
-    protected siteIsBlocked: boolean = false
+    protected productExist = true
+    protected siteIsBlocked = false
 
     protected constructor(page: Page, url: string) {
         this.page = page
@@ -86,59 +84,28 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     getUrl(): string {
-        return this.url;
-    }
-
-    private async fetchPrice() {
-        if (Objectt.isEmpty(this.getPriceSelectors())) {
-            throw new Error(`Please set selectors for domain ${this.getDomain()}`)
-        }
-
-        for (const [key, value] of Object.entries(this.getPriceSelectors())) {
-            try {
-                await this.page.waitForSelector(value.selector, {timeout: 5000})
-                if (value.attr === 'text') {
-                    this.setPrice(
-                        textToNumber(await this.page.$eval(value.selector, elem => elem.textContent))
-                    )
-                } else {
-                    const attr: string = value.attr
-                    this.setPrice(
-                        textToNumber(
-                            await this.page.$eval(
-                                value.selector,
-                                (elem, _attr) => typeof _attr === "string" ? elem.getAttribute(_attr) : '',
-                                attr
-                            )
-                        )
-                    )
-                }
-                break;
-            } catch (e: any) {
-                console.log(`Not Found Price in ${this.getUrl()} with selector: ${value.selector} and Attribute: ${value.attr}`)
-                console.log(e.message)
-            }
-        }
+        return this.url
     }
 
     async scrape(): Promise<void> {
-        let url = this.getUrl();
+        let url = this.getUrl()
 
-        const scrapUrl = "https://api.scraperapi.com/?api_key=4bd0f31c8a7cb7c2dbd60e8b7e79c9f3&country_code=us&url=" + url
+        const scrapUrl =
+            'https://api.scraperapi.com/?api_key=4bd0f31c8a7cb7c2dbd60e8b7e79c9f3&country_code=us&url=' + url
         switch (this.getDomain()) {
-            case "walmart":
+            case 'walmart':
                 url = scrapUrl
                 break
-            case "boxed":
+            case 'boxed':
                 url = url = scrapUrl
                 break
-            case "knifecenter":
+            case 'knifecenter':
                 url = url = scrapUrl
                 break
-            case "pharmaca":
+            case 'pharmaca':
                 url = url = scrapUrl
                 break
-            case "acmetools":
+            case 'acmetools':
                 url = url = scrapUrl
                 break
             default:
@@ -150,7 +117,7 @@ abstract class Store implements IStore, IProductDetails {
         }
 
         try {
-            await this.page.goto(url, {timeout: 100000, waitUntil: this.loadType})
+            await this.page.goto(url, { timeout: 100000, waitUntil: this.loadType })
         } catch (e: any) {
             await this.page.close()
         }
@@ -178,10 +145,10 @@ abstract class Store implements IStore, IProductDetails {
         if (!this.isScrollDown) return false
         const pageHeight = await this.page.evaluate(() => {
             return document.body.scrollHeight
-        });
+        })
 
         for (let i = 0; i < pageHeight; i = i + 50) {
-            await this.page.mouse.wheel({deltaY: i})
+            await this.page.mouse.wheel({ deltaY: i })
             await sleep(400)
         }
         return true
@@ -191,7 +158,7 @@ abstract class Store implements IStore, IProductDetails {
         if (!this.selectors().getNextPage()) return false
 
         try {
-            await this.page.waitForSelector(this.selectors().getNextPage(), {timeout: 5000})
+            await this.page.waitForSelector(this.selectors().getNextPage(), { timeout: 5000 })
             return true
         } catch (e: any) {
             return false
@@ -209,38 +176,39 @@ abstract class Store implements IStore, IProductDetails {
 
     setPageParam(pageParamName: string): this {
         this.pageParam = pageParamName
-        return this;
+        return this
     }
 
     getPageParam(): string {
-        return this.pageParam;
+        return this.pageParam
     }
 
     getAddToCartBtnContent(): string {
-        return this.addToCartBtnContent;
+        return this.addToCartBtnContent
     }
 
     abstract productExistCalculate(): Promise<void>
 
     async productTitleCalculate(): Promise<void> {
-        return Promise.resolve(undefined);
+        return Promise.resolve(undefined)
     }
 
     async availibilityCalculate(): Promise<void> {
-        return Promise.resolve(undefined);
+        return Promise.resolve(undefined)
     }
 
     protected async checkAvailibilityBySchemas(selector: string, options = {}): Promise<void> {
         const newOption = {
             timeout: 10000,
-            ...options
+            ...options,
         }
         try {
             await this.page.waitForSelector(selector, newOption)
-            const jsonSchemas = await this.page.$$eval(selector, elem => elem.map(el => el.textContent?.trim().replace(';', '')))
+            const jsonSchemas = await this.page.$$eval(selector, (elem) =>
+                elem.map((el) => el.textContent?.trim().replace(';', ''))
+            )
 
             this.iterateAvalabilitySchemas(jsonSchemas)
-
         } catch (e: any) {
             console.log(e.message)
             this.setAvailability(false)
@@ -251,7 +219,7 @@ abstract class Store implements IStore, IProductDetails {
         for (let i = 0; i < jsonSchemas.length; i++) {
             let jsonSchemaParse = jsonSchemas[i]
 
-            jsonSchemaParse = (typeof jsonSchemas[i] === 'string') ? JSON.parse(jsonSchemas[i] as string) : jsonSchemas[i]
+            jsonSchemaParse = typeof jsonSchemas[i] === 'string' ? JSON.parse(jsonSchemas[i] as string) : jsonSchemas[i]
             if (jsonSchemaParse?.mainEntity) {
                 jsonSchemaParse = jsonSchemaParse?.mainEntity
             } else if (jsonSchemaParse?.productLdJson) {
@@ -259,7 +227,7 @@ abstract class Store implements IStore, IProductDetails {
             } else if (jsonSchemaParse?.['@graph']) {
                 this.iterateAvalabilitySchemas(jsonSchemaParse?.['@graph'])
                 return
-            } else if (jsonSchemaParse?.['@type'] === "ItemList" && jsonSchemaParse.itemListElement) {
+            } else if (jsonSchemaParse?.['@type'] === 'ItemList' && jsonSchemaParse.itemListElement) {
                 this.iterateAvalabilitySchemas([jsonSchemaParse.itemListElement[0].item])
                 return
             }
@@ -282,27 +250,24 @@ abstract class Store implements IStore, IProductDetails {
             this.offerCalc(jsonSchemaParse?.offers)
             return
         }
-        if (
-            jsonSchemaParse?.offers?.availability?.toLowerCase()?.includes("instock")
-        ) {
+        if (jsonSchemaParse?.offers?.availability?.toLowerCase()?.includes('instock')) {
             this.setAvailability(true)
             if (
-                jsonSchemaParse?.offers?.itemCondition?.toLowerCase()?.includes("used") ||
-                jsonSchemaParse?.offers?.itemCondition?.toLowerCase()?.includes("preorder") ||
-                jsonSchemaParse?.offers?.itemCondition?.toLowerCase()?.includes("pre-order")
+                jsonSchemaParse?.offers?.itemCondition?.toLowerCase()?.includes('used') ||
+                jsonSchemaParse?.offers?.itemCondition?.toLowerCase()?.includes('preorder') ||
+                jsonSchemaParse?.offers?.itemCondition?.toLowerCase()?.includes('pre-order')
             ) {
                 this.setAvailability(false)
             }
         } else if (Array.isArray(jsonSchemaParse?.offers)) {
             for (let i = 0; i < jsonSchemaParse?.offers.length; i++) {
-                if (jsonSchemaParse?.offers[i]?.availability?.toLowerCase()?.includes("instock")
-                ) {
+                if (jsonSchemaParse?.offers[i]?.availability?.toLowerCase()?.includes('instock')) {
                     this.setAvailability(true)
                 }
                 if (
-                    jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes("used") ||
-                    jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes("preorder") ||
-                    jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes("pre-order")
+                    jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes('used') ||
+                    jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes('preorder') ||
+                    jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes('pre-order')
                 ) {
                     this.setAvailability(false)
                     continue
@@ -312,17 +277,19 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     async priceCalculate(): Promise<void> {
-        return Promise.resolve(undefined);
+        return Promise.resolve(undefined)
     }
 
     protected async checkPriceBySchemas(selector: string, options = {}): Promise<void> {
         const newOption = {
             timeout: 10000,
-            ...options
+            ...options,
         }
         try {
             await this.page.waitForSelector(selector, newOption)
-            const jsonSchemas = await this.page.$$eval(selector, elem => elem.map(el => el.textContent?.trim().replace(';', '')))
+            const jsonSchemas = await this.page.$$eval(selector, (elem) =>
+                elem.map((el) => el.textContent?.trim().replace(';', ''))
+            )
             this.iteratePriceSchemas(jsonSchemas)
         } catch (e: any) {
             this.setPrice(NaN)
@@ -332,7 +299,7 @@ abstract class Store implements IStore, IProductDetails {
     private iteratePriceSchemas(jsonSchemas: any[]) {
         for (let i = 0; i < jsonSchemas.length; i++) {
             let jsonSchemaParse = jsonSchemas[i]
-            jsonSchemaParse = (typeof jsonSchemas[i] === 'string') ? JSON.parse(jsonSchemas[i] as string) : jsonSchemas[i]
+            jsonSchemaParse = typeof jsonSchemas[i] === 'string' ? JSON.parse(jsonSchemas[i] as string) : jsonSchemas[i]
             if (jsonSchemaParse?.mainEntity) {
                 jsonSchemaParse = jsonSchemaParse?.mainEntity
             } else if (jsonSchemaParse?.productLdJson) {
@@ -340,7 +307,7 @@ abstract class Store implements IStore, IProductDetails {
             } else if (jsonSchemaParse?.['@graph']) {
                 this.iteratePriceSchemas(jsonSchemaParse?.['@graph'])
                 return
-            } else if (jsonSchemaParse?.['@type'] === "ItemList" && jsonSchemaParse.itemListElement) {
+            } else if (jsonSchemaParse?.['@type'] === 'ItemList' && jsonSchemaParse.itemListElement) {
                 this.iteratePriceSchemas([jsonSchemaParse.itemListElement[0].item])
                 return
             }
@@ -352,7 +319,7 @@ abstract class Store implements IStore, IProductDetails {
         if (jsonSchemaParse?.offers) {
             if (jsonSchemaParse?.offers?.offers) {
                 this.priceCalc(jsonSchemaParse?.offers)
-                return;
+                return
             }
             if (jsonSchemaParse?.offers?.price) {
                 this.setPrice(jsonSchemaParse?.offers?.price)
@@ -399,16 +366,15 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     private async pageNav(index: number): Promise<void> {
-        await this.page.goto(this.categoriesUrl[index], {waitUntil: "load"})
+        await this.page.goto(this.categoriesUrl[index], { waitUntil: 'load' })
 
         // Scroll
         await this.scrollDown()
 
         // Next Page
 
-        if (await this.hasNextPage()) {
-
-        }
+        /*if (await this.hasNextPage()) {
+        }*/
     }
 }
 

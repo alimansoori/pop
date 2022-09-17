@@ -1,9 +1,9 @@
-import {URL} from "url";
+import { URL } from 'url'
 
 export default class Url {
     static getDomain(url: string): string | undefined {
-        const regex_var = new RegExp(/(\.[^\.]{0,2})(\.[^\.]{0,2})(\.*$)|(\.[^\.]*)(\.*$)/);
-        return ((new URL(url)).hostname).replace(regex_var, '').split('.').pop();
+        const regex_var = new RegExp(/(\.[^.]{0,2})(\.[^.]{0,2})(\.*$)|(\.[^.]*)(\.*$)/)
+        return new URL(url).hostname.replace(regex_var, '').split('.').pop()
     }
 
     static insertParam(url: string, key: string, value: string): string {
@@ -16,18 +16,16 @@ export default class Url {
     }
 
     static isValidHttpUrl(url: string): boolean {
-
         let newUrl
         try {
-            newUrl = new URL(url);
+            newUrl = new URL(url)
         } catch (_) {
-            return false;
+            return false
         }
 
-        return newUrl.protocol === "http:" || newUrl.protocol === "https:";
+        return newUrl.protocol === 'http:' || newUrl.protocol === 'https:'
     }
     static amazonUrlByAsin(asin: string): string {
         return `https://amazon.com/dp/${asin}`
     }
-
 }

@@ -1,28 +1,28 @@
-import ISelectors from "./ISelectors";
-import {TypePriceSelector, TypePriceSelectors} from "../@types/TypePriceSelectors";
+import ISelectors from './ISelectors'
+import { TypePriceSelector, TypePriceSelectors } from '../@types/TypePriceSelectors'
 
 export default class CssSelectors implements ISelectors {
-    private categoryBlock: string = ''
-    private categoryMultiplication: string = 'page'
-    private categoryPagination: string = ''
-    private categoryProductAvailability: string = ''
-    private categoryProductBlock: string = ''
-    private categoryProductImg: string = ''
-    private categoryProductPrice: string = ''
-    private categoryProductTitle: string = ''
-    private categoryProductTitle2: string = ''
-    private categoryProductUPC: string = ''
-    private categoryProductUrl: string = ''
-    private productAvailability: string = ''
-    private productImg: string = ''
-    private productUPC: string = ''
+    private categoryBlock = ''
+    private categoryMultiplication = 'page'
+    private categoryPagination = ''
+    private categoryProductAvailability = ''
+    private categoryProductBlock = ''
+    private categoryProductImg = ''
+    private categoryProductPrice = ''
+    private categoryProductTitle = ''
+    private categoryProductTitle2 = ''
+    private categoryProductUPC = ''
+    private categoryProductUrl = ''
+    private productAvailability = ''
+    private productImg = ''
+    private productUPC = ''
     private productPrice: TypePriceSelectors = {}
-    private productTitle: string = ''
-    private productTitle2: string = ''
-    private nextPage: string = ''
-    private seeMore: string = ''
-    private addToCartBtn: string = ''
-    private addToCartBtnContent: string = ''
+    private productTitle = ''
+    private productTitle2 = ''
+    private nextPage = ''
+    private seeMore = ''
+    private addToCartBtn = ''
+    private addToCartBtnContent = ''
 
     setCategoryBlock(selector: string): this {
         this.categoryBlock = selector
@@ -34,127 +34,127 @@ export default class CssSelectors implements ISelectors {
     }
 
     getCategoryMultiplication(): string {
-        return this.categoryMultiplication;
+        return this.categoryMultiplication
     }
 
     getCategoryPagination(): string {
-        return this.categoryPagination;
+        return this.categoryPagination
     }
 
     getCategoryProductAvailability(): string {
-        return this.categoryProductAvailability;
+        return this.categoryProductAvailability
     }
 
     getCategoryProductBlock(): string {
-        return this.categoryProductBlock;
+        return this.categoryProductBlock
     }
 
     getCategoryProductImg(): string {
-        return this.categoryProductImg;
+        return this.categoryProductImg
     }
 
     getCategoryProductPrice(): string {
-        return this.categoryProductPrice;
+        return this.categoryProductPrice
     }
 
     getCategoryProductTitle(): string {
-        return this.categoryProductTitle;
+        return this.categoryProductTitle
     }
 
     getCategoryProductTitle2(): string {
-        return this.categoryProductTitle2;
+        return this.categoryProductTitle2
     }
 
     getCategoryProductUPC(): string {
-        return this.categoryProductUPC;
+        return this.categoryProductUPC
     }
 
     getCategoryProductUrl(): string {
-        return this.categoryProductUrl;
+        return this.categoryProductUrl
     }
 
     getProductAvailability(): string {
-        return this.productAvailability;
+        return this.productAvailability
     }
 
     getProductImg(): string {
-        return this.productImg;
+        return this.productImg
     }
 
     getProductPrice(): TypePriceSelectors {
-        return this.productPrice;
+        return this.productPrice
     }
 
     getProductTitle(): string {
-        return this.productTitle;
+        return this.productTitle
     }
 
     getProductTitle2(): string {
-        return this.productTitle2;
+        return this.productTitle2
     }
 
     getProductUPC(): string {
-        return this.productUPC;
+        return this.productUPC
     }
 
     setCategoryMultiplication(selector: string): this {
         this.categoryMultiplication = selector
-        return this;
+        return this
     }
 
     setCategoryPagination(selector: string): this {
         this.categoryPagination = selector
-        return this;
+        return this
     }
 
     setCategoryProductAvailability(selector: string): this {
         this.categoryProductAvailability = selector
-        return this;
+        return this
     }
 
     setCategoryProductBlock(selector: string): this {
         this.categoryProductBlock = selector
-        return this;
+        return this
     }
 
     setCategoryProductImg(selector: string): this {
         this.categoryProductImg = selector
-        return this;
+        return this
     }
 
     setCategoryProductPrice(selector: string): this {
         this.categoryProductPrice = selector
-        return this;
+        return this
     }
 
     setCategoryProductTitle(selector: string): this {
         this.categoryProductTitle = selector
-        return this;
+        return this
     }
 
     setCategoryProductTitle2(selector: string): this {
         this.categoryProductTitle2 = selector
-        return this;
+        return this
     }
 
     setCategoryProductUPC(selector: string): this {
         this.categoryProductUrl = selector
-        return this;
+        return this
     }
 
     setCategoryProductUrl(selector: string): this {
         this.categoryProductUrl = selector
-        return this;
+        return this
     }
 
     setProductAvailability(selector: string): this {
         this.productAvailability = selector
-        return this;
+        return this
     }
 
     setProductImg(selector: string): this {
         this.productImg = selector
-        return this;
+        return this
     }
 
     addProductPrice(selector: TypePriceSelector): this {
@@ -164,17 +164,17 @@ export default class CssSelectors implements ISelectors {
 
     setProductTitle(selector: string): this {
         this.productTitle = selector
-        return this;
+        return this
     }
 
     setProductTitle2(selector: string): this {
         this.productTitle2 = selector
-        return this;
+        return this
     }
 
     setProductUPC(selector: string): this {
         this.productUPC = selector
-        return this;
+        return this
     }
 
     getAddToCartBtn(): string {

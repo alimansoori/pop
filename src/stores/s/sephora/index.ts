@@ -1,22 +1,23 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
-import {EnumLoadType} from "../../../@types/EnumLoadType";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Sephora extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[data-at="add_to_basket_btn"] > span', {timeout: 10000})
-            const availability = await this.page.$eval('button[data-at="add_to_basket_btn"] > span', elem => elem.textContent)
+            await this.page.waitForSelector('button[data-at="add_to_basket_btn"] > span', { timeout: 10000 })
+            const availability = await this.page.$eval(
+                'button[data-at="add_to_basket_btn"] > span',
+                (elem) => elem.textContent
+            )
 
-            if (availability?.toLowerCase().includes("add to basket")) {
+            if (availability?.toLowerCase().includes('add to basket')) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -28,10 +29,8 @@ export default class Sephora extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('span.css-7lbkes b.css-0', {timeout: 3000})
-            const price = textToNumber(
-                await this.page.$eval('span.css-7lbkes b.css-0', elem => elem.textContent)
-            )
+            await this.page.waitForSelector('span.css-7lbkes b.css-0', { timeout: 3000 })
+            const price = textToNumber(await this.page.$eval('span.css-7lbkes b.css-0', (elem) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {

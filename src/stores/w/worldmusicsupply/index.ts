@@ -1,23 +1,21 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {EnumLoadType} from "../../../@types/EnumLoadType";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Worldmusicsupply extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
         // this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*.availability > span', {timeout: 10000})
-            const availability = await this.page.$eval('*.availability > span', elem => elem.textContent)
+            await this.page.waitForSelector('*.availability > span', { timeout: 10000 })
+            const availability = await this.page.$eval('*.availability > span', (elem) => elem.textContent)
 
-            if (availability?.toLowerCase().includes("instock") || availability?.toLowerCase().includes("in stock")) {
+            if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -29,9 +27,12 @@ export default class Worldmusicsupply extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*.special-price > *.price, *.regular-price > *.price', {timeout: 3000})
+            await this.page.waitForSelector('*.special-price > *.price, *.regular-price > *.price', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('*.special-price > *.price, *.regular-price > *.price', elem => elem.textContent)
+                await this.page.$eval(
+                    '*.special-price > *.price, *.regular-price > *.price',
+                    (elem) => elem.textContent
+                )
             )
 
             this.setPrice(price)

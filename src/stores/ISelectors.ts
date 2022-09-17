@@ -1,4 +1,4 @@
-import {TypePriceSelector, TypePriceSelectors} from "../@types/TypePriceSelectors";
+import { TypePriceSelector, TypePriceSelectors } from '../@types/TypePriceSelectors'
 
 export default interface ISelectors {
     setCategoryBlock(selector: string): this

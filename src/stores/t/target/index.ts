@@ -1,15 +1,15 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Target extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
     async productExistCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('h1[data-test="product-title"]', {timeout: 10000})
+            await this.page.waitForSelector('h1[data-test="product-title"]', { timeout: 10000 })
         } catch (e: any) {
             this.productExist = false
         }
@@ -17,20 +17,18 @@ export default class Target extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            let shippingButton = false
             try {
-                await this.page.waitForSelector('button[data-test="fulfillment-cell-shipping"]', {timeout: 10000})
+                await this.page.waitForSelector('button[data-test="fulfillment-cell-shipping"]', { timeout: 10000 })
                 await this.page.click('button[data-test="fulfillment-cell-shipping"]')
-                shippingButton = true
-            } catch (e:any) {
-
+            } catch (e: any) {
+                console.log(e.message)
             }
 
-            await this.page.waitForSelector('button[data-test="shippingButton"]', {timeout: 10000})
+            await this.page.waitForSelector('button[data-test="shippingButton"]', { timeout: 10000 })
 
-            const availability = await this.page.$eval('button[data-test="shippingButton"]', elem => elem.textContent)
+            const availability = await this.page.$eval('button[data-test="shippingButton"]', (elem) => elem.textContent)
 
-            if (availability === "Add to cart") {
+            if (availability === 'Add to cart') {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -42,9 +40,9 @@ export default class Target extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('span[data-test="product-price"]', {timeout: 5000})
+            await this.page.waitForSelector('span[data-test="product-price"]', { timeout: 5000 })
             const price = textToNumber(
-                await this.page.$eval('span[data-test="product-price"]', elem => elem.textContent)
+                await this.page.$eval('span[data-test="product-price"]', (elem) => elem.textContent)
             )
 
             this.setPrice(price)

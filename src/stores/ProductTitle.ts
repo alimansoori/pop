@@ -1,9 +1,7 @@
+export default class ProductTitle {
+    _title = ''
 
-export default class ProductTitle{
-    _title: string = ""
-
-    constructor() {
-    }
+    constructor() {}
 
     getTitle(): string {
         return this._title
@@ -14,12 +12,7 @@ export default class ProductTitle{
     }
 
     isValid(): boolean {
-        const invalidTexts = [
-            "used",
-            "pre-order",
-            "pre order",
-            "damaged package"
-        ]
+        const invalidTexts = ['used', 'pre-order', 'pre order', 'damaged package']
 
         for (let i = 0; i < invalidTexts.length; i++) {
             if (this._title.toLowerCase().includes(invalidTexts[i].toLowerCase())) {
@@ -30,20 +23,3 @@ export default class ProductTitle{
         return true
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

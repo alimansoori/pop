@@ -1,21 +1,22 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Calendars extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[id="add-to-cart"]:not(.button_disabled)', {timeout: 10000})
-            const availability = await this.page.$eval('button[id="add-to-cart"]:not(.button_disabled)', elem => elem.getAttribute('id'))
+            await this.page.waitForSelector('button[id="add-to-cart"]:not(.button_disabled)', { timeout: 10000 })
+            const availability = await this.page.$eval('button[id="add-to-cart"]:not(.button_disabled)', (elem) =>
+                elem.getAttribute('id')
+            )
 
-            if (availability === "add-to-cart") {
+            if (availability === 'add-to-cart') {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -27,9 +28,9 @@ export default class Calendars extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('div#product-detail span[itemprop="price"]', {timeout: 3000})
+            await this.page.waitForSelector('div#product-detail span[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('div#product-detail span[itemprop="price"]', elem => elem.textContent)
+                await this.page.$eval('div#product-detail span[itemprop="price"]', (elem) => elem.textContent)
             )
 
             this.setPrice(price)

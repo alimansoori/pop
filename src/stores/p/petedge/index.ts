@@ -1,21 +1,25 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Petedge extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('div.stock-information-container > p[class^="stock-message"]', {timeout: 10000})
-            const availability = await this.page.$eval('div.stock-information-container > p[class^="stock-message"]', elem => elem.textContent)
+            await this.page.waitForSelector('div.stock-information-container > p[class^="stock-message"]', {
+                timeout: 10000,
+            })
+            const availability = await this.page.$eval(
+                'div.stock-information-container > p[class^="stock-message"]',
+                (elem) => elem.textContent
+            )
 
-            if (availability === "In Stock") {
+            if (availability === 'In Stock') {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -27,9 +31,9 @@ export default class Petedge extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('meta[property="product:price:amount"]', {timeout: 3000})
+            await this.page.waitForSelector('meta[property="product:price:amount"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('meta[property="product:price:amount"]', elem => elem.getAttribute('content'))
+                await this.page.$eval('meta[property="product:price:amount"]', (elem) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

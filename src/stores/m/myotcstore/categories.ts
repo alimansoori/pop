@@ -1,5 +1,5 @@
 export const categories = [
-    "https://www.myotcstore.com/senior-store/",
+    'https://www.myotcstore.com/senior-store/',
     // "https://www.myotcstore.com/sale/",
     // "https://www.myotcstore.com/household/",
     // "https://www.myotcstore.com/supplements-fitness/",

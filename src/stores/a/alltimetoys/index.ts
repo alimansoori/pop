@@ -1,21 +1,20 @@
-import Store from "../../Store";
-import {Page} from "puppeteer";
-import {textToNumber} from "../../../lib/helper";
+import Store from '../../Store'
+import { Page } from 'puppeteer'
+import { textToNumber } from '../../../lib/helper'
 
 export default class Alltimetoys extends Store {
     constructor(page: Page, url: string) {
-        super(page, url);
+        super(page, url)
     }
 
-    async productExistCalculate(): Promise<void> {
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('div[title="Availability"] > span', {timeout: 10000})
-            const availability = await this.page.$eval('div[title="Availability"] > span', elem => elem.textContent)
+            await this.page.waitForSelector('div[title="Availability"] > span', { timeout: 10000 })
+            const availability = await this.page.$eval('div[title="Availability"] > span', (elem) => elem.textContent)
 
-            if (availability?.toLowerCase().includes("in stock")) {
+            if (availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -27,9 +26,9 @@ export default class Alltimetoys extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="price"]', {timeout: 3000})
+            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', elem => elem.getAttribute("content"))
+                await this.page.$eval('*[itemprop="price"]', (elem) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)
