@@ -25,6 +25,7 @@ export default class Url {
 
         return newUrl.protocol === 'http:' || newUrl.protocol === 'https:'
     }
+
     static amazonUrlByAsin(asin: string): string {
         return `https://amazon.com/dp/${asin}`
     }

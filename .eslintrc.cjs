@@ -10,7 +10,7 @@ module.exports = {
         'prettier'
     ],
     parserOptions: {
-        ecmaVersion: 6
+        ecmaVersion: 2018
     },
     env: {
         node: true,
@@ -21,6 +21,7 @@ module.exports = {
         'prettier/prettier': 'warn',
         eqeqeq: "warn",
         "@typescript-eslint/no-explicit-any": ["off"],
-        "@typescript-eslint/no-empty-function": ["off"]
+        "@typescript-eslint/no-empty-function": ["off"],
+        "@typescript-eslint/ban-ts-comment": ["off"]
     },
 };

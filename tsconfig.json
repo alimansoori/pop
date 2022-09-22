@@ -115,7 +115,9 @@
   },
   "exclude": [
     "node_modules",
-    "src/__test__"
+    "src/__test__",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
   ],
   "include": [
     "src/**/*"

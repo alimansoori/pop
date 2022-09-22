@@ -4,7 +4,10 @@ import SourceSiteFactory from './stores/SourceSiteFactory'
 export async function main() {
     try {
         const page = await myPage()
-        const store = await SourceSiteFactory.create(page, 'https://www.crystalclassics.com/lenox/877766L.htm')
+        const store = await SourceSiteFactory.create(
+            page,
+            'https://www.academy.com/p/mizuno-girls-prospect-finch-series-11-in-softball-glove'
+        )
 
         await store.scrape()
         store.productIsExist() ? console.log('Product Exist!') : console.log('Product Not Exist!')
