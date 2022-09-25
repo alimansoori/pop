@@ -31,13 +31,13 @@ describe('User Registration', () => {
     })
 
     it('Saves the user to database', async () => {
-        const response = await postValid()
+        // const response = await postValid()
         const userList = await User.findAll()
         expect(userList.length).toBe(1)
     })
 
     it('Saves the username and email to database', async () => {
-        const response = await postValid()
+        // const response = await postValid()
         const userList = await User.findAll()
         const savedUser = userList[0]
         expect(savedUser.username).toBe('user1')
@@ -45,7 +45,7 @@ describe('User Registration', () => {
     })
 
     it('Hashes the password in database', async () => {
-        const response = await postValid()
+        // const response = await postValid()
         const userList = await User.findAll()
         const savedUser = userList[0]
         expect(savedUser.password).not.toBe('Pass1')

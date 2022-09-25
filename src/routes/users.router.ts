@@ -1,4 +1,3 @@
-import User from '../model/user.model'
 import { Router } from 'express'
 import UsersController from '../controllers/usersController'
 

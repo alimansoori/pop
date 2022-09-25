@@ -2,11 +2,11 @@ import GoogleSheets from './sheets/GoogleSheets'
 import { askQuestion } from './lib/helper'
 
 export async function startSearchWithinSheet() {
-    const whitchSettingFile = await askQuestion('Which setting file? ')
+    const whichSettingFile = await askQuestion('Which setting file? ')
     try {
-        await run(whitchSettingFile)
+        await run(whichSettingFile)
     } catch (e: any) {
-        await run(whitchSettingFile)
+        await run(whichSettingFile)
     }
 }
 

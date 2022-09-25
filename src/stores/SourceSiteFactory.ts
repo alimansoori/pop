@@ -267,6 +267,11 @@ import Beautyexpert from './b/beautyexpert'
 import Beautance from './b/beautance'
 import Amoktime from './a/amoktime'
 import Crystalclassics from './c/crystalclassics'
+import Ibspot from './i/ibspot'
+import Toytooth from './t/toytooth'
+import Orientaltrading from './o/orientaltrading'
+import Unpluggedgamestore from './u/unpluggedgamestore'
+import Swansonvitamins from './s/swansonvitamins'
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -429,6 +434,7 @@ export default class SourceSiteFactory {
             else if (domain === 'hsn') return new Hsn(page, url)
             else if (domain === 'iherb') return new Iherb(page, url)
             else if (domain === 'ikea') return new Ikea(page, url)
+            else if (domain === 'ibspot') return new Ibspot(page, url)
             else if (domain === 'innexinc') return new Innexinc(page, url)
             else if (domain === 'insanetoyshop') return new Insanetoyshop(page, url)
             else if (domain === 'jefferspet') return new Jefferspet(page, url)
@@ -446,6 +452,8 @@ export default class SourceSiteFactory {
             else if (domain === 'landmsupply') return new Landmsupply(page, url)
             else if (domain === 'legacytoys') return new Legacytoys(page, url)
             else if (domain === 'lowes') return new Lowes(page, url)
+            // Is Block
+            // else if (domain === 'livesuper') return new Livesuper(page, url)
             else if (domain === 'leatherman') return new Leatherman(page, url)
             else if (domain === 'lovelyskin') return new Lovelyskin(page, url)
             else if (domain === 'ltdcommodities') return new Ltdcommodities(page, url)
@@ -473,6 +481,7 @@ export default class SourceSiteFactory {
             else if (domain === 'neimanmarcus') return new Neimanmarcus(page, url)
             else if (domain === 'nothingbutsavings') return new Nothingbutsavings(page, url)
             else if (domain === 'oldies') return new Oldies(page, url)
+            else if (domain === 'orientaltrading') return new Orientaltrading(page, url)
             else if (domain === 'officedepot') return new Officedepot(page, url)
             else if (domain === 'officesupply') return new Officesupply(page, url)
             else if (domain === 'overstock') return new Overstock(page, url)
@@ -526,6 +535,7 @@ export default class SourceSiteFactory {
             else if (domain === 'sierra') return new Sierra(page, url)
             else if (domain === 'staples') return new Staples(page, url)
             else if (domain === 'stockx') return new Stockx(page, url)
+            else if (domain === 'swansonvitamins') return new Swansonvitamins(page, url)
             else if (domain === 'shop4megastore') return new Shop4megastore(page, url)
             else if (domain === 'shumistore') return new Shumistore(page, url)
             else if (domain === 'scheels') return new Scheels(page, url)
@@ -542,6 +552,7 @@ export default class SourceSiteFactory {
             else if (domain === 'toofaced') return new Toofaced(page, url)
             else if (domain === 'toywiz') return new Toywiz(page, url)
             else if (domain === 'toynk') return new Toynk(page, url)
+            else if (domain === 'toytooth') return new Toytooth(page, url)
             else if (domain === 'toyarena') return new Toyarena(page, url)
             else if (domain === 'toygamewiz') return new Toygamewiz(page, url)
             else if (domain === 'trisports') return new Trisports(page, url)
@@ -549,6 +560,7 @@ export default class SourceSiteFactory {
             else if (domain === 'udans') return new Udans(page, url)
             else if (domain === 'ulta') return new Ulta(page, url)
             else if (domain === 'ulonet') return new Ulonet(page, url)
+            else if (domain === 'unpluggedgamestore') return new Unpluggedgamestore(page, url)
             else if (domain === 'united-states-flag') return new UnitedStatesFlag(page, url)
             // else if (domain === 'vipoutlet') return new Vipoutlet(page, url)
             else if (domain === 'vitacost') return new Vitacost(page, url)

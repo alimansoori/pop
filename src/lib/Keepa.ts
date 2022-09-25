@@ -117,10 +117,10 @@ export default class Keepa {
             (EnumCategories.TOYS === this.category && this.bsr < 170000) ||
             (EnumCategories.SPORT === this.category && this.bsr < 310000) ||
             (EnumCategories.PET === this.category && this.bsr < 120000) ||
-            (EnumCategories.ART === this.category && this.bsr < 145000) ||
+            (EnumCategories.ART === this.category && this.bsr < 200000) ||
             (EnumCategories.PATIO === this.category && this.bsr < 160000) ||
             (EnumCategories.HOME_KITCHEN === this.category && this.bsr < 300000) ||
-            (EnumCategories.VIDEO_GAMES === this.category && this.bsr < 16000) ||
+            (EnumCategories.VIDEO_GAMES === this.category && this.bsr < 17000) ||
             (EnumCategories.INDUSTRIAL === this.category && this.bsr < 200000) ||
             (EnumCategories.TOOLS === this.category && this.bsr < 200000) ||
             (EnumCategories.OFFICE_PRODUCTS === this.category && this.bsr < 150000) ||
@@ -131,7 +131,7 @@ export default class Keepa {
             (EnumCategories.AUTOMOTIVE === this.category && this.bsr < 200000) ||
             (EnumCategories.CELL_PHONES === this.category && this.bsr < 200000) ||
             (EnumCategories.BOOKS === this.category && this.bsr < 90000) ||
-            (EnumCategories.BABY === this.category && this.bsr < 40000) ||
+            (EnumCategories.BABY === this.category && this.bsr < 50000) ||
             (EnumCategories.CLOTHING === this.category && this.bsr < 90000) ||
             (EnumCategories.COMPUTERS === this.category && this.bsr < 130000) ||
             (EnumCategories.HEALTH === this.category && this.bsr < 140000) ||

@@ -6,7 +6,7 @@ export async function main() {
         const page = await myPage()
         const store = await SourceSiteFactory.create(
             page,
-            'https://www.academy.com/p/mizuno-girls-prospect-finch-series-11-in-softball-glove'
+            'https://www.swansonvitamins.com/p/carlson-norwegian-the-very-finest-fish-oil-mixed-berry-1600-mg-6-7-fl-oz-liq'
         )
 
         await store.scrape()

@@ -93,9 +93,9 @@ abstract class Store implements IStore, IProductDetails {
         const scrapUrl =
             'https://api.scraperapi.com/?api_key=4bd0f31c8a7cb7c2dbd60e8b7e79c9f3&country_code=us&url=' + url
 
-        const scrapUrl2 =
+        /*const scrapUrl2 =
             'https://api.webscrapingapi.com/v1?api_key=Qh6v8E47BWLM7kYPR9RRDi4zJRY3KYYT&device=desktop&proxy_type=datacenter&render_js=1&wait_until=domcontentloaded&country=us&url=' +
-            url
+            url*/
 
         switch (this.getDomain()) {
             case 'walmart':
