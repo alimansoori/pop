@@ -1,6 +1,6 @@
 {
   "database": {
-    "host": "162.223.91.116",
+    "host": "localhost",
     "database": "test",
     "username": "root",
     "password": "Ali.1234!@#$",

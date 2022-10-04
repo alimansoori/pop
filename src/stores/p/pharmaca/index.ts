@@ -4,6 +4,7 @@ import { Page } from 'puppeteer'
 export default class Pharmaca extends Store {
     constructor(page: Page, url: string) {
         super(page, url)
+        this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

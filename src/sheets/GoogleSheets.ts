@@ -9,6 +9,7 @@ import { myPage } from '../lib/MyPage'
 import { loadSetting, tomorrowDate, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 import sleep from '../utils/sleep'
+import { MyPuppeteer } from '../lib/MyPuppeteer'
 
 export default class GoogleSheets {
     // private page
@@ -134,7 +135,9 @@ export default class GoogleSheets {
             // console.log(amazonNumber)
 
             try {
-                const page = await myPage()
+                const pup = new MyPuppeteer()
+                await pup.build()
+                const page = pup.page
                 const store = await this.sourceSite(page, rows[i]['Source URL'])
                 await store.scrape()
                 console.log('Source Price is: ' + store.getPrice())

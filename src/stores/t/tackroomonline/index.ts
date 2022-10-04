@@ -1,22 +1,24 @@
 import Store from '../../Store'
 import { Page } from 'puppeteer'
 import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Homefurniturelife extends Store {
+export default class Tackroomonline extends Store {
     constructor(page: Page, url: string) {
         super(page, url)
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[name="add-to-cart"]', { timeout: 10000 })
-            const availability = await this.page.$eval('button[name="add-to-cart"]', (elem) =>
-                elem.getAttribute('name')
+            await this.page.waitForSelector('*[itemprop="availability"]', { timeout: 10000 })
+            const availability = await this.page.$eval('*[itemprop="availability"]', (elem) =>
+                elem.getAttribute('href')
             )
 
-            if (availability === 'add-to-cart') {
+            if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -28,14 +30,9 @@ export default class Homefurniturelife extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('div.product-info div.price-wrapper span.woocommerce-Price-amount > bdi', {
-                timeout: 5000,
-            })
+            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval(
-                    'div.product-info div.price-wrapper span.woocommerce-Price-amount > bdi',
-                    (elem) => elem.textContent
-                )
+                await this.page.$eval('*[itemprop="price"]', (elem) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

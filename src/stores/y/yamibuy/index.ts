@@ -2,13 +2,17 @@ import Store from '../../Store'
 import { Page } from 'puppeteer'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Stockx extends Store {
+export default class Yamibuy extends Store {
     constructor(page: Page, url: string) {
         super(page, url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {}
+
+    async productTitleCalculate(): Promise<void> {
+        // this.titleClass.setTitle("ffff");
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')

@@ -1,12 +1,14 @@
-import { myPage } from './lib/MyPage'
 import SourceSiteFactory from './stores/SourceSiteFactory'
+import { MyPuppeteer } from './lib/MyPuppeteer'
 
 export async function main() {
     try {
-        const page = await myPage()
+        const pup = new MyPuppeteer()
+        await pup.build()
+        const page = pup.page
         const store = await SourceSiteFactory.create(
             page,
-            'https://www.swansonvitamins.com/p/carlson-norwegian-the-very-finest-fish-oil-mixed-berry-1600-mg-6-7-fl-oz-liq'
+            'https://www.walmart.com/ip/Aqueon-QuietFlow-LED-PRO-Aquarium-Power-Filter-75/242976367?wmlspartner=wlpa&selectedSellerId=101076093'
         )
 
         await store.scrape()
@@ -15,9 +17,9 @@ export async function main() {
         console.log('Source is in stock: ' + store.isAvailability())
 
         /*const keepa = new Keepa({asin: "B09JHNMP9M", sourcePrice: 33.49})
-        await keepa.fetchByKeepa()
-        console.log(keepa.profit)
-        console.log(keepa.roi)*/
+await keepa.fetchByKeepa()
+console.log(keepa.profit)
+console.log(keepa.roi)*/
     } catch (e: any) {
         console.log(e.message)
     }
