@@ -4,7 +4,7 @@ import sequelize from './config/database'
 
 dotenv.config()
 
-if (process.env.NODE_ENV === 'development') {
+/*if (process.env.NODE_ENV === 'development') {
     sequelize
         .sync({
             logging: console.log,
@@ -19,4 +19,8 @@ if (process.env.NODE_ENV === 'development') {
     app.listen(process.env.PORT, async () => {
         console.log(`App is running on port ${process.env.PORT}`)
     })
-}
+}*/
+
+app.listen(process.env.PORT, async () => {
+    console.log(`App is running on port ${process.env.PORT}`)
+})
