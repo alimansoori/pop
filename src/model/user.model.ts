@@ -2,9 +2,9 @@ import { Model, STRING } from 'sequelize'
 import sequelize from '../config/database'
 
 class User extends Model {
-    username?: string
-    email?: string
-    password?: string
+  declare username: string
+  declare email: string
+  declare password: string
 }
 
 User.init(
@@ -21,7 +21,6 @@ User.init(
     },
     {
         sequelize,
-        modelName: 'user',
     }
 )
 
