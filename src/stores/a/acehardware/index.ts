@@ -7,7 +7,7 @@ export default class Acehardware extends Store {
     constructor(page: Page, url: string) {
         super(page, url)
         this.loadType = EnumLoadType.LOAD
-        this.siteIsBlocked = true
+        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

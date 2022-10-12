@@ -88,18 +88,20 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     async scrape(): Promise<void> {
-        let url = this.getUrl()
+        const url = this.getUrl()
 
-        const scrapUrl =
-            'https://api.scraperapi.com/?api_key=4bd0f31c8a7cb7c2dbd60e8b7e79c9f3&country_code=us&url=' + encodeURI(url)
+        /*const scrapUrl =
+            'https://api.scraperapi.com/?api_key=4bd0f31c8a7cb7c2dbd60e8b7e79c9f3&country_code=us&url=' + encodeURI(url)*/
 
-        const scrapUrl2 =
-            'https://api.webscrapingapi.com/v1?api_key=Qh6v8E47BWLM7kYPR9RRDi4zJRY3KYYT&device=desktop&proxy_type=datacenter&url=' +
+        /*const scrapUrl2 =
+            'https://api.webscrapingapi.com/v1?api_key=' +
+            encodeURIComponent('Qh6v8E47BWLM7kYPR9RRDi4zJRY3KYYT') +
+            '&url=' +
             encodeURIComponent(url)
 
         if (this.siteIsBlocked) {
             url = scrapUrl2
-        }
+        }*/
 
         try {
             await this.page.goto(url, { timeout: 100000, waitUntil: this.loadType })

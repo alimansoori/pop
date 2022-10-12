@@ -5,7 +5,7 @@ import { textToNumber } from '../../../lib/helper'
 export default class Knifecenter extends Store {
     constructor(page: Page, url: string) {
         super(page, url)
-        this.siteIsBlocked = true
+        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

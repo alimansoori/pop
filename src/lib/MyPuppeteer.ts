@@ -28,16 +28,23 @@ export class MyPuppeteer {
             args: [
                 // `--disable-extensions-except=${azInsight}`,
                 // `--load-extension=${azInsight}`,
-                `--disable-site-isolation-trials`,
-                `--window-size=1440,800`,
+                // `--disable-site-isolation-trials`,
+                // `--window-size=1440,800`,
+                `--proxy-server=https://webscrapingapi.country=us.proxy_type=datacenter.proxy_type=datacenter.device=desktop:Qh6v8E47BWLM7kYPR9RRDi4zJRY3KYYT@proxy.webscrapingapi.com:8000`,
             ],
         })
 
         const page = (await browser.pages())[0]
+        // const page = await browser.newPage()
 
-        await page.setUserAgent(
+        /*await page.authenticate({
+            username: 'webscrapingapi.proxy_type=datacenter.device=desktop',
+            password: 'Qh6v8E47BWLM7kYPR9RRDi4zJRY3KYYT',
+        })*/
+
+        /*await page.setUserAgent(
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
-        )
+        )*/
 
         this.page = page
     }

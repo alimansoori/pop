@@ -4,7 +4,7 @@ import { Page } from 'puppeteer'
 export default class Boxed extends Store {
     constructor(page: Page, url: string) {
         super(page, url)
-        this.siteIsBlocked = true
+        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

@@ -7,7 +7,7 @@ export default class Toyarena extends Store {
     constructor(page: Page, url: string) {
         super(page, url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.siteIsBlocked = true
+        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

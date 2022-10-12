@@ -6,9 +6,11 @@ export async function main() {
         const pup = new MyPuppeteer()
         await pup.build()
         const page = pup.page
+
+        // await page.goto('https://www.swansonvitamins.com/p/nature-made-prenatal-multi-90-tabs')
         const store = await SourceSiteFactory.create(
             page,
-            'https://www.sweetwater.com/store/detail/VF5AN--vic-firth-american-classic-drumsticks-5a-nylon-tip'
+            'https://www.walmart.com/ip/KEVIN-MURPHY-Night-Rider-Matte3-4-oz-100-g/1470571557'
         )
 
         await store.scrape()
