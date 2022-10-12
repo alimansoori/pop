@@ -102,6 +102,7 @@ export default class GoogleSheets {
         const startFrom = this.jsonSetting.row
 
         for (let i = startFrom; i < rowsLength; i++) {
+            console.log('===================================')
             this.jsonSetting.row = i
             await writeSetting(this.jsonSetting, this.settingFile)
 
@@ -120,7 +121,7 @@ export default class GoogleSheets {
 
             const updated = new Date(rows[i].Date)
             const current = new Date(this.currentDate())
-            if (rows[i].Date && MyDate.dateDiff(current, updated) < 30) {
+            if (rows[i].Date && MyDate.dateDiff(current, updated) < 15) {
                 console.log(`Next >>>`)
                 continue
             }
@@ -168,8 +169,9 @@ export default class GoogleSheets {
                     if (keepa?.hasBadge && !keepa.buyBoxIsAmazon) {
                         // rows[i]['Date'] = this.currentDate()
                         rows[i].Date = tomorrowDate()
-                    }
-                }
+                        console.log('< ADDED >')
+                    } else console.log('< REJECT >')
+                } else console.log('< REJECT >')
 
                 if (!store.productIsExist()) {
                     rows[i]['Note'] = 'Product Not Exist'
