@@ -221,7 +221,7 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     offerCalc(jsonSchemaParse: any) {
-        if (jsonSchemaParse?.offers) {
+        if (jsonSchemaParse?.offers || jsonSchemaParse?.Offers) {
             this.jsonSchemaCalc(jsonSchemaParse)
         } else if (Array.isArray(jsonSchemaParse) && jsonSchemaParse.length) {
             for (let i = 0; i < jsonSchemaParse.length; i++) {
@@ -234,7 +234,11 @@ abstract class Store implements IStore, IProductDetails {
         if (jsonSchemaParse?.offers?.offers) {
             this.offerCalc(jsonSchemaParse?.offers)
             return
+        } else if (jsonSchemaParse?.Offers?.Offers) {
+            this.offerCalc(jsonSchemaParse?.Offers)
+            return
         }
+
         if (jsonSchemaParse?.offers?.availability?.toLowerCase()?.includes('instock')) {
             this.setAvailability(true)
             if (
@@ -253,6 +257,31 @@ abstract class Store implements IStore, IProductDetails {
                     jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes('used') ||
                     jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes('preorder') ||
                     jsonSchemaParse?.offers[i]?.itemCondition?.toLowerCase()?.includes('pre-order')
+                ) {
+                    this.setAvailability(false)
+                    continue
+                }
+            }
+        }
+
+        if (jsonSchemaParse?.Offers?.availability?.toLowerCase()?.includes('instock')) {
+            this.setAvailability(true)
+            if (
+                jsonSchemaParse?.Offers?.itemCondition?.toLowerCase()?.includes('used') ||
+                jsonSchemaParse?.Offers?.itemCondition?.toLowerCase()?.includes('preorder') ||
+                jsonSchemaParse?.Offers?.itemCondition?.toLowerCase()?.includes('pre-order')
+            ) {
+                this.setAvailability(false)
+            }
+        } else if (Array.isArray(jsonSchemaParse?.Offers)) {
+            for (let i = 0; i < jsonSchemaParse?.Offers.length; i++) {
+                if (jsonSchemaParse?.Offers[i]?.availability?.toLowerCase()?.includes('instock')) {
+                    this.setAvailability(true)
+                }
+                if (
+                    jsonSchemaParse?.Offers[i]?.itemCondition?.toLowerCase()?.includes('used') ||
+                    jsonSchemaParse?.Offers[i]?.itemCondition?.toLowerCase()?.includes('preorder') ||
+                    jsonSchemaParse?.Offers[i]?.itemCondition?.toLowerCase()?.includes('pre-order')
                 ) {
                     this.setAvailability(false)
                     continue
@@ -333,6 +362,44 @@ abstract class Store implements IStore, IProductDetails {
                             this.setPrice(jsonSchemaParse[i]?.offers[0].lowPrice)
                         } else if (jsonSchemaParse[i]?.offers[0].highPrice) {
                             this.setPrice(jsonSchemaParse[i]?.offers[0].highPrice)
+                        }
+                    }
+                }
+            }
+        }
+
+        if (jsonSchemaParse?.Offers) {
+            if (jsonSchemaParse?.Offers?.Offers) {
+                this.priceCalc(jsonSchemaParse?.Offers)
+                return
+            }
+            if (jsonSchemaParse?.Offers?.price) {
+                this.setPrice(jsonSchemaParse?.Offers?.price)
+            } else if (jsonSchemaParse?.Offers?.highPrice) {
+                this.setPrice(jsonSchemaParse?.Offers?.highPrice)
+            } else if (jsonSchemaParse?.Offers?.lowPrice) {
+                this.setPrice(jsonSchemaParse?.Offers?.lowPrice)
+            } else if (Array.isArray(jsonSchemaParse?.Offers) && jsonSchemaParse?.Offers?.length) {
+                if (jsonSchemaParse?.Offers[0].price) {
+                    this.setPrice(jsonSchemaParse?.Offers[0].price)
+                } else if (jsonSchemaParse?.Offers[0].highPrice) {
+                    this.setPrice(jsonSchemaParse?.Offers[0].highPrice)
+                } else if (jsonSchemaParse?.Offers[0].lowPrice) {
+                    this.setPrice(jsonSchemaParse?.Offers[0].lowPrice)
+                }
+            }
+        } else if (Array.isArray(jsonSchemaParse) && jsonSchemaParse.length) {
+            for (let i = 0; i < jsonSchemaParse.length; i++) {
+                if (jsonSchemaParse[i]?.Offers) {
+                    if (jsonSchemaParse[i]?.Offers?.price) {
+                        this.setPrice(jsonSchemaParse[i]?.Offers?.price)
+                    } else if (Array.isArray(jsonSchemaParse[0]?.Offers)) {
+                        if (jsonSchemaParse[i]?.Offers[0].price) {
+                            this.setPrice(jsonSchemaParse[i]?.Offers[0].price)
+                        } else if (jsonSchemaParse[i]?.Offers[0].lowPrice) {
+                            this.setPrice(jsonSchemaParse[i]?.Offers[0].lowPrice)
+                        } else if (jsonSchemaParse[i]?.Offers[0].highPrice) {
+                            this.setPrice(jsonSchemaParse[i]?.Offers[0].highPrice)
                         }
                     }
                 }

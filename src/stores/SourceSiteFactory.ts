@@ -105,7 +105,6 @@ import Redtoolstore from './r/redtoolstore'
 import Rei from './r/rei'
 import Reptilesupplyco from './r/reptilesupplyco'
 import Revzilla from './r/revzilla'
-import Ringsidecollectibles from './r/ringsidecollectibles'
 import Rockler from './r/rockler'
 import Myotcstore from './m/myotcstore'
 import Toywiz from './t/toywiz'
@@ -276,6 +275,9 @@ import Dickblick from './d/dickblick'
 import Yamibuy from './y/yamibuy'
 import Stevensbooks from './s/stevensbooks'
 import Tackroomonline from './t/tackroomonline'
+import Maxwarehouse from './m/maxwarehouse'
+import Saksfifthavenue from './s/saksfifthavenue'
+import Sweetwater from './s/sweetwater'
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -465,6 +467,7 @@ export default class SourceSiteFactory {
             else if (domain === 'litoygame') return new Litoygame(page, url)
             else if (domain === 'lumens') return new Lumens(page, url)
             else if (domain === 'macys') return new Macys(page, url)
+            else if (domain === 'maxwarehouse') return new Maxwarehouse(page, url)
             else if (domain === 'mardel') return new Mardel(page, url)
             else if (domain === 'menards') return new Menards(page, url)
             else if (domain === 'michaels') return new Michaels(page, url)
@@ -523,7 +526,6 @@ export default class SourceSiteFactory {
             else if (domain === 'revzilla') return new Revzilla(page, url)
             else if (domain === 'restaurantsupply') return new Restaurantsupply(page, url)
             else if (domain === 'regowholesale') return new Regowholesale(page, url)
-            else if (domain === 'ringsidecollectibles') return new Ringsidecollectibles(page, url)
             else if (domain === 'rockler') return new Rockler(page, url)
             else if (domain === 'rcwilley') return new Rcwilley(page, url)
             else if (domain === 'rshughes') return new Rshughes(page, url)
@@ -531,6 +533,7 @@ export default class SourceSiteFactory {
             else if (domain === 'ruralking') return new Ruralking(page, url)
             else if (domain === 'sallybeauty') return new Sallybeauty(page, url)
             else if (domain === 'samsclub') return new Samsclub(page, url)
+            else if (domain === 'saksfifthavenue') return new Saksfifthavenue(page, url)
             else if (domain === 'sephora') return new Sephora(page, url)
             else if (domain === 'seriouspuzzles') return new Seriouspuzzles(page, url)
             else if (domain === 'solidsignal') return new Solidsignal(page, url)
@@ -545,6 +548,7 @@ export default class SourceSiteFactory {
             else if (domain === 'shumistore') return new Shumistore(page, url)
             else if (domain === 'scheels') return new Scheels(page, url)
             else if (domain === 'shopdisney') return new Shopdisney(page, url)
+            else if (domain === 'sweetwater') return new Sweetwater(page, url)
             else if (domain === 'target') return new Target(page, url)
             else if (domain === 'tartecosmetics') return new Tartecosmetics(page, url)
             else if (domain === 'tfaw') return new Tfaw(page, url)

@@ -1,19 +1,21 @@
 import Store from '../../Store'
 import { Page } from 'puppeteer'
 import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Bigbangtoyslv extends Store {
+export default class Maxwarehouse extends Store {
     constructor(page: Page, url: string) {
         super(page, url)
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('meta[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('meta[itemprop="availability"]', (elem) =>
-                elem.getAttribute('content')
+            await this.page.waitForSelector('link[itemprop="availability"]', { timeout: 10000 })
+            const availability = await this.page.$eval('link[itemprop="availability"]', (elem) =>
+                elem.getAttribute('href')
             )
 
             if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
