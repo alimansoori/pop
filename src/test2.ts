@@ -8,7 +8,7 @@ export async function main() {
         const page = pup.page
         const store = await SourceSiteFactory.create(
             page,
-            'https://www.scheels.com/p/aqua-lily-pad-tether-kit/85486800606.html'
+            'https://www.gamestop.com/collectibles/figures/products/306335.html'
         )
 
         await store.scrape()
