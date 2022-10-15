@@ -88,8 +88,6 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     async scrape(): Promise<void> {
-        const url = this.getUrl()
-
         /*const scrapUrl =
             'https://api.scraperapi.com/?api_key=4bd0f31c8a7cb7c2dbd60e8b7e79c9f3&country_code=us&url=' + encodeURI(url)*/
 
@@ -104,7 +102,7 @@ abstract class Store implements IStore, IProductDetails {
         }*/
 
         try {
-            await this.page.goto(url, { timeout: 100000, waitUntil: this.loadType })
+            await this.page.goto(this.getUrl(), { timeout: 100000, waitUntil: this.loadType })
         } catch (e: any) {
             await this.page.close()
         }

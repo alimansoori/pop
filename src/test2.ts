@@ -8,7 +8,7 @@ export async function main() {
         const page = pup.page
         const store = await SourceSiteFactory.create(
             page,
-            'https://www.gamestop.com/collectibles/figures/products/306335.html'
+            'https://www.discountbandit.com/t-h-marine-prop-master-prop-stop-propeller-stop-pmps1dp.html'
         )
 
         await store.scrape()

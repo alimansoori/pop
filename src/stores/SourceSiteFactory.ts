@@ -278,6 +278,13 @@ import Tackroomonline from './t/tackroomonline'
 import Maxwarehouse from './m/maxwarehouse'
 import Saksfifthavenue from './s/saksfifthavenue'
 import Sweetwater from './s/sweetwater'
+import Livesuper from './l/livesuper'
+import Thrivemarket from './t/thrivemarket'
+import Sunandski from './s/sunandski'
+import Parktool from './p/parktool'
+import Mealeymarine from './m/mealeymarine'
+import Mercadomagico from './m/mercadomagico'
+import Discountbandit from './d/discountbandit'
 
 export default class SourceSiteFactory {
     static async create(page: Page, url: string): Promise<IStore> {
@@ -395,6 +402,7 @@ export default class SourceSiteFactory {
             else if (domain === 'dickssportinggoods') return new Dickssportinggoods(page, url)
             else if (domain === 'dillards') return new Dillards(page, url)
             else if (domain === 'dickblick') return new Dickblick(page, url)
+            else if (domain === 'discountbandit') return new Discountbandit(page, url)
             else if (domain === 'dollargeneral') return new Dollargeneral(page, url)
             else if (domain === 'dorksidetoys') return new Dorksidetoys(page, url)
             else if (domain === 'empiretoyshop') return new Empiretoyshop(page, url)
@@ -460,7 +468,7 @@ export default class SourceSiteFactory {
             else if (domain === 'legacytoys') return new Legacytoys(page, url)
             else if (domain === 'lowes') return new Lowes(page, url)
             // Is Block
-            // else if (domain === 'livesuper') return new Livesuper(page, url)
+            else if (domain === 'livesuper') return new Livesuper(page, url)
             else if (domain === 'leatherman') return new Leatherman(page, url)
             else if (domain === 'lovelyskin') return new Lovelyskin(page, url)
             else if (domain === 'ltdcommodities') return new Ltdcommodities(page, url)
@@ -470,6 +478,8 @@ export default class SourceSiteFactory {
             else if (domain === 'maxwarehouse') return new Maxwarehouse(page, url)
             else if (domain === 'mardel') return new Mardel(page, url)
             else if (domain === 'menards') return new Menards(page, url)
+            else if (domain === 'mealeymarine') return new Mealeymarine(page, url)
+            else if (domain === 'mercadomagico') return new Mercadomagico(page, url)
             else if (domain === 'michaels') return new Michaels(page, url)
             else if (domain === 'midwayusa') return new Midwayusa(page, url)
             else if (domain === 'miniaturemarket') return new Miniaturemarket(page, url)
@@ -500,6 +510,7 @@ export default class SourceSiteFactory {
             else if (domain === 'petflow') return new Petflow(page, url)
             // else if (domain === 'pokemoncenter') return new Pokemoncenter(page, url)
             else if (domain === 'palmettostatearmory') return new Palmettostatearmory(page, url)
+            else if (domain === 'parktool') return new Parktool(page, url)
             else if (domain === 'petedge') return new Petedge(page, url)
             else if (domain === 'petsense') return new Petsense(page, url)
             else if (domain === 'petsmart') return new Petsmart(page, url)
@@ -549,6 +560,7 @@ export default class SourceSiteFactory {
             else if (domain === 'scheels') return new Scheels(page, url)
             else if (domain === 'shopdisney') return new Shopdisney(page, url)
             else if (domain === 'sweetwater') return new Sweetwater(page, url)
+            else if (domain === 'sunandski') return new Sunandski(page, url)
             else if (domain === 'target') return new Target(page, url)
             else if (domain === 'tartecosmetics') return new Tartecosmetics(page, url)
             else if (domain === 'tfaw') return new Tfaw(page, url)
@@ -568,6 +580,7 @@ export default class SourceSiteFactory {
             else if (domain === 'toygamewiz') return new Toygamewiz(page, url)
             else if (domain === 'trisports') return new Trisports(page, url)
             else if (domain === 'truegether') return new Truegether(page, url)
+            else if (domain === 'thrivemarket') return new Thrivemarket(page, url)
             else if (domain === 'udans') return new Udans(page, url)
             else if (domain === 'ulta') return new Ulta(page, url)
             else if (domain === 'ulonet') return new Ulonet(page, url)
