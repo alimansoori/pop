@@ -42,9 +42,9 @@ Amazon.init(
     }
 )
 
-Amazon.hasOne(AmazonDetail)
-AmazonDetail.belongsTo(Amazon)
-Amazon.hasMany(AmazonUPC)
-Amazon.hasMany(AmazonImages)
+// Amazon.hasOne(AmazonDetail)
+// AmazonDetail.belongsTo(Amazon)
+// Amazon.hasMany(AmazonUPC)
+// Amazon.hasMany(AmazonImages)
 
 export default Amazon

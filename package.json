@@ -28,6 +28,7 @@
     "@types/jest": "^29.0.3",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
+    "cheerio": "^1.0.0-rc.12",
     "config": "^3.3.8",
     "convert-csv-to-array": "^1.0.3",
     "cookie-parser": "~1.4.4",
@@ -45,12 +46,17 @@
     "mysql2": "^2.3.3",
     "nice-try": "^3.0.0",
     "node-dev": "^7.4.3",
-    "puppeteer": "^14.3.0",
+    "puppeteer": "^19.0.0",
     "sequelize": "^6.23.0",
     "sqlite3": "^5.1.1",
-    "user-agents": "^1.0.952"
+    "user-agents": "^1.0.952",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   },
   "devDependencies": {
+    "@types/request-promise": "^4.1.48",
+    "@types/request": "^2.48.8",
+    "@types/cheerio": "^0.22.31",
     "@types/bcrypt": "^5.0.0",
     "@types/config": "^3.3.0",
     "@types/ejs": "^3.1.1",

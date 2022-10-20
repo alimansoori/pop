@@ -1,10 +1,9 @@
-import puppeteer from 'puppeteer'
-import { Page } from 'puppeteer'
+import puppeteer, { Page } from 'puppeteer'
 
 export class MyPuppeteer {
     page!: Page
     headless = false
-    defaultViewport: puppeteer.Viewport | null | undefined = null
+    // defaultViewport: puppeteer.Viewport | null | undefined = null
 
     constructor() {}
 
@@ -17,18 +16,30 @@ export class MyPuppeteer {
     }
 
     async afterBuild(): Promise<void> {
-        process.setMaxListeners(0)
+        try {
+            // process.setMaxListeners(0)
 
-        const browser = await puppeteer.launch({
-            headless: this.headless,
-            defaultViewport: this.defaultViewport,
-            executablePath: 'C:\\chrome-win\\chrome.exe',
-            ignoreHTTPSErrors: true,
-            args: [
-                `--proxy-server=https://webscrapingapi.country=us.proxy_type=datacenter.proxy_type=datacenter.device=desktop:Qh6v8E47BWLM7kYPR9RRDi4zJRY3KYYT@proxy.webscrapingapi.com:8000`,
-            ],
-        })
+            const browser = await puppeteer.launch({
+                headless: false,
+                ignoreHTTPSErrors: true,
+                executablePath: 'C:\\chrome-win\\chrome.exe',
+                // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+                args: ['--proxy-server=proxy.webscrapingapi.com:80', '--ignore-certificate-errors'],
+            })
 
-        this.page = (await browser.pages())[0]
+            const page = (await browser.pages())[0]
+
+            await page.authenticate({
+                username: 'webscrapingapi.country=us.render_js=0',
+                password: 'Qh6v8E47BWLM7kYPR9RRDi4zJRY3KYYT',
+            })
+            await page.setUserAgent(
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+            )
+
+            this.page = page
+        } catch (e: any) {
+            await this.afterBuild()
+        }
     }
 }

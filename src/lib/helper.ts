@@ -83,7 +83,7 @@ export async function typeText(page: Page, selector: string, text: string) {
     }
 }
 
-export async function waitForText(page: Page, selector: string, text: string) {
+/*export async function waitForText(page: Page, selector: string, text: string) {
     try {
         await page.waitForSelector(selector)
         await page.waitForFunction((selector: string, text: string) => {
@@ -92,7 +92,7 @@ export async function waitForText(page: Page, selector: string, text: string) {
     } catch (e) {
         throw new Error(`text ${text} not found for selector: ${selector}`)
     }
-}
+}*/
 
 export async function shouldNotExist(page: Page, selector: string) {
     try {

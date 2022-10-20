@@ -1,9 +1,9 @@
 {
   "database": {
     "host": "localhost",
-    "database": "test",
+    "database": "fba",
     "username": "root",
-    "password": "Ali.1234!@#$",
+    "password": "",
     "dialect": "mysql",
     "logging": false
   }
