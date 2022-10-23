@@ -4,10 +4,10 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { textToNumber } from '../../../lib/helper'
 
 export default class Toyarena extends Store {
-    constructor(page: Page, browser: Browser, url: string) {
-        super(page, browser, url)
+    constructor(url: string) {
+        super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.siteIsBlocked = true
+        this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

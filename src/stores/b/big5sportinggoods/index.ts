@@ -4,8 +4,9 @@ import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Big5sportinggoods extends Store {
-    constructor(page: Page, browser: Browser, url: string) {
-        super(page, browser, url)
+    constructor(url: string) {
+        super(url)
+
         this.loadType = EnumLoadType.DOC_LOADED
     }
 

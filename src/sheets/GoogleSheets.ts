@@ -88,8 +88,8 @@ export default class GoogleSheets {
         return `${month}/${day}/${year}`
     }
 
-    async sourceSite(page: Page, browser: Browser, url: string): Promise<IStore> {
-        const store = await SourceSiteFactory.create(page, browser, url)
+    async sourceSite(url: string): Promise<IStore> {
+        const store = await SourceSiteFactory.create(url)
         console.log(store.getDomain())
 
         return store
@@ -141,6 +141,7 @@ export default class GoogleSheets {
                 const page = pup.page
                 const browser = pup.browser*/
                 const store = await this.sourceSite(rows[i]['Source URL'])
+                await store.createBrowser()
                 await store.scrape()
                 console.log('Source Price is: ' + store.getPrice())
                 console.log('Source is in stock: ' + store.isAvailability())

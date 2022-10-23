@@ -3,10 +3,10 @@ import { Page, Browser } from 'puppeteer'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Discountbandit extends Store {
-    constructor(page: Page, browser: Browser, url: string) {
-        super(page, browser, url)
+    constructor(url: string) {
+        super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.siteIsBlocked = true
+        this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

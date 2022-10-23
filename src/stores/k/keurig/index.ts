@@ -3,9 +3,9 @@ import { Page, Browser } from 'puppeteer'
 import { textToNumber } from '../../../lib/helper'
 
 export default class Keurig extends Store {
-    constructor(page: Page, browser: Browser, url: string) {
-        super(page, browser, url)
-        // this.siteIsBlocked = true
+    constructor(url: string) {
+        super(url)
+        this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

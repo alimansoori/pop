@@ -5,6 +5,7 @@ import IStoreOptions from './IStoreOptions'
 import ProductTitle from './ProductTitle'
 
 export default interface IStore {
+    createBrowser(): Promise<void>
     productIsExist(): boolean
     getPrice(): number
     getTitleClass(): ProductTitle

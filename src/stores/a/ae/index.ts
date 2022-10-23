@@ -2,8 +2,8 @@ import Store from '../../Store'
 import { Browser, Page } from 'puppeteer'
 
 export default class Ae extends Store {
-    constructor(page: Page, browser: Browser, url: string) {
-        super(page, browser, url)
+    constructor(url: string) {
+        super(url)
     }
 
     async productExistCalculate(): Promise<void> {}

@@ -3,8 +3,8 @@ import { Page, Browser } from 'puppeteer'
 import { textToNumber } from '../../../lib/helper'
 
 export default class Samsclub extends Store {
-    constructor(page: Page, browser: Browser, url: string) {
-        super(page, browser, url)
+    constructor(url: string) {
+        super(url)
     }
 
     async productExistCalculate(): Promise<void> {}
