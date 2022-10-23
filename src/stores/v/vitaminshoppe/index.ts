@@ -1,9 +1,9 @@
 import Store from '../../Store'
-import { Page } from 'puppeteer'
+import { Page, Browser } from 'puppeteer'
 
 export default class Vitaminshoppe extends Store {
-    constructor(page: Page, url: string) {
-        super(page, url)
+    constructor(page: Page, browser: Browser, url: string) {
+        super(page, browser, url)
         // this.loadType = EnumLoadType.DOC_LOADED
     }
 

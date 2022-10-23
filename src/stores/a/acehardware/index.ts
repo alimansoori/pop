@@ -1,11 +1,11 @@
 import Store from '../../Store'
-import { Page } from 'puppeteer'
+import { Browser, Page } from 'puppeteer'
 import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Acehardware extends Store {
-    constructor(page: Page, url: string) {
-        super(page, url)
+    constructor(page: Page, browser: Browser, url: string) {
+        super(page, browser, url)
         this.loadType = EnumLoadType.LOAD
         // this.siteIsBlocked = true
     }

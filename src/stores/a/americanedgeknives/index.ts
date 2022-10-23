@@ -1,11 +1,11 @@
 import Store from '../../Store'
-import { Page } from 'puppeteer'
+import { Browser, Page } from 'puppeteer'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { textToNumber } from '../../../lib/helper'
 
 export default class Americanedgeknives extends Store {
-    constructor(page: Page, url: string) {
-        super(page, url)
+    constructor(page: Page, browser: Browser, url: string) {
+        super(page, browser, url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 

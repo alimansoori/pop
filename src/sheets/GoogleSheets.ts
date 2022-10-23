@@ -1,6 +1,6 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet'
 import { keys } from '../keys'
-import { Page } from 'puppeteer'
+import { Browser, Page } from 'puppeteer'
 import SourceSiteFactory from '../stores/SourceSiteFactory'
 import IStore from '../stores/IStore'
 import Keepa from '../lib/Keepa'
@@ -88,8 +88,8 @@ export default class GoogleSheets {
         return `${month}/${day}/${year}`
     }
 
-    async sourceSite(page: Page, url: string): Promise<IStore> {
-        const store = await SourceSiteFactory.create(page, url)
+    async sourceSite(page: Page, browser: Browser, url: string): Promise<IStore> {
+        const store = await SourceSiteFactory.create(page, browser, url)
         console.log(store.getDomain())
 
         return store
@@ -136,14 +136,15 @@ export default class GoogleSheets {
             // console.log(amazonNumber)
 
             try {
-                const pup = new MyPuppeteer()
+                /*const pup = new MyPuppeteer()
                 await pup.build()
                 const page = pup.page
-                const store = await this.sourceSite(page, rows[i]['Source URL'])
+                const browser = pup.browser*/
+                const store = await this.sourceSite(rows[i]['Source URL'])
                 await store.scrape()
                 console.log('Source Price is: ' + store.getPrice())
                 console.log('Source is in stock: ' + store.isAvailability())
-                await page.close()
+                // await browser.close()
 
                 // rows[i]['Amazon IMG'] = rows[i]['Amazon IMG']
                 // rows[i]['Source IMG'] = rows[i]['Source IMG']

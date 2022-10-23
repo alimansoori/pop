@@ -1,12 +1,13 @@
 import Store from '../../Store'
-import { Page } from 'puppeteer'
+import { Page, Browser } from 'puppeteer'
+
 import { click } from '../../../lib/helper'
 import sleep from '../../../utils/sleep'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Macys extends Store {
-    constructor(page: Page, url: string) {
-        super(page, url)
+    constructor(page: Page, browser: Browser, url: string) {
+        super(page, browser, url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 

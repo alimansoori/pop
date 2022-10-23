@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer'
+import { Browser, Page } from 'puppeteer'
 import IStore from './IStore'
 import { TypePriceSelector, TypePriceSelectors } from '../@types/TypePriceSelectors'
 import Url from '../lib/Url'
@@ -10,10 +10,12 @@ import StoreOptions from './StoreOptions'
 import IProductDetails from './IProductDetails'
 import { EnumLoadType } from '../@types/EnumLoadType'
 import ProductTitle from './ProductTitle'
+import { MyPuppeteer } from '../lib/MyPuppeteer'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
-    protected page: Page
+    protected page!: Page
+    protected browser!: Browser
     protected url: string
     protected pageParam = 'page'
     protected categoriesUrl: string[] = []
@@ -28,12 +30,22 @@ abstract class Store implements IStore, IProductDetails {
     protected productExist = true
     protected siteIsBlocked = false
 
-    protected constructor(page: Page, url: string) {
-        this.page = page
+    protected constructor(page: Page, browser: Browser, url: string) {
         this.url = url
         this.selectorsP = new CssSelectors()
         this.optionsP = new StoreOptions()
         this.titleClass = new ProductTitle()
+    }
+
+    async createBrowser(): Promise<void> {
+        try {
+            const pup = new MyPuppeteer(this.siteIsBlocked)
+            await pup.build()
+            this.browser = pup.browser
+            this.page = await this.browser.newPage()
+        } catch (e) {
+            throw new Error('create browser faild')
+        }
     }
 
     getTitleClass(): ProductTitle {
@@ -101,13 +113,13 @@ abstract class Store implements IStore, IProductDetails {
             try {
                 await this.page.goto(this.getUrl(), { timeout: 100000, waitUntil: this.loadType })
             } catch (e: any) {
-                await this.page.close()
+                await this.browser.close()
             }
         } else {
             try {
                 await this.page.goto(this.getUrl(), { timeout: 100000, waitUntil: this.loadType })
             } catch (e: any) {
-                await this.page.close()
+                await this.browser.close()
             }
         }
 
@@ -117,6 +129,10 @@ abstract class Store implements IStore, IProductDetails {
             await this.availibilityCalculate()
             await this.priceCalculate()
         }
+
+        try {
+            await this.browser.close()
+        } catch (e) {}
 
         // await this.fetchPrice()
     }

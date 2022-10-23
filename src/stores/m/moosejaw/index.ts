@@ -1,10 +1,11 @@
 import Store from '../../Store'
-import { Page } from 'puppeteer'
+import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Moosejaw extends Store {
-    constructor(page: Page, url: string) {
-        super(page, url)
+    constructor(page: Page, browser: Browser, url: string) {
+        super(page, browser, url)
     }
 
     async productExistCalculate(): Promise<void> {}
