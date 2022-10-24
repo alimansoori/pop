@@ -39,7 +39,7 @@ abstract class Store implements IStore, IProductDetails {
 
     async createBrowser(): Promise<void> {
         try {
-            const pup = new MyPuppeteer(this.siteIsBlocked)
+            const pup = new MyPuppeteer(false)
             await pup.build()
             this.browser = pup.browser
             this.page = await this.browser.newPage()

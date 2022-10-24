@@ -5,7 +5,7 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Walmart extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.NET0
+        this.loadType = EnumLoadType.DOC_LOADED
         this.siteIsBlocked = true
     }
 
