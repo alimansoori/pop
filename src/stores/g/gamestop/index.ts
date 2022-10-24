@@ -16,6 +16,7 @@ export default class Gamestop extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
+            await sleep(2000)
             await this.page.waitForSelector(
                 'label[data-testid="attribute-New-label"] > div:not(.attribute-strikethrough-unselected)',
                 { timeout: 10000 }
@@ -25,7 +26,16 @@ export default class Gamestop extends Store {
             )
             await sleep(3000)
 
-            this.setAvailability(true)
+            await this.page.waitForSelector('div:nth-child(4) > div > button.button_button__AswiG > span')
+            const availability = await this.page.$eval(
+                'div:nth-child(4) > div > button.button_button__AswiG > span',
+                (elem) => elem.textContent
+            )
+            if (availability?.toLowerCase().trim().includes('add to cart')) {
+                this.setAvailability(true)
+            } else {
+                this.setAvailability(false)
+            }
         } catch (e: any) {
             this.setAvailability(false)
         }

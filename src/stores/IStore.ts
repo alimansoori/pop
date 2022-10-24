@@ -10,6 +10,7 @@ export default interface IStore {
     getPrice(): number
     getTitleClass(): ProductTitle
     getPage(): Page
+    setCanonical(): void
     getUrl(): string
     selectors(): ISelectors
     options(): IStoreOptions

@@ -11,10 +11,7 @@ export default class Walmart extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        const canonical = this.resultReq.$('link[rel="canonical"]').attr('href')
-        if (!this.resultReq.error && canonical) {
-            this.url = canonical
-        }
+        this.setCanonical()
     }
 
     async availibilityCalculate(): Promise<void> {

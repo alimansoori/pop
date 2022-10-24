@@ -69,6 +69,13 @@ abstract class Store implements IStore, IProductDetails {
         return this.selectorsP
     }
 
+    setCanonical(): void {
+        const canonical = this.resultReq.$('link[rel="canonical"]').attr('href')
+        if (!this.resultReq.error && canonical) {
+            this.url = canonical
+        }
+    }
+
     options(): IStoreOptions {
         return this.optionsP
     }
