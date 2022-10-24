@@ -76,6 +76,13 @@ abstract class Store implements IStore, IProductDetails {
         }
     }
 
+    setTitle(): void {
+        const title = this.resultReq.$('title').text()
+        if (!this.resultReq.error && title) {
+            this.titleClass.setTitle(title.trim())
+        }
+    }
+
     options(): IStoreOptions {
         return this.optionsP
     }
@@ -135,7 +142,12 @@ abstract class Store implements IStore, IProductDetails {
         }
 
         await this.productExistCalculate()
-        if (this.productIsExist()) {
+        this.setCanonical()
+        this.setTitle()
+        if (!this.titleClass.isValid()) {
+            console.log('Product title not valid!')
+        }
+        if (this.productIsExist() && this.titleClass.isValid()) {
             await this.productTitleCalculate()
             await this.availibilityCalculate()
             await this.priceCalculate()

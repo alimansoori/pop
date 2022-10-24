@@ -11,12 +11,10 @@ export default class Calendars extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[id="add-to-cart"]:not(.button_disabled)', { timeout: 10000 })
-            const availability = await this.page.$eval('button[id="add-to-cart"]:not(.button_disabled)', (elem) =>
-                elem.getAttribute('id')
-            )
+            await this.page.waitForSelector('*.mz-product-qty-stock-value', { timeout: 10000 })
+            const availability = await this.page.$eval('*.mz-product-qty-stock-value', (elem) => elem.textContent)
 
-            if (availability === 'add-to-cart') {
+            if (availability?.toLowerCase().trim().includes('in stock')) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)

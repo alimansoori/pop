@@ -12,10 +12,10 @@ export default class ProductTitle {
     }
 
     isValid(): boolean {
-        const invalidTexts = ['used', 'pre-order', 'pre order', 'damaged package']
+        const invalidTexts = ['used', 'pre-order', 'pre order', 'damaged package', 'refurbished']
 
         for (let i = 0; i < invalidTexts.length; i++) {
-            if (this._title.toLowerCase().includes(invalidTexts[i].toLowerCase())) {
+            if (this._title && this._title.toLowerCase().includes(invalidTexts[i].toLowerCase())) {
                 return false
             }
         }

@@ -1,15 +1,22 @@
 import Store from '../../Store'
 
 import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
+import sleep from '../../../utils/sleep'
 
 export default class Target extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.LOAD
     }
 
     async productExistCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('h1[data-test="product-title"]', { timeout: 10000 })
+            const canonical = await this.page.$eval('link[rel="canonical"]', (elem) => elem.getAttribute('href'))
+            if (canonical) {
+                this.url = canonical
+            }
         } catch (e: any) {
             this.productExist = false
         }
@@ -18,6 +25,7 @@ export default class Target extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             try {
+                await sleep(5000)
                 await this.page.waitForSelector('button[data-test="fulfillment-cell-shipping"]', { timeout: 10000 })
                 await this.page.click('button[data-test="fulfillment-cell-shipping"]')
             } catch (e: any) {

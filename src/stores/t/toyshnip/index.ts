@@ -1,13 +1,15 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 export default class Toyshnip extends Store {
     constructor(url: string) {
         super(url)
         this.runPostman = true
+        this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        this.setCanonical()
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')

@@ -14,7 +14,7 @@ export async function main() {
         console.log(res)*/
 
         const store = await SourceSiteFactory.create(
-            'https://www.gamestop.com/collectibles/statues/products/qmx-spider-man-spider-cam-5-in-statue/156665.html'
+            'https://dorksidetoys.com/products/star-wars-black-series-wave-5-fennec-shand-6-inch-action-figure-pre-order'
         )
 
         await store.createBrowser()
