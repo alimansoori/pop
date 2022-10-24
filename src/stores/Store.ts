@@ -11,11 +11,16 @@ import IProductDetails from './IProductDetails'
 import { EnumLoadType } from '../@types/EnumLoadType'
 import ProductTitle from './ProductTitle'
 import { MyPuppeteer } from '../lib/MyPuppeteer'
+import MyPostmanRequest from '../lib/MyPostmanRequest'
+import { CheerioAPI } from 'cheerio'
+import * as cheerio from 'cheerio'
+import { TypePostmanReq } from '../@types/TypePostmanReq'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
     protected page!: Page
     protected browser!: Browser
+    protected resultReq: TypePostmanReq
     protected url: string
     protected pageParam = 'page'
     protected categoriesUrl: string[] = []
@@ -35,16 +40,23 @@ abstract class Store implements IStore, IProductDetails {
         this.selectorsP = new CssSelectors()
         this.optionsP = new StoreOptions()
         this.titleClass = new ProductTitle()
+        this.resultReq = {
+            $: cheerio.load(''),
+            headers: {},
+            error: true,
+        }
     }
 
     async createBrowser(): Promise<void> {
-        try {
-            const pup = new MyPuppeteer(false)
-            await pup.build()
-            this.browser = pup.browser
-            this.page = await this.browser.newPage()
-        } catch (e) {
-            throw new Error('create browser faild')
+        if (!this.siteIsBlocked) {
+            try {
+                const pup = new MyPuppeteer(false)
+                await pup.build()
+                this.browser = pup.browser
+                this.page = await this.browser.newPage()
+            } catch (e) {
+                throw new Error('create browser faild')
+            }
         }
     }
 
@@ -100,10 +112,18 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     async scrape(): Promise<void> {
-        try {
-            await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
-        } catch (e: any) {
-            await this.browser.close()
+        if (this.siteIsBlocked) {
+            try {
+                this.resultReq = await MyPostmanRequest.request(this.getUrl())
+            } catch (e: any) {
+                await this.browser.close()
+            }
+        } else {
+            try {
+                await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
+            } catch (e: any) {
+                await this.browser.close()
+            }
         }
 
         await this.productExistCalculate()
@@ -113,10 +133,12 @@ abstract class Store implements IStore, IProductDetails {
             await this.priceCalculate()
         }
 
-        try {
-            await this.browser.close()
-        } catch (e) {
-            console.log('')
+        if (!this.siteIsBlocked) {
+            try {
+                await this.browser.close()
+            } catch (e) {
+                console.log('')
+            }
         }
 
         // await this.fetchPrice()
@@ -193,10 +215,17 @@ abstract class Store implements IStore, IProductDetails {
             ...options,
         }
         try {
-            await this.page.waitForSelector(selector, newOption)
-            const jsonSchemas = await this.page.$$eval(selector, (elem) =>
-                elem.map((el) => el.textContent?.trim().replace(';', ''))
-            )
+            let jsonSchemas: any[] = []
+            if (this.siteIsBlocked) {
+                this.resultReq.$(selector).map((num, elem) => {
+                    jsonSchemas.push(this.resultReq.$(elem).text())
+                })
+            } else {
+                await this.page.waitForSelector(selector, newOption)
+                jsonSchemas = await this.page.$$eval(selector, (elem) =>
+                    elem.map((el) => el.textContent?.trim().replace(';', ''))
+                )
+            }
 
             this.iterateAvalabilitySchemas(jsonSchemas)
         } catch (e: any) {
@@ -305,10 +334,18 @@ abstract class Store implements IStore, IProductDetails {
             ...options,
         }
         try {
-            await this.page.waitForSelector(selector, newOption)
-            const jsonSchemas = await this.page.$$eval(selector, (elem) =>
-                elem.map((el) => el.textContent?.trim().replace(';', ''))
-            )
+            const jsonSchemas: any[] = []
+            if (this.siteIsBlocked) {
+                this.resultReq.$(selector).map((num, elem) => {
+                    jsonSchemas.push(this.resultReq.$(elem).text())
+                })
+            } else {
+                await this.page.waitForSelector(selector, newOption)
+                const jsonSchemas = await this.page.$$eval(selector, (elem) =>
+                    elem.map((el) => el.textContent?.trim().replace(';', ''))
+                )
+            }
+
             this.iteratePriceSchemas(jsonSchemas)
         } catch (e: any) {
             this.setPrice(NaN)
