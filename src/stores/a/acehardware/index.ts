@@ -8,6 +8,7 @@ export default class Acehardware extends Store {
         super(url)
         this.loadType = EnumLoadType.LOAD
         this.siteIsBlocked = true
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

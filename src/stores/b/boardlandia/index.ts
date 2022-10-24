@@ -4,6 +4,7 @@ import { Browser, Page } from 'puppeteer'
 export default class Boardlandia extends Store {
     constructor(url: string) {
         super(url)
+        this.runPostman = true
 
         // this.loadType = EnumLoadType.DOC_LOADED
     }

@@ -5,6 +5,7 @@ export default class Boxed extends Store {
     constructor(url: string) {
         super(url)
         this.siteIsBlocked = true
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

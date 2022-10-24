@@ -4,6 +4,7 @@ import { Page, Browser } from 'puppeteer'
 export default class Ikea extends Store {
     constructor(url: string) {
         super(url)
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

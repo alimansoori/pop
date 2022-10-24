@@ -4,6 +4,7 @@ import { Browser, Page } from 'puppeteer'
 export default class Bulbs1000 extends Store {
     constructor(url: string) {
         super(url)
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

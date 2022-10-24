@@ -8,6 +8,7 @@ export default class Jomashop extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

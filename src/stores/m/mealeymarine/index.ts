@@ -7,6 +7,7 @@ export default class Mealeymarine extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.siteIsBlocked = true
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

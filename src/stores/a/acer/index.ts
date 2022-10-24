@@ -4,6 +4,7 @@ import { Browser, Page } from 'puppeteer'
 export default class Acer extends Store {
     constructor(url: string) {
         super(url)
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

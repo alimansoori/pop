@@ -34,6 +34,7 @@ abstract class Store implements IStore, IProductDetails {
     protected loadType: EnumLoadType = EnumLoadType.LOAD
     protected productExist = true
     protected siteIsBlocked = false
+    protected runPostman = false
 
     protected constructor(url: string) {
         this.url = url
@@ -48,9 +49,9 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     async createBrowser(): Promise<void> {
-        if (!this.siteIsBlocked) {
+        if (!this.runPostman) {
             try {
-                const pup = new MyPuppeteer(false)
+                const pup = new MyPuppeteer(this.siteIsBlocked)
                 await pup.build()
                 this.browser = pup.browser
                 this.page = await this.browser.newPage()
@@ -112,9 +113,9 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     async scrape(): Promise<void> {
-        if (this.siteIsBlocked) {
+        if (this.runPostman) {
             try {
-                this.resultReq = await MyPostmanRequest.request(this.getUrl())
+                this.resultReq = await MyPostmanRequest.request(this.getUrl(), this.siteIsBlocked)
             } catch (e: any) {
                 await this.browser.close()
             }
@@ -133,7 +134,7 @@ abstract class Store implements IStore, IProductDetails {
             await this.priceCalculate()
         }
 
-        if (!this.siteIsBlocked) {
+        if (!this.runPostman) {
             try {
                 await this.browser.close()
             } catch (e) {
@@ -216,7 +217,7 @@ abstract class Store implements IStore, IProductDetails {
         }
         try {
             let jsonSchemas: any[] = []
-            if (this.siteIsBlocked) {
+            if (this.runPostman) {
                 this.resultReq.$(selector).map((num, elem) => {
                     jsonSchemas.push(this.resultReq.$(elem).text())
                 })
@@ -335,7 +336,7 @@ abstract class Store implements IStore, IProductDetails {
         }
         try {
             const jsonSchemas: any[] = []
-            if (this.siteIsBlocked) {
+            if (this.runPostman) {
                 this.resultReq.$(selector).map((num, elem) => {
                     jsonSchemas.push(this.resultReq.$(elem).text())
                 })

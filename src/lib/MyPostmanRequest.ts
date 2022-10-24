@@ -6,13 +6,18 @@ import { TypePostmanReq } from '../@types/TypePostmanReq'
 import * as Cheerio from 'cheerio'
 
 export default class MyPostmanRequest {
-    static async request(url: string): Promise<TypePostmanReq> {
+    static async request(url: string, isBan = false): Promise<TypePostmanReq> {
         let headersRes = {}
         let errorRes = false
         let bodyRes = Cheerio.load('')
 
+        let proxy = null
+        if (isBan) {
+            proxy = 'http://d8fdd1a5127c40049468dafcf932af8c:@proxy.crawlera.com:8011'
+        }
+
         const proxyRequest = request.defaults({
-            proxy: 'http://d8fdd1a5127c40049468dafcf932af8c:@proxy.crawlera.com:8011',
+            proxy,
         })
 
         const options = {

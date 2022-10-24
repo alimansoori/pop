@@ -5,6 +5,7 @@ import { textToNumber } from '../../../lib/helper'
 export default class Quill extends Store {
     constructor(url: string) {
         super(url)
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

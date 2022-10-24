@@ -7,9 +7,15 @@ export default class Walmart extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.siteIsBlocked = true
+        this.runPostman = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        const canonical = this.resultReq.$('link[rel="canonical"]').attr('href')
+        if (!this.resultReq.error && canonical) {
+            this.url = canonical
+        }
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')

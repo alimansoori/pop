@@ -4,6 +4,7 @@ import { Page, Browser } from 'puppeteer'
 export default class Everythingkitchens extends Store {
     constructor(url: string) {
         super(url)
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

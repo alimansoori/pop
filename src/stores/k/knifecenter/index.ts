@@ -6,6 +6,7 @@ export default class Knifecenter extends Store {
     constructor(url: string) {
         super(url)
         this.siteIsBlocked = true
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}
