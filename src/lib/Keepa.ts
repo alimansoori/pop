@@ -9,8 +9,10 @@ import { EnumCategories } from '../@types/EnumCategories'
 export default class Keepa {
     private input: KeepaInputType
     private key = '9lpb4evo4c87vkajmcnfft5dirt97imditg32d27kdp7pm0c861rqc44o6pv1tct'
+    private key2 = '1uuk3u3b55cvqn3fbq8ii90v44eeb138r0j5rvgcpjoove9vele1qqu33kmhglc7'
     // private key = "42t2rfuagph4t942ccfi5l97lkkp5dh7ak0sm2brnc4a66nh4ouj82edn0pjp0on"
     private apiUrl = 'https://api.keepa.com/'
+    private isKey = 1
     private domain = 1
     private stats: number = Math.ceil(Date.now() / 1000)
     private days = 90
@@ -33,7 +35,11 @@ export default class Keepa {
 
     constructor(input: KeepaInputType) {
         this.input = input
-        this.keepaUrl = `${this.apiUrl}product?key=${this.key}&domain=${this.domain}&days=${this.days}&asin=${input.asin}&stats=${this.stats}&buybox=${this.buyBox}`
+        this.keepaUrl = `${this.apiUrl}product?key=${this.key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}`
+    }
+
+    setKeepaUrl(key: string) {
+        this.keepaUrl = `${this.apiUrl}product?key=${key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}`
     }
 
     async fetchByKeepa() {
@@ -62,6 +68,9 @@ export default class Keepa {
                 console.log(`>>> tokenFlowReduction: ${err?.response?.data?.tokenFlowReduction}`)
                 console.log(`>>> Keepa Error: ${err?.response?.data?.error?.message}`)
                 await sleep(err?.response.data?.refillIn)
+            } else if (this.isKey === 1) {
+                this.isKey = 2
+                this.setKeepaUrl(this.key2)
             } else {
                 console.log('60 second wait')
                 await sleep(60000)
