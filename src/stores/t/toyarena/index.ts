@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { textToNumber } from '../../../lib/helper'
 
@@ -18,7 +18,7 @@ export default class Toyarena extends Store {
             await this.page.waitForSelector('[id="addToCartText-product-template"]', { timeout: 10000 })
             const availability = await this.page.$eval(
                 '[id="addToCartText-product-template"]',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability?.toLowerCase().includes('add to cart')) {
@@ -35,7 +35,7 @@ export default class Toyarena extends Store {
         try {
             await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

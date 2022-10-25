@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -13,7 +12,7 @@ export default class Questtoys extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('meta[property="og:availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('meta[property="og:availability"]', (elem) =>
+            const availability = await this.page.$eval('meta[property="og:availability"]', (elem: any) =>
                 elem.getAttribute('content')
             )
 
@@ -31,7 +30,7 @@ export default class Questtoys extends Store {
         try {
             await this.page.waitForSelector('meta[property="og:price:amount"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('meta[property="og:price:amount"]', (elem) => elem.textContent)
+                await this.page.$eval('meta[property="og:price:amount"]', (elem: any) => elem.textContent)
             )
 
             this.setPrice(price)

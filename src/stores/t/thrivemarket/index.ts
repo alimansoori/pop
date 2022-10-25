@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
@@ -15,7 +15,7 @@ export default class Thrivemarket extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('span[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('span[itemprop="availability"]', (elem) => elem.textContent)
+            const availability = await this.page.$eval('span[itemprop="availability"]', (elem: any) => elem.textContent)
 
             if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
@@ -31,7 +31,7 @@ export default class Thrivemarket extends Store {
         try {
             await this.page.waitForSelector('meta[property="og:price:amount"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('meta[property="og:price:amount"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('meta[property="og:price:amount"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

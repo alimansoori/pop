@@ -13,7 +13,7 @@ export default class Target extends Store {
     async productExistCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('h1[data-test="product-title"]', { timeout: 10000 })
-            const canonical = await this.page.$eval('link[rel="canonical"]', (elem) => elem.getAttribute('href'))
+            const canonical = await this.page.$eval('link[rel="canonical"]', (elem: any) => elem.getAttribute('href'))
             if (canonical) {
                 this.url = canonical
             }
@@ -34,7 +34,10 @@ export default class Target extends Store {
 
             await this.page.waitForSelector('button[data-test="shippingButton"]', { timeout: 10000 })
 
-            const availability = await this.page.$eval('button[data-test="shippingButton"]', (elem) => elem.textContent)
+            const availability = await this.page.$eval(
+                'button[data-test="shippingButton"]',
+                (elem: any) => elem.textContent
+            )
 
             if (availability === 'Add to cart') {
                 this.setAvailability(true)
@@ -50,7 +53,7 @@ export default class Target extends Store {
         try {
             await this.page.waitForSelector('span[data-test="product-price"]', { timeout: 5000 })
             const price = textToNumber(
-                await this.page.$eval('span[data-test="product-price"]', (elem) => elem.textContent)
+                await this.page.$eval('span[data-test="product-price"]', (elem: any) => elem.textContent)
             )
 
             this.setPrice(price)

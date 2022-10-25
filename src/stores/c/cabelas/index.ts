@@ -1,10 +1,10 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
 
 export default class Cabelas extends Store {
     constructor(url: string) {
         super(url)
         this.runPostman = true
+        this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

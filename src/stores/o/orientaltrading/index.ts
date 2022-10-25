@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Orientaltrading extends Store {
@@ -22,7 +22,7 @@ export default class Orientaltrading extends Store {
     async priceCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('.u_txtPrice > span', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('.u_txtPrice > span', (elem) => elem.textContent))
+            const price = textToNumber(await this.page.$eval('.u_txtPrice > span', (elem: any) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {

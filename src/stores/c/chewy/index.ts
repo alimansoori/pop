@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -17,7 +16,7 @@ export default class Chewy extends Store {
             })
             const availability = await this.page.$eval(
                 'div[data-testid="buybox"] span.kib-button-default__label',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability === 'Add to Cart' || availability === 'Add to cart') {
@@ -39,7 +38,7 @@ export default class Chewy extends Store {
             const price = textToNumber(
                 await this.page.$eval(
                     'div#pricing p.price span.ga-eec__price, div[data-testid="advertised-price"]',
-                    (elem) => elem.textContent
+                    (elem: any) => elem.textContent
                 )
             )
 

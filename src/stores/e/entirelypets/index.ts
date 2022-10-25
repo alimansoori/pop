@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 export default class Entirelypets extends Store {
     constructor(url: string) {
@@ -11,7 +10,7 @@ export default class Entirelypets extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('input[id="vwd-add-to-cart"]', { timeout: 10000 })
-            const availability = await this.page.$eval('input[id="vwd-add-to-cart"]', (elem) =>
+            const availability = await this.page.$eval('input[id="vwd-add-to-cart"]', (elem: any) =>
                 elem.getAttribute('value')
             )
 

@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
 
 export default class Stoplighting1 extends Store {
     constructor(url: string) {

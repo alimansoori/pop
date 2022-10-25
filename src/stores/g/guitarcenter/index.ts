@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -18,7 +17,7 @@ export default class Guitarcenter extends Store {
             )
             const availability = await this.page.$eval(
                 'section[id="PDPRightRailWrapper"] div.PDPCTA-wrapper button.ant-btn.ant-btn-primary > span > span',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability === 'Add to Cart') {
@@ -37,7 +36,7 @@ export default class Guitarcenter extends Store {
             const price = textToNumber(
                 await this.page.$eval(
                     'div.product-info div.price-container > span.sale-price',
-                    (elem) => elem.textContent
+                    (elem: any) => elem.textContent
                 )
             )
 

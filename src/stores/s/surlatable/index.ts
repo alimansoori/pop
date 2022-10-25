@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Surlatable extends Store {
@@ -16,7 +16,7 @@ export default class Surlatable extends Store {
             })
             const availability = await this.page.$eval(
                 'fieldset button[id="add-to-cart"]:not([disabled="disabled"])',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability?.toLowerCase() === 'add to cart') {
@@ -37,7 +37,7 @@ export default class Surlatable extends Store {
             const price = textToNumber(
                 await this.page.$eval(
                     'div.sale-price > span.price, div.regular-price > span.price',
-                    (elem) => elem.textContent
+                    (elem: any) => elem.textContent
                 )
             )
 

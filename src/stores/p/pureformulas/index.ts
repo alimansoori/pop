@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { textToNumber } from '../../../lib/helper'
@@ -26,7 +25,7 @@ export default class Pureformulas extends Store {
         try {
             await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

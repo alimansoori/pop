@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -13,7 +12,7 @@ export default class Fpnyc extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('meta[property="og:availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('meta[property="og:availability"]', (elem) =>
+            const availability = await this.page.$eval('meta[property="og:availability"]', (elem: any) =>
                 elem.getAttribute('content')
             )
 
@@ -31,7 +30,7 @@ export default class Fpnyc extends Store {
         try {
             await this.page.waitForSelector('head > meta[property="product:price:amount"]', { timeout: 5000 })
             const price = textToNumber(
-                await this.page.$eval('head > meta[property="product:price:amount"]', (elem) =>
+                await this.page.$eval('head > meta[property="product:price:amount"]', (elem: any) =>
                     elem.getAttribute('content')
                 )
             )

@@ -1,7 +1,8 @@
 // @ts-ignore
 import puppeteer from 'zyte-smartproxy-puppeteer'
-import { Browser, Page } from 'puppeteer'
+
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
+import { Browser, Page } from 'puppeteer'
 
 export class MyPuppeteer {
     page!: Page

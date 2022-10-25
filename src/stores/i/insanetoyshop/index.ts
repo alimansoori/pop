@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -20,7 +19,10 @@ export default class Insanetoyshop extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="product-add-to-cart"]', { timeout: 10000 })
-            const availability = await this.page.$eval('button[id="product-add-to-cart"]', (elem) => elem.textContent)
+            const availability = await this.page.$eval(
+                'button[id="product-add-to-cart"]',
+                (elem: any) => elem.textContent
+            )
 
             if (availability?.toLowerCase().includes('add to cart')) {
                 this.setAvailability(true)
@@ -35,7 +37,7 @@ export default class Insanetoyshop extends Store {
     async priceCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem) => elem.textContent))
+            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {

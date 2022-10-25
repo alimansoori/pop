@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
@@ -28,7 +28,7 @@ export default class Livesuper extends Store {
         try {
             await this.page.waitForSelector('[data-test-id="product-price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('[data-test-id="product-price"]', (elem) => elem.textContent)
+                await this.page.$eval('[data-test-id="product-price"]', (elem: any) => elem.textContent)
             )
 
             this.setPrice(price)

@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Adenandanais extends Store {
@@ -12,7 +12,7 @@ export default class Adenandanais extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('meta[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('meta[itemprop="availability"]', (elem) =>
+            const availability = await this.page.$eval('meta[itemprop="availability"]', (elem: any) =>
                 elem.getAttribute('content')
             )
 
@@ -30,7 +30,7 @@ export default class Adenandanais extends Store {
         try {
             await this.page.waitForSelector('meta[itemprop="highPrice"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('meta[itemprop="highPrice"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('meta[itemprop="highPrice"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

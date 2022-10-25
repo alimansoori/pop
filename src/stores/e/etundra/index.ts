@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Etundra extends Store {
@@ -12,7 +12,7 @@ export default class Etundra extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.product-info meta[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('div.product-info meta[itemprop="availability"]', (elem) =>
+            const availability = await this.page.$eval('div.product-info meta[itemprop="availability"]', (elem: any) =>
                 elem.getAttribute('content')
             )
 
@@ -30,7 +30,9 @@ export default class Etundra extends Store {
         try {
             await this.page.waitForSelector('div.product-info span[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('div.product-info span[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('div.product-info span[itemprop="price"]', (elem: any) =>
+                    elem.getAttribute('content')
+                )
             )
 
             this.setPrice(price)

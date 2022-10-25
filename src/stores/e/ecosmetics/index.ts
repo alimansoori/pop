@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Ecosmetics extends Store {
@@ -8,6 +7,7 @@ export default class Ecosmetics extends Store {
 
         this.loadType = EnumLoadType.DOC_LOADED
         this.runPostman = true
+        this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

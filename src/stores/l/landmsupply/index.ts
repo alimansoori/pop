@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Landmsupply extends Store {
@@ -12,7 +12,7 @@ export default class Landmsupply extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.available > span', { timeout: 10000 })
-            const availability = await this.page.$eval('div.available > span', (elem) => elem.textContent)
+            const availability = await this.page.$eval('div.available > span', (elem: any) => elem.textContent)
 
             console.log(availability)
             if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
@@ -29,7 +29,9 @@ export default class Landmsupply extends Store {
         try {
             await this.page.waitForSelector('meta[property="product:price:amount"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('meta[property="product:price:amount"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('meta[property="product:price:amount"]', (elem: any) =>
+                    elem.getAttribute('content')
+                )
             )
 
             this.setPrice(price)

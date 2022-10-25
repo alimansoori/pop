@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 export default class Pamperedchef extends Store {
     constructor(url: string) {
@@ -11,7 +10,7 @@ export default class Pamperedchef extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="addAnchor"]', { timeout: 10000 })
-            const availability = await this.page.$eval('button[id="addAnchor"]', (elem) => elem.textContent)
+            const availability = await this.page.$eval('button[id="addAnchor"]', (elem: any) => elem.textContent)
 
             if (availability?.toLowerCase().includes('add to cart')) {
                 this.setAvailability(true)

@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 export default class Campingworld extends Store {
     constructor(url: string) {

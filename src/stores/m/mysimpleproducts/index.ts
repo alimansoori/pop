@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -15,7 +14,7 @@ export default class Mysimpleproducts extends Store {
             await this.page.waitForSelector('div[title="Availability"] div.instock span', { timeout: 10000 })
             const availability = await this.page.$eval(
                 'div[title="Availability"] div.instock span',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability === 'In stock!') {
@@ -32,7 +31,9 @@ export default class Mysimpleproducts extends Store {
         try {
             await this.page.waitForSelector('meta[property="product:price:amount"]', { timeout: 5000 })
             const price = textToNumber(
-                await this.page.$eval('meta[property="product:price:amount"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('meta[property="product:price:amount"]', (elem: any) =>
+                    elem.getAttribute('content')
+                )
             )
 
             this.setPrice(price)

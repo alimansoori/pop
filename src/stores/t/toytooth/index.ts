@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
@@ -15,7 +15,7 @@ export default class Toytooth extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('*[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('*[itemprop="availability"]', (elem) =>
+            const availability = await this.page.$eval('*[itemprop="availability"]', (elem: any) =>
                 elem.getAttribute('content')
             )
 
@@ -32,7 +32,7 @@ export default class Toytooth extends Store {
     async priceCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem) => elem.textContent))
+            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {

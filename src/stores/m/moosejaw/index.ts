@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -28,7 +27,7 @@ export default class Moosejaw extends Store {
             const price = textToNumber(
                 await this.page.$eval(
                     'span.price-set > span.price-option, span[id="innerPrice"] > span.price-set-updated',
-                    (elem) => elem.textContent
+                    (elem: any) => elem.textContent
                 )
             )
 

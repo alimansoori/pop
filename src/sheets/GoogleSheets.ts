@@ -1,6 +1,6 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet'
 import { keys } from '../keys'
-import { Browser, Page } from 'puppeteer'
+
 import SourceSiteFactory from '../stores/SourceSiteFactory'
 import IStore from '../stores/IStore'
 import Keepa from '../lib/Keepa'

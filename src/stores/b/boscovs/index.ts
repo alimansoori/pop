@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Boscovs extends Store {
@@ -23,7 +23,7 @@ export default class Boscovs extends Store {
     async priceCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem) => elem.textContent))
+            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {

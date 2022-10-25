@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
@@ -21,7 +20,7 @@ export default class Saksfifthavenue extends Store {
             await this.page.waitForSelector('div.prices-add-to-cart-actions button.add-to-cart', { timeout: 10000 })
             const availability = await this.page.$eval(
                 'div.prices-add-to-cart-actions button.add-to-cart',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (

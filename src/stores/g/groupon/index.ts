@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Groupon extends Store {
@@ -14,7 +13,7 @@ export default class Groupon extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="add-to-cart"]', { timeout: 10000 })
-            const availability = await this.page.$eval('button[id="add-to-cart"]', (elem) => elem.textContent)
+            const availability = await this.page.$eval('button[id="add-to-cart"]', (elem: any) => elem.textContent)
 
             if (availability?.toLowerCase().includes('add to cart')) {
                 this.setAvailability(true)

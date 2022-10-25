@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Bestbuy extends Store {
@@ -14,7 +14,7 @@ export default class Bestbuy extends Store {
             await this.page.waitForSelector('button[data-button-state="ADD_TO_CART"]', { timeout: 10000 })
             const availability = await this.page.$eval(
                 'button[data-button-state="ADD_TO_CART"]',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability === 'Add to Cart') {
@@ -36,7 +36,7 @@ export default class Bestbuy extends Store {
             const price = textToNumber(
                 await this.page.$eval(
                     'div[data-sticky-media-gallery="enabled"] div[class="priceView-hero-price priceView-customer-price"] > span[aria-hidden="true"]',
-                    (elem) => elem.textContent
+                    (elem: any) => elem.textContent
                 )
             )
 

@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
 
 export default class A4c extends Store {
     constructor(url: string) {

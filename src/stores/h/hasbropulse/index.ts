@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -15,7 +14,7 @@ export default class Hasbropulse extends Store {
             await this.page.waitForSelector(' button.product-form__add-to-cart > span > span', { timeout: 10000 })
             const availability = await this.page.$eval(
                 ' button.product-form__add-to-cart > span > span',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability?.toLowerCase().includes('add to cart')) {
@@ -36,7 +35,7 @@ export default class Hasbropulse extends Store {
             const price = textToNumber(
                 await this.page.$eval(
                     ' button.product-form__add-to-cart span[js-product-form="price"]',
-                    (elem) => elem.textContent
+                    (elem: any) => elem.textContent
                 )
             )
 

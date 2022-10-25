@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { textToNumber } from '../../../lib/helper'
 
@@ -17,7 +17,7 @@ export default class Joann extends Store {
             await this.page.waitForSelector('[class="product-availability__item"]', { timeout: 10000 })
             const availability = await this.page.$eval(
                 '[class="product-availability__item"]',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
@@ -34,7 +34,7 @@ export default class Joann extends Store {
         try {
             await this.page.waitForSelector('span[data-product-container="sales-price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('span[data-product-container="sales-price"]', (elem) =>
+                await this.page.$eval('span[data-product-container="sales-price"]', (elem: any) =>
                     elem.getAttribute('content')
                 )
             )

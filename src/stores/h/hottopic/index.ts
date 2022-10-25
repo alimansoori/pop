@@ -1,25 +1,19 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Hottopic extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
+        this.runPostman = true
+        this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('div.availability-msg-text.instock', { timeout: 5000 })
-
-            this.setAvailability(true)
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
     }
 
     async priceCalculate(): Promise<void> {

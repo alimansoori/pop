@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Reptilesupplyco extends Store {
@@ -14,7 +14,7 @@ export default class Reptilesupplyco extends Store {
             await this.page.waitForSelector('p[id="add_to_cart"] > button > span', { timeout: 10000 })
             const availability = await this.page.$eval(
                 'p[id="add_to_cart"] > button > span',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability?.toLowerCase() === 'add to cart') {
@@ -31,7 +31,7 @@ export default class Reptilesupplyco extends Store {
         try {
             await this.page.waitForSelector('span[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('span[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('span[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

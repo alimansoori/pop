@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
@@ -15,7 +15,7 @@ export default class Beautance extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('span.availability', { timeout: 10000 })
-            const availability = await this.page.$eval('span.availability', (elem) => elem.textContent)
+            const availability = await this.page.$eval('span.availability', (elem: any) => elem.textContent)
 
             if (
                 availability?.toLowerCase().includes('instock') ||
@@ -35,7 +35,7 @@ export default class Beautance extends Store {
         try {
             await this.page.waitForSelector('span[id="our_price_display"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('span[id="our_price_display"]', (elem) => elem.textContent)
+                await this.page.$eval('span[id="our_price_display"]', (elem: any) => elem.textContent)
             )
 
             this.setPrice(price)

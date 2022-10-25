@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 import { textToNumber } from '../../../lib/helper'
 
 export default class Menards extends Store {
@@ -12,7 +11,7 @@ export default class Menards extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[id="addToCartButton"]', { timeout: 10000 })
-            const availability = await this.page.$eval('button[id="addToCartButton"]', (elem) => elem.textContent)
+            const availability = await this.page.$eval('button[id="addToCartButton"]', (elem: any) => elem.textContent)
 
             if (availability?.toLowerCase().includes('add to cart')) {
                 this.setAvailability(true)
@@ -28,7 +27,7 @@ export default class Menards extends Store {
         try {
             await this.page.waitForSelector('span[id="itemFinalPrice"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('span[id="itemFinalPrice"]', (elem) => elem.getAttribute('data-final-price'))
+                await this.page.$eval('span[id="itemFinalPrice"]', (elem: any) => elem.getAttribute('data-final-price'))
             )
 
             this.setPrice(price)

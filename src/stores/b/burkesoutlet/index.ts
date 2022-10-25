@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Burkesoutlet extends Store {
@@ -14,7 +14,7 @@ export default class Burkesoutlet extends Store {
             await this.page.waitForSelector('div.holder-tighter > div.info-box.ribbon.black', { timeout: 10000 })
             const availability = await this.page.$eval(
                 'div.holder-tighter > div.info-box.ribbon.black',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability?.toLowerCase() === 'sold out') {
@@ -30,7 +30,7 @@ export default class Burkesoutlet extends Store {
     async priceCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('span#price', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('span#price', (elem) => elem.textContent))
+            const price = textToNumber(await this.page.$eval('span#price', (elem: any) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {

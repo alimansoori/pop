@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Scheels extends Store {
@@ -12,7 +12,7 @@ export default class Scheels extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button#add-to-cart:not([disabled="disabled"])', { timeout: 10000 })
-            const availability = await this.page.$eval('button#add-to-cart:not([disabled="disabled"])', (elem) =>
+            const availability = await this.page.$eval('button#add-to-cart:not([disabled="disabled"])', (elem: any) =>
                 elem.getAttribute('value')
             )
 
@@ -30,7 +30,7 @@ export default class Scheels extends Store {
         try {
             await this.page.waitForSelector('div#product-content span[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('div#product-content span[itemprop="price"]', (elem) => elem.textContent)
+                await this.page.$eval('div#product-content span[itemprop="price"]', (elem: any) => elem.textContent)
             )
 
             this.setPrice(price)

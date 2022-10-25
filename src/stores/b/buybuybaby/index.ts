@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Buybuybaby extends Store {
@@ -12,7 +12,7 @@ export default class Buybuybaby extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('link[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('link[itemprop="availability"]', (elem) =>
+            const availability = await this.page.$eval('link[itemprop="availability"]', (elem: any) =>
                 elem.getAttribute('href')
             )
 
@@ -33,7 +33,7 @@ export default class Buybuybaby extends Store {
         try {
             await this.page.waitForSelector('span[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('span[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('span[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

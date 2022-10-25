@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
 
 export default class Boxzillacollectibles extends Store {
     constructor(url: string) {
@@ -15,7 +14,7 @@ export default class Boxzillacollectibles extends Store {
             })
             const availability = await this.page.$eval(
                 'div.tt-wrapper button.btn-addtocart > span:nth-child(2)',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability?.toLowerCase().includes('add to cart')) {

@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
@@ -15,8 +15,9 @@ export default class Supplyepic extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.product_section link[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('div.product_section link[itemprop="availability"]', (elem) =>
-                elem.getAttribute('href')
+            const availability = await this.page.$eval(
+                'div.product_section link[itemprop="availability"]',
+                (elem: any) => elem.getAttribute('href')
             )
 
             if (availability?.toLowerCase()?.includes('instock')) {
@@ -33,7 +34,9 @@ export default class Supplyepic extends Store {
         try {
             await this.page.waitForSelector('div.product_section *[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('div.product_section *[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('div.product_section *[itemprop="price"]', (elem: any) =>
+                    elem.getAttribute('content')
+                )
             )
 
             this.setPrice(price)

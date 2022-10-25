@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Woodcraft extends Store {
@@ -16,7 +16,7 @@ export default class Woodcraft extends Store {
             })
             const availability = await this.page.$eval(
                 'div.product-details__add-to-cart-action > button[value="add_to_cart"]',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability?.toLowerCase().includes('add to cart')) {
@@ -33,7 +33,10 @@ export default class Woodcraft extends Store {
         try {
             await this.page.waitForSelector('div.product-details__prices *[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('div.product-details__prices *[itemprop="price"]', (elem) => elem.textContent)
+                await this.page.$eval(
+                    'div.product-details__prices *[itemprop="price"]',
+                    (elem: any) => elem.textContent
+                )
             )
 
             this.setPrice(price)

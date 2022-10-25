@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Atomicempire extends Store {
@@ -12,7 +12,7 @@ export default class Atomicempire extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button.addtocart > span', { timeout: 10000 })
-            const availability = await this.page.$eval('button.addtocart > span', (elem) => elem.textContent)
+            const availability = await this.page.$eval('button.addtocart > span', (elem: any) => elem.textContent)
 
             if (availability?.toLowerCase().includes('add to cart')) {
                 this.setAvailability(true)
@@ -30,7 +30,7 @@ export default class Atomicempire extends Store {
             const price = textToNumber(
                 await this.page.$eval(
                     'div.pricing >div.row > div:not(:first-child) > strong',
-                    (elem) => elem.textContent
+                    (elem: any) => elem.textContent
                 )
             )
 

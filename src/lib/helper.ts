@@ -249,7 +249,7 @@ export async function bingSearch(page: Page, search: string): Promise<boolean | 
 
     try {
         await page.waitForSelector("li.b_algo h2 a[href*='/dp/']", { timeout: 1000 })
-        const amzUrl = await page.$eval("li.b_algo h2 a[href*='/dp/']", (elem) => elem.getAttribute('href'))
+        const amzUrl = await page.$eval("li.b_algo h2 a[href*='/dp/']", (elem: any) => elem.getAttribute('href'))
         await page.click("li.b_algo h2 a[href*='/dp/']")
         return amzUrl
     } catch (e) {

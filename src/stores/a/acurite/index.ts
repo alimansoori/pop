@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Acurite extends Store {
@@ -12,7 +12,10 @@ export default class Acurite extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('p[title="Availability"] > span', { timeout: 10000 })
-            const availability = await this.page.$eval('p[title="Availability"] > span', (elem) => elem.textContent)
+            const availability = await this.page.$eval(
+                'p[title="Availability"] > span',
+                (elem: any) => elem.textContent
+            )
 
             if (availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
@@ -30,8 +33,9 @@ export default class Acurite extends Store {
                 timeout: 3000,
             })
             const price = textToNumber(
-                await this.page.$eval('span[data-price-type="finalPrice"], span[data-price-type="maxPrice"]', (elem) =>
-                    elem.getAttribute('data-price-amount')
+                await this.page.$eval(
+                    'span[data-price-type="finalPrice"], span[data-price-type="maxPrice"]',
+                    (elem: any) => elem.getAttribute('data-price-amount')
                 )
             )
 

@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
 
 export default class Airgas extends Store {
     constructor(url: string) {
@@ -11,7 +10,7 @@ export default class Airgas extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('button[data-enable-add-to-cart="true"]', { timeout: 10000 })
-            const availability = await this.page.$eval('button[data-enable-add-to-cart="true"]', (elem) =>
+            const availability = await this.page.$eval('button[data-enable-add-to-cart="true"]', (elem: any) =>
                 elem.getAttribute('type')
             )
 
@@ -28,8 +27,8 @@ export default class Airgas extends Store {
     async priceCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('script[type="application/ld+json"]', { timeout: 10000 })
-            const jsonSchemas = await this.page.$$eval('script[type="application/ld+json"]', (elem) =>
-                elem.map((el) => el.textContent)
+            const jsonSchemas = await this.page.$$eval('script[type="application/ld+json"]', (elem: any) =>
+                elem.map((el: any) => el.textContent)
             )
             for (let i = 0; i < jsonSchemas.length; i++) {
                 const jsonSchemaParse = JSON.parse(jsonSchemas[i] as string)

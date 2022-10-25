@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { textToNumber } from '../../../lib/helper'
@@ -29,7 +28,7 @@ export default class Gamestop extends Store {
             await this.page.waitForSelector('div:nth-child(4) > div > button.button_button__AswiG > span')
             const availability = await this.page.$eval(
                 'div:nth-child(4) > div > button.button_button__AswiG > span',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
             if (availability?.toLowerCase().trim().includes('add to cart')) {
                 this.setAvailability(true)
@@ -45,7 +44,7 @@ export default class Gamestop extends Store {
         try {
             await this.page.waitForSelector('span[data-testid="price-default"]', { timeout: 10000 })
             const price = textToNumber(
-                await this.page.$eval('span[data-testid="price-default"]', (elem) => elem.textContent)
+                await this.page.$eval('span[data-testid="price-default"]', (elem: any) => elem.textContent)
             )
 
             this.setPrice(price)

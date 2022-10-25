@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { textToNumber } from '../../../lib/helper'
 
@@ -15,7 +14,7 @@ export default class Gamersguildaz extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.label--in-stock', { timeout: 10000 })
-            const availability = await this.page.$eval('div.label--in-stock', (elem) => elem.textContent)
+            const availability = await this.page.$eval('div.label--in-stock', (elem: any) => elem.textContent)
 
             if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
@@ -31,7 +30,7 @@ export default class Gamersguildaz extends Store {
         try {
             await this.page.waitForSelector('meta[property="og:price:amount"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('meta[property="og:price:amount"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('meta[property="og:price:amount"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

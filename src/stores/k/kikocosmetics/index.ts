@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Kikocosmetics extends Store {
@@ -14,7 +14,7 @@ export default class Kikocosmetics extends Store {
             await this.page.waitForSelector('button.Button--AddToCart > span.Label', { timeout: 10000 })
             const availability = await this.page.$eval(
                 'button.Button--AddToCart > span.Label',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (
@@ -34,7 +34,7 @@ export default class Kikocosmetics extends Store {
         try {
             await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

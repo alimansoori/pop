@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { click } from '../../../lib/helper'
 import sleep from '../../../utils/sleep'
@@ -11,6 +10,7 @@ export default class Macys extends Store {
 
         this.loadType = EnumLoadType.DOC_LOADED
         this.runPostman = true
+        this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

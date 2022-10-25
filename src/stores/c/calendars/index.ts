@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Calendars extends Store {
@@ -12,7 +12,7 @@ export default class Calendars extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('*.mz-product-qty-stock-value', { timeout: 10000 })
-            const availability = await this.page.$eval('*.mz-product-qty-stock-value', (elem) => elem.textContent)
+            const availability = await this.page.$eval('*.mz-product-qty-stock-value', (elem: any) => elem.textContent)
 
             if (availability?.toLowerCase().trim().includes('in stock')) {
                 this.setAvailability(true)
@@ -28,7 +28,7 @@ export default class Calendars extends Store {
         try {
             await this.page.waitForSelector('div#product-detail span[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('div#product-detail span[itemprop="price"]', (elem) => elem.textContent)
+                await this.page.$eval('div#product-detail span[itemprop="price"]', (elem: any) => elem.textContent)
             )
 
             this.setPrice(price)

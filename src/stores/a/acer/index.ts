@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
 
 export default class Acer extends Store {
     constructor(url: string) {

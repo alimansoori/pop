@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 import { textToNumber } from '../../../lib/helper'
 
 export default class Myotcstore extends Store {
@@ -12,7 +11,7 @@ export default class Myotcstore extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('meta[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('meta[itemprop="availability"]', (elem) =>
+            const availability = await this.page.$eval('meta[itemprop="availability"]', (elem: any) =>
                 elem.getAttribute('content')
             )
 
@@ -33,7 +32,7 @@ export default class Myotcstore extends Store {
         try {
             await this.page.waitForSelector('meta[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('meta[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('meta[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { textToNumber } from '../../../lib/helper'
@@ -26,7 +25,7 @@ export default class Tfaw extends Store {
         try {
             await this.page.waitForSelector('[data-price-type="finalPrice"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('[data-price-type="finalPrice"]', (elem) =>
+                await this.page.$eval('[data-price-type="finalPrice"]', (elem: any) =>
                     elem.getAttribute('data-price-amount')
                 )
             )

@@ -1,4 +1,3 @@
-import { Browser, Page } from 'puppeteer'
 import IStore from './IStore'
 import { TypePriceSelector, TypePriceSelectors } from '../@types/TypePriceSelectors'
 import Url from '../lib/Url'
@@ -15,6 +14,7 @@ import MyPostmanRequest from '../lib/MyPostmanRequest'
 import { CheerioAPI } from 'cheerio'
 import * as cheerio from 'cheerio'
 import { TypePostmanReq } from '../@types/TypePostmanReq'
+import { Browser, Page } from 'puppeteer'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
@@ -242,8 +242,8 @@ abstract class Store implements IStore, IProductDetails {
                 })
             } else {
                 await this.page.waitForSelector(selector, newOption)
-                jsonSchemas = await this.page.$$eval(selector, (elem) =>
-                    elem.map((el) => el.textContent?.trim().replace(';', ''))
+                jsonSchemas = await this.page.$$eval(selector, (elem: any) =>
+                    elem.map((el: any) => el.textContent?.trim().replace(';', ''))
                 )
             }
 
@@ -361,8 +361,8 @@ abstract class Store implements IStore, IProductDetails {
                 })
             } else {
                 await this.page.waitForSelector(selector, newOption)
-                const jsonSchemas = await this.page.$$eval(selector, (elem) =>
-                    elem.map((el) => el.textContent?.trim().replace(';', ''))
+                const jsonSchemas = await this.page.$$eval(selector, (elem: any) =>
+                    elem.map((el: any) => el.textContent?.trim().replace(';', ''))
                 )
             }
 

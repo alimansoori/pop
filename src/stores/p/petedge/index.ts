@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -17,7 +16,7 @@ export default class Petedge extends Store {
             })
             const availability = await this.page.$eval(
                 'div.stock-information-container > p[class^="stock-message"]',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability === 'In Stock') {
@@ -34,7 +33,9 @@ export default class Petedge extends Store {
         try {
             await this.page.waitForSelector('meta[property="product:price:amount"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('meta[property="product:price:amount"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('meta[property="product:price:amount"]', (elem: any) =>
+                    elem.getAttribute('content')
+                )
             )
 
             this.setPrice(price)

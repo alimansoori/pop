@@ -1,5 +1,5 @@
 import Url from '../lib/Url'
-import { Browser, Page } from 'puppeteer'
+
 import Target from './t/target'
 import IStore from './IStore'
 import Bulbs1000 from './1/1000bulbs'

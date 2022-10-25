@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Biglots extends Store {
@@ -14,7 +14,7 @@ export default class Biglots extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.out-of-stock-msg', { timeout: 10000 })
-            const availability = await this.page.$eval('div.out-of-stock-msg', (elem) => elem.textContent)
+            const availability = await this.page.$eval('div.out-of-stock-msg', (elem: any) => elem.textContent)
 
             if (availability) {
                 this.setAvailability(false)

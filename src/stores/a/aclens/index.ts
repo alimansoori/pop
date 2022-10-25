@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
 
 export default class Aclens extends Store {
     constructor(url: string) {
@@ -11,8 +10,8 @@ export default class Aclens extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('script[type="application/ld+json"]', { timeout: 10000 })
-            const jsonSchemas = await this.page.$$eval('script[type="application/ld+json"]', (elem) =>
-                elem.map((el) => el.textContent)
+            const jsonSchemas = await this.page.$$eval('script[type="application/ld+json"]', (elem: any) =>
+                elem.map((el: any) => el.textContent)
             )
             for (let i = 0; i < jsonSchemas.length; i++) {
                 const jsonSchemaParse = JSON.parse(jsonSchemas[i] as string)
@@ -28,8 +27,8 @@ export default class Aclens extends Store {
     async priceCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('script[type="application/ld+json"]', { timeout: 10000 })
-            const jsonSchemas = await this.page.$$eval('script[type="application/ld+json"]', (elem) =>
-                elem.map((el) => el.textContent)
+            const jsonSchemas = await this.page.$$eval('script[type="application/ld+json"]', (elem: any) =>
+                elem.map((el: any) => el.textContent)
             )
             for (let i = 0; i < jsonSchemas.length; i++) {
                 const jsonSchemaParse = JSON.parse(jsonSchemas[i] as string)

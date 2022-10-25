@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 
 import { textToNumber } from '../../../lib/helper'
 
@@ -18,7 +17,7 @@ export default class Neweggbusiness extends Store {
             )
             const availability = await this.page.$eval(
                 'div#main div#product div.item-product > div.item-group div.item-info-group link[itemprop="availability"]',
-                (elem) => elem.getAttribute('href')
+                (elem: any) => elem.getAttribute('href')
             )
 
             if (availability === '//schema.org/InStock') {
@@ -35,7 +34,7 @@ export default class Neweggbusiness extends Store {
         try {
             await this.page.waitForSelector('div#product meta[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('div#product meta[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('div#product meta[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

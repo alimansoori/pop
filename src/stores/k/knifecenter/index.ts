@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Knifecenter extends Store {
@@ -14,7 +14,7 @@ export default class Knifecenter extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('a.instock', { timeout: 10000 })
-            const availability = await this.page.$eval('a.instock', (elem) => elem.textContent)
+            const availability = await this.page.$eval('a.instock', (elem: any) => elem.textContent)
 
             if (availability === 'In Stock') {
                 this.setAvailability(true)
@@ -29,7 +29,9 @@ export default class Knifecenter extends Store {
     async priceCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('h2.price span:nth-child(2)', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('h2.price span:nth-child(2)', (elem) => elem.textContent))
+            const price = textToNumber(
+                await this.page.$eval('h2.price span:nth-child(2)', (elem: any) => elem.textContent)
+            )
 
             this.setPrice(price)
         } catch (e: any) {

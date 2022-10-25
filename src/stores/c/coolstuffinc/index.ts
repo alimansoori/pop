@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
@@ -15,7 +14,7 @@ export default class Coolstuffinc extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('link[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('link[itemprop="availability"]', (elem) =>
+            const availability = await this.page.$eval('link[itemprop="availability"]', (elem: any) =>
                 elem.getAttribute('href')
             )
 
@@ -33,7 +32,7 @@ export default class Coolstuffinc extends Store {
         try {
             await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', (elem) => elem.getAttribute('content'))
+                await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
             )
 
             this.setPrice(price)

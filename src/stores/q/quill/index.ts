@@ -1,11 +1,12 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Quill extends Store {
     constructor(url: string) {
         super(url)
         this.runPostman = true
+        this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}
@@ -18,7 +19,7 @@ export default class Quill extends Store {
         try {
             await this.page.waitForSelector('div.sku-details-wrap span[id="SkuPriceUpdate"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('div.sku-details-wrap span[id="SkuPriceUpdate"]', (elem) =>
+                await this.page.$eval('div.sku-details-wrap span[id="SkuPriceUpdate"]', (elem: any) =>
                     elem.getAttribute('content')
                 )
             )

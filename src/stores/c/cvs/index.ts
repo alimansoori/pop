@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Cvs extends Store {

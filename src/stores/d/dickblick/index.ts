@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { textToNumber } from '../../../lib/helper'
 
@@ -21,7 +21,7 @@ export default class Dickblick extends Store {
             await this.page.waitForSelector('p[data-testid="availability-status"]', { timeout: 10000 })
             const availability = await this.page.$eval(
                 'p[data-testid="availability-status"]',
-                (elem) => elem.textContent
+                (elem: any) => elem.textContent
             )
 
             if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
@@ -38,7 +38,7 @@ export default class Dickblick extends Store {
         try {
             await this.page.waitForSelector('*[data-testid="current-price"]', { timeout: 3000 })
             const price = textToNumber(
-                await this.page.$eval('*[data-testid="current-price"]', (elem) => elem.textContent)
+                await this.page.$eval('*[data-testid="current-price"]', (elem: any) => elem.textContent)
             )
 
             this.setPrice(price)

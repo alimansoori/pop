@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
+
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Boxlunch extends Store {

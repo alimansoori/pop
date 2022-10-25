@@ -1,9 +1,6 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
-import { MyPuppeteer } from './lib/MyPuppeteer'
-import WebScrapingApi from './lib/WebScrapingApi'
 // @ts-ignore
 import request from 'postman-request'
-import MyPostmanRequest from './lib/MyPostmanRequest'
 
 export async function main() {
     try {
@@ -14,7 +11,7 @@ export async function main() {
         console.log(res)*/
 
         const store = await SourceSiteFactory.create(
-            'https://legacytoys.com/products/1-2-3-advent-calendar-christmas-manger'
+            'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
         )
 
         await store.createBrowser()

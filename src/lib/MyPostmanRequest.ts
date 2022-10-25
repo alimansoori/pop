@@ -33,7 +33,7 @@ export default class MyPostmanRequest {
                 headersRes = response.headers
                 bodyRes = cheerio.load(body)
             } else {
-                console.log('<<<< ERROR => ' + response.statusCode + ' >>>>')
+                console.log('<<<< ERROR => ' + response?.statusCode + ' >>>>')
                 // console.log(error, response, body)
             }
         })

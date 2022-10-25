@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { Browser, Page } from 'puppeteer'
 
 export default class Banggood extends Store {
     constructor(url: string) {
@@ -11,7 +10,7 @@ export default class Banggood extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.product-action a.add-cart-btn', { timeout: 10000 })
-            const availability = await this.page.$eval('div.product-action a.add-cart-btn', (elem) =>
+            const availability = await this.page.$eval('div.product-action a.add-cart-btn', (elem: any) =>
                 elem.textContent?.trim()
             )
 

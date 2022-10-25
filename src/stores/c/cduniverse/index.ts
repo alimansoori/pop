@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import { Page, Browser } from 'puppeteer'
+
 import { textToNumber } from '../../../lib/helper'
 
 export default class Cduniverse extends Store {
@@ -12,7 +12,7 @@ export default class Cduniverse extends Store {
     async availibilityCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('div.AddToCartButton', { timeout: 10000 })
-            const availability = await this.page.$eval('div.AddToCartButton', (elem) => elem.textContent)
+            const availability = await this.page.$eval('div.AddToCartButton', (elem: any) => elem.textContent)
 
             if (availability?.toLowerCase() === 'add to cart') {
                 this.setAvailability(true)
@@ -27,7 +27,7 @@ export default class Cduniverse extends Store {
     async priceCalculate(): Promise<void> {
         try {
             await this.page.waitForSelector('span[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('span[itemprop="price"]', (elem) => elem.textContent))
+            const price = textToNumber(await this.page.$eval('span[itemprop="price"]', (elem: any) => elem.textContent))
 
             this.setPrice(price)
         } catch (e: any) {
