@@ -14,7 +14,7 @@ export async function main() {
         console.log(res)*/
 
         const store = await SourceSiteFactory.create(
-            'https://dorksidetoys.com/products/star-wars-black-series-wave-5-fennec-shand-6-inch-action-figure-pre-order'
+            'https://www.newark.com/knipex/82-01-200/plier-twingrip-slip-joint-200mm/dp/60AJ4853'
         )
 
         await store.createBrowser()
