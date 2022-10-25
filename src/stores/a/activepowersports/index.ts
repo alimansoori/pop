@@ -8,6 +8,7 @@ export default class Activepowersports extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}
@@ -18,9 +19,10 @@ export default class Activepowersports extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem) => elem.textContent))
-            this.setPrice(price)
+            if (!this.resultReq.error) {
+                const price = textToNumber(this.resultReq.$('div.productView-price *.price--withoutTax').text())
+                this.setPrice(price)
+            }
         } catch (e: any) {
             this.setPrice(NaN)
         }

@@ -14,7 +14,7 @@ export async function main() {
         console.log(res)*/
 
         const store = await SourceSiteFactory.create(
-            'https://www.newark.com/knipex/82-01-200/plier-twingrip-slip-joint-200mm/dp/60AJ4853'
+            'https://www.activepowersports.com/funko-pop-games-overwatch-s04-torbjorn-action-figure/'
         )
 
         await store.createBrowser()
