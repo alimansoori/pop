@@ -8,14 +8,16 @@ export default class Shopdisney extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
+        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('*[itemprop="availability"]', (elem) => elem.textContent)
+            if (this.resultReq.error) return
+
+            const availability = this.resultReq.$('*[itemprop="availability"]').text()
 
             if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
@@ -29,8 +31,8 @@ export default class Shopdisney extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem) => elem.textContent))
+            if (this.resultReq.error) return
+            const price = textToNumber(this.resultReq.$('*[itemprop="price"]').text())
 
             this.setPrice(price)
         } catch (e: any) {

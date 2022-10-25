@@ -131,7 +131,7 @@ abstract class Store implements IStore, IProductDetails {
             try {
                 this.resultReq = await MyPostmanRequest.request(this.getUrl(), this.siteIsBlocked)
             } catch (e: any) {
-                await this.browser.close()
+                // console.log(e.message)
             }
         } else {
             try {

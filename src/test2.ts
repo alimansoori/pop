@@ -14,7 +14,7 @@ export async function main() {
         console.log(res)*/
 
         const store = await SourceSiteFactory.create(
-            'https://www.activepowersports.com/funko-pop-games-overwatch-s04-torbjorn-action-figure/'
+            'https://legacytoys.com/products/1-2-3-advent-calendar-christmas-manger'
         )
 
         await store.createBrowser()
