@@ -173,13 +173,7 @@ export default class GoogleSheets {
                     } else console.log('< REJECT >')
                 } else console.log('< REJECT >')
 
-                if (!store.productIsExist()) {
-                    rows[i]['Note'] = 'Product Not Exist'
-                }
-
-                if (!store.getTitleClass().isValid()) {
-                    rows[i]['Note'] = 'Title Invalid'
-                }
+                rows[i]['Note'] = store.statusCode
 
                 rows[i].Source = store.getDomain()
 

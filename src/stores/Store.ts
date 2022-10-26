@@ -21,6 +21,7 @@ abstract class Store implements IStore, IProductDetails {
     protected browser!: Browser
     protected resultReq: TypePostmanReq
     protected url: string
+    public statusCode: number | undefined = 200
     protected pageParam = 'page'
     protected categoriesUrl: string[] = []
     protected addToCartBtnContent = ''
@@ -126,6 +127,7 @@ abstract class Store implements IStore, IProductDetails {
     async scrape(): Promise<void> {
         try {
             const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
+            this.statusCode = res?.status()
             if (!(res?.status() === 200 || res?.status() === 404)) {
                 console.log('>>>> Status Code = ' + res?.status())
                 this.runPostman = true
