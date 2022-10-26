@@ -14,10 +14,14 @@ export default class Sunandski extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('*[itemprop="availability"]', (elem: any) =>
-                elem.getAttribute('content')
-            )
+            let availability: string | undefined = ''
+            const selector = '*[itemprop="availability"]'
+            if (this.runPostman) {
+                availability = this.resultReq.$(selector).attr('content')
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 10000 })
+                availability = await this.page.$eval(selector, (elem: any) => elem.getAttribute('content'))
+            }
 
             if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
@@ -31,12 +35,13 @@ export default class Sunandski extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
-            )
-
-            this.setPrice(price)
+            const selector = '*[itemprop="price"]'
+            if (this.runPostman) {
+                this.setPrice(textToNumber(this.resultReq.$(selector).attr('content')))
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 10000 })
+                this.setPrice(await this.page.$eval(selector, (elem: any) => elem.getAttribute('content')))
+            }
         } catch (e: any) {
             this.setPrice(NaN)
         }

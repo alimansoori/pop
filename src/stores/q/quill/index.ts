@@ -18,7 +18,7 @@ export default class Quill extends Store {
     async priceCalculate(): Promise<void> {
         try {
             const selector = 'div.sku-details-wrap span[id="SkuPriceUpdate"]'
-            if (this.resultReq.error) {
+            if (this.runPostman) {
                 this.setPrice(textToNumber(this.resultReq.$(selector).text()))
             } else {
                 await this.page.waitForSelector(selector, { timeout: 10000 })

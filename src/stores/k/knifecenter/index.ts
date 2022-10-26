@@ -35,7 +35,7 @@ export default class Knifecenter extends Store {
     async priceCalculate(): Promise<void> {
         try {
             const selector = 'h2.price span:nth-child(2)'
-            if (this.resultReq.error) {
+            if (this.runPostman) {
                 this.setPrice(textToNumber(this.resultReq.$(selector).text()))
             } else {
                 await this.page.waitForSelector(selector, { timeout: 10000 })

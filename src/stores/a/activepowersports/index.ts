@@ -18,9 +18,12 @@ export default class Activepowersports extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            if (!this.resultReq.error) {
-                const price = textToNumber(this.resultReq.$('div.productView-price *.price--withoutTax').text())
-                this.setPrice(price)
+            const selector = 'div.productView-price *.price--withoutTax'
+            if (!this.runPostman) {
+                this.setPrice(textToNumber(this.resultReq.$(selector).text()))
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 10000 })
+                this.setPrice(await this.page.$eval(selector, (elem: any) => elem.textContent))
             }
         } catch (e: any) {
             this.setPrice(NaN)

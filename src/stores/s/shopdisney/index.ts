@@ -37,7 +37,7 @@ export default class Shopdisney extends Store {
     async priceCalculate(): Promise<void> {
         try {
             const selector = '*[itemprop="price"]'
-            if (this.resultReq.error) {
+            if (this.runPostman) {
                 this.setPrice(textToNumber(this.resultReq.$(selector).text()))
             } else {
                 await this.page.waitForSelector(selector, { timeout: 10000 })

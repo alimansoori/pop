@@ -69,14 +69,14 @@ abstract class Store implements IStore, IProductDetails {
 
     setCanonical(): void {
         const canonical = this.resultReq.$('link[rel="canonical"]').attr('href')
-        if (!this.resultReq.error && canonical) {
+        if (!this.runPostman && canonical) {
             this.url = canonical
         }
     }
 
     setTitle(): void {
         const title = this.resultReq.$('title').text()
-        if (!this.resultReq.error && title) {
+        if (!this.runPostman && title) {
             this.titleClass.setTitle(title.trim())
         }
     }
