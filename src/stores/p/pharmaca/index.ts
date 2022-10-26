@@ -3,7 +3,7 @@ import Store from '../../Store'
 export default class Pharmaca extends Store {
     constructor(url: string) {
         super(url)
-        this.siteIsBlocked = true
+        // this.siteIsBlocked = true
         this.runPostman = true
     }
 

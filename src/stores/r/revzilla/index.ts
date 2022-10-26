@@ -4,7 +4,7 @@ export default class Revzilla extends Store {
     constructor(url: string) {
         super(url)
         this.runPostman = true
-        this.siteIsBlocked = true
+        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

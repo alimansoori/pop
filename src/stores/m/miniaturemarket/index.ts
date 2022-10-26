@@ -9,7 +9,7 @@ export default class Miniaturemarket extends Store {
 
         this.loadType = EnumLoadType.DOC_LOADED
         this.runPostman = true
-        this.siteIsBlocked = true
+        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

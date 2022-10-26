@@ -4,7 +4,7 @@ import { textToNumber } from '../../../lib/helper'
 export default class Keurig extends Store {
     constructor(url: string) {
         super(url)
-        this.siteIsBlocked = true
+        // this.siteIsBlocked = true
         this.runPostman = true
     }
 

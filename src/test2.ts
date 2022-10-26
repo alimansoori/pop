@@ -5,10 +5,9 @@ import request from 'postman-request'
 export async function main() {
     try {
         /*const res = await MyPostmanRequest.request(
-            'https://www.entertainmentearth.com/product/harry-potter-remus-lupin-pop-vinyl-figure-45/fu14939',
-            true
-        )
-        console.log(res)*/
+            'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
+        )*/
+        // console.log(res)
 
         const store = await SourceSiteFactory.create(
             'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
