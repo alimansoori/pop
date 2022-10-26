@@ -29,7 +29,7 @@ export class MyPuppeteer {
             // puppeteer.use(StealthPlugin())
 
             let browserP = {
-                headless: false,
+                headless: true,
                 ignoreHTTPSErrors: true,
                 executablePath: 'C:\\chrome-win\\chrome.exe',
             }
