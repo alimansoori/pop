@@ -7,8 +7,8 @@ export default class Vipoutlet extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
-        this.siteIsBlocked = true
-        this.runPostman = true
+        // this.siteIsBlocked = true
+        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

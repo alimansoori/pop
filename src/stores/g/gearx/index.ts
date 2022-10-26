@@ -3,7 +3,7 @@ import Store from '../../Store'
 export default class Gearx extends Store {
     constructor(url: string) {
         super(url)
-        this.runPostman = true
+        // this.runPostman = true
         // this.siteIsBlocked = true
     }
 

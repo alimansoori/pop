@@ -5,11 +5,9 @@ import SourceSiteFactory from '../stores/SourceSiteFactory'
 import IStore from '../stores/IStore'
 import Keepa from '../lib/Keepa'
 import MyDate from '../lib/MyDate'
-import { myPage } from '../lib/MyPage'
 import { loadSetting, tomorrowDate, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 import sleep from '../utils/sleep'
-import { MyPuppeteer } from '../lib/MyPuppeteer'
 
 export default class GoogleSheets {
     // private page

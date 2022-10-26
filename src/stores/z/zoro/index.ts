@@ -3,7 +3,7 @@ import Store from '../../Store'
 export default class Zoro extends Store {
     constructor(url: string) {
         super(url)
-        this.runPostman = true
+        // this.runPostman = true
         // this.siteIsBlocked = true
     }
 

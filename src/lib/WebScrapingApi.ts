@@ -1,5 +1,4 @@
-import request from 'request-promise'
-import cheerio, { CheerioAPI } from 'cheerio'
+import { CheerioAPI } from 'cheerio'
 import axios from 'axios'
 
 export default class WebScrapingApi {

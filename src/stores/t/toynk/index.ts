@@ -7,8 +7,8 @@ export default class Toynk extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
-        this.runPostman = true
-        this.siteIsBlocked = true
+        // this.runPostman = true
+        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {}

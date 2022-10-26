@@ -6,14 +6,16 @@ export default class Toywiz extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.siteIsBlocked = true
-        this.runPostman = true
+        // this.siteIsBlocked = true
+        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('script[type="application/ld+json"]', { timeout: 10000 })
-            this.productExist = true
+            if (!this.runPostman) {
+                await this.page.waitForSelector('script[type="application/ld+json"]', { timeout: 10000 })
+                this.productExist = true
+            }
         } catch (e: any) {
             this.productExist = false
         }

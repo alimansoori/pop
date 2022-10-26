@@ -6,7 +6,7 @@ export default class Hottopic extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.runPostman = true
+        // this.runPostman = true
         // this.siteIsBlocked = true
     }
 

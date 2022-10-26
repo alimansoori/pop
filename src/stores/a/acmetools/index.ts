@@ -6,8 +6,8 @@ export default class Acmetools extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.siteIsBlocked = true
-        this.runPostman = true
+        // this.siteIsBlocked = true
+        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

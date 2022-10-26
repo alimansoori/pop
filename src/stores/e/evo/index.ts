@@ -6,7 +6,7 @@ export default class Evo extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
-        this.runPostman = true
+        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

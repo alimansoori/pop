@@ -1,8 +1,5 @@
 import { DataTypes, Model } from 'sequelize'
 import sequelize from '../config/database'
-import AmazonDetail from './amazon-detail.model'
-import AmazonUPC from './amazon-upc.model'
-import AmazonImages from './amazon-images.model'
 
 class Amazon extends Model {
     declare id: number

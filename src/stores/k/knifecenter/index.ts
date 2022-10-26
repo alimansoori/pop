@@ -6,17 +6,23 @@ export default class Knifecenter extends Store {
     constructor(url: string) {
         super(url)
         // this.siteIsBlocked = true
-        this.runPostman = true
+        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('a.instock', { timeout: 10000 })
-            const availability = await this.page.$eval('a.instock', (elem: any) => elem.textContent)
+            let availability = ''
+            const selector = 'a.instock'
+            if (this.runPostman) {
+                availability = this.resultReq.$(selector).text()
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 10000 })
+                availability = await this.page.$eval(selector, (elem: any) => elem.textContent)
+            }
 
-            if (availability === 'In Stock') {
+            if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
             } else {
                 this.setAvailability(false)
@@ -28,12 +34,13 @@ export default class Knifecenter extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('h2.price span:nth-child(2)', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('h2.price span:nth-child(2)', (elem: any) => elem.textContent)
-            )
-
-            this.setPrice(price)
+            const selector = 'h2.price span:nth-child(2)'
+            if (this.resultReq.error) {
+                this.setPrice(textToNumber(this.resultReq.$(selector).text()))
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 10000 })
+                this.setPrice(await this.page.$eval(selector, (elem: any) => elem.textContent))
+            }
         } catch (e: any) {
             this.setPrice(NaN)
         }

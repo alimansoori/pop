@@ -5,9 +5,9 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Wayfair extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
         // this.siteIsBlocked = true
-        this.runPostman = true
+        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

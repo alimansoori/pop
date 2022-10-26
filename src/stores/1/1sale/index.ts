@@ -3,7 +3,7 @@ import Store from '../../Store'
 export default class Sale1 extends Store {
     constructor(url: string) {
         super(url)
-        this.runPostman = true
+        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

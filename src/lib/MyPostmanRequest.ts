@@ -7,7 +7,7 @@ import * as Cheerio from 'cheerio'
 
 export default class MyPostmanRequest {
     static async request(url: string, isBan = false, counter = 1): Promise<TypePostmanReq> {
-        let res = {
+        const res = {
             $: cheerio.load(''),
             error: false,
             headers: {},
@@ -43,10 +43,10 @@ export default class MyPostmanRequest {
                 }
             })
         } catch (e: any) {
-            if (counter === 1) {
+            /*if (counter === 1) {
                 console.log('<<<< REPEAT REQUEST >>>>')
                 res = await MyPostmanRequest.request(url, true, 2)
-            }
+            }*/
         }
 
         return res

@@ -10,7 +10,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
+            'https://www.wayfair.com/kitchen-tabletop/pdp/breville-the-knock-box-mini-vil1193.html'
         )
 
         await store.createBrowser()

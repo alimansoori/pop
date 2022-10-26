@@ -11,7 +11,6 @@ import { EnumLoadType } from '../@types/EnumLoadType'
 import ProductTitle from './ProductTitle'
 import { MyPuppeteer } from '../lib/MyPuppeteer'
 import MyPostmanRequest from '../lib/MyPostmanRequest'
-import { CheerioAPI } from 'cheerio'
 import * as cheerio from 'cheerio'
 import { TypePostmanReq } from '../@types/TypePostmanReq'
 import { Browser, Page } from 'puppeteer'
@@ -49,15 +48,13 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     async createBrowser(): Promise<void> {
-        if (!this.runPostman) {
-            try {
-                const pup = new MyPuppeteer(this.siteIsBlocked)
-                await pup.build()
-                this.browser = pup.browser
-                this.page = await this.browser.newPage()
-            } catch (e) {
-                throw new Error('create browser faild')
-            }
+        try {
+            const pup = new MyPuppeteer(this.siteIsBlocked)
+            await pup.build()
+            this.browser = pup.browser
+            this.page = await this.browser.newPage()
+        } catch (e) {
+            throw new Error('create browser faild')
         }
     }
 
@@ -127,18 +124,15 @@ abstract class Store implements IStore, IProductDetails {
     }
 
     async scrape(): Promise<void> {
-        if (this.runPostman) {
-            try {
-                this.resultReq = await MyPostmanRequest.request(this.getUrl(), this.siteIsBlocked)
-            } catch (e: any) {
-                // console.log(e.message)
+        try {
+            const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
+            if (res?.status() !== 200) {
+                console.log('>>>> Status Code = ' + res?.status())
+                this.runPostman = true
+                this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
             }
-        } else {
-            try {
-                await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
-            } catch (e: any) {
-                await this.browser.close()
-            }
+        } catch (e: any) {
+            await this.browser.close()
         }
 
         await this.productExistCalculate()
@@ -153,13 +147,7 @@ abstract class Store implements IStore, IProductDetails {
             await this.priceCalculate()
         }
 
-        if (!this.runPostman) {
-            try {
-                await this.browser.close()
-            } catch (e) {
-                console.log('')
-            }
-        }
+        await this.browser.close()
 
         // await this.fetchPrice()
     }
@@ -354,14 +342,14 @@ abstract class Store implements IStore, IProductDetails {
             ...options,
         }
         try {
-            const jsonSchemas: any[] = []
+            let jsonSchemas: any[] = []
             if (this.runPostman) {
                 this.resultReq.$(selector).map((num, elem) => {
                     jsonSchemas.push(this.resultReq.$(elem).text())
                 })
             } else {
                 await this.page.waitForSelector(selector, newOption)
-                const jsonSchemas = await this.page.$$eval(selector, (elem: any) =>
+                jsonSchemas = await this.page.$$eval(selector, (elem: any) =>
                     elem.map((el: any) => el.textContent?.trim().replace(';', ''))
                 )
             }
@@ -488,7 +476,7 @@ abstract class Store implements IStore, IProductDetails {
         // Next Page
 
         /*if (await this.hasNextPage()) {
-        }*/
+    }*/
     }
 }
 

@@ -7,23 +7,24 @@ export default class Acehardware extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
-        this.siteIsBlocked = true
-        this.runPostman = true
+        // this.siteIsBlocked = true
+        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled', {
-                timeout: 20000,
-            })
-            const availability = await this.page.$eval(
-                'button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled',
-                (elem: any) => elem.getAttribute('id')
-            )
+            let availability = ''
+            const selector = 'button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled'
+            if (this.runPostman) {
+                availability = this.resultReq.$(selector).text()
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 20000 })
+                availability = await this.page.$eval(selector, (elem: any) => elem.elem.getAttribute('id'))
+            }
 
-            if (availability === 'add-to-cart') {
+            if (availability?.toLowerCase().includes('add-to-cart')) {
                 this.setAvailability(false)
             } else {
                 this.setAvailability(true)
@@ -35,12 +36,13 @@ export default class Acehardware extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('span[itemprop="price"]', {
-                timeout: 3000,
-            })
-            const price = textToNumber(await this.page.$eval('span[itemprop="price"]', (elem: any) => elem.textContent))
-
-            this.setPrice(price)
+            const selector = 'span[itemprop="price"]'
+            if (this.resultReq.error) {
+                this.setPrice(textToNumber(this.resultReq.$(selector).text()))
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 10000 })
+                this.setPrice(await this.page.$eval(selector, (elem: any) => elem.textContent))
+            }
         } catch (e: any) {
             this.setPrice(NaN)
         }

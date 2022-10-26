@@ -8,16 +8,21 @@ export default class Shopdisney extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
-        this.runPostman = true
+        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         try {
-            if (this.resultReq.error) return
-
-            const availability = this.resultReq.$('*[itemprop="availability"]').text()
+            let availability = ''
+            const selector = '*[itemprop="availability"]'
+            if (this.runPostman) {
+                availability = this.resultReq.$(selector).text()
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 10000 })
+                availability = await this.page.$eval(selector, (elem: any) => elem.textContent)
+            }
 
             if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
                 this.setAvailability(true)
@@ -31,10 +36,13 @@ export default class Shopdisney extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            if (this.resultReq.error) return
-            const price = textToNumber(this.resultReq.$('*[itemprop="price"]').text())
-
-            this.setPrice(price)
+            const selector = '*[itemprop="price"]'
+            if (this.resultReq.error) {
+                this.setPrice(textToNumber(this.resultReq.$(selector).text()))
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 10000 })
+                this.setPrice(await this.page.$eval(selector, (elem: any) => elem.textContent))
+            }
         } catch (e: any) {
             this.setPrice(NaN)
         }

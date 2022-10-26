@@ -7,7 +7,7 @@ export default class Bhphotovideo extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
-        this.runPostman = true
+        // this.runPostman = true
         // this.siteIsBlocked = true
     }
 
