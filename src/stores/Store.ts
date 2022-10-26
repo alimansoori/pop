@@ -126,7 +126,7 @@ abstract class Store implements IStore, IProductDetails {
     async scrape(): Promise<void> {
         try {
             const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
-            if (res?.status() !== 200) {
+            if (!(res?.status() === 200 || res?.status() === 404)) {
                 console.log('>>>> Status Code = ' + res?.status())
                 this.runPostman = true
                 this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
