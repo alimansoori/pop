@@ -42,6 +42,7 @@ export default class GoogleSheets {
             await dataBaseSheet.setHeaderRow([
                 'Date',
                 'Source',
+                'Brand',
                 // 'Sell Approval',
                 'ASIN',
                 'Source URL',
@@ -65,6 +66,7 @@ export default class GoogleSheets {
                 'ROI',
                 'BSR',
                 'Package Quantity',
+                'Seller',
                 'Note',
                 'Signature',
             ])
@@ -159,6 +161,8 @@ export default class GoogleSheets {
                     rows[i]['30-D Amazon In Stock'] = keepa.amazonInStock
                     rows[i]['Sell Price'] = keepa.sellPrice
                     rows[i]['Buy Box Price'] = keepa.sellPrice
+                    rows[i]['Brand'] = keepa.brand
+                    rows[i]['Seller'] = keepa.buyBoxIsAmazon ? 'Amazon' : ''
                     rows[i].Badge = keepa.hasBadge
                     rows[i].Net = keepa.profit
                     rows[i].Category = keepa.category

@@ -22,13 +22,14 @@ export default class Keepa {
     private product: KeepaProductType | null = null
     private buyboxPrice = NaN
     amazonInStock = true
-    buyBoxIsAmazon = false
+    buyBoxIsAmazon: boolean | undefined = false
     hasBadge = false
     avgBuyBox30Day = NaN
     sellPrice = NaN
     profit = NaN
     roi = NaN
     bsr = NaN
+    brand: string | null | undefined = ''
     top = false
     category = ''
     image = ''
@@ -87,7 +88,8 @@ export default class Keepa {
 
         this.product = this.data?.products[0]
 
-        this.buyBoxIsAmazon = !!this.product?.buyBoxIsAmazon
+        this.brand = this.product?.brand
+        this.buyBoxIsAmazon = this.product?.stats?.buyBoxIsAmazon
 
         if (!this.product?.title) {
             throw new Error('Amazon Title is not exist!')
