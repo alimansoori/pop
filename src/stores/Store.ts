@@ -124,14 +124,20 @@ abstract class Store implements IStore, IProductDetails {
         return this.url
     }
 
-    async scrape(): Promise<void> {
+    async scrape(isBan: boolean = false): Promise<void> {
         try {
-            const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
-            this.statusCode = res?.status()
-            if (!(res?.status() === 200 || res?.status() === 404)) {
-                console.log('>>>> Status Code = ' + res?.status())
+            if (isBan) {
+                console.log('>>>> Site is Ban')
                 this.runPostman = true
                 this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
+            } else {
+                const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
+                this.statusCode = res?.status()
+                if (!(res?.status() === 200 || res?.status() === 404)) {
+                    console.log('>>>> Status Code = ' + res?.status())
+                    this.runPostman = true
+                    this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
+                }
             }
         } catch (e: any) {
             await this.browser.close()
@@ -231,10 +237,14 @@ abstract class Store implements IStore, IProductDetails {
                     jsonSchemas.push(this.resultReq.$(elem).text())
                 })
             } else {
-                await this.page.waitForSelector(selector, newOption)
-                jsonSchemas = await this.page.$$eval(selector, (elem: any) =>
-                    elem.map((el: any) => el.textContent?.trim().replace(';', ''))
-                )
+                try {
+                    await this.page.waitForSelector(selector, newOption)
+                    jsonSchemas = await this.page.$$eval(selector, (elem: any) =>
+                      elem.map((el: any) => el.textContent?.trim().replace(';', ''))
+                    )
+                } catch (e: any) {
+                    await this.scrape(true)
+                }
             }
 
             this.iterateAvalabilitySchemas(jsonSchemas)
