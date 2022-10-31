@@ -10,7 +10,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.walmart.com/ip/Power-Rangers-Lightning-Collection-Mighty-Morphin-Ranger-Slayer/692791684'
+            'https://www.walgreens.com/store/c/burt%27s-bees-pomegranate-seed-oil-very-volumizing-shampoo-with-pomegranate/ID=prod6099578-product'
         )
 
         await store.createBrowser()

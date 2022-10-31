@@ -124,7 +124,7 @@ abstract class Store implements IStore, IProductDetails {
         return this.url
     }
 
-    async scrape(isBan: boolean = false): Promise<void> {
+    async scrape(isBan = false): Promise<void> {
         try {
             if (isBan) {
                 console.log('>>>> Site is Ban')
@@ -240,7 +240,7 @@ abstract class Store implements IStore, IProductDetails {
                 try {
                     await this.page.waitForSelector(selector, newOption)
                     jsonSchemas = await this.page.$$eval(selector, (elem: any) =>
-                      elem.map((el: any) => el.textContent?.trim().replace(';', ''))
+                        elem.map((el: any) => el.textContent?.trim().replace(';', ''))
                     )
                 } catch (e: any) {
                     await this.scrape(true)

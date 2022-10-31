@@ -1,6 +1,7 @@
 import Store from '../../Store'
 
 import { EnumLoadType } from '../../../@types/EnumLoadType'
+import sleep from '../../../utils/sleep'
 
 export default class Walgreens extends Store {
     constructor(url: string) {
@@ -15,17 +16,20 @@ export default class Walgreens extends Store {
         try {
             await this.page.waitForSelector('[id="productTitle"]', { timeout: 10000 })
             await this.page.$eval('[id="productTitle"]', (elem: any) => elem.textContent)
+            await sleep(3000)
 
             try {
-                await this.page.waitForSelector('[id="wag-shipping-tab"] .message__status', { timeout: 10000 })
+                await this.page.waitForSelector('ul.fulfillment__container > li:last-child .fulfillment_title > p', {
+                    timeout: 3000,
+                })
                 const availability = await this.page.$eval(
-                    '[id="wag-shipping-tab"] .message__status',
+                    'ul.fulfillment__container > li:last-child .fulfillment_title > p',
                     (elem: any) => elem.textContent
                 )
 
                 if (
-                    availability?.toLowerCase().includes('out of stock') ||
-                    availability?.toLowerCase().includes('not available')
+                    availability?.toLowerCase().trim().includes('out of stock') ||
+                    availability?.toLowerCase().trim().includes('not available')
                 ) {
                     this.setAvailability(false)
                 } else {
