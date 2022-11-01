@@ -26,6 +26,7 @@ export default class Keepa {
     hasBadge = false
     avgBuyBox30Day = NaN
     sellPrice = NaN
+    fbaPrice = NaN
     profit = NaN
     roi = NaN
     bsr = NaN
@@ -36,11 +37,11 @@ export default class Keepa {
 
     constructor(input: KeepaInputType) {
         this.input = input
-        this.keepaUrl = `${this.apiUrl}product?key=${this.key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}`
+        this.keepaUrl = `${this.apiUrl}product?key=${this.key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
     }
 
     setKeepaUrl(key: string) {
-        this.keepaUrl = `${this.apiUrl}product?key=${key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}`
+        this.keepaUrl = `${this.apiUrl}product?key=${key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
     }
 
     async fetchByKeepa() {
@@ -112,10 +113,19 @@ export default class Keepa {
         }
 
         this.buyboxPrice = this.product?.stats?.buyBoxPrice > 0 ? this.product?.stats?.buyBoxPrice / 100 : NaN
+        this.fbaPrice = this.lastFbaPrice()
 
         this.amazonInStock = this.amazonInStock30Day()
         this.avgBuyBox30Day = this.buyBoxAvg30Day()
-        this.sellPrice = this.buyboxPrice ? this.buyboxPrice : this.newPrice30Day()
+        this.sellPrice = this.buyboxPrice
+            ? this.buyboxPrice
+            : this.fbaPrice
+            ? this.fbaPrice
+            : this.avgBuyBox30Day
+            ? this.avgBuyBox30Day
+            : this.newPrice30Day()
+            ? this.newPrice30Day()
+            : 0
         this.keepaFirstImage()
 
         this.topCalculate()
@@ -160,7 +170,20 @@ export default class Keepa {
             this.product?.packageWeight &&
             this.product?.packageWidth
         ) {
-            const profitClass = new ProfitRoiCalculate({
+            /*const profitClass = new ProfitRoiCalculate({
+                sellPrice: this.sellPrice,
+                buyCost: this.input.sourcePrice,
+                packageLength: this.product?.packageLength * 0.0393701,
+                packageWidth: this.product?.packageWidth * 0.0393701,
+                packageHeight: this.product?.packageHeight * 0.0393701,
+                packageWeight: this.product?.packageWeight * 0.00220462,
+                category: this.category,
+            })*/
+
+            // this.profit = profitClass.netProfit
+            // this.roi = profitClass.roi
+
+            const profitClassBuyBox = new ProfitRoiCalculate({
                 sellPrice: this.sellPrice,
                 buyCost: this.input.sourcePrice,
                 packageLength: this.product?.packageLength * 0.0393701,
@@ -170,18 +193,8 @@ export default class Keepa {
                 category: this.category,
             })
 
-            this.profit = profitClass.netProfit
-            this.roi = profitClass.roi
-
-            const profitClassBuyBox = new ProfitRoiCalculate({
-                sellPrice: this.buyboxPrice ? this.buyboxPrice : this.avgBuyBox30Day ? this.avgBuyBox30Day : 0,
-                buyCost: this.input.sourcePrice,
-                packageLength: this.product?.packageLength * 0.0393701,
-                packageWidth: this.product?.packageWidth * 0.0393701,
-                packageHeight: this.product?.packageHeight * 0.0393701,
-                packageWeight: this.product?.packageWeight * 0.00220462,
-                category: this.category,
-            })
+            this.profit = profitClassBuyBox.netProfit
+            this.roi = profitClassBuyBox.roi
 
             /*const profitClassBadge = new ProfitRoiCalculate({
                 sellPrice: this.avgBuyBox30Day,
@@ -197,6 +210,14 @@ export default class Keepa {
                 this.hasBadge = true
             }
         }
+    }
+
+    private lastFbaPrice(): number {
+        const data = this.product?.csv[10]
+
+        if (data === null) return NaN
+
+        return data[data.length - 1] / 100
     }
 
     private amazonInStock30Day(): boolean {
