@@ -4,7 +4,7 @@ import { EnumCategories } from '../@types/EnumCategories'
 
 export default class ProfitRoiCalculate {
     private input: ProfitRoiCalculateType
-    private size: number
+    public size: number
     private fbaCost = 0
     private totalAmazonReferralFees = 0
     private storageFees = 0

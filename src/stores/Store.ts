@@ -133,8 +133,8 @@ abstract class Store implements IStore, IProductDetails {
             } else {
                 const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
                 this.statusCode = res?.status()
-                if (!(res?.status() === 200 || res?.status() === 404)) {
-                    console.log('>>>> Status Code = ' + res?.status())
+                console.log('>>>> Status Code = ' + res?.status())
+                if (res?.status() !== 200 || res?.status() !== 404) {
                     this.runPostman = true
                     this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
                 }

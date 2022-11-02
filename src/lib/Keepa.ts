@@ -9,7 +9,7 @@ import { EnumCategories } from '../@types/EnumCategories'
 export default class Keepa {
     private input: KeepaInputType
     private key = '9lpb4evo4c87vkajmcnfft5dirt97imditg32d27kdp7pm0c861rqc44o6pv1tct'
-    private key2 = '1uuk3u3b55cvqn3fbq8ii90v44eeb138r0j5rvgcpjoove9vele1qqu33kmhglc7'
+    private key2 = '42t2rfuagph4t942ccfi5l97lkkp5dh7ak0sm2brnc4a66nh4ouj82edn0pjp0on'
     // private key = "42t2rfuagph4t942ccfi5l97lkkp5dh7ak0sm2brnc4a66nh4ouj82edn0pjp0on"
     private apiUrl = 'https://api.keepa.com/'
     private isKey = 1
@@ -30,6 +30,7 @@ export default class Keepa {
     profit = NaN
     roi = NaN
     bsr = NaN
+    size = NaN
     brand: string | null | undefined = ''
     top = false
     category = ''
@@ -195,6 +196,7 @@ export default class Keepa {
 
             this.profit = profitClassBuyBox.netProfit
             this.roi = profitClassBuyBox.roi
+            this.size = profitClassBuyBox.size
 
             /*const profitClassBadge = new ProfitRoiCalculate({
                 sellPrice: this.avgBuyBox30Day,
