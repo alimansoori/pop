@@ -71,9 +71,6 @@ export default class Keepa {
                 console.log(`>>> tokenFlowReduction: ${err?.response?.data?.tokenFlowReduction}`)
                 console.log(`>>> Keepa Error: ${err?.response?.data?.error?.message}`)
                 await sleep(err?.response.data?.refillIn)
-            } else if (this.isKey === 1) {
-                this.isKey = 2
-                this.setKeepaUrl(this.key2)
             } else {
                 console.log('60 second wait')
                 await sleep(60000)
