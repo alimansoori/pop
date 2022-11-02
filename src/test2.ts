@@ -11,23 +11,22 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.jcpenney.com/p/curl-smith-full-lengths-density-elixir-hair-treatment/ppr5008149934?pTmplType=regular'
+            'https://www.jcpenney.com/p/caboodles-vintage-on-the-go-girl-storage-bin/ppr5007796606?pTmplType=beauty'
         )
 
         await store.createBrowser()
         await store.scrape()
-        store.productIsExist() ? console.log('Product Exist!') : console.log('Product Not Exist!')
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Price is: ' + store.getPrice())
         console.log('Source is in stock: ' + store.isAvailability())
 
-        const keepa = new Keepa({
+        /*const keepa = new Keepa({
             asin: 'B09B2P18GK',
             sourcePrice: 2,
         })
         await keepa.fetchByKeepa()
         console.log(keepa.sellPrice)
-        console.log(keepa.size)
+        console.log(keepa.size)*/
     } catch (e: any) {
         console.log(e.message)
     }

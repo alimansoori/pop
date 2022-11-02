@@ -14,6 +14,8 @@ import MyPostmanRequest from '../lib/MyPostmanRequest'
 import * as cheerio from 'cheerio'
 import { TypePostmanReq } from '../@types/TypePostmanReq'
 import { Browser, Page } from 'puppeteer'
+import StoreSchema from '../lib/StoreSchema'
+import { textToNumber } from '../lib/helper'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
@@ -134,7 +136,7 @@ abstract class Store implements IStore, IProductDetails {
                 const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
                 this.statusCode = res?.status()
                 console.log('>>>> Status Code = ' + res?.status())
-                if (res?.status() !== 200 || res?.status() !== 404) {
+                if (res?.status() !== 200 && res?.status() !== 404) {
                     this.runPostman = true
                     this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
                 }
@@ -158,6 +160,78 @@ abstract class Store implements IStore, IProductDetails {
         await this.browser.close()
 
         // await this.fetchPrice()
+    }
+
+    async checkAvailability(input: { selector: string; render: string; outputArray: string[] | undefined }) {
+        try {
+            const output: string[] = ['add to cart', 'add-to-cart', 'instock', 'in stock']
+            if (input.outputArray) {
+                output.concat(input.outputArray)
+            }
+            let availability: string | undefined
+
+            if (this.runPostman) {
+                if (input.render === 'text') {
+                    availability = this.resultReq.$(input.selector).text()
+                } else if (input.render === 'content') {
+                    availability = this.resultReq.$(input.selector).attr('content')
+                } else if (input.render === 'href') {
+                    availability = this.resultReq.$(input.selector).attr('href')
+                }
+            } else {
+                await this.page.waitForSelector(input.selector, { timeout: 10000 })
+                if (input.render === 'text') {
+                    availability = await this.page.$eval(input.selector, (elem: any) => elem.textContent)
+                } else if (input.render === 'content') {
+                    availability = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content'))
+                } else if (input.render === 'href') {
+                    availability = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('href'))
+                }
+            }
+            for (let i = 0; i < output.length; i++) {
+                if (availability?.toLowerCase().trim().includes(output[i])) {
+                    this.setAvailability(true)
+                    break
+                }
+            }
+        } catch (e: any) {
+            this.setAvailability(false)
+        }
+    }
+
+    async checkPrice(input: { selector1: string; selector2: string | undefined; render: string }) {
+        try {
+            await this.checkPriceRender({ selector: input.selector1, render: input.render })
+
+            if (!this.getPrice() && input.selector2) {
+                await this.checkPriceRender({ selector: input.selector2, render: input.render })
+            }
+        } catch (e: any) {
+            this.setAvailability(false)
+        }
+    }
+
+    private async checkPriceRender(input: { selector: string; render: string }) {
+        try {
+            if (this.runPostman) {
+                if (input.render === 'text') {
+                    this.setPrice(textToNumber(this.resultReq.$(input.selector).text()))
+                } else if (input.render === 'content') {
+                    this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('content')))
+                }
+            } else {
+                await this.page.waitForSelector(input.selector, { timeout: 10000 })
+                if (input.render === 'text') {
+                    this.setPrice(textToNumber(await this.page.$eval(input.selector, (elem: any) => elem.textContent)))
+                } else if (input.render === 'content') {
+                    this.setPrice(
+                        textToNumber(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content')))
+                    )
+                }
+            }
+        } catch (e) {
+            this.setPrice(NaN)
+        }
     }
 
     setCategoriesUrl(categories: string[]): this {
@@ -247,6 +321,7 @@ abstract class Store implements IStore, IProductDetails {
                 }
             }
 
+            new StoreSchema(jsonSchemas)
             this.iterateAvalabilitySchemas(jsonSchemas)
         } catch (e: any) {
             console.log(e.message)
@@ -488,7 +563,7 @@ abstract class Store implements IStore, IProductDetails {
         // Next Page
 
         /*if (await this.hasNextPage()) {
-    }*/
+}*/
     }
 }
 

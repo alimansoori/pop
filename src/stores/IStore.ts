@@ -25,6 +25,6 @@ export default interface IStore {
     getPageParam(): string
     hasScrollDown(): boolean
     setScrollDown(isScrollDown: boolean): this
-    scrape(): Promise<void>
+    scrape(isBan?: boolean): Promise<void>
     scrapeWholeSite(): Promise<void>
 }

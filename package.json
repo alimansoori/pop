@@ -25,7 +25,6 @@
   "author": "Ali",
   "license": "ISC",
   "dependencies": {
-    "@types/jest": "^29.0.3",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cheerio": "^1.0.0-rc.12",
@@ -36,8 +35,6 @@
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
     "ejs": "~2.6.1",
-    "request": "~2.88.2",
-    "request-promise": "^4.2.6",
     "express": "^4.18.1",
     "express-ejs-layouts": "^2.5.1",
     "forever": "^4.0.3",
@@ -48,14 +45,17 @@
     "mysql2": "^2.3.3",
     "nice-try": "^3.0.0",
     "node-dev": "^7.4.3",
+    "postman-request": "^2.88.1-postman.31",
     "puppeteer": "^19.0.0",
-    "puppeteer-extra-plugin-stealth": "^2.11.1",
     "puppeteer-extra": "^3.3.4",
+    "puppeteer-extra-plugin-stealth": "^2.11.1",
+    "request": "~2.88.2",
+    "request-promise": "^4.2.6",
+    "schema-dts": "^1.1.0",
     "sequelize": "^6.23.0",
     "sqlite3": "^5.1.1",
-    "zyte-smartproxy-puppeteer": "^1.0.16",
     "user-agents": "^1.0.952",
-    "postman-request": "^2.88.1-postman.31"
+    "zyte-smartproxy-puppeteer": "^1.0.16"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

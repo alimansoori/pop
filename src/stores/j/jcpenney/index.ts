@@ -14,10 +14,18 @@ export default class Jcpenney extends Store {
     async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+        await this.checkAvailability({
+            selector: '*[data-automation-id="addToCart"]',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkPrice({
+            selector1: 'div[data-automation-id="product-content-block"] *[data-automation-id="finalPriceAfterCoupon"]',
+            selector2: 'div[data-automation-id="product-content-block"] *[data-automation-id="at-price-value"]',
+            render: 'text',
+        })
     }
 }
