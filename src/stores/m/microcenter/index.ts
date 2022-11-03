@@ -12,10 +12,17 @@ export default class Microcenter extends Store {
     async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+        await this.checkAvailability({
+            selector: 'button[value="ADD TO CART"]',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkPrice({
+            selector1: '*[id="pricing"]',
+            render: 'content',
+        })
     }
 }

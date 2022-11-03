@@ -69,10 +69,22 @@ abstract class Store implements IStore, IProductDetails {
         return this.selectorsP
     }
 
-    setCanonical(): void {
-        const canonical = this.resultReq.$('link[rel="canonical"]').attr('href')
-        if (!this.runPostman && canonical) {
-            this.url = canonical
+    async setCanonical(): Promise<void> {
+        try {
+            let canonical: string | undefined
+            const selector = 'link[rel="canonical"]'
+            if (this.runPostman) {
+                canonical = this.resultReq.$(selector).attr('href')
+            } else {
+                await this.page.waitForSelector(selector, { timeout: 2000 })
+                canonical = await this.page.$eval(selector, (elem: any) => elem.getAttribute('href'))
+            }
+
+            if (canonical) {
+                this.url = canonical
+            }
+        } catch (e: any) {
+            console.log('Not exist canonical')
         }
     }
 
@@ -128,7 +140,7 @@ abstract class Store implements IStore, IProductDetails {
 
     async scrape(isBan = false): Promise<void> {
         try {
-            if (isBan) {
+            if (isBan || this.runPostman) {
                 console.log('>>>> Site is Ban')
                 this.runPostman = true
                 this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
@@ -199,7 +211,7 @@ abstract class Store implements IStore, IProductDetails {
         }
     }
 
-    async checkPrice(input: { selector1: string; selector2: string | undefined; render: string }) {
+    async checkPrice(input: { selector1: string; selector2?: string | undefined; render: string }) {
         try {
             await this.checkPriceRender({ selector: input.selector1, render: input.render })
 

@@ -11,11 +11,11 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.jcpenney.com/p/caboodles-vintage-on-the-go-girl-storage-bin/ppr5007796606?pTmplType=beauty'
+            'https://www.entertainmentearth.com/product/dragon-ball-z-vegeta-pocket-pop-key-chain/fu54733'
         )
 
         await store.createBrowser()
-        await store.scrape()
+        await store.scrape(true)
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Price is: ' + store.getPrice())
         console.log('Source is in stock: ' + store.isAvailability())
