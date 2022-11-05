@@ -11,7 +11,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.entertainmentearth.com/product/dragon-ball-z-vegeta-pocket-pop-key-chain/fu54733'
+            'https://www.swansonvitamins.com/p/europharma-terry-naturally-mental-advantage-60-sgels'
         )
 
         await store.createBrowser()

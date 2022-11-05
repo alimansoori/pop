@@ -317,21 +317,7 @@ abstract class Store implements IStore, IProductDetails {
             ...options,
         }
         try {
-            let jsonSchemas: any[] = []
-            if (this.runPostman) {
-                this.resultReq.$(selector).map((num, elem) => {
-                    jsonSchemas.push(this.resultReq.$(elem).text())
-                })
-            } else {
-                try {
-                    await this.page.waitForSelector(selector, newOption)
-                    jsonSchemas = await this.page.$$eval(selector, (elem: any) =>
-                        elem.map((el: any) => el.textContent?.trim().replace(';', ''))
-                    )
-                } catch (e: any) {
-                    await this.scrape(true)
-                }
-            }
+            const jsonSchemas = await this.fetchJsonSchemas(selector, newOption)
 
             new StoreSchema(jsonSchemas)
             this.iterateAvalabilitySchemas(jsonSchemas)
@@ -339,6 +325,44 @@ abstract class Store implements IStore, IProductDetails {
             console.log(e.message)
             this.setAvailability(false)
         }
+    }
+
+    protected async checkMetaByClassSchemas(selector: string, options = {}): Promise<void> {
+        const newOption = {
+            timeout: 10000,
+            ...options,
+        }
+        try {
+            const jsonSchemas = await this.fetchJsonSchemas(selector, newOption)
+
+            const storeSchema = new StoreSchema(jsonSchemas)
+            this.setPrice(storeSchema.price)
+            this.setAvailability(storeSchema.availability)
+        } catch (e: any) {
+            console.log(e.message)
+            this.setAvailability(false)
+        }
+    }
+
+    private async fetchJsonSchemas(selector: string, newOption = {}) {
+        let jsonSchemas: any[] = []
+        if (this.runPostman) {
+            this.resultReq.$(selector).map((num, elem) => {
+                jsonSchemas.push(this.resultReq.$(elem).text())
+            })
+        } else {
+            try {
+                await this.page.waitForSelector(selector, newOption)
+                jsonSchemas = await this.page.$$eval(selector, (elem: any) =>
+                    elem.map((el: any) => el.textContent?.trim().replace(';', ''))
+                )
+            } catch (e: any) {
+                console.log(e.message)
+                await this.scrape(true)
+            }
+        }
+
+        return jsonSchemas
     }
 
     private iterateAvalabilitySchemas(jsonSchemas: any[]) {

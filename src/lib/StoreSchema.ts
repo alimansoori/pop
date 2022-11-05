@@ -1,7 +1,7 @@
-import { Product } from 'schema-dts'
+import { Product, WithContext } from 'schema-dts'
 
 export default class StoreSchema {
-    private productSchema: Product | undefined
+    private productSchema: WithContext<Product> | undefined
     name: string | undefined
     price = NaN
     availability = false
@@ -10,7 +10,6 @@ export default class StoreSchema {
         this.init(schemas)
         this.fetchName()
         this.fetchOffer()
-        console.log(this.name)
     }
 
     private init(schemas: string[]) {
@@ -20,19 +19,34 @@ export default class StoreSchema {
                 this.productSchema = JSON.parse(schemas[i]?.trim().replace(';', ''))
             }
         }
+
+        // console.log(this.productSchema)
     }
 
     private fetchName() {
-        if (this?.productSchema?.name) {
+        if (this.productSchema?.name) {
             this.name = String(this.productSchema?.name)
         }
     }
 
     private fetchOffer() {
-        if (!this?.productSchema?.offers) return
-        if (typeof this?.productSchema?.offers === 'object') {
+        if (!this.productSchema?.offers) return
+        if (typeof this.productSchema?.offers === 'object') {
             // @ts-ignore
-            this.price = this?.productSchema?.offers?.['price']
+            this.price = this.productSchema?.offers?.['price']
+            // @ts-ignore
+            const availability = this.productSchema?.offers?.['availability']
+            // @ts-ignore
+            const itemCondition = this.productSchema?.offers?.['itemCondition']
+            // @ts-ignore
+            if (itemCondition && itemCondition?.toLowerCase()?.includes('newcondition')) {
+                if (availability?.toLowerCase().includes('instock')) {
+                    this.availability = true
+                }
+            }
+            if (!itemCondition) {
+                this.availability = availability
+            }
         }
     }
 }
