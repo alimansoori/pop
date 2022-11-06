@@ -15,6 +15,13 @@ export default class StoreSchema {
     private init(schemas: string[]) {
         for (let i = 0; i < schemas.length; i++) {
             const schema = JSON.parse(schemas[i]?.trim().replace(';', ''))
+            if (Array.isArray(schema)) {
+                const newSchemas = []
+                for (let i = 0; i < schema.length; i++) {
+                    newSchemas[i] = JSON.stringify(schema[i])
+                }
+                this.init(newSchemas)
+            }
             if (schema['@type'] === 'Product') {
                 this.productSchema = JSON.parse(schemas[i]?.trim().replace(';', ''))
             }
@@ -31,22 +38,35 @@ export default class StoreSchema {
 
     private fetchOffer() {
         if (!this.productSchema?.offers) return
-        if (typeof this.productSchema?.offers === 'object') {
-            // @ts-ignore
-            this.price = this.productSchema?.offers?.['price']
-            // @ts-ignore
-            const availability = this.productSchema?.offers?.['availability']
-            // @ts-ignore
-            const itemCondition = this.productSchema?.offers?.['itemCondition']
-            // @ts-ignore
-            if (itemCondition && itemCondition?.toLowerCase()?.includes('newcondition')) {
-                if (availability?.toLowerCase().includes('instock')) {
-                    this.availability = true
-                }
+        const offers: any = this.productSchema?.offers
+        if (offers instanceof Array) {
+            for (let i = 0; i < offers.length; i++) {
+                if (this.offerIsObject(offers[i])) break
             }
-            if (!itemCondition) {
-                this.availability = availability
+        } else {
+            this.offerIsObject(offers)
+        }
+    }
+
+    private offerIsObject(offer: object): boolean {
+        // @ts-ignore
+        this.price = offer?.['price']
+        // @ts-ignore
+        const availability = offer?.['availability']
+        // @ts-ignore
+        const itemCondition = offer?.['itemCondition']
+        // @ts-ignore
+        if (itemCondition && itemCondition?.toLowerCase()?.includes('newcondition')) {
+            if (availability?.toLowerCase().includes('instock')) {
+                this.availability = true
+            }
+            return true
+        }
+        if (!itemCondition) {
+            if (availability?.toLowerCase().includes('instock')) {
+                this.availability = true
             }
         }
+        return false
     }
 }

@@ -358,7 +358,6 @@ abstract class Store implements IStore, IProductDetails {
                 )
             } catch (e: any) {
                 console.log(e.message)
-                await this.scrape(true)
             }
         }
 
