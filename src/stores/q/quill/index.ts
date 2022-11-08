@@ -9,23 +9,22 @@ export default class Quill extends Store {
         // this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[class="skuName"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+        await this.checkAvailability({
+            selector: 'a[id="myAddToCart_sku"] > span',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            const selector = 'div.sku-details-wrap span[id="SkuPriceUpdate"]'
-            if (this.runPostman) {
-                this.setPrice(textToNumber(this.resultReq.$(selector).text()))
-            } else {
-                await this.page.waitForSelector(selector, { timeout: 10000 })
-                this.setPrice(await this.page.$eval(selector, (elem: any) => elem.getAttribute('content')))
-            }
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'div.sku-details-wrap span[id="SkuPriceUpdate"]',
+            render: 'content',
+        })
     }
 }

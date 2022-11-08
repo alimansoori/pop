@@ -13,7 +13,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.tfaw.com/pop-disney-archives-plane-crazy-mickey-vin-figure.html'
+            'https://www.revzilla.com/dirt-bike/100-armega-goggle-replacement-lens?sku_id=1653472'
         )
 
         await store.createBrowser()

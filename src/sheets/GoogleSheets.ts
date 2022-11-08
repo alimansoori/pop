@@ -179,8 +179,8 @@ export default class GoogleSheets {
 
                 rows[i]['Status'] = store.statusCode
 
-                if (!store.productIsExist()) {
-                    rows[i]['Note'] = 'Product Not Exist'
+                if (store.error) {
+                    rows[i]['Note'] = store.error
                 }
 
                 rows[i].Source = store.getDomain()

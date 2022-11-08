@@ -11,7 +11,7 @@ export default class Walmart extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        this.setCanonical()
+        await this.productExistBySelector('h1[itemprop="name"]')
     }
 
     async availibilityCalculate(): Promise<void> {

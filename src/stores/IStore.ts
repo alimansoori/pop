@@ -6,6 +6,7 @@ import ProductTitle from './ProductTitle'
 
 export default interface IStore {
     statusCode: number | undefined
+    error: string
     createBrowser(): Promise<void>
     productIsExist(): boolean
     getPrice(): number

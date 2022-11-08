@@ -8,9 +8,12 @@ export default class Walgreens extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
+        this.viewPageSource = false
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('*[id="productTitle"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
         try {
@@ -19,7 +22,7 @@ export default class Walgreens extends Store {
             })
 
             await this.page.click('ul.fulfillment__container > li:last-child')
-            await sleep(3000)
+            await sleep(5000)
 
             await this.checkAvailability({
                 selector: 'ul.fulfillment__container > li:last-child:not(.disabled)',

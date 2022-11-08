@@ -11,11 +11,7 @@ export default class Tfaw extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('h1.page-title > span[data-ui-id="page-title-wrapper"]')
-        } catch (e) {
-            this.productExist = false
-        }
+        await this.productExistBySelector('h1.page-title > span[data-ui-id="page-title-wrapper"]')
     }
 
     async availibilityCalculate(): Promise<void> {

@@ -16,6 +16,7 @@ import { TypePostmanReq } from '../@types/TypePostmanReq'
 import { Browser, Page } from 'puppeteer'
 import StoreSchema from '../lib/StoreSchema'
 import { textToNumber } from '../lib/helper'
+import { cat } from 'shelljs'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
@@ -30,7 +31,7 @@ abstract class Store implements IStore, IProductDetails {
     protected availability = false
     protected isScrollDown = false
     protected price = NaN
-    protected error = null
+    public error = ''
     protected selectorsPrice: TypePriceSelectors = {}
     private readonly selectorsP: ISelectors
     private readonly optionsP: IStoreOptions
@@ -38,6 +39,8 @@ abstract class Store implements IStore, IProductDetails {
     protected productExist = true
     protected siteIsBlocked = false
     protected runPostman = false
+    protected viewPageSource = true
+    protected isFirst = false
 
     protected constructor(url: string) {
         this.url = url
@@ -51,9 +54,9 @@ abstract class Store implements IStore, IProductDetails {
         }
     }
 
-    async createBrowser(): Promise<void> {
+    async createBrowser(siteIsBlocked = false): Promise<void> {
         try {
-            const pup = new MyPuppeteer(this.siteIsBlocked)
+            const pup = new MyPuppeteer(siteIsBlocked)
             await pup.build()
             this.browser = pup.browser
             this.page = await this.browser.newPage()
@@ -141,7 +144,7 @@ abstract class Store implements IStore, IProductDetails {
 
     async scrape(isBan = false): Promise<void> {
         try {
-            if (isBan || this.runPostman) {
+            if (this.viewPageSource && (isBan || this.runPostman)) {
                 console.log('>>>> Site is Ban')
                 this.runPostman = true
                 this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
@@ -149,16 +152,52 @@ abstract class Store implements IStore, IProductDetails {
                 const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
                 this.statusCode = res?.status()
                 console.log('>>>> Status Code = ' + res?.status())
-                if (res?.status() !== 200 && res?.status() !== 404) {
+                if (res?.status() !== 200 && res?.status() !== 404 && this.viewPageSource) {
                     this.runPostman = true
                     this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
+                } else if (res?.status() === 404) {
+                    throw new Error('Error 404')
                 }
             }
         } catch (e: any) {
             await this.browser.close()
+            return
         }
 
-        await this.productExistCalculate()
+        if (!this.isFirst) {
+            await this.productExistCalculate()
+        }
+
+        if (!this.productExist) {
+            this.error = 'Product Not Exist'
+        }
+
+        if (!this.productExist && !this.viewPageSource && !this.isFirst) {
+            try {
+                this.isFirst = true
+                this.productExist = true
+                console.log('viewPageSource : false')
+                this.siteIsBlocked = true
+                try {
+                    await this.browser.close()
+                } catch (e: any) {
+                    console.log(e.message)
+                }
+                await this.createBrowser(true)
+                await this.scrape()
+                return
+            } catch (e: any) {
+                console.log(e.message)
+            }
+        }
+
+        if (!this.productExist && this.viewPageSource && !this.isFirst) {
+            this.isFirst = true
+            this.productExist = true
+            await this.scrape(true)
+            return
+        }
+
         await this.setCanonical()
         this.setTitle()
         if (!this.titleClass.isValid()) {
@@ -325,6 +364,20 @@ abstract class Store implements IStore, IProductDetails {
 
     abstract productExistCalculate(): Promise<void>
 
+    protected async productExistBySelector(selector: string) {
+        if (this.runPostman) {
+            if (!this.resultReq.$(selector).length) {
+                this.productExist = false
+            }
+        } else {
+            try {
+                await this.page.waitForSelector(selector)
+            } catch (e) {
+                this.productExist = false
+            }
+        }
+    }
+
     async productTitleCalculate(): Promise<void> {
         return Promise.resolve(undefined)
     }
@@ -380,7 +433,7 @@ abstract class Store implements IStore, IProductDetails {
                 )
             } catch (e: any) {
                 console.log(e.message)
-                await this.scrape(true)
+                // await this.scrape(true)
             }
         }
 
