@@ -11,7 +11,9 @@ export default class Beautyexpert extends Store {
         // this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[data-product-name="title"]')
+    }
 
     async productTitleCalculate(): Promise<void> {
         // this.titleClass.setTitle("ffff");
