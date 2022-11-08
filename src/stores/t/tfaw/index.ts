@@ -10,29 +10,26 @@ export default class Tfaw extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
-
-    async availibilityCalculate(): Promise<void> {
+    async productExistCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('button[id="product-addtocart-button"]', { timeout: 10000 })
-            this.setAvailability(true)
-        } catch (e: any) {
-            this.setAvailability(false)
+            await this.page.waitForSelector('h1.page-title > span[data-ui-id="page-title-wrapper"]')
+        } catch (e) {
+            this.productExist = false
         }
     }
 
-    async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('[data-price-type="finalPrice"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('[data-price-type="finalPrice"]', (elem: any) =>
-                    elem.getAttribute('data-price-amount')
-                )
-            )
+    async availibilityCalculate(): Promise<void> {
+        await this.checkAvailability({
+            selector: 'button[id="product-addtocart-button"]',
+            render: null,
+            outputArray: [],
+        })
+    }
 
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+    async priceCalculate(): Promise<void> {
+        await this.checkPrice({
+            selector1: '[data-price-type="finalPrice"]',
+            render: 'data-price-amount',
+        })
     }
 }

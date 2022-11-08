@@ -14,30 +14,18 @@ export default class Walgreens extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            await this.page.waitForSelector('[id="productTitle"]', { timeout: 10000 })
-            await this.page.$eval('[id="productTitle"]', (elem: any) => elem.textContent)
+            await this.page.waitForSelector('ul.fulfillment__container > li:last-child', {
+                timeout: 3000,
+            })
+
+            await this.page.click('ul.fulfillment__container > li:last-child')
             await sleep(3000)
 
-            try {
-                await this.page.waitForSelector('ul.fulfillment__container > li:last-child .fulfillment_title > p', {
-                    timeout: 3000,
-                })
-                const availability = await this.page.$eval(
-                    'ul.fulfillment__container > li:last-child .fulfillment_title > p',
-                    (elem: any) => elem.textContent
-                )
-
-                if (
-                    availability?.toLowerCase().trim().includes('out of stock') ||
-                    availability?.toLowerCase().trim().includes('not available')
-                ) {
-                    this.setAvailability(false)
-                } else {
-                    this.setAvailability(true)
-                }
-            } catch (e: any) {
-                this.setAvailability(true)
-            }
+            await this.checkAvailability({
+                selector: 'ul.fulfillment__container > li:last-child:not(.disabled)',
+                render: null,
+                outputArray: [],
+            })
         } catch (e: any) {
             this.setAvailability(false)
         }

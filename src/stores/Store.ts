@@ -30,6 +30,7 @@ abstract class Store implements IStore, IProductDetails {
     protected availability = false
     protected isScrollDown = false
     protected price = NaN
+    protected error = null
     protected selectorsPrice: TypePriceSelectors = {}
     private readonly selectorsP: ISelectors
     private readonly optionsP: IStoreOptions
@@ -158,7 +159,7 @@ abstract class Store implements IStore, IProductDetails {
         }
 
         await this.productExistCalculate()
-        this.setCanonical()
+        await this.setCanonical()
         this.setTitle()
         if (!this.titleClass.isValid()) {
             console.log('Product title not valid!')
@@ -174,7 +175,7 @@ abstract class Store implements IStore, IProductDetails {
         // await this.fetchPrice()
     }
 
-    async checkAvailability(input: { selector: string; render: string; outputArray: string[] | undefined }) {
+    async checkAvailability(input: { selector: string; render: string | null; outputArray: string[] | undefined }) {
         try {
             const output: string[] = ['add to cart', 'add-to-cart', 'instock', 'in stock']
             if (input.outputArray) {
@@ -189,6 +190,12 @@ abstract class Store implements IStore, IProductDetails {
                     availability = this.resultReq.$(input.selector).attr('content')
                 } else if (input.render === 'href') {
                     availability = this.resultReq.$(input.selector).attr('href')
+                } else if (!input.render) {
+                    if (this.resultReq.$(input.selector)) {
+                        availability = 'in stock'
+                    } else {
+                        availability = 'out of stock'
+                    }
                 }
             } else {
                 await this.page.waitForSelector(input.selector, { timeout: 10000 })
@@ -198,6 +205,13 @@ abstract class Store implements IStore, IProductDetails {
                     availability = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content'))
                 } else if (input.render === 'href') {
                     availability = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('href'))
+                } else if (!input.render) {
+                    try {
+                        await this.page.waitForSelector(input.selector, { timeout: 10000 })
+                        availability = 'in stock'
+                    } catch (e) {
+                        availability = 'out of stock'
+                    }
                 }
             }
             for (let i = 0; i < output.length; i++) {
@@ -230,6 +244,8 @@ abstract class Store implements IStore, IProductDetails {
                     this.setPrice(textToNumber(this.resultReq.$(input.selector).text()))
                 } else if (input.render === 'content') {
                     this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('content')))
+                } else if (input.render === 'data-price-amount') {
+                    this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('data-price-amount')))
                 }
             } else {
                 await this.page.waitForSelector(input.selector, { timeout: 10000 })
@@ -238,6 +254,12 @@ abstract class Store implements IStore, IProductDetails {
                 } else if (input.render === 'content') {
                     this.setPrice(
                         textToNumber(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content')))
+                    )
+                } else if (input.render === 'data-price-amount') {
+                    this.setPrice(
+                        textToNumber(
+                            await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price-amount'))
+                        )
                     )
                 }
             }

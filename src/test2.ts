@@ -12,7 +12,9 @@ export async function main() {
             'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
         )*/
         // console.log(res)
-        const store = await SourceSiteFactory.create('https://www.entertainmentearth.com/product/BA36744')
+        const store = await SourceSiteFactory.create(
+            'https://www.tfaw.com/pop-disney-archives-plane-crazy-mickey-vin-figure.html'
+        )
 
         await store.createBrowser()
         await store.scrape()

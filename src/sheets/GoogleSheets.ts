@@ -65,7 +65,7 @@ export default class GoogleSheets {
                 'Net',
                 'ROI',
                 'BSR',
-                'Package Quantity',
+                'Status',
                 'Seller',
                 'Note',
                 'Signature',
@@ -177,7 +177,11 @@ export default class GoogleSheets {
                     } else console.log('< REJECT >')
                 } else console.log('< REJECT >')
 
-                rows[i]['Note'] = store.statusCode
+                rows[i]['Status'] = store.statusCode
+
+                if (!store.productIsExist()) {
+                    rows[i]['Note'] = 'Product Not Exist'
+                }
 
                 rows[i].Source = store.getDomain()
 
