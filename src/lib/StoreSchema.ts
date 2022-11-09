@@ -14,16 +14,30 @@ export default class StoreSchema {
 
     private init(schemas: string[]) {
         for (let i = 0; i < schemas.length; i++) {
-            const schema = JSON.parse(schemas[i]?.trim().replace(';', ''))
-            if (Array.isArray(schema)) {
-                const newSchemas = []
-                for (let i = 0; i < schema.length; i++) {
-                    newSchemas[i] = JSON.stringify(schema[i])
+            try {
+                const schema = JSON.parse(schemas[i]?.trim().replace(';', ''))
+                if (Array.isArray(schema)) {
+                    const newSchemas = []
+                    for (let i = 0; i < schema.length; i++) {
+                        newSchemas[i] = JSON.stringify(schema[i])
+                    }
+                    this.init(newSchemas)
+                    continue
+                } else if (schema['@graph']) {
+                    if (Array.isArray(schema['@graph'])) {
+                        const newSchemas = []
+                        for (let i = 0; i < schema['@graph'].length; i++) {
+                            newSchemas[i] = JSON.stringify(schema['@graph'][i])
+                        }
+                        this.init(newSchemas)
+                    }
+                    continue
+                } else if (schema['@type'] === 'Product') {
+                    this.productSchema = JSON.parse(schemas[i]?.trim().replace(';', ''))
+                    break
                 }
-                this.init(newSchemas)
-            }
-            if (schema['@type'] === 'Product') {
-                this.productSchema = JSON.parse(schemas[i]?.trim().replace(';', ''))
+            } catch (e: any) {
+                continue
             }
         }
 

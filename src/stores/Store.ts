@@ -40,7 +40,7 @@ abstract class Store implements IStore, IProductDetails {
     protected siteIsBlocked = false
     protected runPostman = false
     protected viewPageSource = true
-    protected isFirst = false
+    protected isSecond = false
 
     protected constructor(url: string) {
         this.url = url
@@ -164,7 +164,7 @@ abstract class Store implements IStore, IProductDetails {
             return
         }
 
-        if (!this.isFirst) {
+        if (!this.isSecond) {
             await this.productExistCalculate()
         }
 
@@ -172,12 +172,11 @@ abstract class Store implements IStore, IProductDetails {
             this.error = 'Product Not Exist'
         }
 
-        if (!this.productExist && !this.viewPageSource && !this.isFirst && this.statusCode !== 404) {
+        if (!this.productExist && !this.viewPageSource && !this.isSecond && this.statusCode !== 404) {
             try {
-                this.isFirst = true
+                this.isSecond = true
                 this.productExist = true
                 console.log('viewPageSource : false')
-                this.siteIsBlocked = true
                 try {
                     await this.browser.close()
                 } catch (e: any) {
@@ -191,8 +190,8 @@ abstract class Store implements IStore, IProductDetails {
             }
         }
 
-        if (!this.productExist && this.viewPageSource && !this.isFirst) {
-            this.isFirst = true
+        if (!this.productExist && this.viewPageSource && !this.isSecond) {
+            this.isSecond = true
             this.productExist = true
             await this.scrape(true)
             return
@@ -372,7 +371,9 @@ abstract class Store implements IStore, IProductDetails {
         } else {
             try {
                 await this.page.waitForSelector(selector)
-            } catch (e) {
+                this.productExist = true
+            } catch (e: any) {
+                console.log(e.message)
                 this.productExist = false
             }
         }

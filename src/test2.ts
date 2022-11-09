@@ -13,7 +13,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.walgreens.com/store/c/squishmallow-8-inch-disney-pride---rainbow-bing-bong/ID=300426917-product'
+            'https://www.dickssportinggoods.com/p/aqua-sphere-jrvista-swim-goggles-16aphyvstjrmskclrswe/16aphyvstjrmskclrswe?color=Pink%2FSmoke'
         )
 
         await store.createBrowser()
