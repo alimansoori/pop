@@ -13,7 +13,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.fugitivetoys.com/products/funko-pop-albums-motorhead-ace-of-spades-08'
+            'https://www.walgreens.com/store/c/squishmallow-8-inch-disney-pride---rainbow-bing-bong/ID=300426917-product'
         )
 
         await store.createBrowser()
