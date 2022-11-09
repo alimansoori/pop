@@ -12,7 +12,9 @@ export async function main() {
             'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
         )*/
         // console.log(res)
-        const store = await SourceSiteFactory.create('https://www.wdrake.com/buy-naxa-cd-player-367500')
+        const store = await SourceSiteFactory.create(
+            'https://www.fugitivetoys.com/products/funko-pop-albums-motorhead-ace-of-spades-08'
+        )
 
         await store.createBrowser()
         await store.scrape()

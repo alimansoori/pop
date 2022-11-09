@@ -11,7 +11,9 @@ export default class Acehardware extends Store {
         // this.runPostman = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div[id="pdp-detail-inner"] h1[itemprop="name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
         try {

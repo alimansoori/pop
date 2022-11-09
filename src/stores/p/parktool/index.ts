@@ -10,7 +10,9 @@ export default class Parktool extends Store {
         // this.runPostman = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div.product-detail h1')
+    }
 
     async productTitleCalculate(): Promise<void> {
         // this.titleClass.setTitle("ffff");

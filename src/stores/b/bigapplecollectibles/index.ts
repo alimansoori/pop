@@ -9,7 +9,9 @@ export default class Bigapplecollectibles extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.product-single__title')
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas(

@@ -9,7 +9,9 @@ export default class Knifecenter extends Store {
         // this.runPostman = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div[id="product"] h1')
+    }
 
     async availibilityCalculate(): Promise<void> {
         try {

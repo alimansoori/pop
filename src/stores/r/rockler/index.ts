@@ -7,7 +7,9 @@ export default class Rockler extends Store {
         // this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div.product h1[class="page-title"] > span[data-ui-id="page-title-wrapper"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')

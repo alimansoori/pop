@@ -7,7 +7,9 @@ export default class Foodservicedirect extends Store {
         // this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div.p-product-detail__primary-sections h1')
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')

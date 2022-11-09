@@ -10,7 +10,9 @@ export default class Academy extends Store {
         // this.runPostman = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[data-auid="PDP_ProductName"]')
+    }
 
     async productTitleCalculate(): Promise<void> {
         // this.titleClass.setTitle("ffff");

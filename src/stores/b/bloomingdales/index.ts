@@ -9,7 +9,9 @@ export default class Bloomingdales extends Store {
         // this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div[class="product-details-feature"] div[class="product-title"] > h1')
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkMetaByClassSchemas('script[type="application/ld+json"]')

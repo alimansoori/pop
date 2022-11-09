@@ -7,7 +7,9 @@ export default class Campmor extends Store {
         super(url)
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.product_title')
+    }
 
     async availibilityCalculate(): Promise<void> {
         try {

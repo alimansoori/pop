@@ -6,7 +6,9 @@ export default class Familyotc extends Store {
         super(url)
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div.product h1[class="product_name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
         try {

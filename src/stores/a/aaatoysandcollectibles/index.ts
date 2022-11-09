@@ -7,7 +7,9 @@ export default class Aaatoysandcollectibles extends Store {
         super(url)
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[class="product-single__title"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
         try {

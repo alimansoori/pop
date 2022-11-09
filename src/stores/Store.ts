@@ -172,7 +172,7 @@ abstract class Store implements IStore, IProductDetails {
             this.error = 'Product Not Exist'
         }
 
-        if (!this.productExist && !this.viewPageSource && !this.isFirst) {
+        if (!this.productExist && !this.viewPageSource && !this.isFirst && this.statusCode !== 404) {
             try {
                 this.isFirst = true
                 this.productExist = true

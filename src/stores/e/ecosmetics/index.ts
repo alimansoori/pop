@@ -10,7 +10,9 @@ export default class Ecosmetics extends Store {
         // this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.product_title')
+    }
 
     async productTitleCalculate(): Promise<void> {
         // this.titleClass.setTitle("ffff");
