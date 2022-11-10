@@ -1,39 +1,28 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Barnesandnoble extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div[id="prodInfoContainer"] div[id="pdp-header-info"] h1.pdp-header-title')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('link[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('link[itemprop="availability"]', (elem: any) =>
-                elem.getAttribute('href')
-            )
-
-            if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'link[itemprop="availability"]',
+            render: 'href',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('span[itemprop="price"]', { timeout: 5000 })
-            const price = textToNumber(await this.page.$eval('span[itemprop="price"]', (elem: any) => elem.textContent))
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: '*[itemprop="price"]',
+            render: 'text',
+        })
     }
 }

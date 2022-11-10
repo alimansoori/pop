@@ -15,7 +15,11 @@ export default class Acmetools extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+        await this.checkAvailability({
+            selector: '*[class="in-stock"] *[class="inventory-msg"]',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {

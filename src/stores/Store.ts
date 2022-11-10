@@ -155,6 +155,8 @@ abstract class Store implements IStore, IProductDetails {
                 if (res?.status() !== 200 && res?.status() !== 404 && this.viewPageSource) {
                     this.runPostman = true
                     this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
+                } else if (res?.status() !== 200 && res?.status() !== 404 && !this.viewPageSource) {
+                    this.productExist = false
                 } else if (res?.status() === 404) {
                     throw new Error('Error 404')
                 }

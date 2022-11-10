@@ -1,4 +1,5 @@
 import { Product, WithContext } from 'schema-dts'
+import { json } from 'sequelize'
 
 export default class StoreSchema {
     private productSchema: WithContext<Product> | undefined
@@ -17,21 +18,13 @@ export default class StoreSchema {
             try {
                 const schema = JSON.parse(schemas[i]?.trim().replace(';', ''))
                 if (Array.isArray(schema)) {
-                    const newSchemas = []
-                    for (let i = 0; i < schema.length; i++) {
-                        newSchemas[i] = JSON.stringify(schema[i])
-                    }
-                    this.init(newSchemas)
+                    this.schemaCheckIfArray(schema)
                     continue
                 } else if (schema['@graph']) {
                     if (Array.isArray(schema['@graph'])) {
-                        const newSchemas = []
-                        for (let i = 0; i < schema['@graph'].length; i++) {
-                            newSchemas[i] = JSON.stringify(schema['@graph'][i])
-                        }
-                        this.init(newSchemas)
+                        this.schemaCheckIfArray(schema['@graph'])
+                        continue
                     }
-                    continue
                 } else if (schema['@type'] === 'Product') {
                     this.productSchema = JSON.parse(schemas[i]?.trim().replace(';', ''))
                     break
@@ -42,6 +35,14 @@ export default class StoreSchema {
         }
 
         // console.log(this.productSchema)
+    }
+
+    private schemaCheckIfArray(schema: any[]) {
+        const newSchemas = []
+        for (let i = 0; i < schema.length; i++) {
+            newSchemas[i] = JSON.stringify(schema[i])
+        }
+        this.init(newSchemas)
     }
 
     private fetchName() {
@@ -64,7 +65,7 @@ export default class StoreSchema {
 
     private offerIsObject(offer: object): boolean {
         // @ts-ignore
-        this.price = offer?.['price']
+        this.price = StoreSchema.fetchPriceFromOffer(offer)
         // @ts-ignore
         const availability = offer?.['availability']
         // @ts-ignore
@@ -82,5 +83,38 @@ export default class StoreSchema {
             }
         }
         return false
+    }
+
+    private static fetchPriceFromOffer(offer: object): number {
+        // @ts-ignore
+        if (offer?.['price']) {
+            // @ts-ignore
+            return offer?.['price']
+        } else {
+            // @ts-ignore
+            if (offer?.['priceSpecification']) {
+                // @ts-ignore
+                const priceSpecification = offer?.['priceSpecification']
+                if (Array.isArray(priceSpecification)) {
+                    let listPrice = NaN
+                    let salePrice = NaN
+                    for (let i = 0; i < priceSpecification.length; i++) {
+                        if (priceSpecification[i]?.['priceType'] !== undefined) {
+                            const priceType: string = priceSpecification[i]['priceType']
+                            if (priceType.toLowerCase().includes('listprice')) {
+                                listPrice = parseFloat(priceSpecification[i]['price'])
+                            } else if (priceType.toLowerCase().includes('saleprice')) {
+                                salePrice = parseFloat(priceSpecification[i]['price'])
+                            }
+                        }
+                    }
+
+                    if (salePrice) return salePrice
+                    else if (listPrice) return listPrice
+                }
+            }
+        }
+
+        return NaN
     }
 }

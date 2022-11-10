@@ -13,7 +13,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.dickssportinggoods.com/p/aqua-sphere-jrvista-swim-goggles-16aphyvstjrmskclrswe/16aphyvstjrmskclrswe?color=Pink%2FSmoke'
+            'https://www.bedbathandbeyond.com/store/product/sheamoisture-13-oz-purple-rice-water-creme-body-wash/5610181'
         )
 
         await store.createBrowser()
