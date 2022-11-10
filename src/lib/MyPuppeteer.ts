@@ -31,7 +31,6 @@ export class MyPuppeteer {
                 headless: false,
                 ignoreHTTPSErrors: true,
                 executablePath: 'C:\\chrome-win\\chrome.exe',
-                args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors'],
             }
 
             if (this.useProxy) {

@@ -1,41 +1,28 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Scheels extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[itemprop="name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('button#add-to-cart:not([disabled="disabled"])', { timeout: 10000 })
-            const availability = await this.page.$eval('button#add-to-cart:not([disabled="disabled"])', (elem: any) =>
-                elem.getAttribute('value')
-            )
-
-            if (availability === 'Ship It') {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'div[id="product-content"] *[itemprop="availability"]',
+            render: 'content',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('div#product-content span[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('div#product-content span[itemprop="price"]', (elem: any) => elem.textContent)
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'div[id="product-content"] *[itemprop="price"]',
+            render: 'text',
+        })
     }
 }

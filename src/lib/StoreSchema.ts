@@ -71,7 +71,7 @@ export default class StoreSchema {
         // @ts-ignore
         const itemCondition = offer?.['itemCondition']
         // @ts-ignore
-        if (itemCondition && itemCondition?.toLowerCase()?.includes('newcondition')) {
+        if (itemCondition && itemCondition?.toLowerCase()?.includes('new')) {
             if (availability?.toLowerCase().includes('instock')) {
                 this.availability = true
             }
