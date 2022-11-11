@@ -106,6 +106,8 @@ export default class StoreSchema {
                             } else if (priceType.toLowerCase().includes('saleprice')) {
                                 salePrice = parseFloat(priceSpecification[i]['price'])
                             }
+                        } else {
+                            salePrice = parseFloat(priceSpecification[i]['price'])
                         }
                     }
 

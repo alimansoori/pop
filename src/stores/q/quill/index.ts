@@ -1,10 +1,10 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Quill extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.DOC_LOADED
         // this.runPostman = true
         // this.siteIsBlocked = true
     }
@@ -14,17 +14,6 @@ export default class Quill extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailability({
-            selector: 'a[id="myAddToCart_sku"] > span',
-            render: 'text',
-            outputArray: [],
-        })
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPrice({
-            selector1: 'div.sku-details-wrap span[id="SkuPriceUpdate"]',
-            render: 'content',
-        })
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

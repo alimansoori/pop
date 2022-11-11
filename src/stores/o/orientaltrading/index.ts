@@ -4,7 +4,6 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Orientaltrading extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
     }
 

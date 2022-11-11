@@ -1,40 +1,28 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Bigbadtoystore extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[class="product-name-ada"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('h2.ada-product-h2.ada-order-h2', { timeout: 10000 })
-            const availability = await this.page.$eval(
-                'h2.ada-product-h2.ada-order-h2',
-                (elem: any) => elem.textContent
-            )
-
-            if (availability === 'IN STOCK') {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'h2.ada-product-h2.ada-order-h2',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('div.price', { timeout: 5000 })
-            const price = textToNumber(await this.page.$eval('div.price', (elem: any) => elem.textContent))
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'div.price',
+            render: 'text',
+        })
     }
 }

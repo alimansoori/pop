@@ -243,7 +243,7 @@ import Litoygame from './l/litoygame'
 import Popsandbeyond from './p/popsandbeyond'
 import Booksamillion from './b/booksamillion'
 import Coolstuffinc from './c/coolstuffinc'
-// import Atomicempire from "./a/atomicempire";
+import Atomicempire from './a/atomicempire'
 import Pippd from './p/pippd'
 import Officesupply from './o/officesupply'
 import Pureformulas from './p/pureformulas'
@@ -339,8 +339,7 @@ export default class SourceSiteFactory {
             else if (domain === 'activepowersports') return new Activepowersports(url)
             else if (domain === 'activerideshop') return new Activerideshop(url)
             else if (domain === 'acurite') return new Acurite(url)
-            // از دسترس خارج شده در آینده ادد شود
-            // else if (domain === 'atomicempire') return new Atomicempire(url)
+            else if (domain === 'atomicempire') return new Atomicempire(url)
             else if (domain === 'adafruit') return new Adafruit(url)
             else if (domain === 'adagio') return new Adagio(url)
             else if (domain === 'adenandanais') return new Adenandanais(url)

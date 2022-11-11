@@ -9,33 +9,22 @@ export default class Gamersguildaz extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div.product-page-info__title h1')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('div.label--in-stock', { timeout: 10000 })
-            const availability = await this.page.$eval('div.label--in-stock', (elem: any) => elem.textContent)
-
-            if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'div.label--in-stock:not(.d-none-important)',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('meta[property="og:price:amount"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('meta[property="og:price:amount"]', (elem: any) => elem.getAttribute('content'))
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'meta[property="og:price:amount"]',
+            render: 'content',
+        })
     }
 }

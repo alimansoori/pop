@@ -217,7 +217,7 @@ abstract class Store implements IStore, IProductDetails {
 
     async checkAvailability(input: { selector: string; render: string | null; outputArray: string[] | undefined }) {
         try {
-            const output: string[] = ['add to cart', 'add-to-cart', 'instock', 'in stock']
+            const output: string[] = ['add to cart', 'add-to-cart', 'instock', 'in stock', 'available for order']
             if (input.outputArray) {
                 output.concat(input.outputArray)
             }
