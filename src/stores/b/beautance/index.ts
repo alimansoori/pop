@@ -1,46 +1,28 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Beautance extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('*[id="product"] div[id="pb-left-column"] h1')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('span.availability', { timeout: 10000 })
-            const availability = await this.page.$eval('span.availability', (elem: any) => elem.textContent)
-
-            if (
-                availability?.toLowerCase().includes('instock') ||
-                availability?.toLowerCase().includes('in stock') ||
-                availability?.toLowerCase().includes('available')
-            ) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'span.availability',
+            render: 'text',
+            outputArray: ['available'],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('span[id="our_price_display"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('span[id="our_price_display"]', (elem: any) => elem.textContent)
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'span[id="our_price_display"]',
+            render: 'text',
+        })
     }
 }

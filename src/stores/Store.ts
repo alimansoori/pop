@@ -60,6 +60,9 @@ abstract class Store implements IStore, IProductDetails {
             await pup.build()
             this.browser = pup.browser
             this.page = await this.browser.newPage()
+
+            const context = this.browser.defaultBrowserContext()
+            await context.overridePermissions(this.url, ['geolocation'])
         } catch (e) {
             throw new Error('create browser faild')
         }
@@ -150,6 +153,10 @@ abstract class Store implements IStore, IProductDetails {
                 this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
             } else {
                 const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
+                await this.page.setGeolocation({
+                    latitude: 40.7,
+                    longitude: -73.9,
+                })
                 this.statusCode = res?.status()
                 console.log('>>>> Status Code = ' + res?.status())
                 if (res?.status() !== 200 && res?.status() !== 404 && this.viewPageSource) {
@@ -217,9 +224,9 @@ abstract class Store implements IStore, IProductDetails {
 
     async checkAvailability(input: { selector: string; render: string | null; outputArray: string[] | undefined }) {
         try {
-            const output: string[] = ['add to cart', 'add-to-cart', 'instock', 'in stock', 'available for order']
+            let output: string[] = ['add to cart', 'add-to-cart', 'instock', 'in stock', 'available for order']
             if (input.outputArray) {
-                output.concat(input.outputArray)
+                output = output.concat(input.outputArray)
             }
             let availability: string | undefined
 
@@ -286,6 +293,8 @@ abstract class Store implements IStore, IProductDetails {
                     this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('content')))
                 } else if (input.render === 'data-price-amount') {
                     this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('data-price-amount')))
+                } else if (input.render === 'data-price') {
+                    this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('data-price')))
                 }
             } else {
                 await this.page.waitForSelector(input.selector, { timeout: 10000 })
@@ -299,6 +308,12 @@ abstract class Store implements IStore, IProductDetails {
                     this.setPrice(
                         textToNumber(
                             await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price-amount'))
+                        )
+                    )
+                } else if (input.render === 'data-price') {
+                    this.setPrice(
+                        textToNumber(
+                            await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price'))
                         )
                     )
                 }

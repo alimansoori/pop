@@ -11,13 +11,11 @@ export default class Shumistore extends Store {
         // this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
-
-    async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.product-meta__title')
     }
 
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+    async availibilityCalculate(): Promise<void> {
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

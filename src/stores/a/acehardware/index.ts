@@ -2,6 +2,7 @@ import Store from '../../Store'
 
 import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
+import sleep from '../../../utils/sleep'
 
 export default class Acehardware extends Store {
     constructor(url: string) {
@@ -16,7 +17,13 @@ export default class Acehardware extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        try {
+        await this.checkAvailability({
+            selector: 'div.product-add-to-cart-info div:not(.is-loading) > button[id="add-to-cart"]:not(.is-disabled)',
+            render: 'text',
+            outputArray: [],
+        })
+        this.availability = true
+        /*try {
             let availability = ''
             const selector = 'button[id="add-to-cart"].ace-add-to-cart-btn.is-disabled'
             if (this.runPostman) {
@@ -33,20 +40,13 @@ export default class Acehardware extends Store {
             }
         } catch (e: any) {
             this.setAvailability(true)
-        }
+        }*/
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            const selector = 'span[itemprop="price"]'
-            if (this.runPostman) {
-                this.setPrice(textToNumber(this.resultReq.$(selector).text()))
-            } else {
-                await this.page.waitForSelector(selector, { timeout: 10000 })
-                this.setPrice(await this.page.$eval(selector, (elem: any) => elem.textContent))
-            }
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: '*[itemprop="price"]',
+            render: 'text',
+        })
     }
 }

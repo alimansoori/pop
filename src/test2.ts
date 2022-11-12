@@ -11,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.hsn.com/products/antennas-direct-cda8-tv-catv-distribution-amp-8-way-out/9806344'
+            'https://www.acehardware.com/departments/hardware/door-knobs-and-locks/privacy-levers-and-knobs/5001511'
         )
 
         await store.createBrowser()

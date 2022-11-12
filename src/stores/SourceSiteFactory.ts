@@ -286,6 +286,8 @@ import Mealeymarine from './m/mealeymarine'
 import Mercadomagico from './m/mercadomagico'
 import Discountbandit from './d/discountbandit'
 import { MyPuppeteer } from '../lib/MyPuppeteer'
+import Supplyhouse from './s/supplyhouse'
+import VilleroyBoch from './v/villeroy-boch'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -568,6 +570,7 @@ export default class SourceSiteFactory {
             else if (domain === 'shopdisney') return new Shopdisney(url)
             else if (domain === 'sweetwater') return new Sweetwater(url)
             else if (domain === 'sunandski') return new Sunandski(url)
+            else if (domain === 'supplyhouse') return new Supplyhouse(url)
             else if (domain === 'target') return new Target(url)
             else if (domain === 'tartecosmetics') return new Tartecosmetics(url)
             else if (domain === 'tfaw') return new Tfaw(url)
@@ -595,6 +598,7 @@ export default class SourceSiteFactory {
             else if (domain === 'united-states-flag') return new UnitedStatesFlag(url)
             // else if (domain === 'vipoutlet') return new Vipoutlet(url)
             else if (domain === 'vitacost') return new Vitacost(url)
+            else if (domain === 'villeroy-boch') return new VilleroyBoch(url)
             else if (domain === 'vminnovations') return new Vminnovations(url)
             else if (domain === 'vitaminshoppe') return new Vitaminshoppe(url)
             else if (domain === 'walmart') return new Walmart(url)

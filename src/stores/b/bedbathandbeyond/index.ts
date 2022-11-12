@@ -24,8 +24,7 @@ export default class Bedbathandbeyond extends Store {
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'div.priceBplus.bold > span',
-            selector2: 'div.trackIsPrice.bold',
+            selector1: 'div.trackIsPrice.bold',
             render: 'text',
         })
     }
