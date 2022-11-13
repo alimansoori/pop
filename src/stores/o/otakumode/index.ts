@@ -1,28 +1,28 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Fun extends Store {
+export default class Otakumode extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1.h4')
+        await this.productExistBySelector('*.p-product-detail__summary h1')
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'meta[property="product:availability"]',
-            render: 'content',
+            selector: 'a[data-track-action="add_to_cart"]',
+            render: 'text',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'meta[property="product:price:amount"]',
-            render: 'content',
+            selector1: 'div[class="p-product-detail__sku"] span[class="p-price__price"]',
+            render: 'text',
         })
     }
 }
