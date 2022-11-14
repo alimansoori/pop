@@ -60,9 +60,6 @@ abstract class Store implements IStore, IProductDetails {
             await pup.build()
             this.browser = pup.browser
             this.page = await this.browser.newPage()
-
-            const context = this.browser.defaultBrowserContext()
-            await context.overridePermissions(this.url, ['geolocation'])
         } catch (e) {
             throw new Error('create browser faild')
         }
@@ -154,10 +151,6 @@ abstract class Store implements IStore, IProductDetails {
                     this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
                 } else {
                     const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
-                    await this.page.setGeolocation({
-                        latitude: 40.7,
-                        longitude: -73.9,
-                    })
                     this.statusCode = res?.status()
                     console.log('>>>> Status Code = ' + res?.status())
                     if (res?.status() !== 200 && res?.status() !== 404 && this.viewPageSource) {
