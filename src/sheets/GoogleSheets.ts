@@ -143,6 +143,7 @@ export default class GoogleSheets {
                 const store = await this.sourceSite(rows[i]['Source URL'])
                 await store.createBrowser()
                 await store.scrape()
+                await store.browser?.close()
                 console.log('Source Price is: ' + store.getPrice())
                 console.log('Source is in stock: ' + store.isAvailability())
                 // await browser.close()

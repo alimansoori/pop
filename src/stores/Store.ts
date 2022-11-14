@@ -21,7 +21,7 @@ import { cat } from 'shelljs'
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
     protected page!: Page
-    protected browser!: Browser
+    browser!: Browser
     protected resultReq: TypePostmanReq
     protected url: string
     public statusCode: number | undefined = 200
@@ -211,7 +211,7 @@ abstract class Store implements IStore, IProductDetails {
                 await this.priceCalculate()
             }
         } catch (e: any) {
-            await this.browser.close()
+            await this.browser?.close()
         }
     }
 

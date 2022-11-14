@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer'
+import { Browser, Page } from "puppeteer";
 import { TypePriceSelector } from '../@types/TypePriceSelectors'
 import ISelectors from './ISelectors'
 import IStoreOptions from './IStoreOptions'
@@ -7,6 +7,7 @@ import ProductTitle from './ProductTitle'
 export default interface IStore {
     statusCode: number | undefined
     error: string
+    browser?: Browser
     createBrowser(): Promise<void>
     productIsExist(): boolean
     getPrice(): number
