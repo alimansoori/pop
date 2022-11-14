@@ -147,79 +147,79 @@ abstract class Store implements IStore, IProductDetails {
 
     async scrape(isBan = false): Promise<void> {
         try {
-            if (this.viewPageSource && (isBan || this.runPostman)) {
-                console.log('>>>> Site is Ban')
-                this.runPostman = true
-                this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
-            } else {
-                const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
-                await this.page.setGeolocation({
-                    latitude: 40.7,
-                    longitude: -73.9,
-                })
-                this.statusCode = res?.status()
-                console.log('>>>> Status Code = ' + res?.status())
-                if (res?.status() !== 200 && res?.status() !== 404 && this.viewPageSource) {
+            try {
+                if (this.viewPageSource && (isBan || this.runPostman)) {
+                    console.log('>>>> Site is Ban')
                     this.runPostman = true
                     this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
-                } else if (res?.status() !== 200 && res?.status() !== 404 && !this.viewPageSource) {
-                    this.productExist = false
-                } else if (res?.status() === 404) {
-                    throw new Error('Error 404')
+                } else {
+                    const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
+                    await this.page.setGeolocation({
+                        latitude: 40.7,
+                        longitude: -73.9,
+                    })
+                    this.statusCode = res?.status()
+                    console.log('>>>> Status Code = ' + res?.status())
+                    if (res?.status() !== 200 && res?.status() !== 404 && this.viewPageSource) {
+                        this.runPostman = true
+                        this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
+                    } else if (res?.status() !== 200 && res?.status() !== 404 && !this.viewPageSource) {
+                        this.productExist = false
+                    } else if (res?.status() === 404) {
+                        throw new Error('Error 404')
+                    }
                 }
+            } catch (e: any) {
+                await this.browser.close()
+                return
             }
-        } catch (e: any) {
-            await this.browser.close()
-            return
-        }
 
-        if (!this.isSecond) {
-            await this.productExistCalculate()
-        }
+            if (!this.isSecond) {
+                await this.productExistCalculate()
+            }
 
-        if (!this.productExist) {
-            this.error = 'Product Not Exist'
-        }
+            if (!this.productExist) {
+                this.error = 'Product Not Exist'
+            }
 
-        if (!this.productExist && !this.viewPageSource && !this.isSecond && this.statusCode !== 404) {
-            try {
-                this.isSecond = true
-                this.productExist = true
-                console.log('viewPageSource : false')
+            if (!this.productExist && !this.viewPageSource && !this.isSecond && this.statusCode !== 404) {
                 try {
-                    await this.browser.close()
+                    this.isSecond = true
+                    this.productExist = true
+                    console.log('viewPageSource : false')
+                    try {
+                        await this.browser.close()
+                    } catch (e: any) {
+                        console.log(e.message)
+                    }
+                    await this.createBrowser(true)
+                    await this.scrape()
+                    return
                 } catch (e: any) {
                     console.log(e.message)
                 }
-                await this.createBrowser(true)
-                await this.scrape()
-                return
-            } catch (e: any) {
-                console.log(e.message)
             }
-        }
 
-        if (!this.productExist && this.viewPageSource && !this.isSecond) {
-            this.isSecond = true
-            this.productExist = true
-            await this.scrape(true)
-            return
-        }
+            if (!this.productExist && this.viewPageSource && !this.isSecond) {
+                this.isSecond = true
+                this.productExist = true
+                await this.scrape(true)
+                return
+            }
 
-        await this.setCanonical()
-        this.setTitle()
-        if (!this.titleClass.isValid()) {
-            console.log('Product title not valid!')
+            await this.setCanonical()
+            this.setTitle()
+            if (!this.titleClass.isValid()) {
+                console.log('Product title not valid!')
+            }
+            if (this.productIsExist() && this.titleClass.isValid()) {
+                await this.productTitleCalculate()
+                await this.availibilityCalculate()
+                await this.priceCalculate()
+            }
+        } catch (e: any) {
+            await this.browser.close()
         }
-        if (this.productIsExist() && this.titleClass.isValid()) {
-            await this.productTitleCalculate()
-            await this.availibilityCalculate()
-            await this.priceCalculate()
-        }
-
-        await this.browser.close()
-
-        // await this.fetchPrice()
     }
 
     async checkAvailability(input: { selector: string; render: string | null; outputArray: string[] | undefined }) {

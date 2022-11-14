@@ -30,6 +30,9 @@ export default class StoreSchema {
                         this.init([JSON.stringify(schema['mainEntity'])])
                         continue
                     }
+                } else if (schema['offers'] !== undefined) {
+                    this.productSchema = JSON.parse(schemas[i]?.trim().replace(';', ''))
+                    break
                 } else if (schema['@type'] === 'Product') {
                     this.productSchema = JSON.parse(schemas[i]?.trim().replace(';', ''))
                     break

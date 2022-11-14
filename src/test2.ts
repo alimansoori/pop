@@ -10,10 +10,13 @@ export async function main() {
             'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
         )*/
         // console.log(res)
-        const store = await SourceSiteFactory.create('https://www.nytransitmuseumstore.com/plush-map-teddy-big.html')
+        const store = await SourceSiteFactory.create(
+            'https://www.walmart.com/ip/Hobart-Er70S-6-Solid-Welding-Wire/14293959'
+        )
 
         await store.createBrowser()
         await store.scrape()
+        console.log('Error: ' + store.error)
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Price is: ' + store.getPrice())
         console.log('Source is in stock: ' + store.isAvailability())

@@ -296,6 +296,8 @@ import Halloweencostumes from './h/halloweencostumes'
 import Simplicity from './s/simplicity'
 import Itcosmetics from './i/itcosmetics'
 import Nytransitmuseumstore from './n/nytransitmuseumstore'
+import Aventuron from './a/aventuron'
+import Omegajuicers from './o/omegajuicers'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -362,6 +364,7 @@ export default class SourceSiteFactory {
             else if (domain === 'altomusic') return new Altomusic(url)
             else if (domain === 'albeebaby') return new Albeebaby(url)
             else if (domain === 'alltimetoys') return new Alltimetoys(url)
+            else if (domain === 'aventuron') return new Aventuron(url)
             else if (domain === 'allstarhealth') return new Allstarhealth(url)
             else if (domain === 'artsupplywarehouse') return new Artsupplywarehouse(url)
             else if (domain === 'americanedgeknives') return new Americanedgeknives(url)
@@ -520,6 +523,7 @@ export default class SourceSiteFactory {
             else if (domain === 'neimanmarcus') return new Neimanmarcus(url)
             else if (domain === 'nothingbutsavings') return new Nothingbutsavings(url)
             else if (domain === 'oldies') return new Oldies(url)
+            else if (domain === 'omegajuicers') return new Omegajuicers(url)
             else if (domain === 'otakumode') return new Otakumode(url)
             else if (domain === 'orientaltrading') return new Orientaltrading(url)
             else if (domain === 'officedepot') return new Officedepot(url)
