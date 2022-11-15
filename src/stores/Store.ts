@@ -77,11 +77,13 @@ abstract class Store implements IStore, IProductDetails {
         try {
             let canonical: string | undefined
             const selector = 'link[rel="canonical"]'
-            if (this.runPostman) {
-                canonical = this.resultReq.$(selector).attr('href')
-            } else {
-                await this.page.waitForSelector(selector, { timeout: 2000 })
-                canonical = await this.page.$eval(selector, (elem: any) => elem.getAttribute('href'))
+            if (this.productExist) {
+                if (this.runPostman) {
+                    canonical = this.resultReq.$(selector).attr('href')
+                } else {
+                    await this.page.waitForSelector(selector, { timeout: 2000 })
+                    canonical = await this.page.$eval(selector, (elem: any) => elem.getAttribute('href'))
+                }
             }
 
             if (canonical) {

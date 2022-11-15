@@ -8,7 +8,7 @@ export default class Barnesandnoble extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div[id="prodInfoContainer"] div[id="pdp-header-info"] h1.pdp-header-title')
+        await this.productExistBySelector('div[id="pdp-header-info"] > h1[itemprop="name"]')
     }
 
     async availibilityCalculate(): Promise<void> {

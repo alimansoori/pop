@@ -5,18 +5,15 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Nobleknight extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
         // this.runPostman = true
     }
 
-    async productExistCalculate(): Promise<void> {}
-
-    async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.name')
     }
 
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+    async availibilityCalculate(): Promise<void> {
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

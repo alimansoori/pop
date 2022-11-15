@@ -11,14 +11,7 @@ export default class Toywiz extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        try {
-            if (!this.runPostman) {
-                await this.page.waitForSelector('script[type="application/ld+json"]', { timeout: 10000 })
-                this.productExist = true
-            }
-        } catch (e: any) {
-            this.productExist = false
-        }
+        await this.productExistBySelector('div.productTitle h1')
     }
 
     async availibilityCalculate(): Promise<void> {
