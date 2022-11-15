@@ -1,28 +1,27 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Belk extends Store {
+export default class Opensky extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1 *[itemprop="name"]')
+        await this.productExistBySelector('h1.sellable-detail-section')
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'link[itemprop="availability"]',
-            render: 'href',
+            selector: '*[class="add-to-cart-text"]',
+            render: 'text',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'span[itemprop="price"]',
-            selector2: 'div.price-standard, span.standardprice',
+            selector1: '*[id="current-price"]',
             render: 'text',
         })
     }

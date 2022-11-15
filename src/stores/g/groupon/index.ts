@@ -4,28 +4,26 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Groupon extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[id="deal-title"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('button[id="add-to-cart"]', { timeout: 10000 })
-            const availability = await this.page.$eval('button[id="add-to-cart"]', (elem: any) => elem.textContent)
-
-            if (availability?.toLowerCase().includes('add to cart')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'button[id="add-to-cart"]',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkPrice({
+            selector1: 'div.price-discount-wrapper',
+            selector2: 'div[class="pricing-options-wrapper"]  div[class="breakout-option-value"]',
+            render: 'text',
+        })
     }
 }

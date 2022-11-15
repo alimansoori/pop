@@ -297,6 +297,8 @@ import Itcosmetics from './i/itcosmetics'
 import Nytransitmuseumstore from './n/nytransitmuseumstore'
 import Aventuron from './a/aventuron'
 import Omegajuicers from './o/omegajuicers'
+import Nightmaretoys from './n/nightmaretoys'
+import Opensky from './s/opensky'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -514,6 +516,7 @@ export default class SourceSiteFactory {
             // else if (domain === 'netrition') return new Netrition(url)
             else if (domain === 'newark') return new Newark(url)
             else if (domain === 'newegg') return new Newegg(url)
+            else if (domain === 'nightmaretoys') return new Nightmaretoys(url)
             else if (domain === 'nytransitmuseumstore') return new Nytransitmuseumstore(url)
             else if (domain === 'neweggbusiness') return new Neweggbusiness(url)
             else if (domain === 'nextwarehouse') return new Nextwarehouse(url)
@@ -529,6 +532,7 @@ export default class SourceSiteFactory {
             else if (domain === 'overstock') return new Overstock(url)
             else if (domain === 'overtons') return new Overtons(url)
             else if (domain === 'opentip') return new Opentip(url)
+            else if (domain === 'opensky') return new Opensky(url)
             else if (domain === 'partytoyz') return new Partytoyz(url)
             else if (domain === 'pamperedchef') return new Pamperedchef(url)
             else if (domain === 'petflow') return new Petflow(url)
