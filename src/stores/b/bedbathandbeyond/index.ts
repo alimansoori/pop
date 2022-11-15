@@ -7,7 +7,7 @@ export default class Bedbathandbeyond extends Store {
         super(url)
         this.url = url.replace('bedbathandbeyond.com/amp', 'bedbathandbeyond.com')
         this.url = url.replace('bedbathandbeyond.com', 'bedbathandbeyond.com/amp')
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
     }
 
     async productExistCalculate(): Promise<void> {
@@ -15,17 +15,6 @@ export default class Bedbathandbeyond extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailability({
-            selector: 'button[data-cta="pdpPickIt"]',
-            render: 'text',
-            outputArray: [],
-        })
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPrice({
-            selector1: 'div.trackIsPrice.bold',
-            render: 'text',
-        })
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"][id="pdpSchemaGraph"]')
     }
 }

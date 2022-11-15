@@ -21,8 +21,8 @@ export default class Alltimetoys extends Store {
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: '*[itemprop="price"]',
-            render: 'content',
+            selector1: 'div[class="product-info-main"] *[data-price-type="finalPrice"]',
+            render: 'data-price-amount',
         })
     }
 }

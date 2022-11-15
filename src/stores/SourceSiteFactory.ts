@@ -289,7 +289,6 @@ import { MyPuppeteer } from '../lib/MyPuppeteer'
 import Supplyhouse from './s/supplyhouse'
 import VilleroyBoch from './v/villeroy-boch'
 import Yourfavoritetshirts from './y/yourfavoritetshirts'
-import Otakumode from './o/otakumode'
 import Crunchyroll from './c/crunchyroll'
 import Rallyhouse from './r/rallyhouse'
 import Halloweencostumes from './h/halloweencostumes'
@@ -524,7 +523,6 @@ export default class SourceSiteFactory {
             else if (domain === 'nothingbutsavings') return new Nothingbutsavings(url)
             else if (domain === 'oldies') return new Oldies(url)
             else if (domain === 'omegajuicers') return new Omegajuicers(url)
-            else if (domain === 'otakumode') return new Otakumode(url)
             else if (domain === 'orientaltrading') return new Orientaltrading(url)
             else if (domain === 'officedepot') return new Officedepot(url)
             else if (domain === 'officesupply') return new Officesupply(url)

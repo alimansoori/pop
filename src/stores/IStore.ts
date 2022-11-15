@@ -1,4 +1,4 @@
-import { Browser, Page } from "puppeteer";
+import { Browser, Page } from 'puppeteer'
 import { TypePriceSelector } from '../@types/TypePriceSelectors'
 import ISelectors from './ISelectors'
 import IStoreOptions from './IStoreOptions'

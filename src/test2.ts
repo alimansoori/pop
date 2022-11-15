@@ -11,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.walmart.com/ip/Hobart-Er70S-6-Solid-Welding-Wire/14293959'
+            'https://www.bedbathandbeyond.com/store/product/zwilling-pro-slim-7-inch-chef-39-s-knife-in-black/5617096?wmSkipPwa=1'
         )
 
         await store.createBrowser()

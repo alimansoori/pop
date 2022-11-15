@@ -1,33 +1,30 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Boscovs extends Store {
     constructor(url: string) {
         super(url)
-
-        // this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector(
+            'div[class="product-wrapper"] div[class="mz-product-top-content"] h1[itemprop="name"]'
+        )
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('button[id="add-to-cart"]:not(.button_disabled)', { timeout: 10000 })
-            this.setAvailability(true)
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'button[id="add-to-cart"]:not(.button_disabled)',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.textContent))
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: '*[itemprop="price"]',
+            render: 'text',
+        })
     }
 }
