@@ -9,7 +9,7 @@ export default class Dickssportinggoods extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[class="title"][itemprop="namee"]')
+        await this.productExistBySelector('h1[class="title"][itemprop="name"]')
     }
 
     async availibilityCalculate(): Promise<void> {

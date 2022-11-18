@@ -11,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.opensky.com/perfume-worldwide/product/skin-expertise-revitalift-anti-wrinkle-firming-moisturizer-by-l-oreal-paris-for-unisex-0-5-oz-eye-cream?osky_campaign=category-product-grid-beauty&osky_content=2'
+            'https://www.kohls.com/product/prd-5493469/rare-beauty-by-selena-gomez-warm-wishes-effortless-bronzer-sticks.jsp'
         )
 
         await store.createBrowser()

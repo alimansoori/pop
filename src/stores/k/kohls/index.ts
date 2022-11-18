@@ -1,41 +1,46 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
+import sleep from '../../../utils/sleep'
 
 export default class Kohls extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.LOAD
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[class="product-title"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('meta[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('meta[itemprop="availability"]', (elem: any) =>
-                elem.getAttribute('content')
+        /*try {
+            await this.page.waitForSelector('div[class="pdp-colorSwatches-dropdown"]')
+            await this.page.click('div[class="pdp-colorSwatches-dropdown"]')
+
+            await sleep(2000)
+            const [textElems] = await this.page.$x(
+                "//div[contains(@class, 'pdp-colorSwatches-dropdown')]//ul//a[contains(.,'Power Boost')]"
             )
 
-            if (availability === 'http://schema.org/InStock') {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
+            if (textElems) {
+                // @ts-ignore
+                await textElems.click()
             }
         } catch (e: any) {
-            this.setAvailability(false)
-        }
+            console.log(e.message)
+        }*/
+
+        await this.checkAvailability({
+            selector: 'meta[itemprop="availability"]',
+            render: 'content',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('meta[itemprop="price"]', { timeout: 5000 })
-            const price = textToNumber(
-                await this.page.$eval('meta[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'meta[itemprop="price"]',
+            render: 'content',
+        })
     }
 }
