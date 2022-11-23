@@ -11,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.kohls.com/product/prd-5493469/rare-beauty-by-selena-gomez-warm-wishes-effortless-bronzer-sticks.jsp'
+            'https://www.pokemoncenter.com/product/710-29296/pokemon-accents-mimikyu-wall-light-box'
         )
 
         await store.createBrowser()

@@ -60,6 +60,11 @@ abstract class Store implements IStore, IProductDetails {
             await pup.build()
             this.browser = pup.browser
             this.page = await this.browser.newPage()
+            // this.page = (await this.browser.pages())[0]
+
+            await this.page.setUserAgent(
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+            )
         } catch (e) {
             throw new Error('create browser faild')
         }

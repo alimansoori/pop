@@ -299,6 +299,11 @@ import Aventuron from './a/aventuron'
 import Omegajuicers from './o/omegajuicers'
 import Nightmaretoys from './n/nightmaretoys'
 import Opensky from './s/opensky'
+import Kidpowered from './k/kidpowered'
+import Toys3000 from './1/3000toys'
+import Thetoytemple from './t/thetoytemple'
+import Pokemarket from './p/pokemarket'
+import Pokemoncenter from './p/pokemoncenter'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -333,6 +338,7 @@ export default class SourceSiteFactory {
             else if (domain === '1sale') return new Sale1(url)
             else if (domain === '1stoplighting') return new Stoplighting1(url)
             else if (domain === '4wd') return new Wd4(url)
+            else if (domain === '3000toys') return new Toys3000(url)
             // else if (domain === '4sgm') return new Sgm(url)
             else if (domain === '4wheelparts') return new Wheelparts4(url)
             // else if (domain === '511tactical') return new Tactical(url)
@@ -485,6 +491,7 @@ export default class SourceSiteFactory {
             else if (domain === 'keurig') return new Keurig(url)
             else if (domain === 'kikocosmetics') return new Kikocosmetics(url)
             else if (domain === 'knifecenter') return new Knifecenter(url)
+            else if (domain === 'kidpowered') return new Kidpowered(url)
             else if (domain === 'kohls') return new Kohls(url)
             else if (domain === 'k9cuisine') return new K9cuisine(url)
             // else if (domain === 'lakeside') return new Lakeside(url)
@@ -545,6 +552,8 @@ export default class SourceSiteFactory {
             else if (domain === 'petswarehouse') return new Petswarehouse(url)
             else if (domain === 'popmarket') return new Popmarket(url)
             else if (domain === 'poptoys') return new Poptoys(url)
+            else if (domain === 'pokemarket') return new Pokemarket(url)
+            // else if (domain === 'pokemoncenter') return new Pokemoncenter(url)
             else if (domain === 'popsandbeyond') return new Popsandbeyond(url)
             else if (domain === 'pippd') return new Pippd(url)
             else if (domain === 'pipingrock') return new Pipingrock(url)
@@ -598,6 +607,7 @@ export default class SourceSiteFactory {
             else if (domain === 'thatpetplace') return new Thatpetplace(url)
             else if (domain === 'tigerchef') return new Tigerchef(url)
             else if (domain === 'theisens') return new Theisens(url)
+            else if (domain === 'thetoytemple') return new Thetoytemple(url)
             else if (domain === 'toolbarn') return new Toolbarn(url)
             else if (domain === 'tf2sshop') return new Tf2sshop(url)
             else if (domain === 'toyshnip') return new Toyshnip(url)

@@ -1,17 +1,14 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Pokemoncenter extends Store {
+export default class Kidpowered extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.NET2
-        // this.siteIsBlocked = true
-        this.runPostman = true
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div[id="product"] h1')
+        await this.productExistBySelector('h1.product-meta__title')
     }
 
     async availibilityCalculate(): Promise<void> {
