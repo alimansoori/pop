@@ -56,15 +56,15 @@ export default class GoogleSheets {
                 'IN Stock',
                 'Source Price',
                 'Sell Price',
-                'BuyBox Price',
-                '30-D Amazon In Stock',
-                'Badge',
-                'BuyBox is Amazon',
-                'BuyBox avg 30 day',
-                'Top',
-                'Net',
-                'ROI',
-                'BSR',
+                // 'BuyBox Price',
+                // '30-D Amazon In Stock',
+                // 'Badge',
+                // 'BuyBox is Amazon',
+                // 'BuyBox avg 30 day',
+                // 'Top',
+                // 'Net',
+                // 'ROI',
+                // 'BSR',
                 'Status',
                 'Seller',
                 'Note',
@@ -159,16 +159,16 @@ export default class GoogleSheets {
                         sourcePrice: store.getPrice() * amazonNumber,
                     })
                     await keepa.fetchByKeepa()
-                    rows[i]['30-D Amazon In Stock'] = keepa.amazonInStock
+                    // rows[i]['30-D Amazon In Stock'] = keepa.amazonInStock
                     rows[i]['Sell Price'] = keepa.sellPrice
-                    rows[i]['Buy Box Price'] = keepa.sellPrice
+                    // rows[i]['Buy Box Price'] = keepa.sellPrice
                     rows[i]['Brand'] = keepa.brand
                     rows[i]['Seller'] = keepa.buyBoxIsAmazon ? 'Amazon' : ''
-                    rows[i].Badge = keepa.hasBadge
-                    rows[i].Net = keepa.profit
+                    // rows[i].Badge = keepa.hasBadge
+                    // rows[i].Net = keepa.profit
                     rows[i].Category = keepa.category
-                    rows[i].ROI = keepa.roi
-                    rows[i].BSR = keepa.bsr
+                    // rows[i].ROI = keepa.roi
+                    // rows[i].BSR = keepa.bsr
                     // rows[i]['Amazon IMG'] = keepa.image
 
                     if (keepa?.hasBadge && !keepa.buyBoxIsAmazon) {

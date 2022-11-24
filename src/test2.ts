@@ -11,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.pokemoncenter.com/product/710-29296/pokemon-accents-mimikyu-wall-light-box'
+            'https://www.saltwateraquarium.com/quietflow-led-pro-75-aquarium-power-filters-aqueon/'
         )
 
         await store.createBrowser()

@@ -304,6 +304,8 @@ import Toys3000 from './1/3000toys'
 import Thetoytemple from './t/thetoytemple'
 import Pokemarket from './p/pokemarket'
 import Pokemoncenter from './p/pokemoncenter'
+import Findyourhealthyplace from './f/findyourhealthyplace'
+import Saltwateraquarium from './s/saltwateraquarium'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -444,6 +446,7 @@ export default class SourceSiteFactory {
             else if (domain === 'farmandfleet') return new Farmandfleet(url)
             else if (domain === 'fatbraintoys') return new Fatbraintoys(url)
             else if (domain === 'foodservicedirect') return new Foodservicedirect(url)
+            else if (domain === 'findyourhealthyplace') return new Findyourhealthyplace(url)
             else if (domain === 'focuscamera') return new Focuscamera(url)
             // else if (domain === 'fruugo') return new Fruugo(url)
             else if (domain === 'fanatics') return new Fanatics(url)
@@ -582,6 +585,7 @@ export default class SourceSiteFactory {
             else if (domain === 'ruralking') return new Ruralking(url)
             else if (domain === 'sallybeauty') return new Sallybeauty(url)
             else if (domain === 'samsclub') return new Samsclub(url)
+            else if (domain === 'saltwateraquarium') return new Saltwateraquarium(url)
             else if (domain === 'saksfifthavenue') return new Saksfifthavenue(url)
             else if (domain === 'sephora') return new Sephora(url)
             else if (domain === 'seriouspuzzles') return new Seriouspuzzles(url)
