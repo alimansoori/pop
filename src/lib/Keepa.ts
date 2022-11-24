@@ -134,10 +134,10 @@ export default class Keepa {
     private topCalculate() {
         if (
             (EnumCategories.TOYS === this.category && this.bsr < 170000) ||
-            (EnumCategories.SPORT === this.category && this.bsr < 310000) ||
-            (EnumCategories.PET === this.category && this.bsr < 150000) ||
+            (EnumCategories.SPORT === this.category && this.bsr < 300000) ||
+            (EnumCategories.PET === this.category && this.bsr < 70000) ||
             (EnumCategories.ART === this.category && this.bsr < 200000) ||
-            (EnumCategories.PATIO === this.category && this.bsr < 160000) ||
+            (EnumCategories.PATIO === this.category && this.bsr < 170000) ||
             (EnumCategories.HOME_KITCHEN === this.category && this.bsr < 300000) ||
             (EnumCategories.VIDEO_GAMES === this.category && this.bsr < 20000) ||
             (EnumCategories.INDUSTRIAL === this.category && this.bsr < 200000) ||

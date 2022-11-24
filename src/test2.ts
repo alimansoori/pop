@@ -11,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.saltwateraquarium.com/quietflow-led-pro-75-aquarium-power-filters-aqueon/'
+            'https://www.myshopville.com/products/magic-the-gathering-tcg-ikoria-lair-of-behemoths-draft-booster-box-36-packs-card-game-2-players'
         )
 
         await store.createBrowser()
@@ -20,6 +20,7 @@ export async function main() {
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Price is: ' + store.getPrice())
         console.log('Source is in stock: ' + store.isAvailability())
+        await store.browser?.close()
         /*const keepa = new Keepa({
             asin: 'B09B2P18GK',
             sourcePrice: 2,

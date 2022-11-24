@@ -1,7 +1,9 @@
 import Store from '../../Store'
+
+import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Myotcstore extends Store {
+export default class Tractorsupply extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -13,15 +15,15 @@ export default class Myotcstore extends Store {
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'meta[itemprop="availability"]',
-            render: 'content',
+            selector: 'link[itemprop="availability"]',
+            render: 'href',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'meta[itemprop="price"]',
+            selector1: '*[itemprop="price"]',
             render: 'content',
         })
     }

@@ -1,14 +1,15 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Myotcstore extends Store {
+export default class Luckyvitamin extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
+        this.viewPageSource = false
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[itemprop="name"]')
+        await this.productExistBySelector('h1[class="product-detail__title"]')
     }
 
     async availibilityCalculate(): Promise<void> {

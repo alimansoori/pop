@@ -303,9 +303,12 @@ import Kidpowered from './k/kidpowered'
 import Toys3000 from './1/3000toys'
 import Thetoytemple from './t/thetoytemple'
 import Pokemarket from './p/pokemarket'
-import Pokemoncenter from './p/pokemoncenter'
 import Findyourhealthyplace from './f/findyourhealthyplace'
 import Saltwateraquarium from './s/saltwateraquarium'
+import Luckyvitamin from './l/luckyvitamin'
+import Tractorsupply from './t/tractorsupply'
+import Sideshow from './s/sideshow'
+import Myshopville from './m/myshopville'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -506,6 +509,7 @@ export default class SourceSiteFactory {
             else if (domain === 'leatherman') return new Leatherman(url)
             else if (domain === 'lovelyskin') return new Lovelyskin(url)
             else if (domain === 'ltdcommodities') return new Ltdcommodities(url)
+            else if (domain === 'luckyvitamin') return new Luckyvitamin(url)
             else if (domain === 'litoygame') return new Litoygame(url)
             else if (domain === 'lumens') return new Lumens(url)
             else if (domain === 'macys') return new Macys(url)
@@ -522,6 +526,7 @@ export default class SourceSiteFactory {
             else if (domain === 'microcenter') return new Microcenter(url)
             else if (domain === 'minmaxgames') return new Minmaxgames(url)
             else if (domain === 'mysimpleproducts') return new Mysimpleproducts(url)
+            else if (domain === 'myshopville') return new Myshopville(url)
             else if (domain === 'musiciansfriend') return new Musiciansfriend(url)
             // else if (domain === 'netrition') return new Netrition(url)
             else if (domain === 'newark') return new Newark(url)
@@ -605,7 +610,9 @@ export default class SourceSiteFactory {
             else if (domain === 'sweetwater') return new Sweetwater(url)
             else if (domain === 'sunandski') return new Sunandski(url)
             else if (domain === 'supplyhouse') return new Supplyhouse(url)
+            else if (domain === 'sideshow') return new Sideshow(url)
             else if (domain === 'target') return new Target(url)
+            else if (domain === 'tractorsupply') return new Tractorsupply(url)
             else if (domain === 'tartecosmetics') return new Tartecosmetics(url)
             else if (domain === 'tfaw') return new Tfaw(url)
             else if (domain === 'thatpetplace') return new Thatpetplace(url)
