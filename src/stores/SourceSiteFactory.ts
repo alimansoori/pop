@@ -309,6 +309,8 @@ import Luckyvitamin from './l/luckyvitamin'
 import Tractorsupply from './t/tractorsupply'
 import Sideshow from './s/sideshow'
 import Myshopville from './m/myshopville'
+import Generalstorespokane from './g/generalstorespokane'
+import Partycity from './p/partycity'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -464,6 +466,7 @@ export default class SourceSiteFactory {
             else if (domain === 'getsmartcatalog') return new Getsmartcatalog(url)
             else if (domain === 'glossier') return new Glossier(url)
             else if (domain === 'gearx') return new Gearx(url)
+            else if (domain === 'generalstorespokane') return new Generalstorespokane(url)
             else if (domain === 'groupon') return new Groupon(url)
             else if (domain === 'geekbuying') return new Geekbuying(url)
             else if (domain === 'geminicollectibles') return new Geminicollectibles(url)
@@ -548,6 +551,7 @@ export default class SourceSiteFactory {
             else if (domain === 'overtons') return new Overtons(url)
             else if (domain === 'opentip') return new Opentip(url)
             else if (domain === 'opensky') return new Opensky(url)
+            else if (domain === 'partycity') return new Partycity(url)
             else if (domain === 'partytoyz') return new Partytoyz(url)
             else if (domain === 'pamperedchef') return new Pamperedchef(url)
             else if (domain === 'petflow') return new Petflow(url)

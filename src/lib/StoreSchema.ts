@@ -122,6 +122,12 @@ export default class StoreSchema {
                     if (salePrice) return salePrice
                     else if (listPrice) return listPrice
                 }
+            } else {
+                // @ts-ignore
+                if (offer?.['highprice']) {
+                    // @ts-ignore
+                    return offer?.['highprice']
+                }
             }
         }
 

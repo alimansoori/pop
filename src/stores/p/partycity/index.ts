@@ -1,16 +1,14 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Pippd extends Store {
+export default class Partycity extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[class="product-title"]')
+        await this.productExistBySelector('h1.pc-product-name')
     }
 
     async availibilityCalculate(): Promise<void> {

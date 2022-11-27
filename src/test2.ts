@@ -11,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.myshopville.com/products/magic-the-gathering-tcg-ikoria-lair-of-behemoths-draft-booster-box-36-packs-card-game-2-players'
+            'https://www.partycity.com/boys-darth-vader-costume-classic---star-wars-P590876.html'
         )
 
         await store.createBrowser()
