@@ -311,6 +311,7 @@ import Sideshow from './s/sideshow'
 import Myshopville from './m/myshopville'
 import Generalstorespokane from './g/generalstorespokane'
 import Partycity from './p/partycity'
+import Sportsmans from "./s/sportsmans";
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -611,6 +612,7 @@ export default class SourceSiteFactory {
             else if (domain === 'shumistore') return new Shumistore(url)
             else if (domain === 'scheels') return new Scheels(url)
             else if (domain === 'shopdisney') return new Shopdisney(url)
+            else if (domain === 'sportsmans') return new Sportsmans(url)
             else if (domain === 'sweetwater') return new Sweetwater(url)
             else if (domain === 'sunandski') return new Sunandski(url)
             else if (domain === 'supplyhouse') return new Supplyhouse(url)
