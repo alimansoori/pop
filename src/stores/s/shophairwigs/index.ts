@@ -1,14 +1,16 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Pipingrock extends Store {
+export default class Shophairwigs extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
+        // this.runPostman = true
+        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[itemprop="name"]')
+        await this.productExistBySelector('h1 *[itemprop="name"]')
     }
 
     async availibilityCalculate(): Promise<void> {
@@ -21,7 +23,7 @@ export default class Pipingrock extends Store {
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: '*[itemprop="price"]',
+            selector1: 'meta[itemprop="price"]',
             render: 'content',
         })
     }

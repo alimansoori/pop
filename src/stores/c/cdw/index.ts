@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Pipingrock extends Store {
+export default class Cdw extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -13,15 +13,15 @@ export default class Pipingrock extends Store {
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'link[itemprop="availability"]',
-            render: 'href',
+            selector: 'meta[itemprop="availability"]',
+            render: 'content',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: '*[itemprop="price"]',
+            selector1: 'meta[itemprop="price"]',
             render: 'content',
         })
     }

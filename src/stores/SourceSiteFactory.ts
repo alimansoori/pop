@@ -311,7 +311,10 @@ import Sideshow from './s/sideshow'
 import Myshopville from './m/myshopville'
 import Generalstorespokane from './g/generalstorespokane'
 import Partycity from './p/partycity'
-import Sportsmans from "./s/sportsmans";
+import Sportsmans from './s/sportsmans'
+import Cdw from './c/cdw'
+import Samsbeauty from './s/samsbeauty'
+import Shophairwigs from './s/shophairwigs'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -422,6 +425,7 @@ export default class SourceSiteFactory {
             else if (domain === 'campmor') return new Campmor(url)
             else if (domain === 'coolstuffinc') return new Coolstuffinc(url)
             else if (domain === 'cvs') return new Cvs(url)
+            else if (domain === 'cdw') return new Cdw(url)
             else if (domain === 'campsaver') return new Campsaver(url)
             else if (domain === 'campingworld') return new Campingworld(url)
             else if (domain === 'carealotpets') return new Carealotpets(url)
@@ -595,6 +599,8 @@ export default class SourceSiteFactory {
             else if (domain === 'ruralking') return new Ruralking(url)
             else if (domain === 'sallybeauty') return new Sallybeauty(url)
             else if (domain === 'samsclub') return new Samsclub(url)
+            else if (domain === 'samsbeauty') return new Samsbeauty(url)
+            else if (domain === 'shophairwigs') return new Shophairwigs(url)
             else if (domain === 'saltwateraquarium') return new Saltwateraquarium(url)
             else if (domain === 'saksfifthavenue') return new Saksfifthavenue(url)
             else if (domain === 'sephora') return new Sephora(url)

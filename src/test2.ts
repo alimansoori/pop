@@ -11,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.partycity.com/boys-darth-vader-costume-classic---star-wars-P590876.html'
+            'https://www.shophairwigs.com/sensationnel-human-hair-blend-butta-hd-lace-front-wig-bohemian-28'
         )
 
         await store.createBrowser()
