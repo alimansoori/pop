@@ -13,16 +13,15 @@ import { MyPuppeteer } from '../lib/MyPuppeteer'
 import MyPostmanRequest from '../lib/MyPostmanRequest'
 import * as cheerio from 'cheerio'
 import { TypePostmanReq } from '../@types/TypePostmanReq'
-import { Browser, Page } from 'puppeteer'
+// @ts-ignore
+import { Browser, Page } from 'zyte-smartproxy-puppeteer'
 import StoreSchema from '../lib/StoreSchema'
 import { textToNumber } from '../lib/helper'
-// @ts-ignore
-import puppeteer from 'zyte-smartproxy-puppeteer'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
     protected page!: Page
-    browser!: puppeteer.browser
+    browser!: Browser
     protected resultReq: TypePostmanReq
     protected url: string
     public statusCode: number | undefined = 200
