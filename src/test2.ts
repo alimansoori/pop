@@ -1,6 +1,7 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 // @ts-ignore
 import request from 'postman-request'
+import Doc from './sheets/Doc'
 
 export async function main() {
     try {

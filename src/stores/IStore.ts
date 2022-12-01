@@ -3,11 +3,13 @@ import { TypePriceSelector } from '../@types/TypePriceSelectors'
 import ISelectors from './ISelectors'
 import IStoreOptions from './IStoreOptions'
 import ProductTitle from './ProductTitle'
+// @ts-ignore
+import puppeteer from 'zyte-smartproxy-puppeteer'
 
 export default interface IStore {
     statusCode: number | undefined
     error: string
-    browser?: Browser
+    browser?: puppeteer.browser
     createBrowser(): Promise<void>
     productIsExist(): boolean
     getPrice(): number

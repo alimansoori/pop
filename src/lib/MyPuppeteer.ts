@@ -1,11 +1,11 @@
 // @ts-ignore
 import puppeteer from 'zyte-smartproxy-puppeteer'
 
-import { Browser, Page } from 'puppeteer'
+import { Page } from 'puppeteer'
 
 export class MyPuppeteer {
     page!: Page
-    browser!: Browser
+    browser!: puppeteer.browser
     headless = false
     useProxy = false
     // defaultViewport: puppeteer.Viewport | null | undefined = null
