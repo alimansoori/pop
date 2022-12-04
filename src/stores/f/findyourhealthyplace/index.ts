@@ -1,7 +1,5 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
-import { textToNumber } from '../../../lib/helper'
 
 export default class Findyourhealthyplace extends Store {
     constructor(url: string) {

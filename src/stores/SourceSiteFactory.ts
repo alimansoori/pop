@@ -315,6 +315,9 @@ import Sportsmans from './s/sportsmans'
 import Cdw from './c/cdw'
 import Samsbeauty from './s/samsbeauty'
 import Shophairwigs from './s/shophairwigs'
+import Agesthreeandup from './a/agesthreeandup'
+import Douglascuddletoy from './d/douglascuddletoy'
+import Stuffedsafari from './s/stuffedsafari'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -383,6 +386,7 @@ export default class SourceSiteFactory {
             else if (domain === 'albeebaby') return new Albeebaby(url)
             else if (domain === 'alltimetoys') return new Alltimetoys(url)
             else if (domain === 'aventuron') return new Aventuron(url)
+            else if (domain === 'agesthreeandup') return new Agesthreeandup(url)
             else if (domain === 'allstarhealth') return new Allstarhealth(url)
             else if (domain === 'artsupplywarehouse') return new Artsupplywarehouse(url)
             else if (domain === 'americanedgeknives') return new Americanedgeknives(url)
@@ -445,6 +449,7 @@ export default class SourceSiteFactory {
             else if (domain === 'discountbandit') return new Discountbandit(url)
             else if (domain === 'dollargeneral') return new Dollargeneral(url)
             else if (domain === 'dorksidetoys') return new Dorksidetoys(url)
+            else if (domain === 'douglascuddletoy') return new Douglascuddletoy(url)
             else if (domain === 'empiretoyshop') return new Empiretoyshop(url)
             else if (domain === 'entertainmentearth') return new Entertainmentearth(url)
             else if (domain === 'entirelypets') return new Entirelypets(url)
@@ -620,6 +625,7 @@ export default class SourceSiteFactory {
             else if (domain === 'shopdisney') return new Shopdisney(url)
             else if (domain === 'sportsmans') return new Sportsmans(url)
             else if (domain === 'sweetwater') return new Sweetwater(url)
+            else if (domain === 'stuffedsafari') return new Stuffedsafari(url)
             else if (domain === 'sunandski') return new Sunandski(url)
             else if (domain === 'supplyhouse') return new Supplyhouse(url)
             else if (domain === 'sideshow') return new Sideshow(url)

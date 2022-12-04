@@ -1,8 +1,5 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
-import sleep from '../../../utils/sleep'
 
 export default class Acehardware extends Store {
     constructor(url: string) {

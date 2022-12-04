@@ -1,4 +1,3 @@
-import { URL } from 'url'
 import cheerio from 'cheerio'
 // @ts-ignore
 import request from 'request-promise'

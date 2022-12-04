@@ -1,5 +1,4 @@
 import { Product, WithContext } from 'schema-dts'
-import { json } from 'sequelize'
 
 export default class StoreSchema {
     private productSchema: WithContext<Product> | undefined
@@ -121,6 +120,10 @@ export default class StoreSchema {
 
                     if (salePrice) return salePrice
                     else if (listPrice) return listPrice
+                } else {
+                    if (priceSpecification['price']) {
+                        return parseFloat(priceSpecification['price'])
+                    }
                 }
             } else {
                 // @ts-ignore

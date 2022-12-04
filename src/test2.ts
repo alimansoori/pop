@@ -1,7 +1,6 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 // @ts-ignore
 import request from 'postman-request'
-import Doc from './sheets/Doc'
 
 export async function main() {
     try {
@@ -12,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.shophairwigs.com/sensationnel-human-hair-blend-butta-hd-lace-front-wig-bohemian-28'
+            'https://www.stuffedsafari.com/Sinclair-the-Stuffed-Australian-Shepherd-p/dg-2019.htm'
         )
 
         await store.createBrowser()

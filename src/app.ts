@@ -1,8 +1,4 @@
 import express from 'express'
-import UserRouter from './routes/users.router'
-import AmazonRouter from './routes/amazon.router'
-import SourceRouter from './routes/source.router'
-import LeadRouter from './routes/lead.router'
 
 const app = express()
 
