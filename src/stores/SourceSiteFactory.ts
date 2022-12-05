@@ -318,6 +318,10 @@ import Shophairwigs from './s/shophairwigs'
 import Agesthreeandup from './a/agesthreeandup'
 import Douglascuddletoy from './d/douglascuddletoy'
 import Stuffedsafari from './s/stuffedsafari'
+import Riteaid from './r/riteaid'
+import Clinique from './c/clinique'
+import Dkhardware from './d/dkhardware'
+import Michaelskids from './m/michaelskids'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -430,6 +434,7 @@ export default class SourceSiteFactory {
             else if (domain === 'coolstuffinc') return new Coolstuffinc(url)
             else if (domain === 'cvs') return new Cvs(url)
             else if (domain === 'cdw') return new Cdw(url)
+            else if (domain === 'clinique') return new Clinique(url)
             else if (domain === 'campsaver') return new Campsaver(url)
             else if (domain === 'campingworld') return new Campingworld(url)
             else if (domain === 'carealotpets') return new Carealotpets(url)
@@ -447,6 +452,7 @@ export default class SourceSiteFactory {
             else if (domain === 'dillards') return new Dillards(url)
             else if (domain === 'dickblick') return new Dickblick(url)
             else if (domain === 'discountbandit') return new Discountbandit(url)
+            else if (domain === 'dkhardware') return new Dkhardware(url)
             else if (domain === 'dollargeneral') return new Dollargeneral(url)
             else if (domain === 'dorksidetoys') return new Dorksidetoys(url)
             else if (domain === 'douglascuddletoy') return new Douglascuddletoy(url)
@@ -532,6 +538,7 @@ export default class SourceSiteFactory {
             else if (domain === 'mealeymarine') return new Mealeymarine(url)
             else if (domain === 'mercadomagico') return new Mercadomagico(url)
             else if (domain === 'michaels') return new Michaels(url)
+            else if (domain === 'michaelskids') return new Michaelskids(url)
             else if (domain === 'midwayusa') return new Midwayusa(url)
             else if (domain === 'miniaturemarket') return new Miniaturemarket(url)
             else if (domain === 'moosejaw') return new Moosejaw(url)
@@ -590,6 +597,7 @@ export default class SourceSiteFactory {
             else if (domain === 'quill') return new Quill(url)
             else if (domain === 'qvc') return new Qvc(url)
             else if (domain === 'rainbowresource') return new Rainbowresource(url)
+            else if (domain === 'riteaid') return new Riteaid(url)
             else if (domain === 'redtoolstore') return new Redtoolstore(url)
             else if (domain === 'rei') return new Rei(url)
             else if (domain === 'reptilesupplyco') return new Reptilesupplyco(url)
