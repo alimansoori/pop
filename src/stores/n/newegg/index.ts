@@ -5,21 +5,14 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Newegg extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.runPostman = true
-        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {
-        this.setCanonical()
+        await this.productExistBySelector('h1.product-title')
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

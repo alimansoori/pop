@@ -11,7 +11,7 @@ export async function main() {
         )*/
         // console.log(res)
         const store = await SourceSiteFactory.create(
-            'https://www.saksfifthavenue.com/product/barbie-florence-nightingale-barbie-0400015079635.html'
+            'https://www.entertainmentearth.com/product/rick-james-superfreak-pop-vinyl-figure-100/fu36442'
         )
 
         await store.createBrowser()
