@@ -14,15 +14,7 @@ export default class Academy extends Store {
         await this.productExistBySelector('h1[data-auid="PDP_ProductName"]')
     }
 
-    async productTitleCalculate(): Promise<void> {
-        // this.titleClass.setTitle("ffff");
-    }
-
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

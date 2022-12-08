@@ -6,9 +6,8 @@ import sleep from '../../../utils/sleep'
 export default class Walgreens extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
-        this.viewPageSource = false
+        // this.viewPageSource = false
     }
 
     async productExistCalculate(): Promise<void> {

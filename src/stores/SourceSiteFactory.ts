@@ -205,7 +205,6 @@ import Cvs from './c/cvs'
 import Microcenter from './m/microcenter'
 import Albeebaby from './a/albeebaby'
 import Neimanmarcus from './n/neimanmarcus'
-import Fanatics from './f/fanatics'
 import Petsmart from './p/petsmart'
 import Boxlunch from './b/boxlunch'
 import Bbtoystore from './b/bbtoystore'
@@ -231,7 +230,7 @@ import Landmsupply from './l/landmsupply'
 import Tartecosmetics from './t/tartecosmetics'
 import Truegether from './t/truegether'
 import Bambibaby from './b/bambibaby'
-import Farmandfleet from './f/farmandfleet'
+// import Farmandfleet from './f/farmandfleet'
 import Jomashop from './j/jomashop'
 import Ulonet from './u/ulonet'
 import Rshughes from './r/rshughes'
@@ -474,13 +473,12 @@ export default class SourceSiteFactory {
             else if (domain === 'ecosmetics') return new Ecosmetics(url)
             else if (domain === 'everythingkitchens') return new Everythingkitchens(url)
             else if (domain === 'familyotc') return new Familyotc(url)
-            else if (domain === 'farmandfleet') return new Farmandfleet(url)
+            // else if (domain === 'farmandfleet') return new Farmandfleet(url)
             else if (domain === 'fatbraintoys') return new Fatbraintoys(url)
             else if (domain === 'foodservicedirect') return new Foodservicedirect(url)
             else if (domain === 'findyourhealthyplace') return new Findyourhealthyplace(url)
             else if (domain === 'focuscamera') return new Focuscamera(url)
             // else if (domain === 'fruugo') return new Fruugo(url)
-            else if (domain === 'fanatics') return new Fanatics(url)
             else if (domain === 'fpnyc') return new Fpnyc(url)
             else if (domain === 'funko') return new Funko(url)
             else if (domain === 'fye') return new Fye(url)

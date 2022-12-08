@@ -6,7 +6,7 @@ export default class Costco extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
-        this.viewPageSource = false
+        // this.viewPageSource = false
     }
 
     async productExistCalculate(): Promise<void> {

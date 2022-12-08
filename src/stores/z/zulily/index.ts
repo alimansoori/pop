@@ -5,11 +5,10 @@ export default class Zulily extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1')
+        await this.productExistBySelector('div.product_name h1')
     }
 
     async availibilityCalculate(): Promise<void> {

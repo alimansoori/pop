@@ -7,10 +7,11 @@ export default class Farmandfleet extends Store {
         this.loadType = EnumLoadType.DOC_LOADED
         // this.siteIsBlocked = true
         // this.runPostman = true
+        // this.viewPageSource = false
     }
 
     async productExistCalculate(): Promise<void> {
-        this.setCanonical()
+        this.productExist = false
     }
 
     async availibilityCalculate(): Promise<void> {
