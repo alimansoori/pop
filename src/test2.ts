@@ -10,9 +10,7 @@ export async function main() {
             'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
         )*/
         // console.log(res)
-        const store = await SourceSiteFactory.create(
-            'https://www.entertainmentearth.com/product/rick-james-superfreak-pop-vinyl-figure-100/fu36442'
-        )
+        const store = await SourceSiteFactory.create('https://nutriessential.com/products/dr-formulated-cod-liver-oil')
 
         await store.createBrowser()
         await store.scrape()
