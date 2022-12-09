@@ -10,9 +10,7 @@ export async function main() {
             'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
         )*/
         // console.log(res)
-        const store = await SourceSiteFactory.create(
-            'https://www.academy.com/p/mizuno-mens-franchise-series-12-baseball-glove'
-        )
+        const store = await SourceSiteFactory.create('https://www.newegg.com/p/021-000M-02T62')
 
         await store.createBrowser()
         await store.scrape()

@@ -4,7 +4,7 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Luckyvitamin extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
         // this.viewPageSource = false
     }
 
