@@ -1,7 +1,10 @@
 import Store from '../../Store'
+
+import { click } from '../../../lib/helper'
+import sleep from '../../../utils/sleep'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Sierra extends Store {
+export default class Mobileadvance extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -13,15 +16,15 @@ export default class Sierra extends Store {
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'link[itemprop="availability"]',
-            render: 'href',
+            selector: 'meta[property="og:availability"]',
+            render: 'content',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'meta[name="product:price:amount"]',
+            selector1: 'meta[property="product:price:amount"]',
             render: 'content',
         })
     }
