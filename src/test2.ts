@@ -10,9 +10,7 @@ export async function main() {
             'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
         )*/
         // console.log(res)
-        const store = await SourceSiteFactory.create(
-            'https://www.schoolspecialty.com/crayola-ultra-clean-washable-markers-fine-tip-assorted-colors-set-of-8-008538'
-        )
+        const store = await SourceSiteFactory.create('https://www.maisonette.com/product/zeus-lion')
 
         await store.createBrowser()
         await store.scrape()

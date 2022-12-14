@@ -335,6 +335,7 @@ import Thegamesteward from './t/thegamesteward'
 import Mobileadvance from './m/mobileadvance'
 import Shopbecker from './s/shopbecker'
 import Schoolspecialty from './s/schoolspecialty'
+import Maisonette from './m/maisonette'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -549,6 +550,7 @@ export default class SourceSiteFactory {
             else if (domain === 'macys') return new Macys(url)
             else if (domain === 'maxwarehouse') return new Maxwarehouse(url)
             else if (domain === 'mardel') return new Mardel(url)
+            else if (domain === 'maisonette') return new Maisonette(url)
             else if (domain === 'menards') return new Menards(url)
             else if (domain === 'mealeymarine') return new Mealeymarine(url)
             else if (domain === 'mercadomagico') return new Mercadomagico(url)
