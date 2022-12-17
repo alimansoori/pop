@@ -43,28 +43,14 @@ export default class GoogleSheets {
                 'Date',
                 'Source',
                 'Brand',
-                // 'Sell Approval',
                 'ASIN',
                 'Source URL',
-                // 'Source IMG',
-                // 'Source Image',
                 'Amazon URL',
                 'Amazon Number',
-                // 'Amazon IMG',
-                // 'Amazon Image',
                 'Category',
                 'IN Stock',
                 'Source Price',
                 'Sell Price',
-                // 'BuyBox Price',
-                // '30-D Amazon In Stock',
-                // 'Badge',
-                // 'BuyBox is Amazon',
-                // 'BuyBox avg 30 day',
-                // 'Top',
-                // 'Net',
-                // 'ROI',
-                // 'BSR',
                 'Status',
                 'Seller',
                 'Note',
@@ -106,9 +92,6 @@ export default class GoogleSheets {
             this.jsonSetting.row = i
             await writeSetting(this.jsonSetting, this.settingFile)
 
-            // rows = await dataBaseSheet.getRows()
-            // rowsLength = rows.length
-
             if (i >= rowsLength - 2) {
                 i = 0
                 continue
@@ -127,31 +110,18 @@ export default class GoogleSheets {
             }
 
             console.log(`Start Row: ${i + 2}`)
-            // console.log(`Category: ${this.category}`)
             console.log(rows[i]['Amazon URL'])
             console.log(rows[i]['Source URL'])
 
             const amazonNumber: number = rows[i]['Amazon Number'] ? parseFloat(rows[i]['Amazon Number']) : 1
 
-            // console.log(amazonNumber)
-
             try {
-                /*const pup = new MyPuppeteer()
-                await pup.build()
-                const page = pup.page
-                const browser = pup.browser*/
                 const store = await this.sourceSite(rows[i]['Source URL'])
                 await store.createBrowser()
                 await store.scrape()
                 await store.browser?.close()
                 console.log('Source Price is: ' + store.getPrice())
                 console.log('Source is in stock: ' + store.isAvailability())
-                // await browser.close()
-
-                // rows[i]['Amazon IMG'] = rows[i]['Amazon IMG']
-                // rows[i]['Source IMG'] = rows[i]['Source IMG']
-                // rows[i]['Source Image'] = rows[i]['Source Image']
-                // rows[i]['Amazon Image'] = rows[i]['Amazon Image']
 
                 if (store.getPrice() > 0 && store.isAvailability()) {
                     const keepa = new Keepa({
@@ -159,24 +129,21 @@ export default class GoogleSheets {
                         sourcePrice: store.getPrice() * amazonNumber,
                     })
                     await keepa.fetchByKeepa()
-                    // rows[i]['30-D Amazon In Stock'] = keepa.amazonInStock
                     rows[i]['Sell Price'] = keepa.sellPrice
-                    // rows[i]['Buy Box Price'] = keepa.sellPrice
                     rows[i]['Brand'] = keepa.brand
                     rows[i]['Seller'] = keepa.buyBoxIsAmazon ? 'Amazon' : ''
-                    // rows[i].Badge = keepa.hasBadge
-                    // rows[i].Net = keepa.profit
                     rows[i].Category = keepa.category
-                    // rows[i].ROI = keepa.roi
-                    // rows[i].BSR = keepa.bsr
-                    // rows[i]['Amazon IMG'] = keepa.image
 
                     if (keepa?.hasBadge && !keepa.buyBoxIsAmazon) {
                         // rows[i]['Date'] = this.currentDate()
-                        rows[i].Date = tomorrowDate()
+                        rows[i]['Date'] = tomorrowDate()
                         console.log('< ADDED >')
-                    } else console.log('< REJECT >')
-                } else console.log('< REJECT >')
+                    } else {
+                        console.log('< REJECT >')
+                    }
+                } else {
+                    console.log('< REJECT >')
+                }
 
                 rows[i]['Status'] = store.statusCode
 
@@ -186,7 +153,6 @@ export default class GoogleSheets {
 
                 rows[i].Source = store.getDomain()
 
-                // rows[i]['Image'] = `=I${i+2}`
                 rows[i]['Source URL'] = store.getUrl()
                 rows[i]['IN Stock'] = store.isAvailability() ? 'TRUE' : 'FALSE'
                 rows[i]['Source Price'] = store.getPrice()

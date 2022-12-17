@@ -115,6 +115,7 @@ export default class Keepa {
 
         this.amazonInStock = this.amazonInStock30Day()
         this.avgBuyBox30Day = this.buyBoxAvg30Day()
+
         this.sellPrice = this.buyboxPrice
             ? this.buyboxPrice
             : this.fbaPrice
@@ -124,6 +125,7 @@ export default class Keepa {
             : this.newPrice30Day()
             ? this.newPrice30Day()
             : 0
+
         this.keepaFirstImage()
 
         this.topCalculate()
@@ -213,10 +215,14 @@ export default class Keepa {
 
     private lastFbaPrice(): number {
         const data = this.product?.csv[10]
+        let price = NaN
 
-        if (data === null) return NaN
+        if (data === null) return price
+        if (data[data.length - 1] < 0) {
+            price = data[data.length - 3]
+        }
 
-        return data[data.length - 1] / 100
+        return price / 100
     }
 
     private amazonInStock30Day(): boolean {
