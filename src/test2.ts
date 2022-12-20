@@ -12,7 +12,9 @@ export async function main() {
         )*/
         // console.log(res)
 
-        /*const store = await SourceSiteFactory.create('https://www.maisonette.com/product/zeus-lion')
+        const store = await SourceSiteFactory.create(
+            'https://www.jomashop.com/benefiance-wrinkle-smoothing-day-cream-spf-23-by-shiseido-for-unisex-1-8-oz-cream-768614149514.html'
+        )
 
         await store.createBrowser()
         await store.scrape()
@@ -20,9 +22,9 @@ export async function main() {
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Price is: ' + store.getPrice())
         console.log('Source is in stock: ' + store.isAvailability())
-        await store.browser?.close()*/
+        await store.browser?.close()
 
-        const keepa = new Keepa({
+        /*const keepa = new Keepa({
             asin: 'B086763VT8',
             sourcePrice: 22.04,
         })
@@ -31,7 +33,7 @@ export async function main() {
         console.log(keepa.avgBuyBox30Day)
         console.log(keepa.size)
         console.log(keepa?.hasBadge)
-        console.log(keepa.buyBoxIsAmazon)
+        console.log(keepa.buyBoxIsAmazon)*/
     } catch (e: any) {
         console.log(e.message)
     }
