@@ -1,22 +1,22 @@
 import Store from '../../Store'
+
+import { click } from '../../../lib/helper'
+import sleep from '../../../utils/sleep'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Boscovs extends Store {
+export default class Mrsupply extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.LOAD
-        this.enableAssets = true
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector(
-            'div[class="product-wrapper"] div[class="mz-product-top-content"] h1[itemprop="name"]'
-        )
+        await this.productExistBySelector('div.mr_title-product h1')
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'button[id="add-to-cart"]:not(.button_disabled)',
+            selector: 'div[id="product"] button[title="Add to cart"]',
             render: 'text',
             outputArray: [],
         })
@@ -24,7 +24,7 @@ export default class Boscovs extends Store {
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: '*[itemprop="price"]',
+            selector1: '*[mr_itemprop="price"]',
             render: 'text',
         })
     }

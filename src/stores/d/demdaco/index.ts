@@ -1,14 +1,15 @@
 import Store from '../../Store'
+
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Homedepot extends Store {
+export default class Demdaco extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1.product-details__title')
+        await this.productExistBySelector('h1[itemprop="name"]')
     }
 
     async availibilityCalculate(): Promise<void> {

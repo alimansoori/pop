@@ -13,7 +13,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.jomashop.com/benefiance-wrinkle-smoothing-day-cream-spf-23-by-shiseido-for-unisex-1-8-oz-cream-768614149514.html'
+            'https://www.hayneedle.com/product/trulysoftpleatedblushduvetsetbytrulysoft.cfm'
         )
 
         await store.createBrowser()

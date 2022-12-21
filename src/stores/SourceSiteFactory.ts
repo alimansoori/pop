@@ -343,6 +343,11 @@ import Betterhealthmarket from './b/betterhealthmarket'
 import Artofskincare from './a/artofskincare'
 import Stylemyle from './s/stylemyle'
 import Beautifiedyou from './b/beautifiedyou'
+import Burkedecor from './b/burkedecor'
+import Mrsupply from './m/mrsupply'
+import Willowtree from './w/willowtree'
+import Demdaco from './d/demdaco'
+import Hayneedle from './w/hayneedle'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -420,6 +425,7 @@ export default class SourceSiteFactory {
             else if (domain === 'babyearth') return new Babyearth(url)
             else if (domain === 'bangalla') return new Bangalla(url)
             else if (domain === 'bambibaby') return new Bambibaby(url)
+            else if (domain === 'burkedecor') return new Burkedecor(url)
             else if (domain === 'bathandbodyworks') return new Bathandbodyworks(url)
             else if (domain === 'barnesandnoble') return new Barnesandnoble(url)
             else if (domain === 'baseballmonkey') return new Baseballmonkey(url)
@@ -472,6 +478,7 @@ export default class SourceSiteFactory {
             else if (domain === 'cyclegear') return new Cyclegear(url)
             else if (domain === 'crystalclassics') return new Crystalclassics(url)
             else if (domain === 'deepdiscount') return new Deepdiscount(url)
+            else if (domain === 'demdaco') return new Demdaco(url)
             else if (domain === 'dickssportinggoods') return new Dickssportinggoods(url)
             else if (domain === 'dillards') return new Dillards(url)
             else if (domain === 'dickblick') return new Dickblick(url)
@@ -527,6 +534,7 @@ export default class SourceSiteFactory {
             else if (domain === 'healthyplanetshopping') return new Healthyplanetshopping(url)
             else if (domain === 'hobbylobby') return new Hobbylobby(url)
             else if (domain === 'homedepot') return new Homedepot(url)
+            else if (domain === 'hayneedle') return new Hayneedle(url)
             else if (domain === 'hottopic') return new Hottopic(url)
             else if (domain === 'hsn') return new Hsn(url)
             else if (domain === 'iherb') return new Iherb(url)
@@ -577,6 +585,7 @@ export default class SourceSiteFactory {
             else if (domain === 'minmaxgames') return new Minmaxgames(url)
             else if (domain === 'mysimpleproducts') return new Mysimpleproducts(url)
             else if (domain === 'myshopville') return new Myshopville(url)
+            else if (domain === 'mrsupply') return new Mrsupply(url)
             else if (domain === 'musiciansfriend') return new Musiciansfriend(url)
             // else if (domain === 'netrition') return new Netrition(url)
             else if (domain === 'newark') return new Newark(url)
@@ -719,6 +728,7 @@ export default class SourceSiteFactory {
             else if (domain === 'worldmarket') return new Worldmarket(url)
             else if (domain === 'wdrake') return new Wdrake(url)
             else if (domain === 'wwbw') return new Wwbw(url)
+            else if (domain === 'willowtree') return new Willowtree(url)
             else if (domain === 'worldmusicsupply') return new Worldmusicsupply(url)
             else if (domain === 'webstaurantstore') return new Webstaurantstore(url)
             else if (domain === 'williams-sonoma') return new WilliamsSonoma(url)

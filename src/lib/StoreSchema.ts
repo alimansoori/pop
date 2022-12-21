@@ -127,9 +127,9 @@ export default class StoreSchema {
                 }
             } else {
                 // @ts-ignore
-                if (offer?.['highprice']) {
+                if (offer?.['highprice'] || offer?.['highPrice']) {
                     // @ts-ignore
-                    return offer?.['highprice']
+                    return offer?.['highprice'] || offer?.['highPrice']
                 }
             }
         }

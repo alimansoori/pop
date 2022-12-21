@@ -41,6 +41,7 @@ abstract class Store implements IStore, IProductDetails {
     protected runPostman = false
     protected viewPageSource = true
     protected isSecond = false
+    protected enableAssets = false
 
     protected constructor(url: string) {
         this.url = url
@@ -62,23 +63,26 @@ abstract class Store implements IStore, IProductDetails {
             this.page = await this.browser.newPage()
 
             await this.page.setViewport({ width: 1920, height: 1080 })
-            await this.page.setRequestInterception(true)
             // this.page = (await this.browser.pages())[0]
 
             await this.page.setUserAgent(
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
             )
-            this.page.on('request', (req: any) => {
-                if (
-                    req.resourceType() == 'stylesheet' ||
-                    req.resourceType() == 'font' ||
-                    req.resourceType() == 'image'
-                ) {
-                    req.abort()
-                } else {
-                    req.continue()
-                }
-            })
+
+            if (!this.enableAssets) {
+                await this.page.setRequestInterception(true)
+                this.page.on('request', (req: any) => {
+                    if (
+                        req.resourceType() == 'stylesheet' ||
+                        req.resourceType() == 'font' ||
+                        req.resourceType() == 'image'
+                    ) {
+                        req.abort()
+                    } else {
+                        req.continue()
+                    }
+                })
+            }
         } catch (e) {
             throw new Error('create browser faild')
         }
