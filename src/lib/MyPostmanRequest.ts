@@ -2,7 +2,6 @@ import cheerio from 'cheerio'
 // @ts-ignore
 import request from 'request-promise'
 import { TypePostmanReq } from '../@types/TypePostmanReq'
-import * as Cheerio from 'cheerio'
 
 export default class MyPostmanRequest {
     static async request(url: string, isBan = false, counter = 1): Promise<TypePostmanReq> {

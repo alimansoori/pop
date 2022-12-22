@@ -1,28 +1,28 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Mrsupply extends Store {
+export default class Thepaperstore extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div.mr_title-product h1')
+        await this.productExistBySelector('div.product-information--purchase_name')
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'div[id="product"] button[title="Add to cart"]',
-            render: 'text',
+            selector: 'meta[itemprop="availability"]',
+            render: 'content',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: '*[mr_itemprop="price"]',
-            render: 'text',
+            selector1: 'meta[itemprop="price"]',
+            render: 'content',
         })
     }
 }

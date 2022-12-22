@@ -1,7 +1,6 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 // @ts-ignore
 import request from 'postman-request'
-import Keepa from './lib/Keepa'
 
 export async function main() {
     try {
@@ -13,7 +12,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.hayneedle.com/product/trulysoftpleatedblushduvetsetbytrulysoft.cfm'
+            'https://www.gosupps.com/now-foods-l-carnitine-500-mg-180-veg-capsules.html'
         )
 
         await store.createBrowser()

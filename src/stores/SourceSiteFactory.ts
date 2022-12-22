@@ -230,7 +230,6 @@ import Landmsupply from './l/landmsupply'
 import Tartecosmetics from './t/tartecosmetics'
 import Truegether from './t/truegether'
 import Bambibaby from './b/bambibaby'
-// import Farmandfleet from './f/farmandfleet'
 import Jomashop from './j/jomashop'
 import Ulonet from './u/ulonet'
 import Rshughes from './r/rshughes'
@@ -348,6 +347,11 @@ import Mrsupply from './m/mrsupply'
 import Willowtree from './w/willowtree'
 import Demdaco from './d/demdaco'
 import Hayneedle from './w/hayneedle'
+import Thepaperstore from './t/thepaperstore'
+import Dior from './d/dior'
+import Petocart from './p/petocart'
+import Supplementwarehouse from './s/supplementwarehouse'
+import Gosupps from './g/gosupps'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -486,6 +490,7 @@ export default class SourceSiteFactory {
             else if (domain === 'dkhardware') return new Dkhardware(url)
             else if (domain === 'dollargeneral') return new Dollargeneral(url)
             else if (domain === 'dorksidetoys') return new Dorksidetoys(url)
+            else if (domain === 'dior') return new Dior(url)
             else if (domain === 'douglascuddletoy') return new Douglascuddletoy(url)
             else if (domain === 'empiretoyshop') return new Empiretoyshop(url)
             else if (domain === 'entertainmentearth') return new Entertainmentearth(url)
@@ -523,6 +528,7 @@ export default class SourceSiteFactory {
             else if (domain === 'globalgolf') return new Globalgolf(url)
             else if (domain === 'goodmans') return new Goodmans(url)
             else if (domain === 'guitarcenter') return new Guitarcenter(url)
+            else if (domain === 'gosupps') return new Gosupps(url)
             else if (domain === 'hasbropulse') return new Hasbropulse(url)
             else if (domain === 'halloweencostumes') return new Halloweencostumes(url)
             else if (domain === 'hardwareandtools') return new Hardwareandtools(url)
@@ -613,6 +619,7 @@ export default class SourceSiteFactory {
             else if (domain === 'partytoyz') return new Partytoyz(url)
             else if (domain === 'pamperedchef') return new Pamperedchef(url)
             else if (domain === 'petflow') return new Petflow(url)
+            else if (domain === 'petocart') return new Petocart(url)
             else if (domain === 'perfumesclub') return new Perfumesclub(url)
             // else if (domain === 'pokemoncenter') return new Pokemoncenter(url)
             else if (domain === 'palmettostatearmory') return new Palmettostatearmory(url)
@@ -678,6 +685,7 @@ export default class SourceSiteFactory {
             else if (domain === 'shumistore') return new Shumistore(url)
             else if (domain === 'scheels') return new Scheels(url)
             else if (domain === 'shopdisney') return new Shopdisney(url)
+            else if (domain === 'supplementwarehouse') return new Supplementwarehouse(url)
             else if (domain === 'sportsmans') return new Sportsmans(url)
             else if (domain === 'sweetwater') return new Sweetwater(url)
             else if (domain === 'stuffedsafari') return new Stuffedsafari(url)
@@ -694,6 +702,7 @@ export default class SourceSiteFactory {
             else if (domain === 'theisens') return new Theisens(url)
             else if (domain === 'thetoytemple') return new Thetoytemple(url)
             else if (domain === 'thegamesteward') return new Thegamesteward(url)
+            else if (domain === 'thepaperstore') return new Thepaperstore(url)
             else if (domain === 'toolbarn') return new Toolbarn(url)
             else if (domain === 'tf2sshop') return new Tf2sshop(url)
             else if (domain === 'toyshnip') return new Toyshnip(url)

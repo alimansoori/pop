@@ -1,7 +1,6 @@
 import Store from '../../Store'
 
 import { EnumLoadType } from '../../../@types/EnumLoadType'
-import sleep from '../../../utils/sleep'
 
 export default class Walgreens extends Store {
     constructor(url: string) {
@@ -15,7 +14,8 @@ export default class Walgreens extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        try {
+        this.setAvailability(true)
+        /*try {
             await this.page.waitForSelector('ul.fulfillment__container > li:last-child', {
                 timeout: 3000,
             })
@@ -30,10 +30,13 @@ export default class Walgreens extends Store {
             })
         } catch (e: any) {
             this.setAvailability(false)
-        }
+        }*/
     }
 
     async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkPrice({
+            selector1: '*[id="sales-price-info"]',
+            render: 'text',
+        })
     }
 }

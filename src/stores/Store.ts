@@ -73,9 +73,9 @@ abstract class Store implements IStore, IProductDetails {
                 await this.page.setRequestInterception(true)
                 this.page.on('request', (req: any) => {
                     if (
-                        req.resourceType() == 'stylesheet' ||
-                        req.resourceType() == 'font' ||
-                        req.resourceType() == 'image'
+                        req.resourceType() === 'stylesheet' ||
+                        req.resourceType() === 'font' ||
+                        req.resourceType() === 'image'
                     ) {
                         req.abort()
                     } else {
