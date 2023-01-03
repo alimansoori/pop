@@ -12,7 +12,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.gosupps.com/now-foods-l-carnitine-500-mg-180-veg-capsules.html'
+            'https://www.gamestop.com/toys-games/trading-cards/products/pokemon-battle-academy-trading-card-game/323895.html?utm_source=google&utm_medium=feeds&utm_campaign=%24PLA_%24NB_MNFR_Toys+%26+Collectibles_Pokemon&utm_id=16244983647&gclid=Cj0KCQjwxb2XBhDBARIsAOjDZ340fUmcvtEBVkmUZMvdHh2MUpikyHtv-05rLxtcb09O0kBm9oaPpscaAtkEEALw_wcB&gclsrc=aw.ds'
         )
 
         await store.createBrowser()

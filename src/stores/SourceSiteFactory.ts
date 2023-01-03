@@ -226,7 +226,7 @@ import UnitedStatesFlag from './u/united-states-flag'
 import Kikocosmetics from './k/kikocosmetics'
 import Hdstrading from './h/hdstrading'
 import Toolbarn from './t/toolbarn'
-import Landmsupply from './l/landmsupply'
+// import Landmsupply from './l/landmsupply'
 import Tartecosmetics from './t/tartecosmetics'
 import Truegether from './t/truegether'
 import Bambibaby from './b/bambibaby'
@@ -352,6 +352,11 @@ import Dior from './d/dior'
 import Petocart from './p/petocart'
 import Supplementwarehouse from './s/supplementwarehouse'
 import Gosupps from './g/gosupps'
+import Worldofwatches from './w/worldofwatches'
+import Liftmaster from './l/liftmaster'
+import Lakeside from './l/lakeside'
+import Shagtools from './s/shagtools'
+import Titangamesonline from './t/titangamesonline'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -561,13 +566,14 @@ export default class SourceSiteFactory {
             else if (domain === 'kidpowered') return new Kidpowered(url)
             else if (domain === 'kohls') return new Kohls(url)
             else if (domain === 'k9cuisine') return new K9cuisine(url)
-            // else if (domain === 'lakeside') return new Lakeside(url)
-            else if (domain === 'landmsupply') return new Landmsupply(url)
+            else if (domain === 'lakeside') return new Lakeside(url)
+            // else if (domain === 'landmsupply') return new Landmsupply(url)
             else if (domain === 'legacytoys') return new Legacytoys(url)
             else if (domain === 'lowes') return new Lowes(url)
             // Is Block
             else if (domain === 'livesuper') return new Livesuper(url)
             else if (domain === 'leatherman') return new Leatherman(url)
+            else if (domain === 'liftmaster') return new Liftmaster(url)
             else if (domain === 'lovelyskin') return new Lovelyskin(url)
             else if (domain === 'ltdcommodities') return new Ltdcommodities(url)
             else if (domain === 'luckyvitamin') return new Luckyvitamin(url)
@@ -670,6 +676,7 @@ export default class SourceSiteFactory {
             else if (domain === 'seriouspuzzles') return new Seriouspuzzles(url)
             else if (domain === 'solidsignal') return new Solidsignal(url)
             else if (domain === 'soxy') return new Soxy(url)
+            else if (domain === 'shagtools') return new Shagtools(url)
             else if (domain === 'surlatable') return new Surlatable(url)
             else if (domain === 'surethingtoys') return new Surethingtoys(url)
             else if (domain === 'supplyepic') return new Supplyepic(url)
@@ -702,6 +709,7 @@ export default class SourceSiteFactory {
             else if (domain === 'theisens') return new Theisens(url)
             else if (domain === 'thetoytemple') return new Thetoytemple(url)
             else if (domain === 'thegamesteward') return new Thegamesteward(url)
+            else if (domain === 'titangamesonline') return new Titangamesonline(url)
             else if (domain === 'thepaperstore') return new Thepaperstore(url)
             else if (domain === 'toolbarn') return new Toolbarn(url)
             else if (domain === 'tf2sshop') return new Tf2sshop(url)
@@ -735,6 +743,7 @@ export default class SourceSiteFactory {
             else if (domain === 'woot') return new Woot(url)
             else if (domain === 'woodcraft') return new Woodcraft(url)
             else if (domain === 'worldmarket') return new Worldmarket(url)
+            // else if (domain === 'worldofwatches') return new Worldofwatches(url)
             else if (domain === 'wdrake') return new Wdrake(url)
             else if (domain === 'wwbw') return new Wwbw(url)
             else if (domain === 'willowtree') return new Willowtree(url)

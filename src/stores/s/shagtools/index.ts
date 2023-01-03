@@ -1,14 +1,14 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Lakeside extends Store {
+export default class Shagtools extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.LOAD
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('p.ProductName')
+        await this.productExistBySelector('h1.product_title')
     }
 
     async availibilityCalculate(): Promise<void> {
