@@ -12,7 +12,7 @@ export default class Doc {
     async auth() {
         try {
             this.doc1 = new GoogleSpreadsheet('18-IBVjrZF8z5OGfSvFWmIQmLG5Ki4-_RB0D6T5g8yLg')
-            this.doc2 = new GoogleSpreadsheet('1P944pvX749HhQiXlIvVVEvtc4gEYCJv6nsU1EfSiETo')
+            this.doc2 = new GoogleSpreadsheet('1fjwqjn7xHaxZx_fRIRZn1Dby4xhvs2LsU7ZCBh9kzKw')
 
             await this.doc1.useServiceAccountAuth({
                 client_email: keys.client_email,
@@ -34,28 +34,14 @@ export default class Doc {
                 'Date',
                 'Source',
                 'Brand',
-                // 'Sell Approval',
                 'ASIN',
                 'Source URL',
-                // 'Source IMG',
-                // 'Source Image',
                 'Amazon URL',
                 'Amazon Number',
-                // 'Amazon IMG',
-                // 'Amazon Image',
                 'Category',
                 'IN Stock',
                 'Source Price',
                 'Sell Price',
-                // 'BuyBox Price',
-                // '30-D Amazon In Stock',
-                // 'Badge',
-                // 'BuyBox is Amazon',
-                // 'BuyBox avg 30 day',
-                // 'Top',
-                // 'Net',
-                // 'ROI',
-                // 'BSR',
                 'Status',
                 'Seller',
                 'Note',
@@ -82,7 +68,7 @@ export default class Doc {
                     if (databaseAsin === badAsinRows[j]['ASIN']) {
                         console.log(databaseAsin + ' => ' + badAsinRows[j]['ASIN'])
                         console.log(`Delete Row = ${i}`)
-                        databaseRows[i]['Note'] = 'PPPP'
+                        databaseRows[i]['Note'] = 'Delete'
                         await databaseRows[i].save()
                         break
                     }

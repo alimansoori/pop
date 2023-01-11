@@ -1,14 +1,14 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Basspro extends Store {
+export default class LancomeUsa extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1.main_header')
+        await this.productExistBySelector('h1[itemprop="name"]')
     }
 
     async availibilityCalculate(): Promise<void> {
