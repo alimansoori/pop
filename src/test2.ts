@@ -13,7 +13,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://vitaminlife.com/products/lemon-bioflavonoid-complex-1000mg-vegetarian-5'
+            'https://thrivecausemetics.com/products/instant-brow-fix-semi-permanent-eyebrow-gel?variant=1743487270937&gclid=CjwKCAjwtcCVBhA0EiwAT1fY7_K9i4rQLLBtx6jdQ4Fg7ydrRfBTxQ3GsyTzI_2ifjNpgWWXKzY9YhoCzA4QAvD_BwE'
         )
 
         await store.createBrowser()

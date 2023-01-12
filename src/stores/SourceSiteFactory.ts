@@ -360,6 +360,16 @@ import LancomeUsa from './l/lancome-usa'
 import Basspro from './b/basspro'
 import Mastgeneralstore from './m/mastgeneralstore'
 import Vitaminlife from './v/vitaminlife'
+import Bobbibrowncosmetics from './b/bobbibrowncosmetics'
+import Saksoff5th from './s/saksoff5th'
+import Jonesroadbeauty from './j/jonesroadbeauty'
+import Saiehello from './s/saiehello'
+import Colourpop from './c/colourpop'
+import Kravebeauty from './k/kravebeauty'
+import Thrivecausemetics from './t/thrivecausemetics'
+import Breakingbangers from './b/breakingbangers'
+import Expresspokemail from './e/expresspokemail'
+import HobbyAddicts from './h/hobby-addicts'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -445,6 +455,7 @@ export default class SourceSiteFactory {
             else if (domain === 'beallsflorida') return new Beallsflorida(url)
             else if (domain === 'beautyexpert') return new Beautyexpert(url)
             else if (domain === 'beautance') return new Beautance(url)
+            else if (domain === 'breakingbangers') return new Breakingbangers(url)
             else if (domain === 'bedbathandbeyond') return new Bedbathandbeyond(url)
             else if (domain === 'belk') return new Belk(url)
             else if (domain === 'beautifiedyou') return new Beautifiedyou(url)
@@ -458,6 +469,7 @@ export default class SourceSiteFactory {
             else if (domain === 'bloomingdales') return new Bloomingdales(url)
             else if (domain === 'boardlandia') return new Boardlandia(url)
             else if (domain === 'boscovs') return new Boscovs(url)
+            else if (domain === 'bobbibrowncosmetics') return new Bobbibrowncosmetics(url)
             else if (domain === 'bhphotovideo') return new Bhphotovideo(url)
             else if (domain === 'banggood') return new Banggood(url)
             // else if (domain === 'bookpal') return new Bookpal(url)
@@ -488,6 +500,7 @@ export default class SourceSiteFactory {
             else if (domain === 'chelseamarketbasket') return new Chelseamarketbasket(url)
             else if (domain === 'costco') return new Costco(url)
             else if (domain === 'cyclegear') return new Cyclegear(url)
+            else if (domain === 'colourpop') return new Colourpop(url)
             else if (domain === 'crystalclassics') return new Crystalclassics(url)
             else if (domain === 'deepdiscount') return new Deepdiscount(url)
             else if (domain === 'demdaco') return new Demdaco(url)
@@ -505,6 +518,7 @@ export default class SourceSiteFactory {
             else if (domain === 'entirelypets') return new Entirelypets(url)
             else if (domain === 'etundra') return new Etundra(url)
             else if (domain === 'evo') return new Evo(url)
+            else if (domain === 'expresspokemail') return new Expresspokemail(url)
             else if (domain === 'ecosmetics') return new Ecosmetics(url)
             else if (domain === 'everythingkitchens') return new Everythingkitchens(url)
             else if (domain === 'familyotc') return new Familyotc(url)
@@ -542,6 +556,7 @@ export default class SourceSiteFactory {
             else if (domain === 'hardwareandtools') return new Hardwareandtools(url)
             else if (domain === 'healthypets') return new Healthypets(url)
             else if (domain === 'heb') return new Heb(url)
+            else if (domain === 'hobby-addicts') return new HobbyAddicts(url)
             else if (domain === 'healthykin') return new Healthykin(url)
             else if (domain === 'hdstrading') return new Hdstrading(url)
             else if (domain === 'hdsupplysolutions') return new Hdsupplysolutions(url)
@@ -559,10 +574,12 @@ export default class SourceSiteFactory {
             else if (domain === 'insanetoyshop') return new Insanetoyshop(url)
             else if (domain === 'jefferspet') return new Jefferspet(url)
             else if (domain === 'joann') return new Joann(url)
+            else if (domain === 'jonesroadbeauty') return new Jonesroadbeauty(url)
             else if (domain === 'jomashop') return new Jomashop(url)
             else if (domain === 'jcpenney') return new Jcpenney(url)
             else if (domain === 'jensonusa') return new Jensonusa(url)
             else if (domain === 'katom') return new Katom(url)
+            else if (domain === 'kravebeauty') return new Kravebeauty(url)
             else if (domain === 'keurig') return new Keurig(url)
             else if (domain === 'kikocosmetics') return new Kikocosmetics(url)
             else if (domain === 'knifecenter') return new Knifecenter(url)
@@ -673,6 +690,8 @@ export default class SourceSiteFactory {
             else if (domain === 'ruralking') return new Ruralking(url)
             else if (domain === 'sallybeauty') return new Sallybeauty(url)
             else if (domain === 'samsclub') return new Samsclub(url)
+            else if (domain === 'saiehello') return new Saiehello(url)
+            else if (domain === 'saksoff5th') return new Saksoff5th(url)
             else if (domain === 'samsbeauty') return new Samsbeauty(url)
             else if (domain === 'shophairwigs') return new Shophairwigs(url)
             else if (domain === 'saltwateraquarium') return new Saltwateraquarium(url)
@@ -730,6 +749,7 @@ export default class SourceSiteFactory {
             else if (domain === 'trisports') return new Trisports(url)
             else if (domain === 'truegether') return new Truegether(url)
             else if (domain === 'thrivemarket') return new Thrivemarket(url)
+            else if (domain === 'thrivecausemetics') return new Thrivecausemetics(url)
             else if (domain === 'udans') return new Udans(url)
             else if (domain === 'ulta') return new Ulta(url)
             else if (domain === 'ulonet') return new Ulonet(url)
