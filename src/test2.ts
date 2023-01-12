@@ -13,7 +13,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://thrivecausemetics.com/products/instant-brow-fix-semi-permanent-eyebrow-gel?variant=1743487270937&gclid=CjwKCAjwtcCVBhA0EiwAT1fY7_K9i4rQLLBtx6jdQ4Fg7ydrRfBTxQ3GsyTzI_2ifjNpgWWXKzY9YhoCzA4QAvD_BwE'
+            'https://www.lifeandhome.com/collections/evaporative-cooler-parts/products/dial-1387-ul15000la-powercool-cooler-pump-115-v-505-gph'
         )
 
         await store.createBrowser()
