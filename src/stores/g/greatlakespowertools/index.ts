@@ -1,10 +1,10 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Mycollectorsoutpost extends Store {
+export default class Greatlakespowertools extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
     }
 
     async productExistCalculate(): Promise<void> {
@@ -13,8 +13,8 @@ export default class Mycollectorsoutpost extends Store {
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'link[itemprop="availability"]',
-            render: 'href',
+            selector: 'meta[itemprop="availability"]',
+            render: 'content',
             outputArray: [],
         })
     }

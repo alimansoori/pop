@@ -262,6 +262,8 @@ abstract class Store implements IStore, IProductDetails {
                     availability = this.resultReq.$(input.selector).attr('content')
                 } else if (input.render === 'href') {
                     availability = this.resultReq.$(input.selector).attr('href')
+                } else if (input.render === 'value') {
+                    availability = this.resultReq.$(input.selector).attr('value')
                 } else if (!input.render) {
                     if (this.resultReq.$(input.selector)) {
                         availability = 'in stock'
@@ -277,6 +279,8 @@ abstract class Store implements IStore, IProductDetails {
                     availability = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content'))
                 } else if (input.render === 'href') {
                     availability = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('href'))
+                } else if (input.render === 'value') {
+                    availability = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('value'))
                 } else if (!input.render) {
                     try {
                         await this.page.waitForSelector(input.selector, { timeout: 10000 })
