@@ -5,15 +5,15 @@ import Doc from './sheets/Doc'
 
 export async function main() {
     try {
-        const doc = new Doc()
-        await doc.auth()
+        /*const doc = new Doc()
+        await doc.auth()*/
         /*const res = await MyPostmanRequest.request(
             'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
         )*/
         // console.log(res)
 
-        /*const store = await SourceSiteFactory.create(
-            'https://www.lifeandhome.com/collections/evaporative-cooler-parts/products/dial-1387-ul15000la-powercool-cooler-pump-115-v-505-gph'
+        const store = await SourceSiteFactory.create(
+            'https://mytoolstore.com/products/milwaukee-48-22-9001-12-piece-3-8-drive-metric-socket-set'
         )
 
         await store.createBrowser()
@@ -22,7 +22,7 @@ export async function main() {
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Price is: ' + store.getPrice())
         console.log('Source is in stock: ' + store.isAvailability())
-        await store.browser?.close()*/
+        await store.browser?.close()
 
         /*const keepa = new Keepa({
             asin: 'B086763VT8',

@@ -1,8 +1,9 @@
 import Store from '../../Store'
 
+import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Vipoutlet extends Store {
+export default class Bareminerals extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
