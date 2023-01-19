@@ -12,9 +12,7 @@ export async function main() {
         )*/
         // console.log(res)
 
-        const store = await SourceSiteFactory.create(
-            'https://mytoolstore.com/products/milwaukee-48-22-9001-12-piece-3-8-drive-metric-socket-set'
-        )
+        const store = await SourceSiteFactory.create('https://www.batteryjunction.com/sog-f041tn-cp.html')
 
         await store.createBrowser()
         await store.scrape()

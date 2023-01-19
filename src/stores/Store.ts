@@ -62,7 +62,7 @@ abstract class Store implements IStore, IProductDetails {
             this.browser = pup.browser
             this.page = await this.browser.newPage()
 
-            await this.page.setViewport({ width: 1920, height: 1080 })
+            await this.page.setViewport({ width: 1440, height: 900 })
             // this.page = (await this.browser.pages())[0]
 
             await this.page.setUserAgent(

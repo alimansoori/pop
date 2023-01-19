@@ -1,19 +1,40 @@
 import Store from '../../Store'
+import sleep from '../../../utils/sleep'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Lowes extends Store {
     constructor(url: string) {
         super(url)
-        // this.runPostman = true
-        // this.siteIsBlocked = true
+        this.loadType = EnumLoadType.LOAD
+        // this.enableAssets = true
+        // this.viewPageSource = false
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div[id="pdp-lpd"] h1.product-desc')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
+        try {
+            await this.page.waitForSelector('label.tile.radio-tile.delivery-tile input[type="radio"]', {
+                timeout: 10000,
+            })
+            await this.page.click('label.tile.radio-tile.delivery-tile input[type="radio"]')
+
+            await this.checkAvailability({
+                selector: 'div.atc-buy-box button.btn-add.atc',
+                render: 'text',
+                outputArray: [],
+            })
+        } catch (e: any) {
+            console.log(e.message)
+        }
     }
 
     async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkPrice({
+            selector1: 'div.newPriceWrapper div.main-price',
+            render: 'text',
+        })
     }
 }
