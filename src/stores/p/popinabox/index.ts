@@ -1,11 +1,10 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
+// 1/20/2023
 export default class Popinabox extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
         // this.runPostman = true
         // this.siteIsBlocked = true

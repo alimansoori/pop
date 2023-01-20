@@ -296,7 +296,7 @@ import Nytransitmuseumstore from './n/nytransitmuseumstore'
 import Aventuron from './a/aventuron'
 import Omegajuicers from './o/omegajuicers'
 import Nightmaretoys from './n/nightmaretoys'
-import Opensky from './s/opensky'
+import Opensky from './o/opensky'
 import Kidpowered from './k/kidpowered'
 import Toys3000 from './1/3000toys'
 import Thetoytemple from './t/thetoytemple'
@@ -403,6 +403,12 @@ import Bikebling from './b/bikebling'
 import Treestuff from './t/treestuff'
 import Bladehq from './b/bladehq'
 import Batteryjunction from './b/batteryjunction'
+import Camp from './c/camp'
+import Balyot from './b/balyot'
+import Sagaconcepts from './s/sagaconcepts'
+import Mbeans from './m/mbeans'
+import Toytokyo from './t/toytokyo'
+import Undiscoveredrealm from './u/undiscoveredrealm'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -509,6 +515,7 @@ export default class SourceSiteFactory {
             else if (domain === 'batteryjunction') return new Batteryjunction(url)
             else if (domain === 'bobbibrowncosmetics') return new Bobbibrowncosmetics(url)
             else if (domain === 'bareminerals') return new Bareminerals(url)
+            else if (domain === 'balyot') return new Balyot(url)
             else if (domain === 'bhphotovideo') return new Bhphotovideo(url)
             else if (domain === 'banggood') return new Banggood(url)
             // else if (domain === 'bookpal') return new Bookpal(url)
@@ -539,6 +546,7 @@ export default class SourceSiteFactory {
             else if (domain === 'chelseamarketbasket') return new Chelseamarketbasket(url)
             else if (domain === 'costco') return new Costco(url)
             else if (domain === 'cyclegear') return new Cyclegear(url)
+            else if (domain === 'camp') return new Camp(url)
             else if (domain === 'colourpop') return new Colourpop(url)
             else if (domain === 'crystalclassics') return new Crystalclassics(url)
             else if (domain === 'deepdiscount') return new Deepdiscount(url)
@@ -652,6 +660,7 @@ export default class SourceSiteFactory {
             else if (domain === 'mastgeneralstore') return new Mastgeneralstore(url)
             else if (domain === 'maxwarehouse') return new Maxwarehouse(url)
             else if (domain === 'mardel') return new Mardel(url)
+            else if (domain === 'mbeans') return new Mbeans(url)
             else if (domain === 'maisonette') return new Maisonette(url)
             else if (domain === 'menards') return new Menards(url)
             else if (domain === 'mealeymarine') return new Mealeymarine(url)
@@ -745,6 +754,7 @@ export default class SourceSiteFactory {
             else if (domain === 'ruralking') return new Ruralking(url)
             else if (domain === 'sallybeauty') return new Sallybeauty(url)
             else if (domain === 'samsclub') return new Samsclub(url)
+            else if (domain === 'sagaconcepts') return new Sagaconcepts(url)
             else if (domain === 'saiehello') return new Saiehello(url)
             else if (domain === 'saksoff5th') return new Saksoff5th(url)
             else if (domain === 'samsbeauty') return new Samsbeauty(url)
@@ -806,6 +816,7 @@ export default class SourceSiteFactory {
             else if (domain === 'twohandspaperie') return new Twohandspaperie(url)
             else if (domain === 'toywiz') return new Toywiz(url)
             else if (domain === 'toynk') return new Toynk(url)
+            else if (domain === 'toytokyo') return new Toytokyo(url)
             else if (domain === 'toytooth') return new Toytooth(url)
             else if (domain === 'toyarena') return new Toyarena(url)
             else if (domain === 'toygamewiz') return new Toygamewiz(url)
@@ -816,6 +827,7 @@ export default class SourceSiteFactory {
             else if (domain === 'udans') return new Udans(url)
             else if (domain === 'ulta') return new Ulta(url)
             else if (domain === 'ulonet') return new Ulonet(url)
+            else if (domain === 'undiscoveredrealm') return new Undiscoveredrealm(url)
             else if (domain === 'universalcycles') return new Universalcycles(url)
             else if (domain === 'unpluggedgamestore') return new Unpluggedgamestore(url)
             else if (domain === 'united-states-flag') return new UnitedStatesFlag(url)

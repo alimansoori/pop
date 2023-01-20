@@ -2,28 +2,28 @@ import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 // 1-20-2023
-export default class Empiretoyshop extends Store {
+export default class Undiscoveredrealm extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[itemprop="name"]')
+        await this.productExistBySelector('h1.tt-title')
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'link[itemprop="availability"]',
-            render: 'href',
+            selector: 'meta[itemprop="availability"]',
+            render: 'content',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: '*[itemprop="price"]',
-            render: 'text',
+            selector1: 'meta[itemprop="price"]',
+            render: 'content',
         })
     }
 }

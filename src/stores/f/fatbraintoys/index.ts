@@ -1,26 +1,18 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
+// 1-20-2023
 export default class Fatbraintoys extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.runPostman = true
     }
 
-    async productExistCalculate(): Promise<void> {}
-
-    async productTitleCalculate(): Promise<void> {
-        // this.titleClass.setTitle("ffff");
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.product-label')
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

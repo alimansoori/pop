@@ -1,10 +1,11 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
+// 1-20-2023
 export default class Kohls extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.LOAD
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {

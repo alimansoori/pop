@@ -1,7 +1,6 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 // @ts-ignore
 import request from 'postman-request'
-import Doc from './sheets/Doc'
 
 export async function main() {
     try {
@@ -12,7 +11,9 @@ export async function main() {
         )*/
         // console.log(res)
 
-        const store = await SourceSiteFactory.create('https://www.batteryjunction.com/sog-f041tn-cp.html')
+        const store = await SourceSiteFactory.create(
+            'https://www.neweggbusiness.com/product/product.aspx?item=9b-1ts-001a-06e27'
+        )
 
         await store.createBrowser()
         await store.scrape()
