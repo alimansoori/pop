@@ -12,7 +12,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.neweggbusiness.com/product/product.aspx?item=9b-1ts-001a-06e27'
+            'https://www.restockit.com/cricut-joy-foil-transfer-kit-num-ccu2009056'
         )
 
         await store.createBrowser()

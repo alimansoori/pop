@@ -409,6 +409,7 @@ import Sagaconcepts from './s/sagaconcepts'
 import Mbeans from './m/mbeans'
 import Toytokyo from './t/toytokyo'
 import Undiscoveredrealm from './u/undiscoveredrealm'
+import Restockit from './r/restockit'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -749,6 +750,7 @@ export default class SourceSiteFactory {
             else if (domain === 'rockler') return new Rockler(url)
             else if (domain === 'rallyhouse') return new Rallyhouse(url)
             else if (domain === 'rcwilley') return new Rcwilley(url)
+            else if (domain === 'restockit') return new Restockit(url)
             else if (domain === 'rshughes') return new Rshughes(url)
             else if (domain === 'roadrunnersports') return new Roadrunnersports(url)
             else if (domain === 'ruralking') return new Ruralking(url)

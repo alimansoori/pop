@@ -2,27 +2,25 @@ import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 // 1-20-2023
-export default class Cdw extends Store {
+export default class Restockit extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[itemprop="name"]')
-    }
+    async productExistCalculate(): Promise<void> {}
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'meta[itemprop="availability"]',
-            render: 'content',
+            selector: 'a[data-og-event="addToCart"]',
+            render: 'text',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'meta[itemprop="price"]',
+            selector1: '*[itemprop="price"]',
             render: 'content',
         })
     }
