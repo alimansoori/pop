@@ -10,7 +10,7 @@ export default class MyPostmanRequest {
             error: false,
             headers: {},
         }
-        let statusCode = NaN
+        // let statusCode = NaN
 
         let proxy = null
         if (isBan) {
@@ -30,7 +30,7 @@ export default class MyPostmanRequest {
         try {
             await proxyRequest(options, (error: any, response: any, body: any) => {
                 res.error = !!error
-                statusCode = response?.statusCode
+                // const statusCode = response?.statusCode
 
                 if (!error && response.statusCode === 200) {
                     res.headers = response.headers
