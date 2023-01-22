@@ -32,7 +32,7 @@ export default class MyPostmanRequest {
                 res.error = !!error
                 statusCode = response?.statusCode
 
-                if (!error && response.statusCode == 200) {
+                if (!error && response.statusCode === 200) {
                     res.headers = response.headers
                     res.$ = cheerio.load(body)
                 } else {
