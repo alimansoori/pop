@@ -1,39 +1,29 @@
 import Store from '../../Store'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-import { textToNumber } from '../../../lib/helper'
-
+// 1-21-2023
 export default class PlayAsia extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[itemprop="name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('link[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('link[itemprop="availability"]', (elem: any) =>
-                elem.getAttribute('href')
-            )
-
-            if (availability?.toLowerCase().includes('instock')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'link[itemprop="availability"]',
+            render: 'href',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.textContent))
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: '*[itemprop="price"]',
+            render: 'content',
+        })
     }
 }

@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import sleep from '../../../utils/sleep'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Lowes extends Store {

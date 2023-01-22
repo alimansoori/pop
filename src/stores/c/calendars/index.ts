@@ -1,39 +1,16 @@
 import Store from '../../Store'
 
-import { textToNumber } from '../../../lib/helper'
-
+// 1-21-2023
 export default class Calendars extends Store {
     constructor(url: string) {
         super(url)
     }
 
-    async productExistCalculate(): Promise<void> {}
-
-    async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('*.mz-product-qty-stock-value', { timeout: 10000 })
-            const availability = await this.page.$eval('*.mz-product-qty-stock-value', (elem: any) => elem.textContent)
-
-            if (availability?.toLowerCase().trim().includes('in stock')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div.product-wrapper h1.mz-pdp-title')
     }
 
-    async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('div#product-detail span[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('div#product-detail span[itemprop="price"]', (elem: any) => elem.textContent)
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+    async availibilityCalculate(): Promise<void> {
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

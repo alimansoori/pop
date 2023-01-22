@@ -1,18 +1,18 @@
 import Store from '../../Store'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
+// 1-21-2023
 export default class Christianbook extends Store {
     constructor(url: string) {
         super(url)
-        // this.runPostman = true
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.CBD-ProductDetailTitle')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

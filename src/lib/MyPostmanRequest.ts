@@ -4,7 +4,7 @@ import request from 'request-promise'
 import { TypePostmanReq } from '../@types/TypePostmanReq'
 
 export default class MyPostmanRequest {
-    static async request(url: string, isBan = false, counter = 1): Promise<TypePostmanReq> {
+    static async request(url: string, isBan = false): Promise<TypePostmanReq> {
         const res = {
             $: cheerio.load(''),
             error: false,

@@ -8,7 +8,7 @@ export default class WebScrapingApi {
 
     constructor() {}
 
-    async fetch(url: string): Promise<void> {
+    async fetch(): Promise<void> {
         /*const res = await request.get(
             `https://api.webscrapingapi.com/v1?url=${encodeURIComponent(url)}&api_key=${
                 this.key

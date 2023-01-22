@@ -1,6 +1,4 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
-// @ts-ignore
-import request from 'postman-request'
 
 export async function main() {
     try {
@@ -12,7 +10,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.restockit.com/cricut-joy-foil-transfer-kit-num-ccu2009056'
+            'https://www.shoplet.com/Coloplast-Inc-Brava-Elastic-Barrier-Strips-X-Large/62120761BX/spdv'
         )
 
         await store.createBrowser()

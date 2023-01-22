@@ -1,6 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
+// 1-21-2023
 export default class Sideshow extends Store {
     constructor(url: string) {
         super(url)
@@ -8,7 +9,7 @@ export default class Sideshow extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div.title h1')
+        await this.productExistBySelector('h1.pdp-info__title')
     }
 
     async availibilityCalculate(): Promise<void> {

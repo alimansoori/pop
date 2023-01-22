@@ -1,17 +1,15 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Jcpenney extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.runPostman = true
-        // this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[data-automation-id="product-title"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
