@@ -10,7 +10,7 @@ export async function main() {
         // console.log(res)
 
         const store = await SourceSiteFactory.create(
-            'https://www.shoplet.com/Coloplast-Inc-Brava-Elastic-Barrier-Strips-X-Large/62120761BX/spdv'
+            'https://betterhealthinternational.net/products/natures-way-esberitox-supercharged-echinacea-200-chewable-tablets?variant=37691479687322'
         )
 
         await store.createBrowser()
