@@ -9,7 +9,7 @@ export async function main() {
         )*/
         // console.log(res)
 
-        const store = await SourceSiteFactory.create('https://www.biketiresdirect.com/product/sram-apex-brake-calipers')
+        const store = await SourceSiteFactory.create('https://www.eriksbikeshop.com/sram-xx1-11-speed-chain-pr3e4703/p')
 
         await store.createBrowser()
         await store.scrape()

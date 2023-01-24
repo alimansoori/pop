@@ -431,6 +431,11 @@ import Opticsplanet from './o/opticsplanet'
 import Excelsports from './e/excelsports'
 import Steepandcheap from './s/steepandcheap'
 import Biketiresdirect from './b/biketiresdirect'
+import Zabiva from './z/zabiva'
+import Fragranceexpress from './f/fragranceexpress'
+import Shampoozone from './s/shampoozone'
+import Haircareandbeauty from './h/haircareandbeauty'
+import Eriksbikeshop from './e/eriksbikeshop'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -597,6 +602,7 @@ export default class SourceSiteFactory {
             else if (domain === 'entirelypets') return new Entirelypets(url)
             else if (domain === 'etundra') return new Etundra(url)
             else if (domain === 'evo') return new Evo(url)
+            else if (domain === 'eriksbikeshop') return new Eriksbikeshop(url)
             else if (domain === 'excelsports') return new Excelsports(url)
             else if (domain === 'evitamins') return new Evitamins(url)
             else if (domain === 'eknightmedia') return new Eknightmedia(url)
@@ -613,6 +619,7 @@ export default class SourceSiteFactory {
             else if (domain === 'fpnyc') return new Fpnyc(url)
             else if (domain === 'funko') return new Funko(url)
             else if (domain === 'fye') return new Fye(url)
+            else if (domain === 'fragranceexpress') return new Fragranceexpress(url)
             else if (domain === 'fun') return new Fun(url)
             else if (domain === 'fresh') return new Fresh(url)
             else if (domain === 'fugitivetoys') return new Fugitivetoys(url)
@@ -650,6 +657,7 @@ export default class SourceSiteFactory {
             else if (domain === 'hdsupplysolutions') return new Hdsupplysolutions(url)
             else if (domain === 'healthyplanetshopping') return new Healthyplanetshopping(url)
             else if (domain === 'hobbylobby') return new Hobbylobby(url)
+            else if (domain === 'haircareandbeauty') return new Haircareandbeauty(url)
             else if (domain === 'homedepot') return new Homedepot(url)
             else if (domain === 'hayneedle') return new Hayneedle(url)
             else if (domain === 'hottopic') return new Hottopic(url)
@@ -827,6 +835,7 @@ export default class SourceSiteFactory {
             else if (domain === 'scheels') return new Scheels(url)
             else if (domain === 'shopdisney') return new Shopdisney(url)
             else if (domain === 'shoplet') return new Shoplet(url)
+            else if (domain === 'shampoozone') return new Shampoozone(url)
             else if (domain === 'smkw') return new Smkw(url)
             else if (domain === 'supplementwarehouse') return new Supplementwarehouse(url)
             else if (domain === 'sportsmans') return new Sportsmans(url)
@@ -904,6 +913,7 @@ export default class SourceSiteFactory {
             else if (domain === 'zzounds') return new Zzounds(url)
             else if (domain === 'zoro') return new Zoro(url)
             else if (domain === 'zumiez') return new Zumiez(url)
+            else if (domain === 'zabiva') return new Zabiva(url)
             else if (domain === 'zavvi') return new Zavvi(url)
             else {
                 throw new Error(`>>>> Domain ${domain} is not defined`)
