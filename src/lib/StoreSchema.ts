@@ -24,6 +24,11 @@ export default class StoreSchema {
                         this.schemaCheckIfArray(schema['@graph'])
                         continue
                     }
+                } else if (schema['hasVariant']) {
+                    if (Array.isArray(schema['hasVariant'])) {
+                        this.schemaCheckIfArray(schema['hasVariant'])
+                        continue
+                    }
                 } else if (schema['mainEntity']) {
                     if (!Array.isArray(schema['mainEntity'])) {
                         this.init([JSON.stringify(schema['mainEntity'])])
@@ -63,7 +68,12 @@ export default class StoreSchema {
         const offers: any = this.productSchema?.offers
         if (offers instanceof Array) {
             for (let i = 0; i < offers.length; i++) {
-                if (this.offerIsObject(offers[i])) break
+                if (offers[i] instanceof Array) {
+                    for (let j = 0; j < offers[i].length; j++) {
+                        if (this.offerIsObject(offers[i][j])) break
+                    }
+                    break
+                } else if (this.offerIsObject(offers[i])) break
             }
         } else {
             this.offerIsObject(offers)

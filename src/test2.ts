@@ -9,9 +9,7 @@ export async function main() {
         )*/
         // console.log(res)
 
-        const store = await SourceSiteFactory.create(
-            'https://betterhealthinternational.net/products/natures-way-esberitox-supercharged-echinacea-200-chewable-tablets?variant=37691479687322'
-        )
+        const store = await SourceSiteFactory.create('https://www.biketiresdirect.com/product/sram-apex-brake-calipers')
 
         await store.createBrowser()
         await store.scrape()

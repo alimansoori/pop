@@ -425,6 +425,12 @@ import Clinicalnutritioncenters from './c/clinicalnutritioncenters'
 import Bettymills from './b/bettymills'
 import Simplynutrients from './s/simplynutrients'
 import Betterhealthinternational from './b/betterhealthinternational'
+import Adwdiabetes from './a/adwdiabetes'
+import Competitivecyclist from './c/competitivecyclist'
+import Opticsplanet from './o/opticsplanet'
+import Excelsports from './e/excelsports'
+import Steepandcheap from './s/steepandcheap'
+import Biketiresdirect from './b/biketiresdirect'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -486,6 +492,7 @@ export default class SourceSiteFactory {
             else if (domain === 'allegromedical') return new Allegromedical(url)
             else if (domain === 'adenandanais') return new Adenandanais(url)
             else if (domain === 'adorama') return new Adorama(url)
+            else if (domain === 'adwdiabetes') return new Adwdiabetes(url)
             else if (domain === 'advancedbionutritionals') return new Advancedbionutritionals(url)
             else if (domain === 'advanceautoparts') return new Advanceautoparts(url)
             else if (domain === 'ae') return new Ae(url)
@@ -544,6 +551,7 @@ export default class SourceSiteFactory {
             else if (domain === 'boxzillacollectibles') return new Boxzillacollectibles(url)
             else if (domain === 'booksamillion') return new Booksamillion(url) // بلاک شده
             else if (domain === 'bbtoystore') return new Bbtoystore(url)
+            else if (domain === 'biketiresdirect') return new Biketiresdirect(url)
             else if (domain === 'burkesoutlet') return new Burkesoutlet(url)
             else if (domain === 'buybuybaby') return new Buybuybaby(url)
             else if (domain === 'brandscycle') return new Brandscycle(url)
@@ -561,6 +569,7 @@ export default class SourceSiteFactory {
             else if (domain === 'cduniverse') return new Cduniverse(url)
             else if (domain === 'crunchyroll') return new Crunchyroll(url)
             else if (domain === 'chewy') return new Chewy(url)
+            else if (domain === 'competitivecyclist') return new Competitivecyclist(url)
             else if (domain === 'christianbook') return new Christianbook(url)
             else if (domain === 'chelseamarketbasket') return new Chelseamarketbasket(url)
             else if (domain === 'costco') return new Costco(url)
@@ -588,6 +597,7 @@ export default class SourceSiteFactory {
             else if (domain === 'entirelypets') return new Entirelypets(url)
             else if (domain === 'etundra') return new Etundra(url)
             else if (domain === 'evo') return new Evo(url)
+            else if (domain === 'excelsports') return new Excelsports(url)
             else if (domain === 'evitamins') return new Evitamins(url)
             else if (domain === 'eknightmedia') return new Eknightmedia(url)
             else if (domain === 'expresspokemail') return new Expresspokemail(url)
@@ -728,6 +738,7 @@ export default class SourceSiteFactory {
             else if (domain === 'officesupply') return new Officesupply(url)
             else if (domain === 'overstock') return new Overstock(url)
             else if (domain === 'overtons') return new Overtons(url)
+            else if (domain === 'opticsplanet') return new Opticsplanet(url)
             else if (domain === 'optimabeautysupply') return new Optimabeautysupply(url)
             else if (domain === 'opentip') return new Opentip(url)
             else if (domain === 'oldtimecandy') return new Oldtimecandy(url)
@@ -791,6 +802,7 @@ export default class SourceSiteFactory {
             else if (domain === 'saltwateraquarium') return new Saltwateraquarium(url)
             else if (domain === 'saksfifthavenue') return new Saksfifthavenue(url)
             else if (domain === 'sephora') return new Sephora(url)
+            else if (domain === 'steepandcheap') return new Steepandcheap(url)
             else if (domain === 'seriouspuzzles') return new Seriouspuzzles(url)
             else if (domain === 'solidsignal') return new Solidsignal(url)
             else if (domain === 'soxy') return new Soxy(url)
