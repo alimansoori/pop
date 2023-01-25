@@ -1,28 +1,28 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
+import sleep from '../../../utils/sleep'
 
-export default class Thrivemarket extends Store {
+export default class Tigerdirect extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.enableCanonical = false
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div.pdp-info h1')
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'span[itemprop="availability"]',
-            render: 'text',
+            selector: 'meta[itemprop="availability"]',
+            render: 'content',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'meta[property="og:price:amount"]',
+            selector1: 'meta[itemprop="price"]',
             render: 'content',
         })
     }

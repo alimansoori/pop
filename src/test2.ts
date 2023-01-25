@@ -9,7 +9,9 @@ export async function main() {
         )*/
         // console.log(res)
 
-        const store = await SourceSiteFactory.create('https://www.eriksbikeshop.com/sram-xx1-11-speed-chain-pr3e4703/p')
+        const store = await SourceSiteFactory.create(
+            'https://www.wwbw.com/NUX-Reissue-Series-Steel-Singer-Drive-Effects-Pedal-L95191.wwbw'
+        )
 
         await store.createBrowser()
         await store.scrape()

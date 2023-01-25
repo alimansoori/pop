@@ -63,9 +63,9 @@ export default class StoreSchema {
         }
     }
 
-    private fetchOffer() {
+    private fetchOffer(off?: any) {
         if (!this.productSchema?.offers) return
-        const offers: any = this.productSchema?.offers
+        const offers: any = off ? off : this.productSchema?.offers
         if (offers instanceof Array) {
             for (let i = 0; i < offers.length; i++) {
                 if (offers[i] instanceof Array) {
@@ -75,6 +75,8 @@ export default class StoreSchema {
                     break
                 } else if (this.offerIsObject(offers[i])) break
             }
+        } else if (offers?.offers) {
+            this.fetchOffer(offers?.offers)
         } else {
             this.offerIsObject(offers)
         }

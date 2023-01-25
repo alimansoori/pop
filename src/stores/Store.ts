@@ -42,6 +42,7 @@ abstract class Store implements IStore, IProductDetails {
     protected viewPageSource = true
     protected isSecond = false
     protected enableAssets = false
+    protected enableCanonical = true
 
     protected constructor(url: string) {
         this.url = url
@@ -225,7 +226,9 @@ abstract class Store implements IStore, IProductDetails {
                 return
             }
 
-            await this.setCanonical()
+            if (this.enableCanonical) {
+                await this.setCanonical()
+            }
             this.setTitle()
             if (!this.titleClass.isValid()) {
                 console.log('Product title not valid!')

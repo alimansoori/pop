@@ -1,14 +1,11 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
+// 1-25-2023
 export default class Bhphotovideo extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.runPostman = true
-        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {
@@ -16,10 +13,6 @@ export default class Bhphotovideo extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

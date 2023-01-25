@@ -436,6 +436,11 @@ import Fragranceexpress from './f/fragranceexpress'
 import Shampoozone from './s/shampoozone'
 import Haircareandbeauty from './h/haircareandbeauty'
 import Eriksbikeshop from './e/eriksbikeshop'
+import Barberitems from './b/barberitems'
+import Govets from './g/govets'
+import Zerbee from './z/zerbee'
+import Tigerdirect from './t/tigerdirect'
+import Ontimesupplies from './o/ontimesupplies'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -545,6 +550,7 @@ export default class SourceSiteFactory {
             else if (domain === 'bareminerals') return new Bareminerals(url)
             else if (domain === 'bettymills') return new Bettymills(url)
             else if (domain === 'balyot') return new Balyot(url)
+            else if (domain === 'barberitems') return new Barberitems(url)
             else if (domain === 'bhphotovideo') return new Bhphotovideo(url)
             else if (domain === 'banggood') return new Banggood(url)
             // else if (domain === 'bookpal') return new Bookpal(url)
@@ -639,6 +645,7 @@ export default class SourceSiteFactory {
             else if (domain === 'groupon') return new Groupon(url)
             else if (domain === 'gemplers') return new Gemplers(url)
             else if (domain === 'geekbuying') return new Geekbuying(url)
+            else if (domain === 'govets') return new Govets(url)
             else if (domain === 'geminicollectibles') return new Geminicollectibles(url)
             else if (domain === 'globalgolf') return new Globalgolf(url)
             else if (domain === 'goodmans') return new Goodmans(url)
@@ -740,6 +747,7 @@ export default class SourceSiteFactory {
             else if (domain === 'nothingbutsavings') return new Nothingbutsavings(url)
             else if (domain === 'nutriessential') return new Nutriessential(url)
             else if (domain === 'oldies') return new Oldies(url)
+            else if (domain === 'ontimesupplies') return new Ontimesupplies(url)
             else if (domain === 'omegajuicers') return new Omegajuicers(url)
             else if (domain === 'orientaltrading') return new Orientaltrading(url)
             else if (domain === 'officedepot') return new Officedepot(url)
@@ -854,6 +862,7 @@ export default class SourceSiteFactory {
             else if (domain === 'thatpetplace') return new Thatpetplace(url)
             else if (domain === 'treefortbikes') return new Treefortbikes(url)
             else if (domain === 'tigerchef') return new Tigerchef(url)
+            else if (domain === 'tigerdirect') return new Tigerdirect(url)
             else if (domain === 'theisens') return new Theisens(url)
             else if (domain === 'thetoytemple') return new Thetoytemple(url)
             else if (domain === 'thegamesteward') return new Thegamesteward(url)
@@ -912,6 +921,7 @@ export default class SourceSiteFactory {
             else if (domain === 'zulily') return new Zulily(url)
             else if (domain === 'zzounds') return new Zzounds(url)
             else if (domain === 'zoro') return new Zoro(url)
+            else if (domain === 'zerbee') return new Zerbee(url)
             else if (domain === 'zumiez') return new Zumiez(url)
             else if (domain === 'zabiva') return new Zabiva(url)
             else if (domain === 'zavvi') return new Zavvi(url)
