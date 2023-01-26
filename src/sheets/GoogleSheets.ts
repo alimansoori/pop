@@ -41,20 +41,23 @@ export default class GoogleSheets {
 
             await dataBaseSheet.setHeaderRow([
                 'Date',
-                'Source',
-                'Brand',
+                'Status',
+                'Approval',
+                'Title',
                 'ASIN',
+                'Source',
                 'Source URL',
                 'Amazon URL',
                 'Amazon Number',
+                'Brand',
                 'Category',
+                'Signature',
                 'IN Stock',
                 'Source Price',
                 'Sell Price',
-                'Status',
+                'StatusCode',
                 'Seller',
                 'Note',
-                'Signature',
             ])
 
             await this.iterateRows(dataBaseSheet)
