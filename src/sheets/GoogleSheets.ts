@@ -148,7 +148,7 @@ export default class GoogleSheets {
                     console.log('< REJECT >')
                 }
 
-                rows[i]['Status'] = store.statusCode
+                rows[i]['StatusCode'] = store.statusCode
 
                 if (store.error) {
                     rows[i]['Note'] = store.error
