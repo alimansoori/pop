@@ -1,31 +1,29 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Thrivemarket extends Store {
+// 1-20-2023
+export default class Nordisco extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.enableCanonical = false
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[data-testid="pdp-title"]')
+        await this.productExistBySelector('h1[id="hdngItemName"]')
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'span[itemprop="availability"]',
-            render: 'text',
+            selector: 'input[id="btnAdd2Cart"]',
+            render: 'value',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'meta[property="og:price:amount"]',
-            render: 'content',
+            selector1: '*[id="ctl16_lblPrice"]',
+            render: 'text',
         })
     }
 }

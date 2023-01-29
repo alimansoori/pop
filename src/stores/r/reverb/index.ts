@@ -1,30 +1,28 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Thrivemarket extends Store {
+// 1-20-2023
+export default class Reverb extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.enableCanonical = false
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[data-testid="pdp-title"]')
+        await this.productExistBySelector('div[itemtype="http://schema.org/Product"] meta[itemprop="name"]')
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'span[itemprop="availability"]',
-            render: 'text',
+            selector: 'div[itemtype="http://schema.org/Product"] meta[itemprop="availability"]',
+            render: 'content',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'meta[property="og:price:amount"]',
+            selector1: 'div[itemtype="http://schema.org/Product"] meta[itemprop="price"]',
             render: 'content',
         })
     }

@@ -1,14 +1,14 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Tfaw extends Store {
+export default class BrotherUsa extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1.page-title > span[data-ui-id="page-title-wrapper"]')
+        await this.productExistBySelector('h2.janus-product-title')
     }
 
     async availibilityCalculate(): Promise<void> {

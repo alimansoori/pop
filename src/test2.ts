@@ -1,17 +1,16 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
-import Doc from './sheets/Doc'
 
 export async function main() {
     try {
-        const doc = new Doc()
-        await doc.auth()
+        /*const doc = new Doc()
+        await doc.auth()*/
         /*const res = await MyPostmanRequest.request(
             'https://www.bhphotovideo.com/c/product/1507458-REG/ilford_1179585_multigrade_rc_deluxe_paper.html'
         )*/
         // console.log(res)
 
-        /*const store = await SourceSiteFactory.create(
-            'https://www.wwbw.com/NUX-Reissue-Series-Steel-Singer-Drive-Effects-Pedal-L95191.wwbw'
+        const store = await SourceSiteFactory.create(
+            'https://www.tanga.com/deals/91f1a0440cc7/3-in-1-anti-aging-soothing-retinol-face-serum-night-moisturizer-and-eye-cream-gift-set'
         )
 
         await store.createBrowser()
@@ -20,7 +19,7 @@ export async function main() {
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Price is: ' + store.getPrice())
         console.log('Source is in stock: ' + store.isAvailability())
-        await store.browser?.close()*/
+        await store.browser?.close()
 
         /*const keepa = new Keepa({
             asin: 'B086763VT8',

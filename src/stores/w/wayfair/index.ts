@@ -1,22 +1,17 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Wayfair extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
-        // this.siteIsBlocked = true
-        // this.runPostman = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div.PdpLayoutResponsive-top h1[data-hb-id="Heading"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }
