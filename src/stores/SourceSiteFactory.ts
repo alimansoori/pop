@@ -455,6 +455,9 @@ import Towerhobbies from './t/towerhobbies'
 import Tintoyarcade from './t/tintoyarcade'
 import Thepartsbiz from './t/thepartsbiz'
 import Tanga from './t/tanga'
+import Carters from './c/carters'
+import Oshkosh from './o/oshkosh'
+import Babylist from './b/babylist'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -567,6 +570,7 @@ export default class SourceSiteFactory {
             else if (domain === 'bareminerals') return new Bareminerals(url)
             else if (domain === 'bettymills') return new Bettymills(url)
             else if (domain === 'balyot') return new Balyot(url)
+            else if (domain === 'babylist') return new Babylist(url)
             else if (domain === 'barberitems') return new Barberitems(url)
             else if (domain === 'bhphotovideo') return new Bhphotovideo(url)
             else if (domain === 'banggood') return new Banggood(url)
@@ -588,6 +592,7 @@ export default class SourceSiteFactory {
             else if (domain === 'campmor') return new Campmor(url)
             else if (domain === 'coolstuffinc') return new Coolstuffinc(url)
             else if (domain === 'cvs') return new Cvs(url)
+            else if (domain === 'carters') return new Carters(url)
             else if (domain === 'cdw') return new Cdw(url)
             else if (domain === 'clinique') return new Clinique(url)
             else if (domain === 'campsaver') return new Campsaver(url)
@@ -771,6 +776,7 @@ export default class SourceSiteFactory {
             else if (domain === 'oldies') return new Oldies(url)
             else if (domain === 'ontimesupplies') return new Ontimesupplies(url)
             else if (domain === 'omegajuicers') return new Omegajuicers(url)
+            else if (domain === 'oshkosh') return new Oshkosh(url)
             else if (domain === 'orientaltrading') return new Orientaltrading(url)
             else if (domain === 'officedepot') return new Officedepot(url)
             else if (domain === 'officesupply') return new Officesupply(url)

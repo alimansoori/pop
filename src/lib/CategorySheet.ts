@@ -3,6 +3,8 @@ import { EnumCatSheets } from '../@types/EnumCatSheets'
 export default class CategorySheet {
     static selectSheetKey(category: string | undefined): EnumCatSheets {
         switch (category) {
+            case 'google':
+                return EnumCatSheets.GOOGLE
             case 'toys':
                 return EnumCatSheets.TOYS
             case 'office':

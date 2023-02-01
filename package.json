@@ -19,6 +19,7 @@
     "watch": "tsc.cmd --watchAll",
     "client": "npx http-server -c-1 -p 8080 -P http://localhost:3000",
     "search": "node dist/searchWithinSheet.js",
+    "google-search": "node dist/searchInGoogle.js",
     "migrate:dev": "cross-env NODE_ENV=development sequelize db:migrate",
     "migrate:prod": "cross-env NODE_ENV=production sequelize db:migrate",
     "migrate": "yarn migrate:dev && yarn migrate:prod"
@@ -26,7 +27,7 @@
   "author": "Ali",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^1.3.0",
     "bcrypt": "^5.0.1",
     "cheerio": "^1.0.0-rc.12",
     "config": "^3.3.8",

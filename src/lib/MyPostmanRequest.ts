@@ -2,6 +2,7 @@ import cheerio from 'cheerio'
 // @ts-ignore
 import request from 'request-promise'
 import { TypePostmanReq } from '../@types/TypePostmanReq'
+import { headers } from 'zyte-smartproxy-puppeteer'
 
 export default class MyPostmanRequest {
     static async request(url: string, isBan = false): Promise<TypePostmanReq> {

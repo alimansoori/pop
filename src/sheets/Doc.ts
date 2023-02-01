@@ -12,7 +12,7 @@ export default class Doc {
     async auth() {
         try {
             this.doc1 = new GoogleSpreadsheet('18-IBVjrZF8z5OGfSvFWmIQmLG5Ki4-_RB0D6T5g8yLg')
-            this.doc2 = new GoogleSpreadsheet('1fjwqjn7xHaxZx_fRIRZn1Dby4xhvs2LsU7ZCBh9kzKw')
+            this.doc2 = new GoogleSpreadsheet('1kTeHg06poTRHzFnYGe3eQ7NjbnZLVtXHFoFZ5u68yTM')
 
             await this.doc1.useServiceAccountAuth({
                 client_email: keys.client_email,
