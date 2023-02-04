@@ -20,6 +20,7 @@
     "client": "npx http-server -c-1 -p 8080 -P http://localhost:3000",
     "search": "node dist/searchWithinSheet.js",
     "google-search": "node dist/searchInGoogle.js",
+    "delete": "node dist/deleteBads.js",
     "migrate:dev": "cross-env NODE_ENV=development sequelize db:migrate",
     "migrate:prod": "cross-env NODE_ENV=production sequelize db:migrate",
     "migrate": "yarn migrate:dev && yarn migrate:prod"

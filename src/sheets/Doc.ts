@@ -1,18 +1,27 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet'
 import { keys } from '../keys'
 import sleep from '../utils/sleep'
+import { loadSetting } from '../lib/helper'
+import CategorySheet from '../lib/CategorySheet'
 
 export default class Doc {
     private doc1: any = ''
     private doc2: any = ''
     private jsonSetting: any = {}
+    private settingFile: string | unknown
 
-    constructor() {}
+    constructor(settingFile: string | unknown) {
+        this.settingFile = settingFile
+
+        this.auth()
+    }
 
     async auth() {
         try {
+            this.jsonSetting = await loadSetting(this.settingFile)
+
             this.doc1 = new GoogleSpreadsheet('18-IBVjrZF8z5OGfSvFWmIQmLG5Ki4-_RB0D6T5g8yLg')
-            this.doc2 = new GoogleSpreadsheet('1kTeHg06poTRHzFnYGe3eQ7NjbnZLVtXHFoFZ5u68yTM')
+            this.doc2 = new GoogleSpreadsheet(CategorySheet.selectSheetKey(this.jsonSetting.cat))
 
             await this.doc1.useServiceAccountAuth({
                 client_email: keys.client_email,
