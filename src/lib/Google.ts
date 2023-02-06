@@ -49,13 +49,11 @@ export default class Google {
                 this.page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
                 this.page.keyboard.press('Enter'),
             ])*/
-            await this.page.waitForSelector('ol[id="b_results"] li.b_algo div.b_title > h2 > a', { visible: true })
-            const searchResults: string[] = await this.page.$$eval(
-                'ol[id="b_results"] li.b_algo div.b_title > h2 > a',
-                (el: any) => el.map((x: any) => x.getAttribute('href'))
+            await this.page.waitForSelector('ol[id="b_results"] li.b_algo h2 > a', { visible: true })
+            const searchResults: string[] = await this.page.$$eval('ol[id="b_results"] li.b_algo h2 > a', (el: any) =>
+                el.map((x: any) => x.getAttribute('href'))
             )
 
-            console.log(searchResults)
             for (let i = 0; i < searchResults.length; i++) {
                 if (
                     searchResults[i].startsWith('https://amazon.com') ||
