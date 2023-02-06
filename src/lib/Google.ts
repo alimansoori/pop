@@ -15,6 +15,7 @@ export default class Google {
     constructor(input: GoogleInputType) {
         this.input = input
         this.searchQuery = this.searchQuery + this.prettyTitle()
+        console.log(this.searchQuery)
     }
 
     private prettyTitle(): string {
@@ -28,6 +29,8 @@ export default class Google {
         title = title.replace(' ( ', ' ')
         title = title.replace('(', '')
         title = title.replace('. ', ' ')
+        title = title.replace('" ', '')
+        title = title.replace(' "', '')
 
         return title
     }
@@ -52,6 +55,7 @@ export default class Google {
                 (el: any) => el.map((x: any) => x.getAttribute('href'))
             )
 
+            console.log(searchResults)
             for (let i = 0; i < searchResults.length; i++) {
                 if (
                     searchResults[i].startsWith('https://amazon.com') ||
@@ -150,25 +154,6 @@ export default class Google {
             await this.page.setUserAgent(
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
             )
-
-            await this.page.setExtraHTTPHeaders({
-                Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'Cache-Control': 'max-age=0',
-                Host: 'httpbin.org',
-                'Sec-Ch-Ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
-                'Sec-Ch-Ua-Mobile': '?0',
-                'Sec-Ch-Ua-Platform': '"Windows"',
-                'Sec-Fetch-Dest': 'document',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'none',
-                'Sec-Fetch-User': '?1',
-                'Upgrade-Insecure-Requests': '1',
-                'User-Agent':
-                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
-                'X-Amzn-Trace-Id': 'Root=1-63da9191-36aa880913de913d372a40d0',
-            })
 
             /*await this.page.setRequestInterception(true)
             this.page.on('request', (request: any) => {
