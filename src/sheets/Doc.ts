@@ -1,7 +1,7 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet'
 import { keys } from '../keys'
 import sleep from '../utils/sleep'
-import { loadSetting } from '../lib/helper'
+import { loadSetting, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 
 export default class Doc {
@@ -60,7 +60,8 @@ export default class Doc {
                 'Note',
             ])
 
-            await this.iterateRows(badAsinSheet, dataBaseSheet)
+            // await this.iterateRows(badAsinSheet, dataBaseSheet)
+            await this.createConditionalFormatingAsin(badAsinSheet)
         } catch (e: any) {
             await sleep(2000)
             await this.auth()
@@ -90,5 +91,21 @@ export default class Doc {
                 continue
             }
         }
+    }
+
+    async createConditionalFormatingAsin(badAsinSheet: GoogleSpreadsheetWorksheet) {
+        const badAsinRows = await badAsinSheet.getRows()
+        let str = ''
+
+        try {
+            for (let j = 1; j < badAsinRows.length; j++) {
+                console.log(badAsinRows[j]['ASIN'])
+                str += `E1:E="${badAsinRows[j]['ASIN']}",`
+            }
+        } catch (e: any) {
+            console.log(e.message)
+        }
+
+        await writeSetting(str, this.settingFile)
     }
 }

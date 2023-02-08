@@ -462,6 +462,10 @@ import Blueskyvitamin from './b/blueskyvitamin'
 import Nashbar from './n/nashbar'
 import Martinswellness from './m/martinswellness'
 import Skinstore from './s/skinstore'
+import Visitbicycleworld from './v/visitbicycleworld'
+import Cycles365 from './1/365cycles'
+import Rightstufanime from './r/rightstufanime'
+import SailingGlobal from './s/sailing-global'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -494,6 +498,7 @@ export default class SourceSiteFactory {
             else if (domain === 'houzz') throw new Error('Reject Houzz site')
             else if (domain === '1000bulbs') return new Bulbs1000(url)
             else if (domain === '1sale') return new Sale1(url)
+            else if (domain === '365cycles') return new Cycles365(url)
             else if (domain === '1stoplighting') return new Stoplighting1(url)
             else if (domain === '4wd') return new Wd4(url)
             else if (domain === '3000toys') return new Toys3000(url)
@@ -845,6 +850,7 @@ export default class SourceSiteFactory {
             else if (domain === 'rshughes') return new Rshughes(url)
             else if (domain === 'roadrunnersports') return new Roadrunnersports(url)
             else if (domain === 'ruralking') return new Ruralking(url)
+            else if (domain === 'rightstufanime') return new Rightstufanime(url)
             else if (domain === 'sallybeauty') return new Sallybeauty(url)
             else if (domain === 'samsclub') return new Samsclub(url)
             else if (domain === 'sagaconcepts') return new Sagaconcepts(url)
@@ -861,6 +867,7 @@ export default class SourceSiteFactory {
             else if (domain === 'soxy') return new Soxy(url)
             else if (domain === 'skinstore') return new Skinstore(url)
             else if (domain === 'solaray') return new Solaray(url)
+            else if (domain === 'sailing-global') return new SailingGlobal(url)
             else if (domain === 'shagtools') return new Shagtools(url)
             else if (domain === 'surlatable') return new Surlatable(url)
             else if (domain === 'surethingtoys') return new Surethingtoys(url)
@@ -941,6 +948,7 @@ export default class SourceSiteFactory {
             else if (domain === 'vitacost') return new Vitacost(url)
             else if (domain === 'vitaminlife') return new Vitaminlife(url)
             else if (domain === 'vintageking') return new Vintageking(url)
+            else if (domain === 'visitbicycleworld') return new Visitbicycleworld(url)
             else if (domain === 'villeroy-boch') return new VilleroyBoch(url)
             else if (domain === 'vminnovations') return new Vminnovations(url)
             else if (domain === 'vitalitymedical') return new Vitalitymedical(url)

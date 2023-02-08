@@ -21,6 +21,7 @@ export default class Google {
     private prettyTitle(): string {
         let title: string = this.input.title
         title = title.trim()
+        title = title.toLowerCase()
         title = title.replace(' - ', ' ')
         title = title.replace(', ', ' ')
         title = title.replace(',', ' ')
@@ -31,6 +32,9 @@ export default class Google {
         title = title.replace('. ', ' ')
         title = title.replace('" ', '')
         title = title.replace(' "', '')
+        title = title.replace(': ', ' ')
+        title = title.replace(/[0-9]{1,}(\s?)(pack)(\s?)/gi, '')
+        title = title.replace(/(\s?)(arrive in .* days)/gi, '')
 
         return title
     }
