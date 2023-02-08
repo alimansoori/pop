@@ -467,6 +467,7 @@ import Cycles365 from './1/365cycles'
 import Rightstufanime from './r/rightstufanime'
 import SailingGlobal from './s/sailing-global'
 import Curlsmith from './c/curlsmith'
+import Cyberweld from './c/cyberweld'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -606,11 +607,12 @@ export default class SourceSiteFactory {
             else if (domain === 'carters') return new Carters(url)
             else if (domain === 'cdw') return new Cdw(url)
             else if (domain === 'clinique') return new Clinique(url)
+            else if (domain === 'cyberweld') return new Cyberweld(url)
             else if (domain === 'campsaver') return new Campsaver(url)
             else if (domain === 'campingworld') return new Campingworld(url)
             else if (domain === 'carealotpets') return new Carealotpets(url)
             else if (domain === 'cardhaus') return new Cardhaus(url)
-            else if (domain === 'زurlsmith') return new Curlsmith(url)
+            else if (domain === 'curlsmith') return new Curlsmith(url)
             else if (domain === 'cduniverse') return new Cduniverse(url)
             else if (domain === 'crunchyroll') return new Crunchyroll(url)
             else if (domain === 'chewy') return new Chewy(url)
