@@ -1,5 +1,4 @@
 import { askQuestion } from './lib/helper'
-import GoogleSearch from './sheets/GoogleSearch'
 import Doc from './sheets/Doc'
 
 export async function deleteBads() {

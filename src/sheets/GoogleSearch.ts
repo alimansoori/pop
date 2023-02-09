@@ -1,11 +1,8 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet'
 import { keys } from '../keys'
-
-import IStore from '../stores/IStore'
 import { loadSetting, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 import sleep from '../utils/sleep'
-import Keepa from '../lib/Keepa'
 import Google from '../lib/Google'
 
 export default class GoogleSearch {

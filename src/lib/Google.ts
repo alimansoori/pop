@@ -171,7 +171,7 @@ export default class Google {
     private static extractASIN(url: string) {
         const ASINreg = new RegExp(/(\/dp)(?:\/)([A-Z0-9]{10})(?:$|\/|\?)/)
         const cMatch = url.match(ASINreg)
-        if (cMatch == null) {
+        if (cMatch === null) {
             return null
         }
         return cMatch[2]
