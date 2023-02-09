@@ -5,7 +5,7 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Curlsmith extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
     }
 
     async productExistCalculate(): Promise<void> {

@@ -34,6 +34,8 @@ export default class Google {
         title = title.replace(' "', '')
         title = title.replace(': ', ' ')
         title = title.replace(/[0-9]{1,}(\s?)(pack)(\s?)/gi, '')
+        title = title.replace(/(\s?)(pack of )[0-9]{1,}/gi, '')
+        title = title.replace(/(\s?)(case of )[0-9]{1,}/gi, '')
         title = title.replace(/(\s?)(arrive in .* days)/gi, '')
 
         return title
@@ -167,11 +169,11 @@ export default class Google {
     }
 
     private static extractASIN(url: string) {
-        const ASINreg = new RegExp(/(?:\/)([A-Z0-9]{10})(?:$|\/|\?)/)
+        const ASINreg = new RegExp(/(\/dp)(?:\/)([A-Z0-9]{10})(?:$|\/|\?)/)
         const cMatch = url.match(ASINreg)
         if (cMatch == null) {
             return null
         }
-        return cMatch[1]
+        return cMatch[2]
     }
 }
