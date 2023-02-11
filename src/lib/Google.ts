@@ -163,7 +163,6 @@ export default class Google {
                 Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                 'Accept-Encoding': 'gzip, deflate, br',
                 'Accept-Language': 'en-US,en;q=0.9',
-                'Cache-Control': 'max-age=0',
                 'Sec-Ch-Ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
                 'Sec-Ch-Ua-Mobile': '?0',
                 'Sec-Ch-Ua-Platform': '"Windows"',
@@ -174,7 +173,7 @@ export default class Google {
                 'Upgrade-Insecure-Requests': '1',
                 'User-Agent':
                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
-                'X-Amzn-Trace-Id': 'Root=1-63da9191-36aa880913de913d372a40d0',
+                'X-Amzn-Trace-Id': 'Root=1-63e76bf8-75ffdab9287662da61df55bd',
             })
 
             /*await this.page.setRequestInterception(true)
