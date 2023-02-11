@@ -33,7 +33,7 @@ export default class Google {
         title = title.replace('" ', '')
         title = title.replace(' "', '')
         title = title.replace(': ', ' ')
-        title = title.replace(/[0-9]{1,}(\s?)(pack)(\s?)/gi, '')
+        title = title.replace(/[0-9]{1,}(\s?)(pack|pk)(\s?)/gi, '')
         title = title.replace(/(\s?)(pack of )[0-9]{1,}/gi, '')
         title = title.replace(/(\s?)(case of )[0-9]{1,}/gi, '')
         title = title.replace(/(\s?)(arrive in .* days)/gi, '')

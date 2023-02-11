@@ -468,6 +468,7 @@ import Rightstufanime from './r/rightstufanime'
 import SailingGlobal from './s/sailing-global'
 import Curlsmith from './c/curlsmith'
 import Cyberweld from './c/cyberweld'
+import Sharkclean from './s/sharkclean'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -861,6 +862,7 @@ export default class SourceSiteFactory {
             else if (domain === 'saiehello') return new Saiehello(url)
             else if (domain === 'saksoff5th') return new Saksoff5th(url)
             else if (domain === 'samsbeauty') return new Samsbeauty(url)
+            else if (domain === 'sharkclean') return new Sharkclean(url)
             else if (domain === 'shophairwigs') return new Shophairwigs(url)
             else if (domain === 'saltwateraquarium') return new Saltwateraquarium(url)
             else if (domain === 'saksfifthavenue') return new Saksfifthavenue(url)
