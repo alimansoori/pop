@@ -1,5 +1,4 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
-import Doc from './sheets/Doc'
 
 export async function main() {
     try {

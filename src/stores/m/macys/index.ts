@@ -1,7 +1,7 @@
 import Store from '../../Store'
 
 import { click } from '../../../lib/helper'
-import sleep from '../../../utils/sleep'
+import { sleep } from '../../../utils/sleep'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Macys extends Store {

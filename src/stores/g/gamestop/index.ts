@@ -1,5 +1,5 @@
 import Store from '../../Store'
-import sleep from '../../../utils/sleep'
+import { sleep } from '../../../utils/sleep'
 
 export default class Gamestop extends Store {
     constructor(url: string) {

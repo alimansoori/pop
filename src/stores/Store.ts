@@ -1,7 +1,7 @@
 import IStore from './IStore'
 import { TypePriceSelector, TypePriceSelectors } from '../@types/TypePriceSelectors'
 import Url from '../lib/Url'
-import sleep from '../utils/sleep'
+import { sleep } from '../utils/sleep'
 import ISelectors from './ISelectors'
 import CssSelectors from './CssSelectors'
 import IStoreOptions from './IStoreOptions'

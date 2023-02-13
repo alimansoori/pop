@@ -1,6 +1,6 @@
 import { KeepaInputType } from '../@types/KeepaInputType'
 import axios from 'axios'
-import sleep from '../utils/sleep'
+import { sleep } from '../utils/sleep'
 import { KeepaOutputType } from '../@types/KeepaOutputType'
 import { KeepaProductType } from '../@types/KeepaProductType'
 import ProfitRoiCalculate from './ProfitRoiCalculate'

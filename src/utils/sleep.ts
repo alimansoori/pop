@@ -1,6 +1,6 @@
 import MyMath from '../lib/MyMath'
 
-async function sleep(milliseconds: number, milliseconds2 = NaN) {
+export async function sleep(milliseconds: number, milliseconds2 = NaN) {
     let random = milliseconds
 
     if (milliseconds2) {
@@ -9,5 +9,3 @@ async function sleep(milliseconds: number, milliseconds2 = NaN) {
 
     return new Promise((resolve) => setTimeout(resolve, random))
 }
-
-export default sleep

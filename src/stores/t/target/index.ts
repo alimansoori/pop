@@ -1,6 +1,6 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
-import sleep from '../../../utils/sleep'
+import { sleep } from '../../../utils/sleep'
 
 export default class Target extends Store {
     constructor(url: string) {

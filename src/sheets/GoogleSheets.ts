@@ -7,7 +7,7 @@ import Keepa from '../lib/Keepa'
 import MyDate from '../lib/MyDate'
 import { loadSetting, tomorrowDate, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
-import sleep from '../utils/sleep'
+import { sleep } from '../utils/sleep'
 
 export default class GoogleSheets {
     // private page

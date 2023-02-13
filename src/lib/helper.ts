@@ -1,5 +1,5 @@
 import { Page } from 'puppeteer'
-import sleep from '../utils/sleep'
+import { sleep } from '../utils/sleep'
 import fs from 'fs'
 import readline from 'readline'
 

@@ -1,6 +1,6 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet'
 import { keys } from '../keys'
-import sleep from '../utils/sleep'
+import { sleep } from '../utils/sleep'
 import { loadSetting, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 
