@@ -5,7 +5,7 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Buybuybaby extends Store {
     constructor(url: string) {
         super(url)
-        this.url = url.replace('/amp', '')
+        this.url = url.replace(/\/amp/gi, '')
         this.url = url.replace('buybuybaby.com', 'buybuybaby.com/amp')
         this.loadType = EnumLoadType.LOAD
     }
