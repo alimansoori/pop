@@ -13,8 +13,7 @@ import { MyPuppeteer } from '../lib/MyPuppeteer'
 import MyPostmanRequest from '../lib/MyPostmanRequest'
 import * as cheerio from 'cheerio'
 import { TypePostmanReq } from '../@types/TypePostmanReq'
-// @ts-ignore
-import { Browser, Page } from 'zyte-smartproxy-puppeteer'
+import { Browser, Page } from 'puppeteer'
 import StoreSchema from '../lib/StoreSchema'
 import { textToNumber } from '../lib/helper'
 

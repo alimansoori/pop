@@ -11,7 +11,7 @@
     // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
 
     /* Language and Environment */
-    "target": "es6",
+    "target": "es5",
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
@@ -114,13 +114,10 @@
     /* Skip type checking all .d.ts files. */
   },
   "exclude": [
-    "node_modules",
-    "src/__test__",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
+    "node_modules"
   ],
   "include": [
-    "src/**/*"
+    "src"
   ],
   "compileOnSave": false,
 }
