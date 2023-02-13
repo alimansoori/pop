@@ -3,6 +3,7 @@ import { MyPuppeteer } from './MyPuppeteer'
 // @ts-ignore
 import { Browser, Page } from 'zyte-smartproxy-puppeteer'
 import axios from 'axios'
+import sleep from '../utils/sleep'
 
 export default class Google {
     page!: Page
@@ -33,7 +34,7 @@ export default class Google {
         title = title.replace('" ', '')
         title = title.replace(' "', '')
         title = title.replace(': ', ' ')
-        title = title.replace(/[0-9]{1,}(\s?)(pack|pk)(\s?)/gi, '')
+        title = title.replace(/[0-9]{1,}(\s?|\/)(pack|pk)(\s?)/gi, '')
         title = title.replace(/(\s?)(pack of )[0-9]{1,}/gi, '')
         title = title.replace(/(\s?)(case of )[0-9]{1,}/gi, '')
         title = title.replace(/(\s?)(arrive in .* days)/gi, '')
@@ -56,6 +57,7 @@ export default class Google {
                 this.page.keyboard.press('Enter'),
             ])*/
             await this.page.waitForSelector('ol[id="b_results"] li.b_algo h2 > a', { visible: true })
+            await sleep(3000)
             const searchResults: string[] = await this.page.$$eval('ol[id="b_results"] li.b_algo h2 > a', (el: any) =>
                 el.map((x: any) => x.getAttribute('href'))
             )

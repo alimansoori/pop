@@ -7,7 +7,7 @@ export async function main() {
         await doc.auth()*/
 
         const store = await SourceSiteFactory.create(
-            'https://www.sharkclean.com/parts/0/all/3107/vacmop-disposable-pad-20-ct/?modelNumber=VM200C'
+            'https://beatricebakery.com/product/grandmas-fruit-nut-ring-cakes/'
         )
 
         await store.createBrowser()

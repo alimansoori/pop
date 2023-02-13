@@ -469,6 +469,7 @@ import SailingGlobal from './s/sailing-global'
 import Curlsmith from './c/curlsmith'
 import Cyberweld from './c/cyberweld'
 import Sharkclean from './s/sharkclean'
+import Beatricebakery from './b/beatricebakery'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -593,6 +594,7 @@ export default class SourceSiteFactory {
             else if (domain === 'betterhealthinternational') return new Betterhealthinternational(url)
             else if (domain === 'boxlunch') return new Boxlunch(url)
             else if (domain === 'blackovis') return new Blackovis(url)
+            else if (domain === 'beatricebakery') return new Beatricebakery(url)
             else if (domain === 'boxzillacollectibles') return new Boxzillacollectibles(url)
             else if (domain === 'booksamillion') return new Booksamillion(url) // بلاک شده
             else if (domain === 'bbtoystore') return new Bbtoystore(url)
