@@ -57,7 +57,6 @@ export default class Google {
                 this.page.keyboard.press('Enter'),
             ])*/
             await this.page.waitForSelector('ol[id="b_results"] li.b_algo h2 > a', { visible: true })
-            await sleep(3000)
             const searchResults: string[] = await this.page.$$eval('ol[id="b_results"] li.b_algo h2 > a', (el: any) =>
                 el.map((x: any) => x.getAttribute('href'))
             )

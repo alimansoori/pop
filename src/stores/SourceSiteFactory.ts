@@ -470,6 +470,13 @@ import Curlsmith from './c/curlsmith'
 import Cyberweld from './c/cyberweld'
 import Sharkclean from './s/sharkclean'
 import Beatricebakery from './b/beatricebakery'
+import Bicyclebuys from './b/bicyclebuys'
+import Movatik from './m/movatik'
+import Karstsports from './k/karstsports'
+import Thebikehouse from './t/thebikehouse'
+import Allivet from './a/allivet'
+import Bushwhacker from './b/bushwhacker'
+import Bicyclewarehouse from './b/bicyclewarehouse'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -520,6 +527,7 @@ export default class SourceSiteFactory {
             else if (domain === 'accessorygeeks') return new Accessorygeeks(url)
             else if (domain === 'acehardware') return new Acehardware(url)
             else if (domain === 'acer') return new Acer(url)
+            else if (domain === 'allivet') return new Allivet(url)
             else if (domain === 'aclens') return new Aclens(url)
             else if (domain === 'artofskincare') return new Artofskincare(url)
             else if (domain === 'acmetools') return new Acmetools(url)
@@ -558,6 +566,8 @@ export default class SourceSiteFactory {
             else if (domain === 'barnesandnoble') return new Barnesandnoble(url)
             else if (domain === 'baseballmonkey') return new Baseballmonkey(url)
             else if (domain === 'beallsflorida') return new Beallsflorida(url)
+            else if (domain === 'bushwhacker') return new Bushwhacker(url)
+            else if (domain === 'bicyclewarehouse') return new Bicyclewarehouse(url)
             else if (domain === 'beautyexpert') return new Beautyexpert(url)
             else if (domain === 'beautance') return new Beautance(url)
             else if (domain === 'bluemercury') return new Bluemercury(url)
@@ -583,6 +593,7 @@ export default class SourceSiteFactory {
             else if (domain === 'bareminerals') return new Bareminerals(url)
             else if (domain === 'bettymills') return new Bettymills(url)
             else if (domain === 'balyot') return new Balyot(url)
+            else if (domain === 'bicyclebuys') return new Bicyclebuys(url)
             else if (domain === 'babylist') return new Babylist(url)
             else if (domain === 'barberitems') return new Barberitems(url)
             else if (domain === 'blueskyvitamin') return new Blueskyvitamin(url)
@@ -726,6 +737,7 @@ export default class SourceSiteFactory {
             else if (domain === 'jcpenney') return new Jcpenney(url)
             else if (domain === 'jensonusa') return new Jensonusa(url)
             else if (domain === 'katom') return new Katom(url)
+            else if (domain === 'karstsports') return new Karstsports(url)
             else if (domain === 'kravebeauty') return new Kravebeauty(url)
             else if (domain === 'keurig') return new Keurig(url)
             else if (domain === 'kikocosmetics') return new Kikocosmetics(url)
@@ -770,6 +782,7 @@ export default class SourceSiteFactory {
             else if (domain === 'mytoolstore') return new Mytoolstore(url)
             else if (domain === 'myotcstore') return new Myotcstore(url)
             else if (domain === 'microcenter') return new Microcenter(url)
+            else if (domain === 'movatik') return new Movatik(url)
             else if (domain === 'minmaxgames') return new Minmaxgames(url)
             else if (domain === 'mysimpleproducts') return new Mysimpleproducts(url)
             else if (domain === 'myshopville') return new Myshopville(url)
@@ -929,6 +942,7 @@ export default class SourceSiteFactory {
             else if (domain === 'tf2sshop') return new Tf2sshop(url)
             else if (domain === 'toyshnip') return new Toyshnip(url)
             else if (domain === 'toofaced') return new Toofaced(url)
+            else if (domain === 'thebikehouse') return new Thebikehouse(url)
             else if (domain === 'towerhobbies') return new Towerhobbies(url)
             else if (domain === 'toolnut') return new Toolnut(url)
             else if (domain === 'tackroomonline') return new Tackroomonline(url)

@@ -43,6 +43,7 @@ export default class GoogleSearch {
                 'Brand',
                 'Category',
                 'Signature',
+                'Product Image',
                 'IN Stock',
                 'Source Price',
                 'Sell Price',

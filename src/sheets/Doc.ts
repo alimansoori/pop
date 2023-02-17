@@ -52,6 +52,7 @@ export default class Doc {
                 'Brand',
                 'Category',
                 'Signature',
+                'Product Image',
                 'IN Stock',
                 'Source Price',
                 'Sell Price',

@@ -1,14 +1,14 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Academy extends Store {
+export default class Movatik extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[data-auid="PDP_ProductName"]')
+        await this.productExistBySelector('h1.product-title')
     }
 
     async availibilityCalculate(): Promise<void> {
