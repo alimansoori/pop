@@ -3,12 +3,14 @@ import { Product, WithContext } from 'schema-dts'
 export default class StoreSchema {
     private productSchema: WithContext<Product> | undefined
     name: string | undefined
+    image: string | undefined
     price = NaN
     availability = false
 
     constructor(schemas: string[]) {
         this.init(schemas)
         this.fetchName()
+        this.fetchImage()
         this.fetchOffer()
     }
 
@@ -60,6 +62,28 @@ export default class StoreSchema {
     private fetchName() {
         if (this.productSchema?.name) {
             this.name = String(this.productSchema?.name)
+        }
+    }
+
+    private fetchImage() {
+        if (this.productSchema?.image) {
+            if (Array.isArray(this.productSchema?.image) && this.productSchema?.image.length) {
+                console.log('1')
+                this.image = String(this.productSchema?.image[0])
+            } else if (typeof this.productSchema?.image === 'object') {
+                // @ts-ignore
+                if (this.productSchema?.image['image']) {
+                    // @ts-ignore
+                    this.image = this.productSchema?.image['image']
+                }
+                // @ts-ignore
+                else if (this.productSchema?.image['url']) {
+                    // @ts-ignore
+                    this.image = this.productSchema?.image['url']
+                }
+            } else {
+                this.image = String(this.productSchema?.image)
+            }
         }
     }
 

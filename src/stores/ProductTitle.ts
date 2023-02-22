@@ -1,5 +1,5 @@
 export default class ProductTitle {
-    _title = ''
+    private _title = ''
 
     constructor() {}
 
@@ -7,8 +7,10 @@ export default class ProductTitle {
         return this._title
     }
 
-    setTitle(title: string) {
-        this._title = title
+    setTitle(title: string | undefined) {
+        if (title) {
+            this._title = title
+        }
     }
 
     isValid(): boolean {

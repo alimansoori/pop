@@ -30,6 +30,7 @@ abstract class Store implements IStore, IProductDetails {
     protected availability = false
     protected isScrollDown = false
     protected price = NaN
+    private image: string | undefined
     public error = ''
     protected selectorsPrice: TypePriceSelectors = {}
     private readonly selectorsP: ISelectors
@@ -117,13 +118,6 @@ abstract class Store implements IStore, IProductDetails {
         }
     }
 
-    setTitle(): void {
-        const title = this.resultReq.$('title').text()
-        if (!this.runPostman && title) {
-            this.titleClass.setTitle(title.trim())
-        }
-    }
-
     options(): IStoreOptions {
         return this.optionsP
     }
@@ -139,6 +133,110 @@ abstract class Store implements IStore, IProductDetails {
 
     public getPage(): Page {
         return this.page
+    }
+
+    async setTitle(input: { selector: string; render: string }) {
+        try {
+            await this.checkTitleRender({ selector: input.selector, render: input.render })
+        } catch (e: any) {
+            this.getTitleClass().setTitle('')
+        }
+    }
+
+    private async checkTitleRender(input: { selector: string; render: string }) {
+        try {
+            if (this.runPostman) {
+                if (input.render === 'text') {
+                    this.getTitleClass().setTitle(this.resultReq.$(input.selector).text())
+                } else if (input.render === 'content') {
+                    this.getTitleClass().setTitle(this.resultReq.$(input.selector).attr('content'))
+                } else if (input.render === 'data-price-amount') {
+                    this.getTitleClass().setTitle(this.resultReq.$(input.selector).attr('data-price-amount'))
+                } else if (input.render === 'data-price') {
+                    this.getTitleClass().setTitle(this.resultReq.$(input.selector).attr('data-price'))
+                }
+            } else {
+                await this.page.waitForSelector(input.selector, { timeout: 10000 })
+                if (input.render === 'text') {
+                    this.getTitleClass().setTitle(
+                        await this.page.$eval(input.selector, (elem: any) => elem.textContent)
+                    )
+                } else if (input.render === 'content') {
+                    this.getTitleClass().setTitle(
+                        await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content'))
+                    )
+                } else if (input.render === 'data-price-amount') {
+                    this.getTitleClass().setTitle(
+                        await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price-amount'))
+                    )
+                } else if (input.render === 'data-price') {
+                    this.getTitleClass().setTitle(
+                        await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price'))
+                    )
+                }
+            }
+        } catch (e) {
+            this.getTitleClass().setTitle('')
+        }
+    }
+
+    async setImage(input: { selector: string; render: string }) {
+        try {
+            await this.checkImageRender({ selector: input.selector, render: input.render })
+        } catch (e: any) {
+            this.getTitleClass().setTitle('')
+        }
+    }
+
+    private async checkImageRender(input: { selector: string; render: string }) {
+        try {
+            if (this.runPostman) {
+                if (input.render === 'text') {
+                    this.image = this.resultReq.$(input.selector).text()
+                } else if (input.render === 'content') {
+                    this.image = this.resultReq.$(input.selector).attr('content')
+                } else if (input.render === 'data-price-amount') {
+                    this.image = this.resultReq.$(input.selector).attr('data-price-amount')
+                } else if (input.render === 'data-price') {
+                    this.image = this.resultReq.$(input.selector).attr('data-price')
+                } else if (input.render === 'href') {
+                    this.image = this.resultReq.$(input.selector).attr('href')
+                } else if (input.render === 'src') {
+                    this.image = this.resultReq.$(input.selector).attr('src')
+                }
+            } else {
+                await this.page.waitForSelector(input.selector, { timeout: 10000 })
+                if (input.render === 'text') {
+                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.textContent)
+                } else if (input.render === 'content') {
+                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content'))
+                } else if (input.render === 'data-price-amount') {
+                    this.image = await this.page.$eval(input.selector, (elem: any) =>
+                        elem.getAttribute('data-price-amount')
+                    )
+                } else if (input.render === 'data-price') {
+                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price'))
+                } else if (input.render === 'href') {
+                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('href'))
+                } else if (input.render === 'src') {
+                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('src'))
+                }
+            }
+        } catch (e) {
+            this.image = ''
+        }
+    }
+
+    public getImage(): string | undefined {
+        if (!this.image) {
+            return this.image
+        }
+        const domain = this.getUrl().match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
+        const imgDomain = this.image.match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
+        if (!imgDomain && domain?.length) {
+            return domain[0] + this.image
+        }
+        return this.image
     }
 
     public isAvailability(): boolean {
@@ -228,12 +326,12 @@ abstract class Store implements IStore, IProductDetails {
             if (this.enableCanonical) {
                 await this.setCanonical()
             }
-            this.setTitle()
             if (!this.titleClass.isValid()) {
                 console.log('Product title not valid!')
             }
             if (this.productIsExist() && this.titleClass.isValid()) {
                 await this.productTitleCalculate()
+                await this.productImageCalculate()
                 await this.availibilityCalculate()
                 await this.priceCalculate()
             }
@@ -431,6 +529,10 @@ abstract class Store implements IStore, IProductDetails {
         return Promise.resolve(undefined)
     }
 
+    async productImageCalculate(): Promise<void> {
+        return Promise.resolve(undefined)
+    }
+
     async availibilityCalculate(): Promise<void> {
         return Promise.resolve(undefined)
     }
@@ -460,6 +562,8 @@ abstract class Store implements IStore, IProductDetails {
             const jsonSchemas = await this.fetchJsonSchemas(selector, newOption)
 
             const storeSchema = new StoreSchema(jsonSchemas)
+            this.titleClass.setTitle(storeSchema.name ? storeSchema.name : '')
+            this.image = storeSchema.image
             this.setPrice(storeSchema.price)
             this.setAvailability(storeSchema.availability)
         } catch (e: any) {

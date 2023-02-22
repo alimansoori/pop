@@ -7,13 +7,15 @@ export async function main() {
         await doc.auth()*/
 
         const store = await SourceSiteFactory.create(
-            'https://www.beachaudio.com/sniper-elite-4-u-i-entertainment-swiuie01520/'
+            'https://toyplace.com/products/fishing-sim-world-pro-tour-collectors-edition-for-playstation-4'
         )
         await store.createBrowser()
         await store.scrape()
         console.log('Error: ' + store.error)
         console.log('Status Code: ' + store.statusCode)
+        console.log('Source Title is: ' + store.getTitleClass().getTitle())
         console.log('Source Price is: ' + store.getPrice())
+        console.log('Source Image is: ' + store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())
         await store.browser?.close()
     } catch (e: any) {

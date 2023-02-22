@@ -12,6 +12,7 @@ export default interface IStore {
     createBrowser(): Promise<void>
     productIsExist(): boolean
     getPrice(): number
+    getImage(): string | undefined
     getTitleClass(): ProductTitle
     getPage(): Page
     setCanonical(): void

@@ -124,6 +124,9 @@ export default class GoogleSheets {
                 await store.createBrowser()
                 await store.scrape()
                 await store.browser?.close()
+                console.log('Source Title is: ' + store.getTitleClass().getTitle())
+                console.log('Source Price is: ' + store.getPrice())
+                console.log('Source Image is: ' + store.getImage())
                 console.log('Source Price is: ' + store.getPrice())
                 console.log('Source is in stock: ' + store.isAvailability())
 
@@ -157,6 +160,8 @@ export default class GoogleSheets {
 
                 rows[i].Source = store.getDomain()
 
+                rows[i]['Title'] = store.getTitleClass().getTitle()
+                rows[i]['Product Image'] = store.getImage()
                 rows[i]['Source URL'] = store.getUrl()
                 rows[i]['IN Stock'] = store.isAvailability() ? 'TRUE' : 'FALSE'
                 rows[i]['Source Price'] = store.getPrice()
