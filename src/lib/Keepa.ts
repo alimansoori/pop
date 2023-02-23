@@ -88,7 +88,7 @@ export default class Keepa {
         this.product = this.data?.products[0]
 
         this.brand = this.product?.brand
-        this.buyBoxIsAmazon = this.product?.stats?.buyBoxIsAmazon
+        // this.buyBoxIsAmazon = this.product?.stats?.buyBoxIsAmazon
 
         if (!this.product?.title) {
             throw new Error('Amazon Title is not exist!')
@@ -135,20 +135,20 @@ export default class Keepa {
 
     private topCalculate() {
         if (
-            (EnumCategories.TOYS === this.category && this.bsr < 170000) ||
+            (EnumCategories.TOYS === this.category && this.bsr < 312000) ||
             (EnumCategories.SPORT === this.category && this.bsr < 300000) ||
-            (EnumCategories.PET === this.category && this.bsr < 70000) ||
+            (EnumCategories.PET === this.category && this.bsr < 150000) ||
             (EnumCategories.ART === this.category && this.bsr < 200000) ||
             (EnumCategories.PATIO === this.category && this.bsr < 170000) ||
             (EnumCategories.HOME_KITCHEN === this.category && this.bsr < 300000) ||
             (EnumCategories.VIDEO_GAMES === this.category && this.bsr < 20000) ||
             (EnumCategories.INDUSTRIAL === this.category && this.bsr < 200000) ||
             (EnumCategories.TOOLS === this.category && this.bsr < 200000) ||
-            (EnumCategories.OFFICE_PRODUCTS === this.category && this.bsr < 160000) ||
-            (EnumCategories.GROCERY === this.category && this.bsr < 65000) ||
+            (EnumCategories.OFFICE_PRODUCTS === this.category && this.bsr < 200000) ||
+            (EnumCategories.GROCERY === this.category && this.bsr < 100000) ||
             (EnumCategories.ELECTRONIC === this.category && this.bsr < 200000) ||
             (EnumCategories.CAMERA === this.category && this.bsr < 35000) ||
-            (EnumCategories.BEAUTY === this.category && this.bsr < 170000) ||
+            (EnumCategories.BEAUTY === this.category && this.bsr < 320000) ||
             (EnumCategories.AUTOMOTIVE === this.category && this.bsr < 200000) ||
             (EnumCategories.CELL_PHONES === this.category && this.bsr < 200000) ||
             (EnumCategories.BOOKS === this.category && this.bsr < 90000) ||
@@ -207,7 +207,7 @@ export default class Keepa {
                 category: this.category,
             })*/
 
-            if (profitClassBuyBox.netProfit > 5.5 && profitClassBuyBox.roi > 30 && this.top) {
+            if (profitClassBuyBox.netProfit > 4 && profitClassBuyBox.roi > 20 && this.top) {
                 this.hasBadge = true
             }
         }
@@ -218,6 +218,8 @@ export default class Keepa {
         let price = NaN
 
         if (data === null) return price
+
+        price = data[data.length - 1]
         if (data[data.length - 1] < 0) {
             price = data[data.length - 3]
         }

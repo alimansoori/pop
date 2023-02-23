@@ -1,14 +1,27 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
-import Doc from './sheets/Doc'
+import Keepa from './lib/Keepa'
 
 export async function main() {
     try {
         /*const doc = new Doc('1')
         await doc.auth()*/
 
-        const store = await SourceSiteFactory.create(
-            'https://toyplace.com/products/fishing-sim-world-pro-tour-collectors-edition-for-playstation-4'
-        )
+        /*await sourceCheck({
+            url: ""
+        })*/
+
+        await keepaCheck({
+            asin: 'B07SR5L8G3',
+            price: 98,
+        })
+    } catch (e: any) {
+        console.log(e.message)
+    }
+}
+
+async function sourceCheck(input: { url: string }) {
+    try {
+        const store = await SourceSiteFactory.create(input.url)
         await store.createBrowser()
         await store.scrape()
         console.log('Error: ' + store.error)
@@ -18,6 +31,35 @@ export async function main() {
         console.log('Source Image is: ' + store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())
         await store.browser?.close()
+    } catch (e: any) {
+        console.log(e.message)
+    }
+}
+
+async function keepaCheck(input: { asin: string; price: number }) {
+    try {
+        const keepa = new Keepa({
+            asin: input.asin,
+            sourcePrice: input.price,
+        })
+        await keepa.fetchByKeepa()
+        console.log('Selling Price: ' + keepa.sellPrice)
+        console.log('FBA Price: ' + keepa.fbaPrice)
+        console.log('Brand: ' + keepa.brand)
+        console.log('Profit: ' + keepa.profit)
+        console.log('ROI: ' + keepa.roi)
+        console.log('BSR: ' + keepa.bsr)
+        console.log('TOP: ' + keepa.top)
+        console.log('Seller: ' + (keepa.buyBoxIsAmazon ? 'Amazon' : ''))
+        console.log('Category: ' + keepa.category)
+        console.log('Has Badge: ' + keepa?.hasBadge)
+        console.log('Buy Box is Amazon: ' + keepa.buyBoxIsAmazon)
+
+        if (keepa?.hasBadge && !keepa.buyBoxIsAmazon) {
+            console.log('< ADDED >')
+        } else {
+            console.log('< REJECT >')
+        }
     } catch (e: any) {
         console.log(e.message)
     }

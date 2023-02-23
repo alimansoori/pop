@@ -9,7 +9,7 @@ export enum EnumCategories {
     PET = 'Pet Supplies',
     CLOTHING = 'Clothing, Shoes & Jewelry',
     TOOLS = 'Tools & Home Improvement',
-    GROCERY = ' Grocery & Gourmet Food',
+    GROCERY = 'Grocery & Gourmet Food',
     PATIO = 'Patio, Lawn & Garden',
     ART = 'Arts, Crafts & Sewing',
     BABY = 'Baby',
