@@ -6,14 +6,14 @@ export async function main() {
         /*const doc = new Doc('1')
         await doc.auth()*/
 
-        /*await sourceCheck({
-            url: ""
-        })*/
+        await sourceCheck({
+            url: 'https://www.play-asia.com/super-smash-bros-ultimate/13/70by0v',
+        })
 
-        await keepaCheck({
+        /*await keepaCheck({
             asin: 'B07SR5L8G3',
             price: 98,
-        })
+        })*/
     } catch (e: any) {
         console.log(e.message)
     }

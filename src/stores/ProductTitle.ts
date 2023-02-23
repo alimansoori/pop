@@ -4,7 +4,7 @@ export default class ProductTitle {
     constructor() {}
 
     getTitle(): string {
-        return this._title
+        return this._title.trim()
     }
 
     setTitle(title: string | undefined) {

@@ -232,7 +232,10 @@ abstract class Store implements IStore, IProductDetails {
             return this.image
         }
         const domain = this.getUrl().match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
-        const imgDomain = this.image.match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
+        if (this.image.match(/^(?:|\/\/)([^/]+)/gim)) {
+            this.image = `https:${this.image}`
+        }
+        const imgDomain = this.image.match(/^(?:http:\/\/|www\.|https:\/\/|\/\/)([^/]+)/gim)
         if (!imgDomain && domain?.length) {
             return domain[0] + this.image
         }
@@ -563,7 +566,7 @@ abstract class Store implements IStore, IProductDetails {
 
             const storeSchema = new StoreSchema(jsonSchemas)
             this.titleClass.setTitle(storeSchema.name ? storeSchema.name : '')
-            this.image = storeSchema.image
+            if (!this.image) this.image = storeSchema.image
             this.setPrice(storeSchema.price)
             this.setAvailability(storeSchema.availability)
         } catch (e: any) {

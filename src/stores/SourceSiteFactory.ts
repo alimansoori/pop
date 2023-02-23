@@ -493,6 +493,10 @@ import Compsource from './c/compsource'
 import Bullmoose from './b/bullmoose'
 import Maglite from './m/maglite'
 import Toyplace from './t/toyplace'
+import Popngames from './p/popngames'
+import Nibsnook from './n/nibsnook'
+import Harristeeter from './h/harristeeter'
+import Nintendo from './n/nintendo'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -738,6 +742,7 @@ export default class SourceSiteFactory {
             else if (domain === 'healthykin') return new Healthykin(url)
             else if (domain === 'hdstrading') return new Hdstrading(url)
             else if (domain === 'hdsupplysolutions') return new Hdsupplysolutions(url)
+            else if (domain === 'harristeeter') return new Harristeeter(url)
             else if (domain === 'healthyplanetshopping') return new Healthyplanetshopping(url)
             else if (domain === 'hobbylobby') return new Hobbylobby(url)
             else if (domain === 'haircareandbeauty') return new Haircareandbeauty(url)
@@ -821,7 +826,9 @@ export default class SourceSiteFactory {
             else if (domain === 'n101nutrition') return new N101nutrition(url)
             else if (domain === 'newegg') return new Newegg(url)
             else if (domain === 'nhc') return new Nhc(url)
+            else if (domain === 'nibsnook') return new Nibsnook(url)
             else if (domain === 'nashbar') return new Nashbar(url)
+            else if (domain === 'nintendo') return new Nintendo(url)
             else if (domain === 'nightmaretoys') return new Nightmaretoys(url)
             else if (domain === 'nytransitmuseumstore') return new Nytransitmuseumstore(url)
             else if (domain === 'neweggbusiness') return new Neweggbusiness(url)
@@ -875,6 +882,7 @@ export default class SourceSiteFactory {
             else if (domain === 'pishposhbaby') return new Pishposhbaby(url)
             else if (domain === 'puzzlewarehouse') return new Puzzlewarehouse(url)
             else if (domain === 'popinabox') return new Popinabox(url)
+            else if (domain === 'popngames') return new Popngames(url)
             else if (domain === 'presleysoutdoors') return new Presleysoutdoors(url)
             else if (domain === 'play-asia') return new PlayAsia(url)
             else if (domain === 'pureformulas') return new Pureformulas(url)

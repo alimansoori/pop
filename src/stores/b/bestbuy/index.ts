@@ -12,6 +12,20 @@ export default class Bestbuy extends Store {
         await this.productExistBySelector('div[class="sku-title"] h1, h2.product-title > a')
     }
 
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: '*[itemprop="name"] > h1',
+            render: 'text',
+        })
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'meta[property="og:image"]',
+            render: 'content',
+        })
+    }
+
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
             selector: 'button[data-button-state="ADD_TO_CART"], button.add-to-cart-button',

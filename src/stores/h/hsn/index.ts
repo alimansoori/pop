@@ -8,7 +8,21 @@ export default class Hsn extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('*[id="product-name"]')
+        await this.productExistBySelector('h1 > *[itemprop="name"]')
+    }
+
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'h1 > *[itemprop="name"]',
+            render: 'text',
+        })
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: '*[itemprop="image"]',
+            render: 'text',
+        })
     }
 
     async availibilityCalculate(): Promise<void> {

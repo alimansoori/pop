@@ -1,22 +1,14 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Qvc extends Store {
+export default class Nintendo extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div.pdShortDesc h1')
-    }
-
-    async productImageCalculate(): Promise<void> {
-        await this.setImage({
-            selector: 'div[id="productPhoto"] img.photo',
-            render: 'src',
-        })
+        await this.productExistBySelector('script[type="application/ld+json"]')
     }
 
     async availibilityCalculate(): Promise<void> {

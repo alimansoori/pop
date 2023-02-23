@@ -108,7 +108,7 @@ export default class GoogleSheets {
 
             const updated = new Date(rows[i].Date)
             const current = new Date(this.currentDate())
-            if (rows[i].Date && MyDate.dateDiff(current, updated) < 15) {
+            if (rows[i].Date && MyDate.dateDiff(current, updated) < 10) {
                 console.log(`Next >>>`)
                 continue
             }

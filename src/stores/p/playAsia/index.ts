@@ -12,6 +12,20 @@ export default class PlayAsia extends Store {
         await this.productExistBySelector('h1[itemprop="name"]')
     }
 
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'h1[itemprop="name"]',
+            render: 'text',
+        })
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'img[itemprop="image"]',
+            render: 'src',
+        })
+    }
+
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
             selector: 'link[itemprop="availability"]',

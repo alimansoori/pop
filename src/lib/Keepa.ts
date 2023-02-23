@@ -136,28 +136,28 @@ export default class Keepa {
     private topCalculate() {
         if (
             (EnumCategories.TOYS === this.category && this.bsr < 312000) ||
-            (EnumCategories.SPORT === this.category && this.bsr < 300000) ||
+            (EnumCategories.SPORT === this.category && this.bsr < 350000) ||
             (EnumCategories.PET === this.category && this.bsr < 150000) ||
-            (EnumCategories.ART === this.category && this.bsr < 200000) ||
-            (EnumCategories.PATIO === this.category && this.bsr < 170000) ||
+            (EnumCategories.ART === this.category && this.bsr < 250000) ||
+            (EnumCategories.PATIO === this.category && this.bsr < 200000) ||
             (EnumCategories.HOME_KITCHEN === this.category && this.bsr < 300000) ||
-            (EnumCategories.VIDEO_GAMES === this.category && this.bsr < 20000) ||
-            (EnumCategories.INDUSTRIAL === this.category && this.bsr < 200000) ||
-            (EnumCategories.TOOLS === this.category && this.bsr < 200000) ||
-            (EnumCategories.OFFICE_PRODUCTS === this.category && this.bsr < 200000) ||
-            (EnumCategories.GROCERY === this.category && this.bsr < 100000) ||
+            (EnumCategories.VIDEO_GAMES === this.category && this.bsr < 30000) ||
+            (EnumCategories.INDUSTRIAL === this.category && this.bsr < 250000) ||
+            (EnumCategories.TOOLS === this.category && this.bsr < 250000) ||
+            (EnumCategories.OFFICE_PRODUCTS === this.category && this.bsr < 240000) ||
+            (EnumCategories.GROCERY === this.category && this.bsr < 150000) ||
             (EnumCategories.ELECTRONIC === this.category && this.bsr < 200000) ||
             (EnumCategories.CAMERA === this.category && this.bsr < 35000) ||
             (EnumCategories.BEAUTY === this.category && this.bsr < 320000) ||
-            (EnumCategories.AUTOMOTIVE === this.category && this.bsr < 200000) ||
-            (EnumCategories.CELL_PHONES === this.category && this.bsr < 200000) ||
+            (EnumCategories.AUTOMOTIVE === this.category && this.bsr < 300000) ||
+            (EnumCategories.CELL_PHONES === this.category && this.bsr < 250000) ||
             (EnumCategories.BOOKS === this.category && this.bsr < 90000) ||
-            (EnumCategories.BABY === this.category && this.bsr < 60000) ||
-            (EnumCategories.CLOTHING === this.category && this.bsr < 150000) ||
+            (EnumCategories.BABY === this.category && this.bsr < 100000) ||
+            (EnumCategories.CLOTHING === this.category && this.bsr < 300000) ||
             (EnumCategories.COMPUTERS === this.category && this.bsr < 150000) ||
-            (EnumCategories.HEALTH === this.category && this.bsr < 170000) ||
-            (EnumCategories.KITCHEN_DINING === this.category && this.bsr < 200000) ||
-            (EnumCategories.MUSICAL_INSTRUMENTS === this.category && this.bsr < 30000)
+            (EnumCategories.HEALTH === this.category && this.bsr < 200000) ||
+            (EnumCategories.KITCHEN_DINING === this.category && this.bsr < 250000) ||
+            (EnumCategories.MUSICAL_INSTRUMENTS === this.category && this.bsr < 40000)
         ) {
             this.top = true
         }
