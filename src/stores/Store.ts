@@ -232,10 +232,11 @@ abstract class Store implements IStore, IProductDetails {
             return this.image
         }
         const domain = this.getUrl().match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
-        if (this.image.match(/^(?:|\/\/)([^/]+)/gim)) {
+        if (this.image.match(/^(\/\/)([^/]+)/gim)) {
             this.image = `https:${this.image}`
         }
-        const imgDomain = this.image.match(/^(?:http:\/\/|www\.|https:\/\/|\/\/)([^/]+)/gim)
+        const imgDomain = this.image.match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
+
         if (!imgDomain && domain?.length) {
             return domain[0] + this.image
         }
@@ -427,6 +428,8 @@ abstract class Store implements IStore, IProductDetails {
                     this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('data-price-amount')))
                 } else if (input.render === 'data-price') {
                     this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('data-price')))
+                } else if (input.render === 'data-pp-amount') {
+                    this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('data-pp-amount')))
                 }
             } else {
                 await this.page.waitForSelector(input.selector, { timeout: 10000 })
@@ -446,6 +449,12 @@ abstract class Store implements IStore, IProductDetails {
                     this.setPrice(
                         textToNumber(
                             await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price'))
+                        )
+                    )
+                } else if (input.render === 'data-pp-amount') {
+                    this.setPrice(
+                        textToNumber(
+                            await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-pp-amount'))
                         )
                     )
                 }

@@ -1,42 +1,39 @@
 import Store from '../../Store'
-import { sleep } from '../../../utils/sleep'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Gamestop extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.LOAD
         this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('meta[name="og:title"]')
+        await this.productExistBySelector('h1[itemprop="name"],h2.product-name')
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'div.product-main-image-gallery img.product-main-image.lazyloaded',
+            render: 'src',
+        })
     }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await sleep(2000)
-            await this.page.waitForSelector(
-                'label[data-testid="attribute-New-label"] > div:not(.attribute-strikethrough-unselected)',
-                { timeout: 10000 }
-            )
-            await this.page.click(
-                'label[data-testid="attribute-New-label"] > div:not(.attribute-strikethrough-unselected)'
-            )
-            await sleep(3000)
-
-            await this.checkAvailability({
-                selector: 'div:nth-child(4) > div > button.button_button__AswiG > span',
-                render: 'text',
-                outputArray: [],
-            })
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 
     async priceCalculate(): Promise<void> {
-        await this.checkPrice({
-            selector1: 'span[data-testid="price-default"]',
-            render: 'text',
-        })
+        if (!this.runPostman) {
+            await this.checkPrice({
+                selector1: 'div[data-pp-placement="product"]',
+                render: 'data-pp-amount',
+            })
+        } else {
+            await this.checkPrice({
+                selector1: '#primary-details-row > div.price-update span.actual-price > span',
+                render: 'text',
+            })
+        }
     }
 }

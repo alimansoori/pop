@@ -6,20 +6,21 @@ export async function main() {
         /*const doc = new Doc('1')
         await doc.auth()*/
 
-        await sourceCheck({
-            url: 'https://www.play-asia.com/super-smash-bros-ultimate/13/70by0v',
+        const sourcePrice = await sourceCheck({
+            url: 'https://www.adorama.com/fplfsmfbjr.html',
         })
 
         /*await keepaCheck({
-            asin: 'B07SR5L8G3',
-            price: 98,
+            asin: 'B078GK5Z5J',
+            price: sourcePrice,
         })*/
     } catch (e: any) {
         console.log(e.message)
     }
 }
 
-async function sourceCheck(input: { url: string }) {
+async function sourceCheck(input: { url: string }): Promise<number> {
+    let price = NaN
     try {
         const store = await SourceSiteFactory.create(input.url)
         await store.createBrowser()
@@ -30,10 +31,14 @@ async function sourceCheck(input: { url: string }) {
         console.log('Source Price is: ' + store.getPrice())
         console.log('Source Image is: ' + store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())
+
+        price = store.getPrice()
         await store.browser?.close()
     } catch (e: any) {
         console.log(e.message)
     }
+
+    return price
 }
 
 async function keepaCheck(input: { asin: string; price: number }) {

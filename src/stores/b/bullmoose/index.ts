@@ -8,7 +8,7 @@ export default class Bullmoose extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h2.productdetailtitle1 ')
+        await this.productExistBySelector('h2.productdetailtitle1')
     }
 
     async productTitleCalculate(): Promise<void> {

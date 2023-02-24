@@ -1,16 +1,14 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Macys extends Store {
+export default class Verishop extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.runPostman = true
-        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1 *[itemprop="name"]')
+        await this.productExistBySelector('h1.ProductDetailPage_productTitle__USVEG')
     }
 
     async availibilityCalculate(): Promise<void> {

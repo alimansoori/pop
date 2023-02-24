@@ -497,6 +497,8 @@ import Popngames from './p/popngames'
 import Nibsnook from './n/nibsnook'
 import Harristeeter from './h/harristeeter'
 import Nintendo from './n/nintendo'
+import Verishop from './v/verishop'
+import Lenovo from './l/lenovo'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -788,6 +790,7 @@ export default class SourceSiteFactory {
             else if (domain === 'liftmaster') return new Liftmaster(url)
             else if (domain === 'lovelyskin') return new Lovelyskin(url)
             else if (domain === 'ltdcommodities') return new Ltdcommodities(url)
+            else if (domain === 'lenovo') return new Lenovo(url)
             else if (domain === 'littlegiantladders') return new Littlegiantladders(url)
             else if (domain === 'luckyvitamin') return new Luckyvitamin(url)
             else if (domain === 'litoygame') return new Litoygame(url)
@@ -1010,6 +1013,7 @@ export default class SourceSiteFactory {
             else if (domain === 'vitacost') return new Vitacost(url)
             else if (domain === 'vitaminlife') return new Vitaminlife(url)
             else if (domain === 'vintageking') return new Vintageking(url)
+            else if (domain === 'verishop') return new Verishop(url)
             else if (domain === 'visitbicycleworld') return new Visitbicycleworld(url)
             else if (domain === 'villeroy-boch') return new VilleroyBoch(url)
             else if (domain === 'vminnovations') return new Vminnovations(url)
