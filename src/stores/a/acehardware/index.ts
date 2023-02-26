@@ -5,10 +5,25 @@ export default class Acehardware extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
+        this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('div[id="pdp-detail-inner"] h1[itemprop="name"]')
+    }
+
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'h1[itemprop="name"]',
+            render: 'text',
+        })
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'img[itemprop="image"]',
+            render: 'src',
+        })
     }
 
     async availibilityCalculate(): Promise<void> {

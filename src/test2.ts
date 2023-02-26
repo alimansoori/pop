@@ -7,11 +7,11 @@ export async function main() {
         await doc.auth()*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.adorama.com/fplfsmfbjr.html',
+            url: 'https://www.adagio.com/flavors/almond.html',
         })
 
         /*await keepaCheck({
-            asin: 'B078GK5Z5J',
+            asin: 'B09F3XP7FP',
             price: sourcePrice,
         })*/
     } catch (e: any) {

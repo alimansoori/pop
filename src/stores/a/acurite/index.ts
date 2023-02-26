@@ -1,47 +1,42 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Acurite extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.page-title')
+    }
+
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'h1.page-title',
+            render: 'text',
+        })
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'div.fotorama__stage__frame.fotorama__active > img',
+            render: 'src',
+        })
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('p[title="Availability"] > span', { timeout: 10000 })
-            const availability = await this.page.$eval(
-                'p[title="Availability"] > span',
-                (elem: any) => elem.textContent
-            )
-
-            if (availability?.toLowerCase().includes('in stock')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'button[id="product-addtocart-button"]',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('span[data-price-type="finalPrice"], span[data-price-type="maxPrice"]', {
-                timeout: 3000,
-            })
-            const price = textToNumber(
-                await this.page.$eval(
-                    'span[data-price-type="finalPrice"], span[data-price-type="maxPrice"]',
-                    (elem: any) => elem.getAttribute('data-price-amount')
-                )
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'span[data-price-type="finalPrice"], span[data-price-type="maxPrice"]',
+            render: 'data-price-amount',
+        })
     }
 }

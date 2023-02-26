@@ -1,39 +1,43 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Abbottstore extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.DOC_LOADED
+        this.enableAssets = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.pdp-info__title')
+    }
+
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'h1.pdp-info__title',
+            render: 'text',
+        })
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'div[id="page-slider"] div.fotorama__stage__frame.fotorama__active img.fotorama__img',
+            render: 'src',
+        })
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('p#stock-status', { timeout: 10000 })
-            const availability = await this.page.$eval('p#stock-status', (elem: any) => elem.textContent)
-
-            if (availability?.toLowerCase() === 'in stock') {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: '*[id="stock-status"]',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('span[id="current-price"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('span[id="current-price"]', (elem: any) => elem.textContent)
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: '*[id="current-price"]',
+            render: 'text',
+        })
     }
 }
