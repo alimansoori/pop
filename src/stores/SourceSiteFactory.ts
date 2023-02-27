@@ -499,6 +499,12 @@ import Harristeeter from './h/harristeeter'
 import Nintendo from './n/nintendo'
 import Verishop from './v/verishop'
 import Lenovo from './l/lenovo'
+import Bigpoppasmokers from './b/bigpoppasmokers'
+import Bbqgalore from './b/bbqgalore'
+import Armynavyusa from './a/armynavyusa'
+import Modernbike from './m/modernbike'
+import Swissknifeshop from './s/swissknifeshop'
+import Kylesbikes from './k/kylesbikes'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -563,6 +569,7 @@ export default class SourceSiteFactory {
             else if (domain === 'allegromedical') return new Allegromedical(url)
             else if (domain === 'adenandanais') return new Adenandanais(url)
             else if (domain === 'adorama') return new Adorama(url)
+            else if (domain === 'armynavyusa') return new Armynavyusa(url)
             else if (domain === 'audiosavings') return new Audiosavings(url)
             else if (domain === 'adwdiabetes') return new Adwdiabetes(url)
             else if (domain === 'advancedbionutritionals') return new Advancedbionutritionals(url)
@@ -597,6 +604,7 @@ export default class SourceSiteFactory {
             else if (domain === 'breakingbangers') return new Breakingbangers(url)
             else if (domain === 'bedbathandbeyond') return new Bedbathandbeyond(url)
             else if (domain === 'belk') return new Belk(url)
+            else if (domain === 'bigpoppasmokers') return new Bigpoppasmokers(url)
             else if (domain === 'beautifiedyou') return new Beautifiedyou(url)
             else if (domain === 'bestbuy') return new Bestbuy(url)
             else if (domain === 'betterhealthmarket') return new Betterhealthmarket(url)
@@ -621,6 +629,7 @@ export default class SourceSiteFactory {
             else if (domain === 'beachaudio') return new Beachaudio(url)
             else if (domain === 'barberitems') return new Barberitems(url)
             else if (domain === 'blueskyvitamin') return new Blueskyvitamin(url)
+            else if (domain === 'bbqgalore') return new Bbqgalore(url)
             else if (domain === 'bhphotovideo') return new Bhphotovideo(url)
             else if (domain === 'banggood') return new Banggood(url)
             // else if (domain === 'bookpal') return new Bookpal(url)
@@ -768,6 +777,7 @@ export default class SourceSiteFactory {
             else if (domain === 'jcpenney') return new Jcpenney(url)
             else if (domain === 'jensonusa') return new Jensonusa(url)
             else if (domain === 'katom') return new Katom(url)
+            else if (domain === 'kylesbikes') return new Kylesbikes(url)
             else if (domain === 'karstsports') return new Karstsports(url)
             else if (domain === 'kravebeauty') return new Kravebeauty(url)
             else if (domain === 'keurig') return new Keurig(url)
@@ -807,6 +817,7 @@ export default class SourceSiteFactory {
             else if (domain === 'mealeymarine') return new Mealeymarine(url)
             else if (domain === 'mercadomagico') return new Mercadomagico(url)
             else if (domain === 'michaels') return new Michaels(url)
+            else if (domain === 'modernbike') return new Modernbike(url)
             else if (domain === 'michaelskids') return new Michaelskids(url)
             else if (domain === 'midwayusa') return new Midwayusa(url)
             else if (domain === 'miniaturemarket') return new Miniaturemarket(url)
@@ -922,6 +933,7 @@ export default class SourceSiteFactory {
             else if (domain === 'saltwateraquarium') return new Saltwateraquarium(url)
             else if (domain === 'saksfifthavenue') return new Saksfifthavenue(url)
             else if (domain === 'sephora') return new Sephora(url)
+            else if (domain === 'swissknifeshop') return new Swissknifeshop(url)
             else if (domain === 'steepandcheap') return new Steepandcheap(url)
             else if (domain === 'seriouspuzzles') return new Seriouspuzzles(url)
             else if (domain === 'solidsignal') return new Solidsignal(url)

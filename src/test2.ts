@@ -7,7 +7,7 @@ export async function main() {
         await doc.auth()*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.adagio.com/flavors/almond.html',
+            url: 'https://kylesbikes.com/park-tool-sd-set-shop-screwdriver-bicycle-set-763477006479.html',
         })
 
         /*await keepaCheck({

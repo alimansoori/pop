@@ -1,8 +1,7 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Jbtools extends Store {
+export default class Modernbike extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -21,23 +20,23 @@ export default class Jbtools extends Store {
 
     async productImageCalculate(): Promise<void> {
         await this.setImage({
-            selector: 'img.productView-image--default',
+            selector: 'img[itemprop="image"]',
             render: 'src',
         })
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'meta[itemprop="availability"]',
-            render: 'content',
-            outputArray: [],
+            selector: '*.productitem.productitemtop span.buylabel',
+            render: 'text',
+            outputArray: ['buy'],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'meta[itemprop="price"]',
-            render: 'content',
+            selector1: '*[itemprop="price"]',
+            render: 'text',
         })
     }
 }
