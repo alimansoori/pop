@@ -219,7 +219,6 @@ export default class Keepa {
 
         if (data === null) return price
 
-        price = data[data.length - 1]
         if (data[data.length - 1] < 0) {
             price = data[data.length - 3]
         }
