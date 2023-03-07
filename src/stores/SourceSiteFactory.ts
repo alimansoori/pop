@@ -505,6 +505,9 @@ import Armynavyusa from './a/armynavyusa'
 import Modernbike from './m/modernbike'
 import Swissknifeshop from './s/swissknifeshop'
 import Kylesbikes from './k/kylesbikes'
+import Hotelrestaurantsupply from './h/hotelrestaurantsupply'
+import Vitamindiscountcenter from './v/vitamindiscountcenter'
+import Loungefly from './l/loungefly'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -761,6 +764,7 @@ export default class SourceSiteFactory {
             else if (domain === 'hayneedle') return new Hayneedle(url)
             else if (domain === 'hottopic') return new Hottopic(url)
             else if (domain === 'hsn') return new Hsn(url)
+            else if (domain === 'hotelrestaurantsupply') return new Hotelrestaurantsupply(url)
             else if (domain === 'iherb') return new Iherb(url)
             else if (domain === 'ikea') return new Ikea(url)
             else if (domain === 'ibspot') return new Ibspot(url)
@@ -795,6 +799,7 @@ export default class SourceSiteFactory {
             // Is Block
             else if (domain === 'livesuper') return new Livesuper(url)
             else if (domain === 'leatherman') return new Leatherman(url)
+            else if (domain === 'loungefly') return new Loungefly(url)
             else if (domain === 'levelninesports') return new Levelninesports(url)
             else if (domain === 'lifeandhome') return new Lifeandhome(url)
             else if (domain === 'liftmaster') return new Liftmaster(url)
@@ -1024,6 +1029,7 @@ export default class SourceSiteFactory {
             // else if (domain === 'vipoutlet') return new Vipoutlet(url)
             else if (domain === 'vitacost') return new Vitacost(url)
             else if (domain === 'vitaminlife') return new Vitaminlife(url)
+            else if (domain === 'vitamindiscountcenter') return new Vitamindiscountcenter(url)
             else if (domain === 'vintageking') return new Vintageking(url)
             else if (domain === 'verishop') return new Verishop(url)
             else if (domain === 'visitbicycleworld') return new Visitbicycleworld(url)

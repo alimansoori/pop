@@ -7,6 +7,8 @@ export default class CategorySheet {
                 return EnumCatSheets.GOOGLE
             case 'toys':
                 return EnumCatSheets.TOYS
+            case 'toys_walmart':
+                return EnumCatSheets.TOYS_WALMART
             case 'office':
                 return EnumCatSheets.OFFICE_PRODUCTS
             case 'kitchen':

@@ -3,6 +3,7 @@ export enum EnumCatSheets {
     DEFAULT = '1P944pvX749HhQiXlIvVVEvtc4gEYCJv6nsU1EfSiETo',
     OFFICE_PRODUCTS = '1VIqS5fNhxvKG2o3GvbIeF9l4YZZMBwQ7TQrpCbFPkP8',
     TOYS = '10jk6LjjB5qrj8xgDClMWajf6UmJkW7G-wdk3wVk665Q',
+    TOYS_WALMART = '1FnHuZ4tfgzYXL7HEcNygcWOB724p820wzjK2dvT5NL0',
     KITCHEN_DINING = '1hcyIxvxUji0U9ViQoNs1Kqa7bUvxOOgrukutR4pfqs0',
     MUSICAL_INSTRUMENTS = '1B1mDd3ZRi4NiJVM9F2mT4lLIzjDiIOV8agnTqVhLZNQ',
     BEAUTY = '1fjwqjn7xHaxZx_fRIRZn1Dby4xhvs2LsU7ZCBh9kzKw',
