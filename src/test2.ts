@@ -1,5 +1,6 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 import Keepa from './lib/Keepa'
+import MyPostmanRequest from './lib/MyPostmanRequest'
 
 export async function main() {
     try {
@@ -7,7 +8,7 @@ export async function main() {
         await doc.auth()*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
+            url: 'https://www.loungefly.com/products/minnie-and-daisy-pastel-polka-dot-flap-wallet',
         })
 
         /*await keepaCheck({
