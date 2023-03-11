@@ -7,7 +7,7 @@ export async function main() {
         await doc.auth()*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.loungefly.com/products/minnie-and-daisy-pastel-polka-dot-flap-wallet',
+            url: 'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
         })
 
         /*await keepaCheck({
@@ -25,12 +25,12 @@ async function sourceCheck(input: { url: string }): Promise<number> {
         const store = await SourceSiteFactory.create(input.url)
         await store.createBrowser()
         await store.scrape()
-        console.log('Error: ' + store.error)
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Title is: ' + store.getTitleClass().getTitle())
         console.log('Source Price is: ' + store.getPrice())
         console.log('Source Image is: ' + store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())
+        console.log('ERROR msg: ' + store.error)
 
         price = store.getPrice()
         await store.browser?.close()

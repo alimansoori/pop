@@ -203,6 +203,10 @@ abstract class Store implements IStore, IProductDetails {
                     this.image = this.resultReq.$(input.selector).attr('href')
                 } else if (input.render === 'src') {
                     this.image = this.resultReq.$(input.selector).attr('src')
+                } else if (input.render === 'data-thumb') {
+                    this.image = this.resultReq.$(input.selector).attr('data-thumb')
+                } else if (input.render === 'data-zoom-image') {
+                    this.image = this.resultReq.$(input.selector).attr('data-zoom-image')
                 }
             } else {
                 await this.page.waitForSelector(input.selector, { timeout: 10000 })
@@ -220,6 +224,12 @@ abstract class Store implements IStore, IProductDetails {
                     this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('href'))
                 } else if (input.render === 'src') {
                     this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('src'))
+                } else if (input.render === 'data-thumb') {
+                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-thumb'))
+                } else if (input.render === 'data-zoom-image') {
+                    this.image = await this.page.$eval(input.selector, (elem: any) =>
+                        elem.getAttribute('data-zoom-image')
+                    )
                 }
             }
         } catch (e) {
@@ -275,16 +285,25 @@ abstract class Store implements IStore, IProductDetails {
                 if (this.viewPageSource && (isBan || this.runPostman)) {
                     console.log('>>>> Site is Ban')
                     this.runPostman = true
+                    this.isSecond = true
                     this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
                 } else {
                     const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
                     this.statusCode = res?.status()
                     console.log('>>>> Status Code = ' + res?.status())
-                    if (res?.status() !== 200 && res?.status() !== 404 && this.viewPageSource) {
+                    if (!(res?.status() === 200 || res?.status() === 404) && this.viewPageSource && !this.isSecond) {
                         this.runPostman = true
-                        this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
-                    } else if (res?.status() !== 200 && res?.status() !== 404 && !this.viewPageSource) {
-                        this.productExist = false
+                        this.isSecond = true
+                        await this.scrape(true)
+                        return
+                    } else if (
+                        !(res?.status() === 200 || res?.status() === 404) &&
+                        !this.viewPageSource &&
+                        !this.isSecond
+                    ) {
+                        this.isSecond = true
+                        await this.siteIsBlock()
+                        return
                     } else if (res?.status() === 404) {
                         throw new Error('Error 404')
                     }
@@ -294,42 +313,29 @@ abstract class Store implements IStore, IProductDetails {
                 return
             }
 
-            if (!this.isSecond) {
-                await this.productExistCalculate()
-            }
+            await this.productExistCalculate()
+            console.log(`pro exist: ${this.productExist}`)
 
             if (!this.productExist) {
                 this.error = 'Product Not Exist'
+            } else {
+                this.error = ''
             }
 
             if (!this.productExist && !this.viewPageSource && !this.isSecond && this.statusCode !== 404) {
-                try {
-                    this.isSecond = true
-                    this.productExist = true
-                    console.log('viewPageSource : false')
-                    try {
-                        await this.browser.close()
-                    } catch (e: any) {
-                        console.log(e.message)
-                    }
-                    await this.createBrowser(true)
-                    await this.scrape()
-                    return
-                } catch (e: any) {
-                    console.log(e.message)
-                }
+                await this.siteIsBlock()
+                return
             }
 
             if (!this.productExist && this.viewPageSource && !this.isSecond) {
-                this.isSecond = true
-                this.productExist = true
                 await this.scrape(true)
                 return
             }
 
-            if (this.enableCanonical) {
+            if (this.enableCanonical && this.productExist) {
                 await this.setCanonical()
             }
+
             if (!this.titleClass.isValid()) {
                 console.log('Product title not valid!')
             }
@@ -341,6 +347,21 @@ abstract class Store implements IStore, IProductDetails {
             }
         } catch (e: any) {
             await this.browser?.close()
+        }
+    }
+
+    async siteIsBlock() {
+        try {
+            this.isSecond = true
+            try {
+                await this.browser.close()
+            } catch (e: any) {
+                console.log(e.message)
+            }
+            await this.createBrowser(true)
+            await this.scrape()
+        } catch (e: any) {
+            console.log(e.message)
         }
     }
 

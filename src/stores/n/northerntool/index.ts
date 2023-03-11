@@ -1,19 +1,19 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Doitbest extends Store {
+export default class Northerntool extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1.ProductTitle')
+        await this.productExistBySelector('h1.card-title-header')
     }
 
     async productTitleCalculate(): Promise<void> {
         await this.setTitle({
-            selector: 'h1.ProductTitle',
+            selector: 'h1.card-title-header',
             render: 'text',
         })
     }
@@ -27,15 +27,15 @@ export default class Doitbest extends Store {
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'input[id="AddToCartForm_Submit"]',
-            render: 'value',
+            selector: 'div.add_to_cart_btn button.Add-to-cart-button',
+            render: 'text',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'div.ProductContent *.ProductPriceRetail',
+            selector1: 'div.nte-pdp-product-card div.product-offer-price.offer-price.unit-price',
             render: 'text',
         })
     }
