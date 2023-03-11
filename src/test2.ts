@@ -8,7 +8,7 @@ export async function main() {
         await doc.auth()*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.loungefly.com/products/minnie-and-daisy-pastel-polka-dot-flap-wallet',
+            url: 'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
         })
 
         /*await keepaCheck({

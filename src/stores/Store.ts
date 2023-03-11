@@ -315,7 +315,6 @@ abstract class Store implements IStore, IProductDetails {
             }
 
             await this.productExistCalculate()
-            console.log(`pro exist: ${this.productExist}`)
 
             if (!this.productExist) {
                 this.error = 'Product Not Exist'
