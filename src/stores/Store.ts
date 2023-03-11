@@ -52,6 +52,7 @@ abstract class Store implements IStore, IProductDetails {
         this.resultReq = {
             $: cheerio.load(''),
             headers: {},
+            body: '',
             error: true,
         }
     }
