@@ -148,7 +148,7 @@ export default class Google {
 
     async createBrowser(): Promise<void> {
         try {
-            const pup = new MyPuppeteer(false)
+            const pup = new MyPuppeteer(false, false)
             await pup.build()
             this.browser = pup.browser
             this.page = await this.browser.newPage()

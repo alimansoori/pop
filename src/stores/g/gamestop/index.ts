@@ -24,7 +24,7 @@ export default class Gamestop extends Store {
     }
 
     async priceCalculate(): Promise<void> {
-        if (!this.runPostman) {
+        if (!this.headlessRun) {
             await this.checkPrice({
                 selector1: 'div[data-pp-placement="product"]',
                 render: 'data-pp-amount',

@@ -7,7 +7,7 @@ export default class Pokemoncenter extends Store {
         super(url)
         this.loadType = EnumLoadType.NET2
         // this.siteIsBlocked = true
-        this.runPostman = true
+        this.headlessRun = true
     }
 
     async productExistCalculate(): Promise<void> {

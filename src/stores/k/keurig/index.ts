@@ -12,7 +12,7 @@ export default class Keurig extends Store {
 
     async availibilityCalculate(): Promise<void> {
         try {
-            if (this.runPostman) {
+            if (this.headlessRun) {
                 const availability = this.resultReq.$('a[title="Add to Cart"]').text()
                 if (availability?.toLowerCase().trim().includes('add to cart')) {
                     this.setAvailability(true)
@@ -34,7 +34,7 @@ export default class Keurig extends Store {
 
     async priceCalculate(): Promise<void> {
         try {
-            if (this.runPostman) {
+            if (this.headlessRun) {
                 this.setPrice(textToNumber(this.resultReq.$('span.big-price').text()))
             } else {
                 await this.page.waitForSelector('span.big-price', { timeout: 3000 })

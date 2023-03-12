@@ -17,7 +17,7 @@ export default class Knifecenter extends Store {
         try {
             let availability = ''
             const selector = 'a.instock'
-            if (this.runPostman) {
+            if (this.headlessRun) {
                 availability = this.resultReq.$(selector).text()
             } else {
                 await this.page.waitForSelector(selector, { timeout: 10000 })
@@ -37,7 +37,7 @@ export default class Knifecenter extends Store {
     async priceCalculate(): Promise<void> {
         try {
             const selector = 'h2.price span:nth-child(2)'
-            if (this.runPostman) {
+            if (this.headlessRun) {
                 this.setPrice(textToNumber(this.resultReq.$(selector).text()))
             } else {
                 await this.page.waitForSelector(selector, { timeout: 10000 })

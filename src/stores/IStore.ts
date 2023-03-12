@@ -9,7 +9,7 @@ export default interface IStore {
     statusCode: number | undefined
     error: string
     browser?: Browser
-    createBrowser(): Promise<void>
+    createBrowser(siteIsBlocked?: boolean): Promise<void>
     productIsExist(): boolean
     getPrice(): number
     getImage(): string | undefined

@@ -4,8 +4,17 @@ import MyPostmanRequest from './lib/MyPostmanRequest'
 
 export async function main() {
     try {
+        /*const str = 'https://www.homedepot.com/p/Plasti-Dip-14-5-oz-Black-Plastic-Dip-11603-6/202196703'
+        const pattern = 'https://www.homedepot.commm'
+        console.log(str.match(pattern))*/
         /*const doc = new Doc('1')
         await doc.auth()*/
+
+        /*const resultReq = await MyPostmanRequest.request(
+            'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
+            true
+        )
+        console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
             url: 'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
@@ -24,8 +33,8 @@ async function sourceCheck(input: { url: string }): Promise<number> {
     let price = NaN
     try {
         const store = await SourceSiteFactory.create(input.url)
-        await store.createBrowser()
-        await store.scrape()
+        await store.createBrowser(false)
+        await store.scrape(false)
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Title is: ' + store.getTitleClass().getTitle())
         console.log('Source Price is: ' + store.getPrice())

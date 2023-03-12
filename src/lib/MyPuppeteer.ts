@@ -8,8 +8,9 @@ export class MyPuppeteer {
     useProxy = false
     // defaultViewport: puppeteer.Viewport | null | undefined = null
 
-    constructor(useProxy: boolean) {
+    constructor(headless: boolean, useProxy: boolean) {
         this.useProxy = useProxy
+        this.headless = headless
     }
 
     async build(): Promise<void> {
@@ -26,7 +27,7 @@ export class MyPuppeteer {
             // puppeteer.use(StealthPlugin())
 
             let browserP = {
-                headless: false,
+                headless: this.headless,
                 ignoreHTTPSErrors: true,
                 executablePath: 'C:\\chrome-win\\chrome.exe',
                 // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',

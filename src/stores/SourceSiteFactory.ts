@@ -523,7 +523,7 @@ export default class SourceSiteFactory {
             }
 
             if (domain === 'tacticalbucket') {
-                const pup = new MyPuppeteer(false)
+                const pup = new MyPuppeteer(false, true)
                 await pup.build()
                 const browser = pup.browser
                 const page = await browser.newPage()

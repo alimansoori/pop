@@ -6,9 +6,11 @@ export default class Walmart extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.viewPageSource = false
+        // this.headlessRun = true
+        // this.viewPageSource = false
         // this.siteIsBlocked = true
         // this.runPostman = true
+        // this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {

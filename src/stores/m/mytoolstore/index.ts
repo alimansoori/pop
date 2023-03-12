@@ -9,6 +9,7 @@ export default class Mytoolstore extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[itemprop="name"]')
+        // if (!this.isSecond) this.productExist = false
     }
 
     async availibilityCalculate(): Promise<void> {

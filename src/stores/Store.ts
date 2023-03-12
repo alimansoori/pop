@@ -10,7 +10,6 @@ import IProductDetails from './IProductDetails'
 import { EnumLoadType } from '../@types/EnumLoadType'
 import ProductTitle from './ProductTitle'
 import { MyPuppeteer } from '../lib/MyPuppeteer'
-import MyPostmanRequest from '../lib/MyPostmanRequest'
 import * as cheerio from 'cheerio'
 import { TypePostmanReq } from '../@types/TypePostmanReq'
 import { Browser, Page } from 'puppeteer'
@@ -38,11 +37,12 @@ abstract class Store implements IStore, IProductDetails {
     protected loadType: EnumLoadType = EnumLoadType.LOAD
     protected productExist = true
     protected siteIsBlocked = false
-    protected runPostman = false
+    protected headlessRun = false
     protected viewPageSource = true
     protected isSecond = false
     protected enableAssets = false
     protected enableCanonical = true
+    protected includeAssets = []
 
     protected constructor(url: string) {
         this.url = url
@@ -59,7 +59,10 @@ abstract class Store implements IStore, IProductDetails {
 
     async createBrowser(siteIsBlocked = false): Promise<void> {
         try {
-            const pup = new MyPuppeteer(siteIsBlocked)
+            if (this.isSecond) {
+                siteIsBlocked = true
+            }
+            const pup = new MyPuppeteer(!this.isSecond ? false : this.headlessRun, siteIsBlocked)
             await pup.build()
             this.browser = pup.browser
             this.page = await this.browser.newPage()
@@ -74,14 +77,35 @@ abstract class Store implements IStore, IProductDetails {
             if (!this.enableAssets) {
                 await this.page.setRequestInterception(true)
                 this.page.on('request', (req: any) => {
-                    if (
+                    if (req.resourceType() === 'document' || req.resourceType() === 'xhr') {
+                        req.continue()
+                    } else if (
                         req.resourceType() === 'stylesheet' ||
                         req.resourceType() === 'font' ||
                         req.resourceType() === 'image'
                     ) {
                         req.abort()
                     } else {
-                        req.continue()
+                        if (!this.isSecond) {
+                            if (this.enableAssets) {
+                                req.continue()
+                            } else {
+                                req.abort()
+                            }
+                        } else if (this.isSecond) {
+                            if (!this.includeAssets.length) {
+                                req.abort()
+                            } else {
+                                for (const patternAsset of this.includeAssets) {
+                                    if (req._url.match(patternAsset)) {
+                                        req.continue()
+                                    } else {
+                                        req.abort()
+                                    }
+                                }
+                                req.abort()
+                            }
+                        }
                     }
                 })
             }
@@ -103,7 +127,7 @@ abstract class Store implements IStore, IProductDetails {
             let canonical: string | undefined
             const selector = 'link[rel="canonical"]'
             if (this.productExist) {
-                if (this.runPostman) {
+                if (this.headlessRun) {
                     canonical = this.resultReq.$(selector).attr('href')
                 } else {
                     await this.page.waitForSelector(selector, { timeout: 2000 })
@@ -146,7 +170,7 @@ abstract class Store implements IStore, IProductDetails {
 
     private async checkTitleRender(input: { selector: string; render: string }) {
         try {
-            if (this.runPostman) {
+            if (this.headlessRun) {
                 if (input.render === 'text') {
                     this.getTitleClass().setTitle(this.resultReq.$(input.selector).text())
                 } else if (input.render === 'content') {
@@ -191,7 +215,7 @@ abstract class Store implements IStore, IProductDetails {
 
     private async checkImageRender(input: { selector: string; render: string }) {
         try {
-            if (this.runPostman) {
+            if (this.headlessRun) {
                 if (input.render === 'text') {
                     this.image = this.resultReq.$(input.selector).text()
                 } else if (input.render === 'content') {
@@ -283,33 +307,18 @@ abstract class Store implements IStore, IProductDetails {
     async scrape(isBan = false): Promise<void> {
         try {
             try {
-                if (this.viewPageSource && (isBan || this.runPostman)) {
-                    console.log('>>>> Site is Ban')
-                    this.runPostman = true
-                    this.isSecond = true
-                    this.resultReq = await MyPostmanRequest.request(this.getUrl(), true)
-                } else {
-                    const res = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
-                    this.statusCode = res?.status()
-                    console.log('>>>> Status Code = ' + res?.status())
-                    if (!(res?.status() === 200 || res?.status() === 404) && this.viewPageSource && !this.isSecond) {
-                        this.runPostman = true
-                        this.isSecond = true
-                        await this.scrape(true)
-                        return
-                    } else if (
-                        !(res?.status() === 200 || res?.status() === 404) &&
-                        !this.viewPageSource &&
-                        !this.isSecond
-                    ) {
-                        this.isSecond = true
-                        await this.siteIsBlock()
-                        return
-                    } else if (res?.status() === 404) {
-                        throw new Error('Error 404')
-                    }
+                const pageContent = await this.page.goto(this.getUrl(), { timeout: 180000, waitUntil: this.loadType })
+                this.statusCode = pageContent?.status()
+                console.log('>>>> Status Code = ' + pageContent?.status())
+                if (!(pageContent?.status() === 200 || pageContent?.status() === 404) && !this.isSecond) {
+                    console.log('Site is Blocked!')
+                    await this.runAgainPup()
+                    return
+                } else if (pageContent?.status() === 404) {
+                    throw new Error('Error 404')
                 }
             } catch (e: any) {
+                this.error = e.message
                 await this.browser.close()
                 return
             }
@@ -322,13 +331,9 @@ abstract class Store implements IStore, IProductDetails {
                 this.error = ''
             }
 
-            if (!this.productExist && !this.viewPageSource && !this.isSecond && this.statusCode !== 404) {
-                await this.siteIsBlock()
-                return
-            }
-
-            if (!this.productExist && this.viewPageSource && !this.isSecond) {
-                await this.scrape(true)
+            if (!this.productExist && !this.isSecond) {
+                console.log('Site is Blocked! OR Product not Exist')
+                await this.runAgainPup()
                 return
             }
 
@@ -350,16 +355,18 @@ abstract class Store implements IStore, IProductDetails {
         }
     }
 
-    async siteIsBlock() {
+    async runAgainPup() {
         try {
             this.isSecond = true
+
             try {
                 await this.browser.close()
             } catch (e: any) {
                 console.log(e.message)
             }
+
             await this.createBrowser(true)
-            await this.scrape()
+            await this.scrape(true)
         } catch (e: any) {
             console.log(e.message)
         }
@@ -380,7 +387,7 @@ abstract class Store implements IStore, IProductDetails {
             }
             let availability: string | undefined
 
-            if (this.runPostman) {
+            if (this.headlessRun) {
                 if (input.render === 'text') {
                     availability = this.resultReq.$(input.selector).text()
                 } else if (input.render === 'content') {
@@ -440,7 +447,7 @@ abstract class Store implements IStore, IProductDetails {
 
     private async checkPriceRender(input: { selector: string; render: string }) {
         try {
-            if (this.runPostman) {
+            if (this.headlessRun) {
                 if (input.render === 'text') {
                     this.setPrice(textToNumber(this.resultReq.$(input.selector).text()))
                 } else if (input.render === 'content') {
@@ -543,7 +550,7 @@ abstract class Store implements IStore, IProductDetails {
     abstract productExistCalculate(): Promise<void>
 
     protected async productExistBySelector(selector: string) {
-        if (this.runPostman) {
+        if (this.headlessRun) {
             if (!this.resultReq.$(selector).length) {
                 this.productExist = false
             }
@@ -607,7 +614,7 @@ abstract class Store implements IStore, IProductDetails {
 
     private async fetchJsonSchemas(selector: string, newOption = {}) {
         let jsonSchemas: any[] = []
-        if (this.runPostman) {
+        if (this.headlessRun) {
             this.resultReq.$(selector).map((num, elem) => {
                 jsonSchemas.push(this.resultReq.$(elem).text())
             })
@@ -727,7 +734,7 @@ abstract class Store implements IStore, IProductDetails {
         }
         try {
             let jsonSchemas: any[] = []
-            if (this.runPostman) {
+            if (this.headlessRun) {
                 this.resultReq.$(selector).map((num, elem) => {
                     jsonSchemas.push(this.resultReq.$(elem).text())
                 })
