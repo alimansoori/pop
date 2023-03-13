@@ -42,7 +42,7 @@ abstract class Store implements IStore, IProductDetails {
     protected isSecond = false
     protected enableAssets = false
     protected enableCanonical = true
-    protected includeAssets = []
+    protected includeAssets: (RegExp | string)[] = []
 
     protected constructor(url: string) {
         this.url = url
@@ -77,7 +77,11 @@ abstract class Store implements IStore, IProductDetails {
             if (!this.enableAssets) {
                 await this.page.setRequestInterception(true)
                 this.page.on('request', (req: any) => {
-                    if (req.resourceType() === 'document' || req.resourceType() === 'xhr') {
+                    if (
+                        req.resourceType() === 'document' ||
+                        req.resourceType() === 'xhr' ||
+                        req.resourceType() === 'other'
+                    ) {
                         req.continue()
                     } else if (
                         req.resourceType() === 'stylesheet' ||
@@ -96,15 +100,25 @@ abstract class Store implements IStore, IProductDetails {
                             if (!this.includeAssets.length) {
                                 req.abort()
                             } else {
+                                console.log(req._url)
+                                console.log(req.resourceType())
                                 for (const patternAsset of this.includeAssets) {
-                                    if (req._url.match(patternAsset)) {
-                                        req.continue()
-                                    } else {
+                                    try {
+                                        if (req._url.match(patternAsset)) {
+                                            console.log('Asset is match')
+                                            req.continue()
+                                            break
+                                        } else {
+                                            req.abort()
+                                            break
+                                        }
+                                    } catch (e) {
                                         req.abort()
                                     }
                                 }
-                                req.abort()
                             }
+                        } else {
+                            req.abort()
                         }
                     }
                 })

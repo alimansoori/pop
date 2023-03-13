@@ -1,12 +1,19 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 import Keepa from './lib/Keepa'
-import MyPostmanRequest from './lib/MyPostmanRequest'
 
 export async function main() {
     try {
-        /*const str = 'https://www.homedepot.com/p/Plasti-Dip-14-5-oz-Black-Plastic-Dip-11603-6/202196703'
-        const pattern = 'https://www.homedepot.commm'
-        console.log(str.match(pattern))*/
+        /*const includeAssets = [
+            /https:\/\/assets.thdstatic.com\/analytics\//,
+            'https://assets.thdstatic.com/analytics/sync/b2c/desktop/prod/current/sync.js',
+            'https://assets.thdstatic.com/analytics/core/b2c/desktop/prod/current/core.js',
+        ]
+        const str = 'https://assets.thdstatic.com/analytics/core/b2c/desktop/prod/current/core.js'
+        for (const patternAsset of includeAssets) {
+            if (str.match(patternAsset)) {
+                console.log('is match')
+            }
+        }*/
         /*const doc = new Doc('1')
         await doc.auth()*/
 
@@ -17,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
+            url: 'https://www.newegg.com/wavlink-wl-wn575a3-1/p/1A7-0019-00011?Item=9SIA6PF48K4895&cm_sp=Homepage_dailydeals-_-P2_9SIA6PF48K4895-_-03132023&quicklink=true',
         })
 
         /*await keepaCheck({

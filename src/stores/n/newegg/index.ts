@@ -1,12 +1,11 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Newegg extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.viewPageSource = false
+        this.includeAssets = [/https:\/\/c1.neweggimages.com\/webResource\/Scripts\/WWW\/jquery/]
     }
 
     async productExistCalculate(): Promise<void> {
