@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
+            url: 'https://www.walgreens.com/store/c/nivea-shea-nourish-body-lotion/ID=prod6177786-product',
         })
 
         /*await keepaCheck({
