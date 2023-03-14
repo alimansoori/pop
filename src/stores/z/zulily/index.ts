@@ -9,7 +9,8 @@ export default class Zulily extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div.product_name h1')
+        await this.productExistBySelector('script.structured-data[type="application/ld+json"]')
+        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {

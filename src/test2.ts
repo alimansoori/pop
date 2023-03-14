@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.walgreens.com/store/c/nivea-shea-nourish-body-lotion/ID=prod6177786-product',
+            url: 'https://www.zulily.com/p/97591142/disneys-beauty-the-beast-lumiere-pop-figure?pos=ymal&origProduct=86122907',
         })
 
         /*await keepaCheck({
