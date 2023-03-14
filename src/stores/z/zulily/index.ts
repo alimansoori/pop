@@ -6,11 +6,16 @@ export default class Zulily extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
+        this.excludeAssets = [
+            'https://www.zulily.com/mainpanel/recently_viewed',
+            'https://cfcdn-skin.zulily.com/js/cache',
+        ]
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('script.structured-data[type="application/ld+json"]')
-        // this.productExist = this.isSecond
+        // await this.productExistBySelector('script.structured-data[type="application/ld+json"]')
+        this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {
