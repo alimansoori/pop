@@ -40,9 +40,11 @@ abstract class Store implements IStore, IProductDetails {
     protected headlessRun = false
     protected viewPageSource = true
     protected isSecond = false
+    protected scrapUntilBlock = false
     protected enableAssets = false
     protected enableCanonical = true
     protected includeAssets: (RegExp | string)[] = []
+    protected excludeAssets: (RegExp | string)[] = []
 
     protected constructor(url: string) {
         this.url = url
@@ -77,11 +79,10 @@ abstract class Store implements IStore, IProductDetails {
             if (!this.enableAssets) {
                 await this.page.setRequestInterception(true)
                 this.page.on('request', (req: any) => {
-                    if (
-                        req.resourceType() === 'document' ||
-                        req.resourceType() === 'xhr' ||
-                        req.resourceType() === 'other'
-                    ) {
+                    if (req._url.match(/^.*\.ico/)) {
+                        req.abort()
+                    } else if (req.resourceType() === 'document' || req.resourceType() === 'xhr') {
+                        // console.log('<<< Asset is match def >>>')
                         req.continue()
                     } else if (
                         req.resourceType() === 'stylesheet' ||
@@ -91,32 +92,50 @@ abstract class Store implements IStore, IProductDetails {
                         req.abort()
                     } else {
                         if (!this.isSecond) {
-                            if (this.enableAssets) {
-                                req.continue()
-                            } else {
-                                req.abort()
-                            }
+                            req.continue()
                         } else if (this.isSecond) {
-                            if (!this.includeAssets.length) {
+                            if (!this.excludeAssets.length) {
                                 req.abort()
                             } else {
                                 console.log(req._url)
                                 console.log(req.resourceType())
+                                let exit = false
+                                for (const patternAsset of this.excludeAssets) {
+                                    if (req._url.match(patternAsset)) {
+                                        console.log('<<< Asset is exclude >>>')
+                                        exit = true
+                                        req.abort()
+                                        break
+                                    }
+                                }
+                                if (!exit) {
+                                    // console.log('<<< Continue >>>')
+                                    req.continue()
+                                }
+                            }
+                            /*if (!this.includeAssets.length) {
+                                req.abort()
+                            } else {
+                                console.log(req._url)
+                                console.log(req.resourceType())
+                                let exit = false
                                 for (const patternAsset of this.includeAssets) {
                                     try {
                                         if (req._url.match(patternAsset)) {
-                                            console.log('Asset is match')
+                                            console.log('<<< Asset is match >>>')
+                                            exit = true
                                             req.continue()
-                                            break
-                                        } else {
-                                            req.abort()
                                             break
                                         }
                                     } catch (e) {
                                         req.abort()
                                     }
                                 }
-                            }
+                                if (!exit) {
+                                    console.log('<<< Exit >>>')
+                                    req.abort()
+                                }
+                            }*/
                         } else {
                             req.abort()
                         }
@@ -371,8 +390,12 @@ abstract class Store implements IStore, IProductDetails {
 
     async runAgainPup() {
         try {
-            this.isSecond = true
+            if (!this.scrapUntilBlock) {
+                console.log('Exit Block!')
+                return
+            }
 
+            this.isSecond = true
             try {
                 await this.browser.close()
             } catch (e: any) {

@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.newegg.com/wavlink-wl-wn575a3-1/p/1A7-0019-00011?Item=9SIA6PF48K4895&cm_sp=Homepage_dailydeals-_-P2_9SIA6PF48K4895-_-03132023&quicklink=true',
+            url: 'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
         })
 
         /*await keepaCheck({
