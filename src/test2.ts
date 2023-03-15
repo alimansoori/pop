@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.academy.com/p/traeger-ranger-scout-to-go-cover',
+            url: 'https://www.bloomingdales.com/shop/product/juliska-quotidien-dinnerware-collection?ID=690037&CategoryID=1000231',
         })
 
         /*await keepaCheck({
@@ -48,7 +48,6 @@ async function sourceCheck(input: { url: string }): Promise<number> {
         console.log('Source Image is: ' + store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())
         console.log('ERROR msg: ' + store.error)
-
         price = store.getPrice()
         await store.browser?.close()
     } catch (e: any) {

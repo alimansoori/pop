@@ -6,10 +6,12 @@ export default class Shoplet extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
+        // this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1.product-title')
+        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {

@@ -6,12 +6,10 @@ export default class Rallyhouse extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
-        // this.runPostman = true
-        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[id="ProductNameHeader_Desktop"]')
+        await this.productExistBySelector('h1.g-product-layout-details__name')
     }
 
     async availibilityCalculate(): Promise<void> {

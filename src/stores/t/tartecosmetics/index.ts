@@ -5,8 +5,8 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Tartecosmetics extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
         // this.runPostman = true
     }
 

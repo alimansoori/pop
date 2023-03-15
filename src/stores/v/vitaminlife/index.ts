@@ -6,7 +6,7 @@ export default class Vitaminlife extends Store {
         super(url)
         this.loadType = EnumLoadType.LOAD
         this.scrapUntilBlock = true
-        this.enableAssets = true
+        // this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {
