@@ -6,6 +6,7 @@ export default class VilleroyBoch extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
         // this.siteIsBlocked = true
         // this.runPostman = true
     }

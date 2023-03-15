@@ -3,6 +3,7 @@ import Store from '../../Store'
 export default class Campsaver extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
         // this.runPostman = true
         // this.siteIsBlocked = true
     }

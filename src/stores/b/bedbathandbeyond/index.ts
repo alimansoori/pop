@@ -8,6 +8,7 @@ export default class Bedbathandbeyond extends Store {
         this.url = url.replace(/(\/amp)/gi, '')
         this.url = url.replace('bedbathandbeyond.com', 'bedbathandbeyond.com/amp')
         this.loadType = EnumLoadType.LOAD
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

@@ -3,6 +3,7 @@ import Store from '../../Store'
 export default class Boxed extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
         // this.siteIsBlocked = true
         // this.runPostman = true
     }

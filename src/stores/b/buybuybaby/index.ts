@@ -8,6 +8,7 @@ export default class Buybuybaby extends Store {
         this.url = url.replace(/\/amp/gi, '')
         this.url = url.replace('buybuybaby.com', 'buybuybaby.com/amp')
         this.loadType = EnumLoadType.LOAD
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

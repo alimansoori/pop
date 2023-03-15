@@ -6,6 +6,7 @@ export default class Nobleknight extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
         // this.runPostman = true
     }
 

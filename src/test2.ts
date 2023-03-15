@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.zulily.com/p/97591142/disneys-beauty-the-beast-lumiere-pop-figure?pos=ymal&origProduct=86122907',
+            url: 'https://www.academy.com/p/traeger-ranger-scout-to-go-cover',
         })
 
         /*await keepaCheck({

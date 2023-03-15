@@ -5,7 +5,7 @@ export default class Vitaminshoppe extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.viewPageSource = false
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

@@ -5,7 +5,7 @@ export default class Boardlandia extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-
+        this.scrapUntilBlock = true
         // this.runPostman = true
         // this.siteIsBlocked = true
     }

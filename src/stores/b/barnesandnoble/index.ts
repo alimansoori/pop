@@ -5,10 +5,12 @@ export default class Barnesandnoble extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('div[id="pdp-header-info"] > h1[itemprop="name"]')
+        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {

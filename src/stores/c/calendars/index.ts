@@ -4,6 +4,7 @@ import Store from '../../Store'
 export default class Calendars extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

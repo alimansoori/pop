@@ -5,6 +5,7 @@ export default class Vitaminlife extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
+        this.scrapUntilBlock = true
         this.enableAssets = true
     }
 

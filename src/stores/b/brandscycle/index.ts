@@ -7,6 +7,7 @@ export default class Brandscycle extends Store {
         super(url)
 
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
         // this.runPostman = true
         // this.siteIsBlocked = true
     }

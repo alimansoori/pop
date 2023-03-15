@@ -31,7 +31,6 @@ export default class Walgreens extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('*[id="productTitle"]')
-        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {
