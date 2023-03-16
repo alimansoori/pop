@@ -11,7 +11,6 @@ export default class Bigbadtoystore extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[class="product-name-ada"]')
-        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {

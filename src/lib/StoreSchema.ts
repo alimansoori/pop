@@ -68,7 +68,6 @@ export default class StoreSchema {
     private fetchImage() {
         if (this.productSchema?.image) {
             if (Array.isArray(this.productSchema?.image) && this.productSchema?.image.length) {
-                console.log('1')
                 this.image = String(this.productSchema?.image[0])
             } else if (typeof this.productSchema?.image === 'object') {
                 // @ts-ignore

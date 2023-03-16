@@ -26,7 +26,6 @@ export default class Cvs extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[role="heading"]')
-        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {

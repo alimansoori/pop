@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.bloomingdales.com/shop/product/juliska-quotidien-dinnerware-collection?ID=690037&CategoryID=1000231',
+            url: 'https://www.williams-sonoma.com/products/boos-carving-board-walnut/?pkey=ccutting-boards-storage',
         })
 
         /*await keepaCheck({

@@ -11,7 +11,6 @@ export default class Shoplet extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1.product-title')
-        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {

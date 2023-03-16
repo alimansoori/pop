@@ -10,7 +10,6 @@ export default class Homedepot extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('div.product-details__badge-title--wrapper h1')
-        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {

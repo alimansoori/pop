@@ -11,7 +11,6 @@ export default class Walmart extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[itemprop="name"]')
-        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {
