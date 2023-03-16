@@ -1,5 +1,4 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class VilleroyBoch extends Store {
@@ -7,8 +6,6 @@ export default class VilleroyBoch extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
-        // this.siteIsBlocked = true
-        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {

@@ -513,6 +513,7 @@ import Toolmarts from './t/toolmarts'
 import Fastoolnow from './f/fastoolnow'
 import Burnstools from './b/burnstools'
 import Northerntool from './n/northerntool'
+import Worldofwatches from './w/worldofwatches'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -1058,6 +1059,7 @@ export default class SourceSiteFactory {
             else if (domain === 'wdrake') return new Wdrake(url)
             else if (domain === 'wwbw') return new Wwbw(url)
             else if (domain === 'willowtree') return new Willowtree(url)
+            else if (domain === 'worldofwatches') return new Worldofwatches(url)
             else if (domain === 'worldwidecyclery') return new Worldwidecyclery(url)
             else if (domain === 'worldmusicsupply') return new Worldmusicsupply(url)
             else if (domain === 'webstaurantstore') return new Webstaurantstore(url)

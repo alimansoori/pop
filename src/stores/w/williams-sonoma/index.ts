@@ -31,7 +31,6 @@ export default class WilliamsSonoma extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[data-test-id="product-title"]')
-        // this.productExist = this.isSecond
     }
 
     async availibilityCalculate(): Promise<void> {

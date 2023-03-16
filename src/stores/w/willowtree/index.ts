@@ -14,6 +14,17 @@ export default class Willowtree extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
+        await this.checkAvailability({
+            selector: 'meta[property="og:availability"]',
+            render: 'content',
+            outputArray: [],
+        })
+    }
+
+    async priceCalculate(): Promise<void> {
+        await this.checkPrice({
+            selector1: 'meta[property="product:price:amount"]',
+            render: 'content',
+        })
     }
 }

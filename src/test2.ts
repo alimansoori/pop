@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.williams-sonoma.com/products/boos-carving-board-walnut/?pkey=ccutting-boards-storage',
+            url: 'https://www.theisens.com/products/lawn-pro-weed-and-feed/24790040/',
         })
 
         /*await keepaCheck({
