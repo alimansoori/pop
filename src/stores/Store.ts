@@ -497,6 +497,8 @@ abstract class Store implements IStore, IProductDetails {
                     this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('data-pp-amount')))
                 } else if (input.render === 'data-final-price') {
                     this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('data-final-price')))
+                } else if (input.render === 'data-base-price') {
+                    this.setPrice(textToNumber(this.resultReq.$(input.selector).attr('data-base-price')))
                 }
             } else {
                 await this.page.waitForSelector(input.selector, { timeout: 10000 })
@@ -528,6 +530,12 @@ abstract class Store implements IStore, IProductDetails {
                     this.setPrice(
                         textToNumber(
                             await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-final-price'))
+                        )
+                    )
+                } else if (input.render === 'data-base-price') {
+                    this.setPrice(
+                        textToNumber(
+                            await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-base-price'))
                         )
                     )
                 }

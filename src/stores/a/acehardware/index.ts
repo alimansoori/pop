@@ -5,7 +5,6 @@ export default class Acehardware extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
-        this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {

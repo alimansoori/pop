@@ -1,44 +1,29 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Bambibaby extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[itemprop="name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('meta[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('meta[itemprop="availability"]', (elem: any) =>
-                elem.getAttribute('content')
-            )
-
-            if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'meta[itemprop="availability"]',
+            render: 'content',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: '*[itemprop="price"]',
+            render: 'content',
+        })
     }
 }

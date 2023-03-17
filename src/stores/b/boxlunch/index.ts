@@ -5,23 +5,21 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Boxlunch extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.product-name')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('div.availability-msg-text.instock', { timeout: 5000 })
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
 
-            this.setAvailability(true)
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkAvailability({
+            selector: 'div.availability-msg-text.instock',
+            render: null,
+            outputArray: [],
+        })
     }
 }

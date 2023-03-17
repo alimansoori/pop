@@ -1,37 +1,27 @@
 import Store from '../../Store'
 
-import { textToNumber } from '../../../lib/helper'
-
 export default class Cduniverse extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('*[id="ProductHeader"] h1')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('div.AddToCartButton', { timeout: 10000 })
-            const availability = await this.page.$eval('div.AddToCartButton', (elem: any) => elem.textContent)
-
-            if (availability?.toLowerCase() === 'add to cart') {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'div.AddToCartButton',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('span[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('span[itemprop="price"]', (elem: any) => elem.textContent))
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'div.cc-atc-price',
+            render: 'text',
+        })
     }
 }

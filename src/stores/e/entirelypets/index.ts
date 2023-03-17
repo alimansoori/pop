@@ -3,25 +3,19 @@ import Store from '../../Store'
 export default class Entirelypets extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[itemprop="name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('input[id="vwd-add-to-cart"]', { timeout: 10000 })
-            const availability = await this.page.$eval('input[id="vwd-add-to-cart"]', (elem: any) =>
-                elem.getAttribute('value')
-            )
-
-            if (availability?.toLowerCase() === 'add to cart') {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'input[id="vwd-add-to-cart"]',
+            render: 'value',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {

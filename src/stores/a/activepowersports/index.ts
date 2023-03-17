@@ -5,28 +5,15 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Activepowersports extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.runPostman = true
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.productView-title')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        this.setAvailability(true)
-    }
-
-    async priceCalculate(): Promise<void> {
-        try {
-            const selector = 'div.productView-price *.price--withoutTax'
-            if (!this.headlessRun) {
-                this.setPrice(textToNumber(this.resultReq.$(selector).text()))
-            } else {
-                await this.page.waitForSelector(selector, { timeout: 10000 })
-                this.setPrice(await this.page.$eval(selector, (elem: any) => elem.textContent))
-            }
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

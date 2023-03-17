@@ -7,8 +7,6 @@ export default class Bjs extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
-        // this.runPostman = true
-        // this.siteIsBlocked = true
     }
 
     async productExistCalculate(): Promise<void> {

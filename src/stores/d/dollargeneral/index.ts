@@ -5,9 +5,12 @@ import { textToNumber } from '../../../lib/helper'
 export default class Dollargeneral extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('*.productPickupFullDetail__title h1.productPickupFullDetail__productName')
+    }
 
     async availibilityCalculate(): Promise<void> {
         try {

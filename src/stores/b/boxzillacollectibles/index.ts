@@ -3,9 +3,12 @@ import Store from '../../Store'
 export default class Boxzillacollectibles extends Store {
     constructor(url: string) {
         super(url)
+        // this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        // await this.productExistBySelector('')
+    }
 
     async availibilityCalculate(): Promise<void> {
         try {

@@ -14,13 +14,7 @@ export default class Bigapplecollectibles extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas(
-            'main[id="MainContent"] div[id="shopify-section-product-template"] script[type="application/ld+json"]'
-        )
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas(
+        await this.checkMetaByClassSchemas(
             'main[id="MainContent"] div[id="shopify-section-product-template"] script[type="application/ld+json"]'
         )
     }

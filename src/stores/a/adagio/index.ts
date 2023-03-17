@@ -7,6 +7,7 @@ export default class Adagio extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {
