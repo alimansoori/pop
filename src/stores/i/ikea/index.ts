@@ -3,17 +3,14 @@ import Store from '../../Store'
 export default class Ikea extends Store {
     constructor(url: string) {
         super(url)
-        // this.runPostman = true
-        // this.siteIsBlocked = true
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.pip-header-section')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailibilityBySchemas('script[type="application/ld+json"]')
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

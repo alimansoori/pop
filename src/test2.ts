@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.theisens.com/products/lawn-pro-weed-and-feed/24790040/',
+            url: 'https://www.moosejaw.com/product/petzl-ascension-ergonomic-ascender-left_10427260',
         })
 
         /*await keepaCheck({

@@ -6,7 +6,7 @@ export default class Pippd extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.runPostman = true
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

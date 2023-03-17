@@ -5,7 +5,7 @@ export default class Newegg extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.includeAssets = [/https:\/\/c1.neweggimages.com\/webResource\/Scripts\/WWW\/jquery/]
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

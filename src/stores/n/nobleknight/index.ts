@@ -7,7 +7,6 @@ export default class Nobleknight extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
-        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {

@@ -6,11 +6,11 @@ export default class Leatherman extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
-        // this.runPostman = true
-        // this.siteIsBlocked = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1.product-name')
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkMetaByClassSchemas('script[type="application/ld+json"]')

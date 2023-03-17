@@ -5,41 +5,26 @@ import { textToNumber } from '../../../lib/helper'
 export default class Nothingbutsavings extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('div.product-header div[id="desktop-title"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('div[id="details-cart-button"]', { timeout: 10000 })
-            const availability = await this.page.$eval('div[id="details-cart-button"]', (elem: any) => elem.textContent)
-
-            if (availability?.toLowerCase().includes('add to cart')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'div[id="details-cart-button"]',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector(
+        await this.checkPrice({
+            selector1:
                 'div.product-container > div.product-right > div.product-details:first-child > div.product-dlist2-price',
-                { timeout: 3000 }
-            )
-            const price = textToNumber(
-                await this.page.$eval(
-                    'div.product-container > div.product-right > div.product-details:first-child > div.product-dlist2-price',
-                    (elem: any) => elem.textContent
-                )
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+            render: 'text',
+        })
     }
 }

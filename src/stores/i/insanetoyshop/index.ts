@@ -5,43 +5,25 @@ import { textToNumber } from '../../../lib/helper'
 export default class Insanetoyshop extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('h2[itemprop="name"]', { timeout: 10000 })
-            this.productExist = true
-        } catch (e: any) {
-            this.productExist = false
-        }
+        await this.productExistBySelector('h2[itemprop="name"]')
     }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('button[id="product-add-to-cart"]', { timeout: 10000 })
-            const availability = await this.page.$eval(
-                'button[id="product-add-to-cart"]',
-                (elem: any) => elem.textContent
-            )
-
-            if (availability?.toLowerCase().includes('add to cart')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'button[id="product-add-to-cart"]',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.textContent))
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: '*[itemprop="price"]',
+            render: 'text',
+        })
     }
 }

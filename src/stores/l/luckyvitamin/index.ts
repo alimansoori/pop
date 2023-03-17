@@ -5,7 +5,7 @@ export default class Luckyvitamin extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
-        // this.viewPageSource = false
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

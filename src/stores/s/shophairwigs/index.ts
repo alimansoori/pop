@@ -4,9 +4,8 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Shophairwigs extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.LOAD
-        // this.runPostman = true
-        // this.siteIsBlocked = true
+        this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

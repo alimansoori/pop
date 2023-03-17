@@ -6,6 +6,7 @@ export default class Thrivemarket extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.enableCanonical = false
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

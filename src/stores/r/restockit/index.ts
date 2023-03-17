@@ -6,9 +6,12 @@ export default class Restockit extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[itemprop="name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({

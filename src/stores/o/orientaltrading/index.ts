@@ -5,14 +5,11 @@ export default class Orientaltrading extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('div[id="pdp_main_item_details"] h1')
-    }
-
-    async productTitleCalculate(): Promise<void> {
-        // this.titleClass.setTitle("ffff");
     }
 
     async availibilityCalculate(): Promise<void> {

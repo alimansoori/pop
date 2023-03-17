@@ -1,40 +1,27 @@
 import Store from '../../Store'
-import { textToNumber } from '../../../lib/helper'
 
 export default class Oldies extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1[itemprop="name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('link[itemprop="availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('link[itemprop="availability"]', (elem: any) =>
-                elem.getAttribute('href')
-            )
-
-            if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'link[itemprop="availability"]',
+            render: 'href',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: '*[itemprop="price"]',
+            render: 'content',
+        })
     }
 }

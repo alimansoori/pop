@@ -5,41 +5,25 @@ import { textToNumber } from '../../../lib/helper'
 export default class Kikocosmetics extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h2.ProductDetails__Title')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('button.Button--AddToCart > span.Label', { timeout: 10000 })
-            const availability = await this.page.$eval(
-                'button.Button--AddToCart > span.Label',
-                (elem: any) => elem.textContent
-            )
-
-            if (
-                availability?.toLowerCase().includes('add to cart') ||
-                availability?.toLowerCase().includes('add to bag')
-            ) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'button.Button--AddToCart > span.Label',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('*[itemprop="price"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('*[itemprop="price"]', (elem: any) => elem.getAttribute('content'))
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: '*[itemprop="price"]',
+            render: 'content',
+        })
     }
 }

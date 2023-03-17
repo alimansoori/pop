@@ -5,38 +5,25 @@ import { textToNumber } from '../../../lib/helper'
 export default class Landmsupply extends Store {
     constructor(url: string) {
         super(url)
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1 *[itemprop="name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('div.available > span', { timeout: 10000 })
-            const availability = await this.page.$eval('div.available > span', (elem: any) => elem.textContent)
-
-            console.log(availability)
-            if (availability?.toLowerCase().includes('instock') || availability?.toLowerCase().includes('in stock')) {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'div.available > span',
+            render: 'text',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('meta[property="product:price:amount"]', { timeout: 3000 })
-            const price = textToNumber(
-                await this.page.$eval('meta[property="product:price:amount"]', (elem: any) =>
-                    elem.getAttribute('content')
-                )
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'meta[property="product:price:amount"]',
+            render: 'content',
+        })
     }
 }

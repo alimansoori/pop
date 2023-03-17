@@ -5,6 +5,7 @@ export default class Summitbicycles extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

@@ -5,8 +5,7 @@ export default class Lowes extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
-        // this.enableAssets = true
-        // this.viewPageSource = false
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

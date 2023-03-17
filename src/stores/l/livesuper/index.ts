@@ -7,8 +7,6 @@ export default class Livesuper extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        // this.siteIsBlocked = true
-        // this.runPostman = true
     }
 
     async productExistCalculate(): Promise<void> {}

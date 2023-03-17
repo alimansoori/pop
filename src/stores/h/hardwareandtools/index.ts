@@ -6,41 +6,26 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Hardwareandtools extends Store {
     constructor(url: string) {
         super(url)
-
         this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
-    async productExistCalculate(): Promise<void> {}
+    async productExistCalculate(): Promise<void> {
+        await this.productExistBySelector('h1 *[itemprop="name"]')
+    }
 
     async availibilityCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('meta[property="product:availability"]', { timeout: 10000 })
-            const availability = await this.page.$eval('meta[property="product:availability"]', (elem: any) =>
-                elem.getAttribute('content')
-            )
-
-            if (availability === 'instock') {
-                this.setAvailability(true)
-            } else {
-                this.setAvailability(false)
-            }
-        } catch (e: any) {
-            this.setAvailability(false)
-        }
+        await this.checkAvailability({
+            selector: 'meta[property="product:availability"]',
+            render: 'content',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
-        try {
-            await this.page.waitForSelector('meta[property="product:price:amount"]', { timeout: 5000 })
-            const price = textToNumber(
-                await this.page.$eval('meta[property="product:price:amount"]', (elem: any) =>
-                    elem.getAttribute('content')
-                )
-            )
-
-            this.setPrice(price)
-        } catch (e: any) {
-            this.setPrice(NaN)
-        }
+        await this.checkPrice({
+            selector1: 'meta[property="product:price:amount"]',
+            render: 'content',
+        })
     }
 }

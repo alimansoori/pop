@@ -6,8 +6,7 @@ export default class Pokemoncenter extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.NET2
-        // this.siteIsBlocked = true
-        this.headlessRun = true
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

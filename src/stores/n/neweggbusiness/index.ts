@@ -5,7 +5,7 @@ export default class Neweggbusiness extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
-        this.viewPageSource = false
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

@@ -5,6 +5,7 @@ export default class Titangamesonline extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

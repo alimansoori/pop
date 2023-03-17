@@ -5,6 +5,7 @@ export default class Lakeside extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

@@ -5,7 +5,7 @@ export default class Haircareandbeauty extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
-        this.enableAssets = true
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {

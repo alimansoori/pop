@@ -4,7 +4,8 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Schoolspecialty extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.LOAD
+        this.loadType = EnumLoadType.DOC_LOADED
+        this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {
