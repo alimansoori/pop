@@ -1,7 +1,5 @@
 import Store from '../../Store'
 
-import { textToNumber } from '../../../lib/helper'
-
 export default class Insanetoyshop extends Store {
     constructor(url: string) {
         super(url)

@@ -1,5 +1,4 @@
 import Store from '../../Store'
-import { textToNumber } from '../../../lib/helper'
 
 export default class Chewy extends Store {
     constructor(url: string) {

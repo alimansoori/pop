@@ -2,7 +2,6 @@ import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { sleep } from '../../../utils/sleep'
 import { textToNumber } from '../../../lib/helper'
-import { find } from 'shelljs'
 
 export default class Target extends Store {
     constructor(url: string) {

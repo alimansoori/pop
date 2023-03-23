@@ -23,8 +23,8 @@ export async function main() {
         )
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
-        const sourcePrice = await sourceCheck({
-            url: 'https://www.moosejaw.com/product/petzl-ascension-ergonomic-ascender-left_10427260',
+        await sourceCheck({
+            url: 'https://www.cvs.com/shop/phillips-milk-of-magnesia-overnight-relief-of-occasional-constipation-liquid-laxative-fresh-mint-prodid-811162',
         })
 
         /*await keepaCheck({

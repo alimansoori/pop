@@ -14,6 +14,10 @@ export default class Hottopic extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
+    }
+
+    /*async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
             selector: 'div.availability-msg-text.instock',
             render: 'text',
@@ -26,5 +30,5 @@ export default class Hottopic extends Store {
             selector1: 'div.product-detail div.pdp-details div.price *.default-price *.value',
             render: 'content',
         })
-    }
+    }*/
 }

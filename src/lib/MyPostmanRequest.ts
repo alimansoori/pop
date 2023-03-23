@@ -55,7 +55,7 @@ export default class MyPostmanRequest {
         return res
     }
 
-    static async request(url: string, isBan = false): Promise<TypePostmanReq> {
+    static async request(url: string): Promise<TypePostmanReq> {
         const proxyRequest = request.defaults({
             proxy: 'http://d8fdd1a5127c40049468dafcf932af8c:@proxy.crawlera.com:8011',
         })
@@ -80,7 +80,7 @@ export default class MyPostmanRequest {
         }
 
         proxyRequest(options, (error: any, response: any, body: any) => {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode === 200) {
                 res.headers = response.headers
                 res.$ = cheerio.load(body)
                 res.body = JSON.stringify(body)

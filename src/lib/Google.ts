@@ -3,7 +3,6 @@ import { MyPuppeteer } from './MyPuppeteer'
 // @ts-ignore
 import { Browser, Page } from 'zyte-smartproxy-puppeteer'
 import axios from 'axios'
-import { sleep } from '../utils/sleep'
 
 export default class Google {
     page!: Page

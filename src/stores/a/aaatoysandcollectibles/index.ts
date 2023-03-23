@@ -1,7 +1,5 @@
 import Store from '../../Store'
 
-import { textToNumber } from '../../../lib/helper'
-
 export default class Aaatoysandcollectibles extends Store {
     constructor(url: string) {
         super(url)

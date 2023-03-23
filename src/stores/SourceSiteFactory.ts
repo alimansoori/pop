@@ -514,6 +514,7 @@ import Fastoolnow from './f/fastoolnow'
 import Burnstools from './b/burnstools'
 import Northerntool from './n/northerntool'
 import Worldofwatches from './w/worldofwatches'
+import Netrition from './n/netrition'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -848,7 +849,7 @@ export default class SourceSiteFactory {
             else if (domain === 'myshopville') return new Myshopville(url)
             else if (domain === 'mrsupply') return new Mrsupply(url)
             else if (domain === 'musiciansfriend') return new Musiciansfriend(url)
-            // else if (domain === 'netrition') return new Netrition(url)
+            else if (domain === 'netrition') return new Netrition(url)
             else if (domain === 'newark') return new Newark(url)
             else if (domain === 'n101nutrition') return new N101nutrition(url)
             else if (domain === 'newegg') return new Newegg(url)

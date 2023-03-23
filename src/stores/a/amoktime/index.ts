@@ -1,6 +1,4 @@
 import Store from '../../Store'
-
-import { textToNumber } from '../../../lib/helper'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Amoktime extends Store {

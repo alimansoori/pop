@@ -4,14 +4,18 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Gamestop extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.LOAD
+        this.loadType = EnumLoadType.DOC_LOADED
     }
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[itemprop="name"],h2.product-name')
     }
 
-    async productImageCalculate(): Promise<void> {
+    async availibilityCalculate(): Promise<void> {
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
+    }
+
+    /*async productImageCalculate(): Promise<void> {
         await this.setImage({
             selector: 'div.product-main-image-gallery img.product-main-image.lazyloaded',
             render: 'src',
@@ -34,5 +38,5 @@ export default class Gamestop extends Store {
                 render: 'text',
             })
         }
-    }
+    }*/
 }
