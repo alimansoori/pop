@@ -37,7 +37,7 @@ export class MyPuppeteer {
                 browserP = {
                     ...browserP,
                     // @ts-ignore
-                    spm_apikey: 'd8fdd1a5127c40049468dafcf932af8c',
+                    spm_apikey: '31c40639ad9d45e89096d6e165cdbb97',
                 }
             }
 

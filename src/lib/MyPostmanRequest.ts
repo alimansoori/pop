@@ -17,7 +17,7 @@ export default class MyPostmanRequest {
 
         let proxy = null
         if (isBan) {
-            proxy = 'http://d8fdd1a5127c40049468dafcf932af8c:@proxy.crawlera.com:8011'
+            proxy = 'http://31c40639ad9d45e89096d6e165cdbb97:@proxy.crawlera.com:8011'
         }
 
         const proxyRequest = await request.defaults({
@@ -57,7 +57,7 @@ export default class MyPostmanRequest {
 
     static async request(url: string): Promise<TypePostmanReq> {
         const proxyRequest = request.defaults({
-            proxy: 'http://d8fdd1a5127c40049468dafcf932af8c:@proxy.crawlera.com:8011',
+            proxy: 'http://31c40639ad9d45e89096d6e165cdbb97:@proxy.crawlera.com:8011',
         })
 
         const res = {
