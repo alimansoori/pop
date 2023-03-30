@@ -26,7 +26,7 @@ import Beallsflorida from './b/beallsflorida'
 import Bedbathandbeyond from './b/bedbathandbeyond'
 import Belk from './b/belk'
 import Bestbuy from './b/bestbuy'
-import Bigapplecollectibles from './b/bigapplecollectibles'
+// import Bigapplecollectibles from './b/bigapplecollectibles'
 import Bigbadtoystore from './b/bigbadtoystore'
 import Bloomingdales from './b/bloomingdales'
 import Banggood from './b/banggood'
@@ -618,7 +618,7 @@ export default class SourceSiteFactory {
             else if (domain === 'beautifiedyou') return new Beautifiedyou(url)
             else if (domain === 'bestbuy') return new Bestbuy(url)
             else if (domain === 'betterhealthmarket') return new Betterhealthmarket(url)
-            else if (domain === 'bigapplecollectibles') return new Bigapplecollectibles(url)
+            // else if (domain === 'bigapplecollectibles') return new Bigapplecollectibles(url)
             else if (domain === 'bigbadtoystore') return new Bigbadtoystore(url)
             else if (domain === 'bikebling') return new Bikebling(url)
             // else if (domain === 'brother-usa') return new BrotherUsa(url)

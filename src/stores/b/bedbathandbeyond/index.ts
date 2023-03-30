@@ -5,8 +5,8 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Bedbathandbeyond extends Store {
     constructor(url: string) {
         super(url)
-        this.url = url.replace(/(\/amp)/gi, '')
-        this.url = url.replace('bedbathandbeyond.com', 'bedbathandbeyond.com/amp')
+        this.url = this.getUrl().replace(/(\/amp)/g, '')
+        this.url = this.getUrl().replace('bedbathandbeyond.com', 'bedbathandbeyond.com/amp')
         this.loadType = EnumLoadType.LOAD
         this.scrapUntilBlock = true
     }

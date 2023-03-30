@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         await sourceCheck({
-            url: 'https://www.cvs.com/shop/phillips-milk-of-magnesia-overnight-relief-of-occasional-constipation-liquid-laxative-fresh-mint-prodid-811162',
+            url: 'https://www.bestbuy.com/site/reviews/funko-pop-games-fortnite-raven-black/6315446',
         })
 
         /*await keepaCheck({

@@ -7,7 +7,7 @@ export default class Banggood extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('')
+        await this.productExistBySelector('h1.product-title')
     }
 
     async availibilityCalculate(): Promise<void> {
@@ -17,9 +17,5 @@ export default class Banggood extends Store {
             render: 'text',
             outputArray: [],
         })
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPriceBySchemas('script[type="application/ld+json"]')
     }
 }
