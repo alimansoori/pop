@@ -24,7 +24,7 @@ export async function main() {
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
         await sourceCheck({
-            url: 'https://www.bestbuy.com/site/reviews/funko-pop-games-fortnite-raven-black/6315446',
+            url: 'https://planetcyclery.com/sram-dub-pressfit-bottom-bracket-bb86-86mm-road-black',
         })
 
         /*await keepaCheck({

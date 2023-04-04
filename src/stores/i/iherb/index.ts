@@ -9,7 +9,21 @@ export default class Iherb extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('*[id="name"][itemprop="name"]')
+        await this.productExistBySelector('div[id="name"][itemprop="name"]')
+    }
+
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'div[id="name"][itemprop="name"]',
+            render: 'text',
+        })
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'img[id="iherb-product-image"]',
+            render: 'src',
+        })
     }
 
     async availibilityCalculate(): Promise<void> {

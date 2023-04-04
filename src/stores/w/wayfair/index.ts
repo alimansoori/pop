@@ -4,9 +4,10 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Wayfair extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.LOAD
-        this.scrapUntilBlock = true
-        this.excludeAssets = ['https://secure.img1-fg.wfcdn.com/webpack']
+        this.loadType = EnumLoadType.NET2
+        // this.scrapUntilBlock = true
+        // this.enableAssets = true
+        // this.excludeAssets = ['https://secure.img1-fg.wfcdn.com/webpack']
     }
 
     async productExistCalculate(): Promise<void> {

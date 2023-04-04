@@ -22,7 +22,7 @@ export default class Hasbropulse extends Store {
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: '*[js-product-form="price"]',
+            selector1: '*.product-form__price-value',
             render: 'text',
         })
     }
