@@ -5,6 +5,7 @@ import { KeepaOutputType } from '../@types/KeepaOutputType'
 import { KeepaProductType } from '../@types/KeepaProductType'
 import ProfitRoiCalculate from './ProfitRoiCalculate'
 import { EnumCategories } from '../@types/EnumCategories'
+import * as fs from 'fs'
 
 export default class Keepa {
     private input: KeepaInputType
@@ -35,14 +36,16 @@ export default class Keepa {
     top = false
     category = ''
     image = ''
+    private config: IKeepaConfig
 
     constructor(input: KeepaInputType) {
         this.input = input
-        this.keepaUrl = `${this.apiUrl}product?key=${this.key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
+        this.config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'))
+        this.keepaUrl = `${this.config.keepa_api_url}product?key=${this.config.keepa_api_key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
     }
 
     setKeepaUrl(key: string) {
-        this.keepaUrl = `${this.apiUrl}product?key=${key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
+        this.keepaUrl = `${this.config.keepa_api_url}product?key=${key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
     }
 
     async fetchByKeepa() {

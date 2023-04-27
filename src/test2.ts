@@ -23,14 +23,14 @@ export async function main() {
         )
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
-        const sourcePrice = await sourceCheck({
+        /*const sourcePrice = await sourceCheck({
             url: 'https://www.aerosoles.com/collections/mules-clogs/products/lowery-cognac-leather?variant=43098247332032',
-        })
-
-        /*await keepaCheck({
-            asin: 'B09F3XP7FP',
-            price: sourcePrice,
         })*/
+
+        await keepaCheck({
+            asin: 'B09F3XP7FP',
+            price: 2,
+        })
     } catch (e: any) {
         console.log(e.message)
     }
