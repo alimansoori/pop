@@ -1,4 +1,4 @@
-import { KeepaInputType } from '../@types/KeepaInputType'
+import { KeepaInputType } from './keepa/KeepaInputType'
 import axios from 'axios'
 import { sleep } from '../utils/sleep'
 import { KeepaOutputType } from '../@types/KeepaOutputType'
@@ -14,10 +14,10 @@ export default class Keepa {
     // private key = "42t2rfuagph4t942ccfi5l97lkkp5dh7ak0sm2brnc4a66nh4ouj82edn0pjp0on"
     private apiUrl = 'https://api.keepa.com/'
     private isKey = 1
-    private domain = 1
-    private stats: number = Math.ceil(Date.now() / 1000)
-    private days = 90
-    private buyBox = 1
+    private readonly domain: number = 1
+    private readonly stats: number = Math.ceil(Date.now() / 1000)
+    private readonly days: number = 90
+    private readonly buyBox: number = 1
     private keepaUrl: string
     data: KeepaOutputType | null = null
     private product: KeepaProductType | null = null
@@ -40,7 +40,7 @@ export default class Keepa {
 
     constructor(input: KeepaInputType) {
         this.input = input
-        this.config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'))
+        this.config = JSON.parse(fs.readFileSync(input.configPath, 'utf-8'))
         this.keepaUrl = `${this.config.keepa_api_url}product?key=${this.config.keepa_api_key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
     }
 

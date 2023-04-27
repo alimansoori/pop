@@ -134,6 +134,7 @@ export default class GoogleSheets {
                     const keepa = new Keepa({
                         asin: rows[i].ASIN,
                         sourcePrice: store.getPrice() * amazonNumber,
+                        configPath: './config.json',
                     })
                     await keepa.fetchByKeepa()
                     rows[i]['Sell Price'] = keepa.sellPrice

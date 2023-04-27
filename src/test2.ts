@@ -23,14 +23,14 @@ export async function main() {
         )
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
-        /*const sourcePrice = await sourceCheck({
+        const sourcePrice = await sourceCheck({
             url: 'https://www.aerosoles.com/collections/mules-clogs/products/lowery-cognac-leather?variant=43098247332032',
-        })*/
+        })
 
-        await keepaCheck({
+        /*await keepaCheck({
             asin: 'B09F3XP7FP',
             price: 2,
-        })
+        })*/
     } catch (e: any) {
         console.log(e.message)
     }
@@ -62,6 +62,7 @@ async function keepaCheck(input: { asin: string; price: number }) {
         const keepa = new Keepa({
             asin: input.asin,
             sourcePrice: input.price,
+            configPath: './config.json',
         })
         await keepa.fetchByKeepa()
         console.log('Selling Price: ' + keepa.sellPrice)
