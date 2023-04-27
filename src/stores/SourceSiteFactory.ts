@@ -518,6 +518,16 @@ import Fruitfulyield from './f/fruitfulyield'
 import Heruniverse from './h/heruniverse'
 import Dralexrinehart from './d/dralexrinehart'
 import Planetcyclery from './p/planetcyclery'
+import Allenedmonds from './a/allenedmonds'
+import Alphaindustries from './a/alphaindustries'
+import Alibris from './a/alibris'
+import Algenist from './a/algenist'
+import Alexandalexa from './a/alexandalexa'
+import Ajmadison from './a/ajmadison'
+import Airgundepot from './a/airgundepot'
+import Ahava from './a/ahava'
+import Africaimports from './a/africaimports'
+import Aerosoles from './a/aerosoles'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -563,12 +573,14 @@ export default class SourceSiteFactory {
             else if (domain === 'aaatoysandcollectibles') return new Aaatoysandcollectibles(url)
             else if (domain === 'abbottstore') return new Abbottstore(url)
             else if (domain === 'amoktime') return new Amoktime(url)
+            else if (domain === 'allenedmonds') return new Allenedmonds(url)
             else if (domain === 'abesofmaine') return new Abesofmaine(url)
             // else if (domain === 'abt') return new Abt(url)
             else if (domain === 'academy') return new Academy(url)
             else if (domain === 'accessorygeeks') return new Accessorygeeks(url)
             else if (domain === 'acehardware') return new Acehardware(url)
             else if (domain === 'acer') return new Acer(url)
+            else if (domain === 'ahava') return new Ahava(url)
             else if (domain === 'allivet') return new Allivet(url)
             else if (domain === 'aclens') return new Aclens(url)
             else if (domain === 'artofskincare') return new Artofskincare(url)
@@ -576,12 +588,17 @@ export default class SourceSiteFactory {
             else if (domain === 'activepowersports') return new Activepowersports(url)
             else if (domain === 'activerideshop') return new Activerideshop(url)
             else if (domain === 'acurite') return new Acurite(url)
+            else if (domain === 'alexandalexa') return new Alexandalexa(url)
             else if (domain === 'atomicempire') return new Atomicempire(url)
             else if (domain === 'adafruit') return new Adafruit(url)
+            else if (domain === 'africaimports') return new Africaimports(url)
             else if (domain === 'adagio') return new Adagio(url)
+            else if (domain === 'algenist') return new Algenist(url)
+            else if (domain === 'aerosoles') return new Aerosoles(url)
             else if (domain === 'allegromedical') return new Allegromedical(url)
             else if (domain === 'adenandanais') return new Adenandanais(url)
             else if (domain === 'adorama') return new Adorama(url)
+            else if (domain === 'alibris') return new Alibris(url)
             else if (domain === 'armynavyusa') return new Armynavyusa(url)
             else if (domain === 'audiosavings') return new Audiosavings(url)
             else if (domain === 'adwdiabetes') return new Adwdiabetes(url)
@@ -590,6 +607,9 @@ export default class SourceSiteFactory {
             else if (domain === 'ae') return new Ae(url)
             // else if (domain === 'design-milk') return new DesignMilk(url)
             else if (domain === 'airgas') return new Airgas(url)
+            else if (domain === 'ajmadison') return new Ajmadison(url)
+            else if (domain === 'alphaindustries') return new Alphaindustries(url)
+            else if (domain === 'airgundepot') return new Airgundepot(url)
             else if (domain === 'altomusic') return new Altomusic(url)
             else if (domain === 'albeebaby') return new Albeebaby(url)
             else if (domain === 'alltimetoys') return new Alltimetoys(url)

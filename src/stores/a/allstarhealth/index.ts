@@ -10,6 +10,13 @@ export default class Allstarhealth extends Store {
         await this.productExistBySelector('h1[itemprop="name"]')
     }
 
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'h1[itemprop="name"]',
+            render: 'text',
+        })
+    }
+
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
             selector: 'div.add_butn_crt a.add_btn[title="addtocart"]',

@@ -23,8 +23,8 @@ export async function main() {
         )
         console.log(resultReq.$('h1[itemprop="name"]').text())*/
 
-        await sourceCheck({
-            url: 'https://planetcyclery.com/sram-dub-pressfit-bottom-bracket-bb86-86mm-road-black',
+        const sourcePrice = await sourceCheck({
+            url: 'https://www.aerosoles.com/collections/mules-clogs/products/lowery-cognac-leather?variant=43098247332032',
         })
 
         /*await keepaCheck({

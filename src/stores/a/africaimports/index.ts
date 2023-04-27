@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Airgas extends Store {
+export default class Africaimports extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -9,15 +9,10 @@ export default class Airgas extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div.product-information h2')
+        await this.productExistBySelector('h1.productView-title')
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
-        await this.checkAvailability({
-            selector: 'button[data-enable-add-to-cart="true"]',
-            render: 'text',
-            outputArray: [],
-        })
     }
 }

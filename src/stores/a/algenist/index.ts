@@ -1,8 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-// 1-28-2023
-export default class Allegromedical extends Store {
+export default class Algenist extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -10,20 +9,16 @@ export default class Allegromedical extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1 *[itemprop="name"]')
+        await this.productExistBySelector('div.prodTitle h1')
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailability({
-            selector: 'link[itemprop="availability"]',
-            render: 'href',
-            outputArray: [],
-        })
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'meta[itemprop="price"]',
+            selector1: 'meta[property="og:price:amount"]',
             render: 'content',
         })
     }
