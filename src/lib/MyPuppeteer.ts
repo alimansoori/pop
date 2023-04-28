@@ -24,12 +24,12 @@ export class MyPuppeteer {
     async afterBuild(): Promise<void> {
         try {
             // process.setMaxListeners(0)
-            // puppeteer.use(StealthPlugin())
 
             let browserP = {
                 headless: this.headless,
                 ignoreHTTPSErrors: true,
                 executablePath: 'C:\\chrome-win\\chrome.exe',
+                args: ['--no-sandbox'],
                 // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
             }
 

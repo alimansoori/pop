@@ -528,6 +528,11 @@ import Airgundepot from './a/airgundepot'
 import Ahava from './a/ahava'
 import Africaimports from './a/africaimports'
 import Aerosoles from './a/aerosoles'
+import Americasbest from './a/americasbest'
+import Amerimark from './a/amerimark'
+import Amiclubwear from './a/amiclubwear'
+import Andrewmarc from './a/andrewmarc'
+import Anntaylor from './a/anntaylor'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -572,7 +577,12 @@ export default class SourceSiteFactory {
             else if (domain === 'a-zapplianceparts') return new AZapplianceparts(url)
             else if (domain === 'aaatoysandcollectibles') return new Aaatoysandcollectibles(url)
             else if (domain === 'abbottstore') return new Abbottstore(url)
+            else if (domain === 'andrewmarc') return new Andrewmarc(url)
             else if (domain === 'amoktime') return new Amoktime(url)
+            else if (domain === 'anntaylor') return new Anntaylor(url)
+            else if (domain === 'americasbest') return new Americasbest(url)
+            else if (domain === 'amerimark') return new Amerimark(url)
+            else if (domain === 'amiclubwear') return new Amiclubwear(url)
             else if (domain === 'allenedmonds') return new Allenedmonds(url)
             else if (domain === 'abesofmaine') return new Abesofmaine(url)
             // else if (domain === 'abt') return new Abt(url)

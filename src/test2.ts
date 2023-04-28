@@ -3,28 +3,15 @@ import Keepa from './lib/Keepa'
 
 export async function main() {
     try {
-        /*const includeAssets = [
-            /https:\/\/assets.thdstatic.com\/analytics\//,
-            'https://assets.thdstatic.com/analytics/sync/b2c/desktop/prod/current/sync.js',
-            'https://assets.thdstatic.com/analytics/core/b2c/desktop/prod/current/core.js',
+        /*const input = [
+            { images: '', 'images-src': '1.jpg' },
+            { images: '', 'images-src': '2.jpg' },
         ]
-        const str = 'https://assets.thdstatic.com/analytics/core/b2c/desktop/prod/current/core.js'
-        for (const patternAsset of includeAssets) {
-            if (str.match(patternAsset)) {
-                console.log('is match')
-            }
-        }*/
-        /*const doc = new Doc('1')
-        await doc.auth()*/
-
-        /*const resultReq = await MyPostmanRequest.request(
-            'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
-            true
-        )
-        console.log(resultReq.$('h1[itemprop="name"]').text())*/
+        const output = input.map((obj) => obj['images-src'])
+        console.log(JSON.stringify(output))*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.aerosoles.com/collections/mules-clogs/products/lowery-cognac-leather?variant=43098247332032',
+            url: 'https://www.anntaylor.com/work/all-work/cat4190020/608306.html?priceSort=DES',
         })
 
         /*await keepaCheck({
