@@ -1,16 +1,19 @@
 // @ts-ignore
 import puppeteer, { Browser, Page } from 'zyte-smartproxy-puppeteer'
+import fs from 'fs'
 
 export class MyPuppeteer {
     page!: Page
     browser!: Browser
     headless = false
     useProxy = false
+    private readonly config: IPuppeteerConfig
     // defaultViewport: puppeteer.Viewport | null | undefined = null
 
     constructor(headless: boolean, useProxy: boolean) {
         this.useProxy = useProxy
         this.headless = headless
+        this.config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'))
     }
 
     async build(): Promise<void> {
@@ -29,7 +32,6 @@ export class MyPuppeteer {
                 headless: this.headless,
                 ignoreHTTPSErrors: true,
                 executablePath: 'C:\\chrome-win\\chrome.exe',
-                args: ['--no-sandbox'],
                 // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
             }
 
@@ -37,7 +39,7 @@ export class MyPuppeteer {
                 browserP = {
                     ...browserP,
                     // @ts-ignore
-                    spm_apikey: '31c40639ad9d45e89096d6e165cdbb97',
+                    spm_apikey: this.config.zyte_api_key,
                 }
             }
 

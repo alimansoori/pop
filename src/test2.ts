@@ -1,8 +1,22 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 import Keepa from './lib/Keepa'
+import { DbApi } from './lib/db-api/DbApi'
 
 export async function main() {
     try {
+        const dbApi = new DbApi('http://199.244.49.112:8080/api', '')
+        /*console.log(
+            await dbApi.addProduct({
+                title: 'Transformers Takara Tomy Masterpiece Optimus Prime and Tenseg Base',
+                link: 'https://hasbropulse.com/collections/all-products/products/transformers-takara-tomy-masterpiece-optimus-prime-and-tenseg-base',
+            })
+        )*/
+
+        console.log(
+            await dbApi.getProductByTitle({
+                search: 'Disney Pop! Vinyl Figure Maleficent (Flames)',
+            })
+        )
         /*const input = [
             { images: '', 'images-src': '1.jpg' },
             { images: '', 'images-src': '2.jpg' },
@@ -10,9 +24,9 @@ export async function main() {
         const output = input.map((obj) => obj['images-src'])
         console.log(JSON.stringify(output))*/
 
-        const sourcePrice = await sourceCheck({
+        /*const sourcePrice = await sourceCheck({
             url: 'https://www.anntaylor.com/work/all-work/cat4190020/608306.html?priceSort=DES',
-        })
+        })*/
 
         /*await keepaCheck({
             asin: 'B09F3XP7FP',

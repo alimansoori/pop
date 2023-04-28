@@ -8,6 +8,7 @@ import MyDate from '../lib/MyDate'
 import { loadSetting, tomorrowDate, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 import { sleep } from '../utils/sleep'
+import { DbApi } from '../lib/db-api/DbApi'
 
 export default class GoogleSheets {
     // private page
@@ -104,6 +105,26 @@ export default class GoogleSheets {
             if (!rows[i]['Source URL'] || !rows[i]['Amazon URL']) {
                 console.log(`>>>> row ${rows[i].rowIndex} Source URL OR Amazon URL not exist`)
                 continue
+            }
+
+            // Add product to DbApi
+            const addProductFromGoogleSheetInput: IProductInput = {
+                link: rows[i]['Source URL'],
+                title: rows[i]['Title'],
+                asin: rows[i]['ASIN'],
+                src: rows[i]['Source'],
+                brand: rows[i]['Brand'],
+                category: rows[i]['Category'],
+            }
+
+            if (rows[i]['Product Image']) {
+                addProductFromGoogleSheetInput['images'] = [rows[i]['Product Image']]
+            }
+
+            try {
+                await DbApi.addProductFromGoogleSheet(addProductFromGoogleSheetInput)
+            } catch (e: any) {
+                console.log(e.message)
             }
 
             const updated = new Date(rows[i].Date)

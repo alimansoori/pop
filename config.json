@@ -1,4 +1,8 @@
 {
 "keepa_api_key": "9lpb4evo4c87vkajmcnfft5dirt97imditg32d27kdp7pm0c861rqc44o6pv1tct",
-"keepa_api_url": "https://api.keepa.com/"
+"keepa_api_url": "https://api.keepa.com/",
+"zyte_api_key": "31c40639ad9d45e89096d6e165cdbb97",
+"zyte_proxy_host": "proxy.crawlera.com",
+"zyte_proxy_port": "8011",
+"db_api": "http://199.244.49.112:8080/api"
 }

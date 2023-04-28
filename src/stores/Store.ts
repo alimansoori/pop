@@ -15,6 +15,7 @@ import { TypePostmanReq } from '../@types/TypePostmanReq'
 import { Browser, Page } from 'puppeteer'
 import StoreSchema from '../lib/StoreSchema'
 import { textToNumber } from '../lib/helper'
+import fs from 'fs'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
@@ -45,8 +46,10 @@ abstract class Store implements IStore, IProductDetails {
     protected enableCanonical = true
     protected includeAssets: (RegExp | string)[] = []
     protected excludeAssets: (RegExp | string)[] = []
+    protected config: IPuppeteerConfig
 
     protected constructor(url: string) {
+        this.config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'))
         this.url = url
         this.selectorsP = new CssSelectors()
         this.optionsP = new StoreOptions()
@@ -79,7 +82,7 @@ abstract class Store implements IStore, IProductDetails {
             if (!this.enableAssets) {
                 await this.page.setRequestInterception(true)
                 this.page.on('request', (req: any) => {
-                    if (req._url.match(/^.*\.ico/)) {
+                    if (req?._url?.match(/^.*\.ico/)) {
                         req.abort()
                     } else if (req.resourceType() === 'document' || req.resourceType() === 'xhr') {
                         // console.log('<<< Asset is match def >>>')
