@@ -14,7 +14,7 @@ export async function main() {
 
         console.log(
             await dbApi.getProductByTitle({
-                search: 'Disney Pop! Vinyl Figure Maleficent (Flames)',
+                search: 'Blue Buffalo',
             })
         )
         /*const input = [
