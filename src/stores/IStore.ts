@@ -12,7 +12,7 @@ export default interface IStore {
     createBrowser(siteIsBlocked?: boolean): Promise<void>
     productIsExist(): boolean
     getPrice(): number
-    getImage(): string | undefined
+    getImage(): string[]
     getTitleClass(): ProductTitle
     getPage(): Page
     setCanonical(): void

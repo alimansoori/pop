@@ -31,8 +31,9 @@ export default class Target extends Store {
 
     async productImageCalculate(): Promise<void> {
         await this.setImage({
-            selector: 'meta[property="og:image"]',
-            render: 'content',
+            selector: 'section[data-test="image-gallery-wrapper"] img',
+            render: 'src',
+            multiple: true,
         })
     }
 

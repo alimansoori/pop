@@ -30,7 +30,7 @@ abstract class Store implements IStore, IProductDetails {
     protected availability = false
     protected isScrollDown = false
     protected price = NaN
-    private image: string | undefined
+    private image: string[] = []
     public error = ''
     protected selectorsPrice: TypePriceSelectors = {}
     private readonly selectorsP: ISelectors
@@ -117,28 +117,28 @@ abstract class Store implements IStore, IProductDetails {
                                 }
                             }
                             /*if (!this.includeAssets.length) {
-                                req.abort()
-                            } else {
-                                console.log(req._url)
-                                console.log(req.resourceType())
-                                let exit = false
-                                for (const patternAsset of this.includeAssets) {
-                                    try {
-                                        if (req._url.match(patternAsset)) {
-                                            console.log('<<< Asset is match >>>')
-                                            exit = true
-                                            req.continue()
-                                            break
-                                        }
-                                    } catch (e) {
-                                        req.abort()
-                                    }
-                                }
-                                if (!exit) {
-                                    console.log('<<< Exit >>>')
-                                    req.abort()
-                                }
-                            }*/
+    req.abort()
+} else {
+    console.log(req._url)
+    console.log(req.resourceType())
+    let exit = false
+    for (const patternAsset of this.includeAssets) {
+        try {
+            if (req._url.match(patternAsset)) {
+                console.log('<<< Asset is match >>>')
+                exit = true
+                req.continue()
+                break
+            }
+        } catch (e) {
+            req.abort()
+        }
+    }
+    if (!exit) {
+        console.log('<<< Exit >>>')
+        req.abort()
+    }
+}*/
                         } else {
                             req.abort()
                         }
@@ -241,77 +241,288 @@ abstract class Store implements IStore, IProductDetails {
         }
     }
 
-    async setImage(input: { selector: string; render: string }) {
+    async setImage(input: { selector: string; render: string; multiple?: boolean }) {
         try {
-            await this.checkImageRender({ selector: input.selector, render: input.render })
+            await this.checkImageRender(input)
         } catch (e: any) {
             this.getTitleClass().setTitle('')
         }
     }
 
-    private async checkImageRender(input: { selector: string; render: string }) {
+    private async checkImageRender(input: { selector: string; render: string; multiple?: boolean }) {
         try {
-            if (this.headlessRun) {
-                if (input.render === 'text') {
-                    this.image = this.resultReq.$(input.selector).text()
-                } else if (input.render === 'content') {
-                    this.image = this.resultReq.$(input.selector).attr('content')
-                } else if (input.render === 'data-price-amount') {
-                    this.image = this.resultReq.$(input.selector).attr('data-price-amount')
-                } else if (input.render === 'data-price') {
-                    this.image = this.resultReq.$(input.selector).attr('data-price')
-                } else if (input.render === 'href') {
-                    this.image = this.resultReq.$(input.selector).attr('href')
-                } else if (input.render === 'src') {
-                    this.image = this.resultReq.$(input.selector).attr('src')
-                } else if (input.render === 'data-thumb') {
-                    this.image = this.resultReq.$(input.selector).attr('data-thumb')
-                } else if (input.render === 'data-zoom-image') {
-                    this.image = this.resultReq.$(input.selector).attr('data-zoom-image')
-                }
-            } else {
-                await this.page.waitForSelector(input.selector, { timeout: 10000 })
-                if (input.render === 'text') {
-                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.textContent)
-                } else if (input.render === 'content') {
-                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content'))
-                } else if (input.render === 'data-price-amount') {
-                    this.image = await this.page.$eval(input.selector, (elem: any) =>
-                        elem.getAttribute('data-price-amount')
-                    )
-                } else if (input.render === 'data-price') {
-                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price'))
-                } else if (input.render === 'href') {
-                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('href'))
-                } else if (input.render === 'src') {
-                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('src'))
-                } else if (input.render === 'data-thumb') {
-                    this.image = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-thumb'))
-                } else if (input.render === 'data-zoom-image') {
-                    this.image = await this.page.$eval(input.selector, (elem: any) =>
-                        elem.getAttribute('data-zoom-image')
-                    )
-                }
+            if (input.render === 'text') {
+                await this.getTextImage(input)
+            } else if (input.render === 'content') {
+                await this.getContentImage(input)
+            } else if (input.render === 'data-price-amount') {
+                await this.getDataPriceAmountImage(input)
+            } else if (input.render === 'data-price') {
+                await this.getDataPriceImage(input)
+            } else if (input.render === 'href') {
+                await this.getHrefImage(input)
+            } else if (input.render === 'src') {
+                await this.getSrcImage(input)
+            } else if (input.render === 'data-thumb') {
+                await this.getDataThumbImage(input)
+            } else if (input.render === 'data-zoom-image') {
+                await this.getDataZoomImageImage(input)
             }
-        } catch (e) {
-            this.image = ''
+        } catch (e: any) {
+            console.error(e.message)
         }
     }
 
-    public getImage(): string | undefined {
-        if (!this.image) {
+    private async getTextImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).text()
+                    })
+                    .get()
+            } else {
+                this.image.push(this.resultReq.$(input.selector).text())
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems.filter((elem) => elem.textContent !== null).map((elem) => elem.textContent ?? '')
+                })) as string[]
+                if (images) this.image = images
+            } else {
+                this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.textContent))
+            }
+        }
+    }
+
+    private async getContentImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('content')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('content')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('content') !== null)
+                        .map((elem) => elem.getAttribute('content') ?? '')
+                })) as string[]
+                if (images) this.image = images
+            } else {
+                this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content')))
+            }
+        }
+    }
+
+    private async getDataPriceAmountImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('data-price-amount')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('data-price-amount')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('data-price-amount') !== null)
+                        .map((elem) => elem.getAttribute('data-price-amount') ?? '')
+                })) as string[]
+                if (images) this.image = images
+            } else {
+                this.image.push(
+                    await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price-amount'))
+                )
+            }
+        }
+    }
+
+    private async getDataPriceImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('data-price')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('data-price')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('data-price') !== null)
+                        .map((elem) => elem.getAttribute('data-price') ?? '')
+                })) as string[]
+                if (images) this.image = images
+            } else {
+                this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price')))
+            }
+        }
+    }
+
+    private async getHrefImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('href')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('href')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('href') !== null)
+                        .map((elem) => elem.getAttribute('href') ?? '')
+                })) as string[]
+                if (images) this.image = images
+            } else {
+                this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('href')))
+            }
+        }
+    }
+
+    private async getSrcImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('src')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('src')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('src') !== null)
+                        .map((elem) => elem.getAttribute('src') ?? '')
+                })) as string[]
+                if (images) this.image = images
+            } else {
+                this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('src')))
+            }
+        }
+    }
+
+    private async getDataThumbImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('data-thumb')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('data-thumb')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('data-thumb') !== null)
+                        .map((elem) => elem.getAttribute('data-thumb') ?? '')
+                })) as string[]
+                if (images) this.image = images
+            } else {
+                this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-thumb')))
+            }
+        }
+    }
+
+    private async getDataZoomImageImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('data-zoom-image')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('data-zoom-image')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('data-zoom-image') !== null)
+                        .map((elem) => elem.getAttribute('data-zoom-image') ?? '')
+                })) as string[]
+                if (images) this.image = images
+            } else {
+                this.image.push(
+                    await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-zoom-image'))
+                )
+            }
+        }
+    }
+
+    public getImage(): string[] {
+        if (!this.image.length) {
             return this.image
         }
-        const domain = this.getUrl().match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
-        if (this.image.match(/^(\/\/)([^/]+)/gim)) {
-            this.image = `https:${this.image}`
-        }
-        const imgDomain = this.image.match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
+        const newImg = []
+        for (let i = 0; i < this.image.length; i++) {
+            let img = this.image[i]
+            const domain = this.getUrl().match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
+            if (img.match(/^(\/\/)([^/]+)/gim)) {
+                img = `https:${img}`
+            }
+            const imgDomain = img.match(/^(?:http:\/\/|www\.|https:\/\/)([^/]+)/gim)
 
-        if (!imgDomain && domain?.length) {
-            return domain[0] + this.image
+            if (!imgDomain && domain?.length) {
+                img = domain[0] + img
+            }
+            newImg.push(img)
         }
-        return this.image
+        return newImg
     }
 
     public isAvailability(): boolean {
@@ -659,7 +870,7 @@ abstract class Store implements IStore, IProductDetails {
 
             const storeSchema = new StoreSchema(jsonSchemas)
             this.titleClass.setTitle(storeSchema.name ? storeSchema.name : '')
-            if (!this.image) this.image = storeSchema.image
+            if (!this.image.length) this.image = storeSchema.image
             this.setPrice(storeSchema.price)
             this.setAvailability(storeSchema.availability)
         } catch (e: any) {

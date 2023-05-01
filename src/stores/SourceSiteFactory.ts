@@ -533,6 +533,9 @@ import Amerimark from './a/amerimark'
 import Amiclubwear from './a/amiclubwear'
 import Andrewmarc from './a/andrewmarc'
 import Anntaylor from './a/anntaylor'
+import Anthropologie from './a/anthropologie'
+import Apeainthepod from './a/apeainthepod'
+import Appliancepartspros from './a/appliancepartspros'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -579,8 +582,11 @@ export default class SourceSiteFactory {
             else if (domain === 'abbottstore') return new Abbottstore(url)
             else if (domain === 'andrewmarc') return new Andrewmarc(url)
             else if (domain === 'amoktime') return new Amoktime(url)
+            else if (domain === 'appliancepartspros') return new Appliancepartspros(url)
+            else if (domain === 'apeainthepod') return new Apeainthepod(url)
             else if (domain === 'anntaylor') return new Anntaylor(url)
             else if (domain === 'americasbest') return new Americasbest(url)
+            else if (domain === 'anthropologie') return new Anthropologie(url)
             else if (domain === 'amerimark') return new Amerimark(url)
             else if (domain === 'amiclubwear') return new Amiclubwear(url)
             else if (domain === 'allenedmonds') return new Allenedmonds(url)

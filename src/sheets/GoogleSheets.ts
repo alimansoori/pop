@@ -9,6 +9,7 @@ import { loadSetting, tomorrowDate, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 import { sleep } from '../utils/sleep'
 import { DbApi } from '../lib/db-api/DbApi'
+import { type } from 'os'
 
 export default class GoogleSheets {
     // private page
@@ -107,26 +108,6 @@ export default class GoogleSheets {
                 continue
             }
 
-            // Add product to DbApi
-            const addProductFromGoogleSheetInput: IProductInput = {
-                link: rows[i]['Source URL'],
-                title: rows[i]['Title'],
-                asin: rows[i]['ASIN'],
-                src: rows[i]['Source'],
-                brand: rows[i]['Brand'],
-                category: rows[i]['Category'],
-            }
-
-            if (rows[i]['Product Image']) {
-                addProductFromGoogleSheetInput['images'] = [rows[i]['Product Image']]
-            }
-
-            try {
-                await DbApi.addProductFromGoogleSheet(addProductFromGoogleSheetInput)
-            } catch (e: any) {
-                console.log(e.message)
-            }
-
             const updated = new Date(rows[i].Date)
             const current = new Date(this.currentDate())
             if (rows[i].Date && MyDate.dateDiff(current, updated) < 10) {
@@ -183,15 +164,37 @@ export default class GoogleSheets {
                 rows[i].Source = store.getDomain()
 
                 rows[i]['Title'] = store.getTitleClass().getTitle()
-                rows[i]['Product Image'] = store.getImage()
+                rows[i]['Product Image'] = JSON.stringify(store.getImage())
                 rows[i]['Source URL'] = store.getUrl()
                 rows[i]['IN Stock'] = store.isAvailability() ? 'TRUE' : 'FALSE'
                 rows[i]['Source Price'] = store.getPrice()
                 await rows[i].save()
+
+                await this.afterSave(rows[i], store.getImage())
             } catch (e: any) {
                 console.log(e.message)
                 continue
             }
+        }
+    }
+
+    private async afterSave(row: any, images: string[]) {
+        // Add product to DbApi
+        try {
+            const addProductFromGoogleSheetInput: IProductInput = {
+                link: row['Source URL'],
+                title: row['Title'],
+                asin: row['ASIN'],
+                src: row['Source'],
+                brand: row['Brand'],
+                category: row['Category'],
+            }
+            if (images.length > 0) {
+                addProductFromGoogleSheetInput['images'] = images
+            }
+            await DbApi.addProductFromGoogleSheet(addProductFromGoogleSheetInput)
+        } catch (e: any) {
+            console.log(e.message)
         }
     }
 }

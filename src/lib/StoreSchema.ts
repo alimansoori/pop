@@ -3,7 +3,7 @@ import { Product, WithContext } from 'schema-dts'
 export default class StoreSchema {
     private productSchema: WithContext<Product> | undefined
     name: string | undefined
-    image: string | undefined
+    image: string[] = []
     price = NaN
     availability = false
 
@@ -68,20 +68,20 @@ export default class StoreSchema {
     private fetchImage() {
         if (this.productSchema?.image) {
             if (Array.isArray(this.productSchema?.image) && this.productSchema?.image.length) {
-                this.image = String(this.productSchema?.image[0])
+                this.image = this.productSchema?.image
             } else if (typeof this.productSchema?.image === 'object') {
                 // @ts-ignore
                 if (this.productSchema?.image['image']) {
                     // @ts-ignore
-                    this.image = this.productSchema?.image['image']
+                    this.image.push(this.productSchema?.image['image'])
                 }
                 // @ts-ignore
                 else if (this.productSchema?.image['url']) {
                     // @ts-ignore
-                    this.image = this.productSchema?.image['url']
+                    this.image.push(this.productSchema?.image['url'])
                 }
             } else {
-                this.image = String(this.productSchema?.image)
+                this.image.push(String(this.productSchema?.image))
             }
         }
     }

@@ -15,3 +15,5 @@ gitkraken_rsa.pub
 gitkraken_rsa
 
 package-lock.json
+
+config.json
