@@ -24,13 +24,13 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://alltimetoys.com/bandai-anime-heroes-one-piece-roronoa-zoro-6-figure/',
+            url: 'https://www.walmart.com/ip/seort/735899107',
         })
 
-        /*await keepaCheck({
-            asin: 'B09F3XP7FP',
-            price: 2,
-        })*/
+        await keepaCheck({
+            asin: 'B07B8BBYCS',
+            price: sourcePrice,
+        })
     } catch (e: any) {
         console.log(e.message)
     }
