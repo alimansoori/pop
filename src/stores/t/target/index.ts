@@ -8,14 +8,6 @@ export default class Target extends Store {
         super(url)
         this.loadType = EnumLoadType.LOAD
         this.scrapUntilBlock = true
-        /*this.scrapUntilBlock = true
-    this.excludeAssets = [
-        // 'https://assets.targetimg1.com/',
-        'https://redsky.target.com/redsky_aggregations',
-        'https://api.target.com/location_fulfillment_aggregations',
-        'https://target.scene7.com',
-        'https://taglocker.target.com/',
-    ]*/
     }
 
     async productExistCalculate(): Promise<void> {

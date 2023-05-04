@@ -536,6 +536,8 @@ import Anntaylor from './a/anntaylor'
 import Anthropologie from './a/anthropologie'
 import Apeainthepod from './a/apeainthepod'
 import Appliancepartspros from './a/appliancepartspros'
+import BGsales from './b/b-gsales'
+import AllStore from './AllStore'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -646,6 +648,7 @@ export default class SourceSiteFactory {
             else if (domain === 'baseballmonkey') return new Baseballmonkey(url)
             else if (domain === 'beallsflorida') return new Beallsflorida(url)
             else if (domain === 'bushwhacker') return new Bushwhacker(url)
+            else if (domain === 'b-gsales') return new BGsales(url)
             else if (domain === 'bicyclewarehouse') return new Bicyclewarehouse(url)
             else if (domain === 'beautyexpert') return new Beautyexpert(url)
             else if (domain === 'beautance') return new Beautance(url)
@@ -1118,6 +1121,7 @@ export default class SourceSiteFactory {
             else if (domain === 'zabiva') return new Zabiva(url)
             else if (domain === 'zavvi') return new Zavvi(url)
             else {
+                // return new AllStore(url)
                 throw new Error(`>>>> Domain ${domain} is not defined`)
             }
         } catch (e: any) {

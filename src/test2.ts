@@ -24,7 +24,7 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.officedepot.com/a/products/3785736/Meural-MCAS327-10000S-Wall-Mount-for/',
+            url: 'https://www.barenecessities.com/bare-necessities-cool-jade-light-nights-long-sleeve-pj-set-r85b607_product.htm?pf_id=BareNecessitiesR85B607',
         })
 
         /*await keepaCheck({

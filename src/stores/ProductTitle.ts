@@ -4,7 +4,7 @@ export default class ProductTitle {
     constructor() {}
 
     getTitle(): string {
-        return this._title.trim()
+        return this._title.trim().replace(/[\s\uFEFF\xA0]+/g, ' ')
     }
 
     setTitle(title: string | undefined) {

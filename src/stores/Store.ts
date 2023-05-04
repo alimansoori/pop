@@ -117,27 +117,27 @@ abstract class Store implements IStore, IProductDetails {
                                 }
                             }
                             /*if (!this.includeAssets.length) {
-    req.abort()
+req.abort()
 } else {
-    console.log(req._url)
-    console.log(req.resourceType())
-    let exit = false
-    for (const patternAsset of this.includeAssets) {
-        try {
-            if (req._url.match(patternAsset)) {
-                console.log('<<< Asset is match >>>')
-                exit = true
-                req.continue()
-                break
-            }
-        } catch (e) {
-            req.abort()
-        }
-    }
-    if (!exit) {
-        console.log('<<< Exit >>>')
-        req.abort()
-    }
+console.log(req._url)
+console.log(req.resourceType())
+let exit = false
+for (const patternAsset of this.includeAssets) {
+try {
+if (req._url.match(patternAsset)) {
+console.log('<<< Asset is match >>>')
+exit = true
+req.continue()
+break
+}
+} catch (e) {
+req.abort()
+}
+}
+if (!exit) {
+console.log('<<< Exit >>>')
+req.abort()
+}
 }*/
                         } else {
                             req.abort()
@@ -196,15 +196,16 @@ abstract class Store implements IStore, IProductDetails {
         return this.page
     }
 
-    async setTitle(input: { selector: string; render: string }) {
+    async setTitle(input: { selector: string; render: string; timeout?: number | undefined }) {
         try {
-            await this.checkTitleRender({ selector: input.selector, render: input.render })
+            await this.checkTitleRender(input)
         } catch (e: any) {
             this.getTitleClass().setTitle('')
         }
     }
 
-    private async checkTitleRender(input: { selector: string; render: string }) {
+    private async checkTitleRender(input: { selector: string; render: string; timeout?: number | undefined }) {
+        if (!input.timeout) input.timeout = 10000
         try {
             if (this.headlessRun) {
                 if (input.render === 'text') {
@@ -217,7 +218,7 @@ abstract class Store implements IStore, IProductDetails {
                     this.getTitleClass().setTitle(this.resultReq.$(input.selector).attr('data-price'))
                 }
             } else {
-                await this.page.waitForSelector(input.selector, { timeout: 10000 })
+                await this.page.waitForSelector(input.selector, { timeout: input.timeout })
                 if (input.render === 'text') {
                     this.getTitleClass().setTitle(
                         await this.page.$eval(input.selector, (elem: any) => elem.textContent)
@@ -245,7 +246,7 @@ abstract class Store implements IStore, IProductDetails {
         try {
             await this.checkImageRender(input)
         } catch (e: any) {
-            this.getTitleClass().setTitle('')
+            console.error(e.message)
         }
     }
 
@@ -263,6 +264,8 @@ abstract class Store implements IStore, IProductDetails {
                 await this.getHrefImage(input)
             } else if (input.render === 'src') {
                 await this.getSrcImage(input)
+            } else if (input.render === 'data-src') {
+                await this.getDataSrcImage(input)
             } else if (input.render === 'data-thumb') {
                 await this.getDataThumbImage(input)
             } else if (input.render === 'data-zoom-image') {
@@ -440,6 +443,35 @@ abstract class Store implements IStore, IProductDetails {
                 if (images) this.image = images
             } else {
                 this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('src')))
+            }
+        }
+    }
+
+    private async getDataSrcImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('data-src')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('data-src')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('data-src') !== null)
+                        .map((elem) => elem.getAttribute('data-src') ?? '')
+                })) as string[]
+                if (images) this.image = images
+            } else {
+                this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-src')))
             }
         }
     }
@@ -816,14 +848,15 @@ abstract class Store implements IStore, IProductDetails {
 
     abstract productExistCalculate(): Promise<void>
 
-    protected async productExistBySelector(selector: string) {
+    protected async productExistBySelector(selector: string, timeout?: number | undefined) {
+        if (!timeout) timeout = 30000
         if (this.headlessRun) {
             if (!this.resultReq.$(selector).length) {
                 this.productExist = false
             }
         } else {
             try {
-                await this.page.waitForSelector(selector)
+                await this.page.waitForSelector(selector, { timeout })
                 this.productExist = true
             } catch (e: any) {
                 console.log(e.message)
@@ -870,7 +903,7 @@ abstract class Store implements IStore, IProductDetails {
 
             const storeSchema = new StoreSchema(jsonSchemas)
             this.titleClass.setTitle(storeSchema.name ? storeSchema.name : '')
-            if (!this.image.length) this.image = storeSchema.image
+            if (!this.image.length) this.image = [...this.image, ...storeSchema.image]
             this.setPrice(storeSchema.price)
             this.setAvailability(storeSchema.availability)
         } catch (e: any) {

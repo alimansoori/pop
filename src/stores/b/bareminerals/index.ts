@@ -9,7 +9,7 @@ export default class Bareminerals extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[itemprop="name"]')
+        await this.productExistBySelector('h1.product-header__product-title')
     }
 
     async availibilityCalculate(): Promise<void> {
