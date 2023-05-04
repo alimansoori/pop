@@ -24,7 +24,7 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const sourcePrice = await sourceCheck({
-            url: 'https://www.barenecessities.com/bare-necessities-cool-jade-light-nights-long-sleeve-pj-set-r85b607_product.htm?pf_id=BareNecessitiesR85B607',
+            url: 'https://alltimetoys.com/bandai-anime-heroes-one-piece-roronoa-zoro-6-figure/',
         })
 
         /*await keepaCheck({

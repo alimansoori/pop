@@ -9,21 +9,18 @@ export default class Alltimetoys extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1 *[itemprop="name"]')
+        await this.productExistBySelector('h1.productView-title')
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'section.productView-images img',
+            render: 'src',
+            multiple: true,
+        })
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailability({
-            selector: 'div[title="Availability"] > span',
-            render: 'text',
-            outputArray: [],
-        })
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPrice({
-            selector1: 'div[class="product-info-main"] *[data-price-type="finalPrice"]',
-            render: 'data-price-amount',
-        })
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }
