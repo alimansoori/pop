@@ -1,5 +1,6 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 import Keepa from './lib/Keepa'
+import { StoreOutputType } from './@types/StoreOutputType'
 
 export async function main() {
     try {
@@ -23,21 +24,20 @@ export async function main() {
         const output = input.map((obj) => obj['images-src'])
         console.log(JSON.stringify(output))*/
 
-        const sourcePrice = await sourceCheck({
-            url: 'https://www.walmart.com/ip/seort/735899107',
+        const storeRes = await sourceCheck({
+            url: 'https://www.barenecessities.com/bare-necessities-cool-jade-light-nights-long-sleeve-pj-set-r85b607_product.htm?pf_id=BareNecessitiesR85B607',
         })
 
-        await keepaCheck({
-            asin: 'B07B8BBYCS',
-            price: sourcePrice,
-        })
+        /*await keepaCheck({
+            asin: 'B09F3XP7FP',
+            price: storeRes.price,
+        })*/
     } catch (e: any) {
         console.log(e.message)
     }
 }
 
-async function sourceCheck(input: { url: string }): Promise<number> {
-    let price = NaN
+export async function sourceCheck(input: { url: string }): Promise<StoreOutputType> {
     try {
         const store = await SourceSiteFactory.create(input.url)
         await store.createBrowser(false)
@@ -49,16 +49,22 @@ async function sourceCheck(input: { url: string }): Promise<number> {
         console.log(store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())
         console.log('ERROR msg: ' + store.error)
-        price = store.getPrice()
         await store.browser?.close()
+        return {
+            title: store.getTitleClass().getTitle(),
+            statusCode: store.statusCode,
+            images: store.getImage(),
+            price: store.getPrice(),
+            error: store.error,
+        }
     } catch (e: any) {
-        console.log(e.message)
+        return {
+            error: e.message,
+        }
     }
-
-    return price
 }
 
-async function keepaCheck(input: { asin: string; price: number }) {
+export async function keepaCheck(input: { asin: string; price: number }) {
     try {
         const keepa = new Keepa({
             asin: input.asin,

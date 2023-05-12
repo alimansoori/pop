@@ -49,7 +49,6 @@ export default class Keepa {
     }
 
     async fetchByKeepa() {
-        console.log(this.keepaUrl)
         try {
             await axios
                 .get(this.keepaUrl)

@@ -170,7 +170,7 @@ export default class GoogleSheets {
                 rows[i]['Source Price'] = store.getPrice()
                 await rows[i].save()
 
-                await this.afterSave(rows[i], store.getImage())
+                // await this.afterSave(rows[i], store.getImage())
             } catch (e: any) {
                 console.log(e.message)
                 continue
