@@ -538,6 +538,10 @@ import Apeainthepod from './a/apeainthepod'
 import Appliancepartspros from './a/appliancepartspros'
 import BGsales from './b/b-gsales'
 import AllStore from './AllStore'
+import Barenecessities from './b/barenecessities'
+import Bargainw from './b/bargainw'
+import Barndoorag from './b/barndoorag'
+import Dermstore from './d/dermstore'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -655,7 +659,10 @@ export default class SourceSiteFactory {
             else if (domain === 'bluemercury') return new Bluemercury(url)
             else if (domain === 'breakingbangers') return new Breakingbangers(url)
             else if (domain === 'bedbathandbeyond') return new Bedbathandbeyond(url)
+            else if (domain === 'barenecessities') return new Barenecessities(url)
             else if (domain === 'belk') return new Belk(url)
+            else if (domain === 'barndoorag') return new Barndoorag(url)
+            else if (domain === 'bargainw') return new Bargainw(url)
             else if (domain === 'bigpoppasmokers') return new Bigpoppasmokers(url)
             else if (domain === 'beautifiedyou') return new Beautifiedyou(url)
             else if (domain === 'bestbuy') return new Bestbuy(url)
@@ -732,6 +739,7 @@ export default class SourceSiteFactory {
             else if (domain === 'demdaco') return new Demdaco(url)
             else if (domain === 'dickssportinggoods') return new Dickssportinggoods(url)
             else if (domain === 'dillards') return new Dillards(url)
+            else if (domain === 'dermstore') return new Dermstore(url)
             else if (domain === 'dryeyerescue') return new Dryeyerescue(url)
             else if (domain === 'dickblick') return new Dickblick(url)
             else if (domain === 'discountbandit') return new Discountbandit(url)

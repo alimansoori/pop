@@ -27,7 +27,7 @@ export default class Walmart extends Store {
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'div[data-testid="add-to-cart-section"] button',
+            selector: 'div[data-testid="add-to-cart-section"] div[data-testid="atc-buynow-container"] button',
             render: 'text',
             outputArray: [],
         })

@@ -25,12 +25,12 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const storeRes = await sourceCheck({
-            url: 'https://www.barenecessities.com/bare-necessities-cool-jade-light-nights-long-sleeve-pj-set-r85b607_product.htm?pf_id=BareNecessitiesR85B607',
+            url: 'https://www.target.com/p/krunchers-kettle-cooked-jalapeno-potato-chips-8oz/-/A-47086630',
         })
 
         /*await keepaCheck({
-            asin: 'B09F3XP7FP',
-            price: storeRes.price,
+            asin: 'B01JK7IHIA',
+            price: 5.1,
         })*/
     } catch (e: any) {
         console.log(e.message)

@@ -142,11 +142,11 @@ export default class Keepa {
             (EnumCategories.SPORT === this.category && this.bsr < 350000) ||
             (EnumCategories.PET === this.category && this.bsr < 150000) ||
             (EnumCategories.ART === this.category && this.bsr < 250000) ||
-            (EnumCategories.PATIO === this.category && this.bsr < 200000) ||
+            (EnumCategories.PATIO === this.category && this.bsr < 300000) ||
             (EnumCategories.HOME_KITCHEN === this.category && this.bsr < 300000) ||
             (EnumCategories.VIDEO_GAMES === this.category && this.bsr < 30000) ||
             (EnumCategories.INDUSTRIAL === this.category && this.bsr < 250000) ||
-            (EnumCategories.TOOLS === this.category && this.bsr < 250000) ||
+            (EnumCategories.TOOLS === this.category && this.bsr < 300000) ||
             (EnumCategories.OFFICE_PRODUCTS === this.category && this.bsr < 240000) ||
             (EnumCategories.GROCERY === this.category && this.bsr < 150000) ||
             (EnumCategories.ELECTRONIC === this.category && this.bsr < 200000) ||
@@ -210,7 +210,7 @@ export default class Keepa {
                 category: this.category,
             })*/
 
-            if (profitClassBuyBox.netProfit > 4 && profitClassBuyBox.roi > 20 && this.top) {
+            if (profitClassBuyBox.netProfit > 3.8 && profitClassBuyBox.roi > 20 && this.top) {
                 this.hasBadge = true
             }
         }

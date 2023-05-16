@@ -1,9 +1,12 @@
 import Store from '../../Store'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Petswarehouse extends Store {
+export default class Barndoorag extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.LOAD
         this.scrapUntilBlock = true
+        this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {
@@ -19,8 +22,9 @@ export default class Petswarehouse extends Store {
 
     async productImageCalculate(): Promise<void> {
         await this.setImage({
-            selector: '*.productView-images  img',
+            selector: 'section.productView-images img',
             render: 'src',
+            multiple: true,
         })
     }
 
