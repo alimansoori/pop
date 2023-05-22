@@ -542,6 +542,8 @@ import Barenecessities from './b/barenecessities'
 import Bargainw from './b/bargainw'
 import Barndoorag from './b/barndoorag'
 import Dermstore from './d/dermstore'
+import Bhcosmetics from './b/bhcosmetics'
+import Betterworldbooks from './b/betterworldbooks'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -662,6 +664,7 @@ export default class SourceSiteFactory {
             else if (domain === 'barenecessities') return new Barenecessities(url)
             else if (domain === 'belk') return new Belk(url)
             else if (domain === 'barndoorag') return new Barndoorag(url)
+            else if (domain === 'betterworldbooks') return new Betterworldbooks(url)
             else if (domain === 'bargainw') return new Bargainw(url)
             else if (domain === 'bigpoppasmokers') return new Bigpoppasmokers(url)
             else if (domain === 'beautifiedyou') return new Beautifiedyou(url)
@@ -681,6 +684,7 @@ export default class SourceSiteFactory {
             else if (domain === 'batteryjunction') return new Batteryjunction(url)
             else if (domain === 'bobbibrowncosmetics') return new Bobbibrowncosmetics(url)
             else if (domain === 'bareminerals') return new Bareminerals(url)
+            else if (domain === 'bhcosmetics') return new Bhcosmetics(url)
             else if (domain === 'bettymills') return new Bettymills(url)
             else if (domain === 'balyot') return new Balyot(url)
             else if (domain === 'bicyclebuys') return new Bicyclebuys(url)

@@ -25,6 +25,11 @@ export default class Bestbuy extends Store {
             selector: 'meta[property="og:image"]',
             render: 'content',
         })
+        await this.setImage({
+            selector: 'div.shop-media-gallery script[type="application/ld+json"]',
+            render: 'text',
+            type: 'regex',
+        })
     }
 
     async availibilityCalculate(): Promise<void> {

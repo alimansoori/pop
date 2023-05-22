@@ -16,6 +16,7 @@ import { Browser, Page } from 'puppeteer'
 import StoreSchema from '../lib/StoreSchema'
 import { textToNumber } from '../lib/helper'
 import fs from 'fs'
+import { render } from 'ejs'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
@@ -72,12 +73,15 @@ abstract class Store implements IStore, IProductDetails {
             this.browser = pup.browser
             this.page = await this.browser.newPage()
 
-            await this.page.setViewport({ width: 1440, height: 900 })
+            await this.page.setViewport({ width: 1980, height: 1080 })
             // this.page = (await this.browser.pages())[0]
 
             await this.page.setUserAgent(
-                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36'
             )
+
+            // const cookiesSet = await this.page.cookies(this.getUrl())
+            // console.log(JSON.stringify(cookiesSet))
 
             if (!this.enableAssets) {
                 await this.page.setRequestInterception(true)
@@ -242,7 +246,7 @@ req.abort()
         }
     }
 
-    async setImage(input: { selector: string; render: string; multiple?: boolean }) {
+    async setImage(input: { selector: string; render: string; type?: string; multiple?: boolean }) {
         try {
             await this.checkImageRender(input)
         } catch (e: any) {
@@ -250,9 +254,11 @@ req.abort()
         }
     }
 
-    private async checkImageRender(input: { selector: string; render: string; multiple?: boolean }) {
+    private async checkImageRender(input: { selector: string; render: string; type?: string; multiple?: boolean }) {
         try {
-            if (input.render === 'text') {
+            if (input.type === 'regex') {
+                await this.getRegexImage(input)
+            } else if (input.render === 'text') {
                 await this.getTextImage(input)
             } else if (input.render === 'content') {
                 await this.getContentImage(input)
@@ -270,9 +276,26 @@ req.abort()
                 await this.getDataThumbImage(input)
             } else if (input.render === 'data-zoom-image') {
                 await this.getDataZoomImageImage(input)
+            } else if (input.render === 'data-path') {
+                await this.getDataPathImage(input)
             }
         } catch (e: any) {
             console.error(e.message)
+        }
+    }
+
+    private async getRegexImage(input: { selector: string; render: string; type?: string; multiple?: boolean }) {
+        let content = ''
+        if (input.render === 'text') {
+            content = await this.page.$eval(input.selector, (elem: any) => elem.textContent)
+        } else if (input.render === 'data-data') {
+            content = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-data'))
+        }
+
+        const regex = /https:.*?\.(?:png|jpg|svg)/g
+        const urls = content?.match(regex)
+        if (urls) {
+            this.image = [...this.image, ...urls]
         }
     }
 
@@ -280,11 +303,14 @@ req.abort()
         if (this.headlessRun) {
             if (input.multiple) {
                 const $ = this.resultReq.$
-                this.image = $(input.selector)
-                    .map(function () {
-                        return $(this).text()
-                    })
-                    .get()
+                this.image = [
+                    ...this.image,
+                    ...$(input.selector)
+                        .map(function () {
+                            return $(this).text()
+                        })
+                        .get(),
+                ]
             } else {
                 this.image.push(this.resultReq.$(input.selector).text())
             }
@@ -293,7 +319,7 @@ req.abort()
                 const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
                     return elems.filter((elem) => elem.textContent !== null).map((elem) => elem.textContent ?? '')
                 })) as string[]
-                if (images) this.image = images
+                if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.textContent))
             }
@@ -304,11 +330,14 @@ req.abort()
         if (this.headlessRun) {
             if (input.multiple) {
                 const $ = this.resultReq.$
-                this.image = $(input.selector)
-                    .map(function () {
-                        return $(this).attr('content')
-                    })
-                    .get()
+                this.image = [
+                    ...this.image,
+                    ...$(input.selector)
+                        .map(function () {
+                            return $(this).attr('content')
+                        })
+                        .get(),
+                ]
             } else {
                 const attr = this.resultReq.$(input.selector).attr('content')
                 if (typeof attr === 'string') {
@@ -322,7 +351,7 @@ req.abort()
                         .filter((elem) => elem.getAttribute('content') !== null)
                         .map((elem) => elem.getAttribute('content') ?? '')
                 })) as string[]
-                if (images) this.image = images
+                if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('content')))
             }
@@ -351,7 +380,7 @@ req.abort()
                         .filter((elem) => elem.getAttribute('data-price-amount') !== null)
                         .map((elem) => elem.getAttribute('data-price-amount') ?? '')
                 })) as string[]
-                if (images) this.image = images
+                if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(
                     await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price-amount'))
@@ -382,7 +411,7 @@ req.abort()
                         .filter((elem) => elem.getAttribute('data-price') !== null)
                         .map((elem) => elem.getAttribute('data-price') ?? '')
                 })) as string[]
-                if (images) this.image = images
+                if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-price')))
             }
@@ -411,7 +440,7 @@ req.abort()
                         .filter((elem) => elem.getAttribute('href') !== null)
                         .map((elem) => elem.getAttribute('href') ?? '')
                 })) as string[]
-                if (images) this.image = images
+                if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('href')))
             }
@@ -440,7 +469,7 @@ req.abort()
                         .filter((elem) => elem.getAttribute('src') !== null)
                         .map((elem) => elem.getAttribute('src') ?? '')
                 })) as string[]
-                if (images) this.image = images
+                if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('src')))
             }
@@ -469,7 +498,7 @@ req.abort()
                         .filter((elem) => elem.getAttribute('data-src') !== null)
                         .map((elem) => elem.getAttribute('data-src') ?? '')
                 })) as string[]
-                if (images) this.image = images
+                if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-src')))
             }
@@ -498,7 +527,7 @@ req.abort()
                         .filter((elem) => elem.getAttribute('data-thumb') !== null)
                         .map((elem) => elem.getAttribute('data-thumb') ?? '')
                 })) as string[]
-                if (images) this.image = images
+                if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-thumb')))
             }
@@ -527,11 +556,40 @@ req.abort()
                         .filter((elem) => elem.getAttribute('data-zoom-image') !== null)
                         .map((elem) => elem.getAttribute('data-zoom-image') ?? '')
                 })) as string[]
-                if (images) this.image = images
+                if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(
                     await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-zoom-image'))
                 )
+            }
+        }
+    }
+
+    private async getDataPathImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('data-path')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('data-path')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('data-path') !== null)
+                        .map((elem) => elem.getAttribute('data-path') ?? '')
+                })) as string[]
+                if (images) this.image = [...this.image, ...images]
+            } else {
+                this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-path')))
             }
         }
     }

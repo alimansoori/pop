@@ -5,12 +5,21 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Bhphotovideo extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
         this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[data-selenium="productTitle"]')
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'div.bh-preloaded-data',
+            type: 'regex',
+            render: 'data-data',
+            multiple: true,
+        })
     }
 
     async availibilityCalculate(): Promise<void> {

@@ -25,7 +25,7 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const storeRes = await sourceCheck({
-            url: 'https://www.target.com/p/krunchers-kettle-cooked-jalapeno-potato-chips-8oz/-/A-47086630',
+            url: 'https://www.bestbuy.com/site/apple-airpods-pro-2nd-generation-white/4900964.p?skuId=4900964',
         })
 
         /*await keepaCheck({
