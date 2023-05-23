@@ -544,6 +544,11 @@ import Barndoorag from './b/barndoorag'
 import Dermstore from './d/dermstore'
 import Bhcosmetics from './b/bhcosmetics'
 import Betterworldbooks from './b/betterworldbooks'
+import Bellacor from './b/bellacor'
+import Belkin from './b/belkin'
+import Beautylish from './b/beautylish'
+import Beautyencounter from './b/beautyencounter'
+import Beautybrands from './b/beautybrands'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -657,8 +662,11 @@ export default class SourceSiteFactory {
             else if (domain === 'b-gsales') return new BGsales(url)
             else if (domain === 'bicyclewarehouse') return new Bicyclewarehouse(url)
             else if (domain === 'beautyexpert') return new Beautyexpert(url)
+            else if (domain === 'beautyencounter') return new Beautyencounter(url)
             else if (domain === 'beautance') return new Beautance(url)
+            else if (domain === 'beautylish') return new Beautylish(url)
             else if (domain === 'bluemercury') return new Bluemercury(url)
+            else if (domain === 'beautybrands') return new Beautybrands(url)
             else if (domain === 'breakingbangers') return new Breakingbangers(url)
             else if (domain === 'bedbathandbeyond') return new Bedbathandbeyond(url)
             else if (domain === 'barenecessities') return new Barenecessities(url)
@@ -666,9 +674,11 @@ export default class SourceSiteFactory {
             else if (domain === 'barndoorag') return new Barndoorag(url)
             else if (domain === 'betterworldbooks') return new Betterworldbooks(url)
             else if (domain === 'bargainw') return new Bargainw(url)
+            else if (domain === 'bellacor') return new Bellacor(url)
             else if (domain === 'bigpoppasmokers') return new Bigpoppasmokers(url)
             else if (domain === 'beautifiedyou') return new Beautifiedyou(url)
             else if (domain === 'bestbuy') return new Bestbuy(url)
+            else if (domain === 'belkin') return new Belkin(url)
             else if (domain === 'betterhealthmarket') return new Betterhealthmarket(url)
             // else if (domain === 'bigapplecollectibles') return new Bigapplecollectibles(url)
             else if (domain === 'bigbadtoystore') return new Bigbadtoystore(url)

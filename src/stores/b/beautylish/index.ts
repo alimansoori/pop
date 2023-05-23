@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Baseballmonkey extends Store {
+export default class Beautylish extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -9,9 +9,7 @@ export default class Baseballmonkey extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector(
-            'div[class="product-info-main"] h1[class="page-title"] > span[data-ui-id="page-title-wrapper"]'
-        )
+        await this.productExistBySelector('script[type="application/ld+json"]')
     }
 
     async availibilityCalculate(): Promise<void> {

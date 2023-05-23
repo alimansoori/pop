@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Baseballmonkey extends Store {
+export default class Bellacor extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -9,9 +9,15 @@ export default class Baseballmonkey extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector(
-            'div[class="product-info-main"] h1[class="page-title"] > span[data-ui-id="page-title-wrapper"]'
-        )
+        await this.productExistBySelector('div.pdp-main__details h1.pdp__name')
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'div.product__image-view img',
+            render: 'src',
+            multiple: true,
+        })
     }
 
     async availibilityCalculate(): Promise<void> {

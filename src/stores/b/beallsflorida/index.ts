@@ -1,8 +1,10 @@
 import Store from '../../Store'
+import { EnumLoadType } from '../../../@types/EnumLoadType'
 
 export default class Beallsflorida extends Store {
     constructor(url: string) {
         super(url)
+        this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
     }
 
@@ -11,17 +13,6 @@ export default class Beallsflorida extends Store {
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailability({
-            selector: 'button[id="add2CartBtn"]:not(.disabled)',
-            render: 'text',
-            outputArray: [],
-        })
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPrice({
-            selector1: 'span[id^="offerPrice"].price.pdp',
-            render: 'text',
-        })
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

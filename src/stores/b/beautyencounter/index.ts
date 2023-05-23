@@ -1,30 +1,27 @@
 import Store from '../../Store'
-
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Bedbathandbeyond extends Store {
+export default class Beautyencounter extends Store {
     constructor(url: string) {
         super(url)
-        this.url = this.getUrl().replace(/(\/amp)/g, '')
-        this.url = this.getUrl().replace('bedbathandbeyond.com', 'bedbathandbeyond.com/amp')
-        this.loadType = EnumLoadType.LOAD
+        this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1.prodTitle')
+        await this.productExistBySelector('h1[itemprop="name"]')
     }
 
     async productTitleCalculate(): Promise<void> {
         await this.setTitle({
-            selector: 'h1.prodTitle',
+            selector: 'h1[itemprop="name"]',
             render: 'text',
         })
     }
 
     async productImageCalculate(): Promise<void> {
         await this.setImage({
-            selector: '*[id="prodSlideCarouselSkuFallback"] img',
+            selector: 'img[itemprop="image"]',
             render: 'src',
             multiple: true,
         })
@@ -32,14 +29,15 @@ export default class Bedbathandbeyond extends Store {
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'div.shipItBtnCont > a',
-            render: 'text',
+            selector: 'meta[itemprop="availability"]',
+            render: 'content',
+            outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'div.trackIsPrice',
+            selector1: '*[itemprop="price"]',
             render: 'text',
         })
     }

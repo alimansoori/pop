@@ -4,12 +4,27 @@ import { EnumLoadType } from '../../../@types/EnumLoadType'
 export default class Belk extends Store {
     constructor(url: string) {
         super(url)
-        this.loadType = EnumLoadType.DOC_LOADED
+        this.loadType = EnumLoadType.LOAD
         this.scrapUntilBlock = true
     }
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1 *[itemprop="name"]')
+    }
+
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'h1 *[itemprop="name"]',
+            render: 'text',
+        })
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'img.vjs_dri',
+            render: 'src',
+            multiple: true,
+        })
     }
 
     async availibilityCalculate(): Promise<void> {

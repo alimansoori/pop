@@ -25,7 +25,7 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const storeRes = await sourceCheck({
-            url: 'https://www.bestbuy.com/site/apple-airpods-pro-2nd-generation-white/4900964.p?skuId=4900964',
+            url: 'https://www.barnesandnoble.com/w/calico-critters-persian-cat-triplets-set-of-3-collectible-doll-figures-with-cradle-accessory-epoch-everlasting-play/1139117056?ean=0020373218673',
         })
 
         /*await keepaCheck({

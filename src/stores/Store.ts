@@ -713,7 +713,7 @@ req.abort()
         }
     }
 
-    async checkAvailability(input: { selector: string; render: string | null; outputArray: string[] | undefined }) {
+    async checkAvailability(input: { selector: string; render: string | null; outputArray?: string[] | undefined }) {
         try {
             let output: string[] = [
                 'add to cart',

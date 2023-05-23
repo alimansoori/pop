@@ -12,6 +12,14 @@ export default class Saksfifthavenue extends Store {
         await this.productExistBySelector('h1.product-brand-name > a.product-brand')
     }
 
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'div.primary-images-container img[itemprop="image"]',
+            render: 'src',
+            multiple: true,
+        })
+    }
+
     async availibilityCalculate(): Promise<void> {
         await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
