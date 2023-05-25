@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Bookpal extends Store {
+export default class Bonton extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -9,12 +9,12 @@ export default class Bookpal extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[itemprop="name"]')
+        await this.productExistBySelector('h1.productView-title')
     }
 
     async productTitleCalculate(): Promise<void> {
         await this.setTitle({
-            selector: 'h1[itemprop="name"]',
+            selector: 'h1.productView-title',
             render: 'text',
         })
     }

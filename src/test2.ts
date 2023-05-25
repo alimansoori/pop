@@ -25,7 +25,7 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const storeRes = await sourceCheck({
-            url: 'https://www.barnesandnoble.com/w/calico-critters-persian-cat-triplets-set-of-3-collectible-doll-figures-with-cradle-accessory-epoch-everlasting-play/1139117056?ean=0020373218673',
+            url: 'https://www.boscovs.com/product/petite-alfred-dunner-land-of-the-free-tie-dye-batik-stars-tee/758264',
         })
 
         /*await keepaCheck({

@@ -278,6 +278,8 @@ req.abort()
                 await this.getDataZoomImageImage(input)
             } else if (input.render === 'data-path') {
                 await this.getDataPathImage(input)
+            } else if (input.render === 'data-original-src') {
+                await this.getDataOriginalSrcImage(input)
             }
         } catch (e: any) {
             console.error(e.message)
@@ -590,6 +592,37 @@ req.abort()
                 if (images) this.image = [...this.image, ...images]
             } else {
                 this.image.push(await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-path')))
+            }
+        }
+    }
+
+    private async getDataOriginalSrcImage(input: { selector: string; render: string; multiple?: boolean }) {
+        if (this.headlessRun) {
+            if (input.multiple) {
+                const $ = this.resultReq.$
+                this.image = $(input.selector)
+                    .map(function () {
+                        return $(this).attr('data-original-src')
+                    })
+                    .get()
+            } else {
+                const attr = this.resultReq.$(input.selector).attr('data-original-src')
+                if (typeof attr === 'string') {
+                    this.image.push(attr)
+                }
+            }
+        } else {
+            if (input.multiple) {
+                const images = (await this.page.$$eval(input.selector, (elems: Element[]) => {
+                    return elems
+                        .filter((elem) => elem.getAttribute('data-original-src') !== null)
+                        .map((elem) => elem.getAttribute('data-original-src') ?? '')
+                })) as string[]
+                if (images) this.image = [...this.image, ...images]
+            } else {
+                this.image.push(
+                    await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-original-src'))
+                )
             }
         }
     }

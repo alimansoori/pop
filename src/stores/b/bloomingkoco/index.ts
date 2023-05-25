@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Bloomingdales extends Store {
+export default class Bloomingkoco extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -9,12 +9,12 @@ export default class Bloomingdales extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div[class="product-title"] > h1')
+        await this.productExistBySelector('h1.title')
     }
 
     async productImageCalculate(): Promise<void> {
         await this.setImage({
-            selector: 'div.expose-alt-images-media img',
+            selector: 'div.gallery img',
             render: 'src',
             multiple: true,
         })

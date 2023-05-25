@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Bookpal extends Store {
+export default class Bigelowchemists extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -9,36 +9,29 @@ export default class Bookpal extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[itemprop="name"]')
+        await this.productExistBySelector('h1.product-single-title')
     }
 
     async productTitleCalculate(): Promise<void> {
         await this.setTitle({
-            selector: 'h1[itemprop="name"]',
+            selector: 'h1.product-single-title',
             render: 'text',
         })
     }
 
     async productImageCalculate(): Promise<void> {
         await this.setImage({
-            selector: '*.productView-images img',
+            selector: 'div[data-gallery-role="gallery"] img',
             render: 'src',
             multiple: true,
         })
     }
 
     async availibilityCalculate(): Promise<void> {
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
         await this.checkAvailability({
-            selector: 'meta[property="og:availability"]',
-            render: 'content',
-            outputArray: [],
-        })
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPrice({
-            selector1: 'meta[property="product:price:amount"]',
-            render: 'content',
+            selector: 'div.product-add-form button[title="Add to Bag"]',
+            render: 'text',
         })
     }
 }

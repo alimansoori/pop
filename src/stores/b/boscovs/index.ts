@@ -5,12 +5,29 @@ export default class Boscovs extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.LOAD
+        this.scrapUntilBlock = true
+        this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector(
             'div[class="product-wrapper"] div[class="mz-product-top-content"] h1[itemprop="name"]'
         )
+    }
+
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'div[class="product-wrapper"] div[class="mz-product-top-content"] h1[itemprop="name"]',
+            render: 'text',
+        })
+    }
+
+    async productImageCalculate(): Promise<void> {
+        await this.setImage({
+            selector: 'img[prop="image"]',
+            render: 'src',
+            multiple: true,
+        })
     }
 
     async availibilityCalculate(): Promise<void> {
