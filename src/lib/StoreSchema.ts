@@ -3,6 +3,7 @@ import { Product, WithContext } from 'schema-dts'
 export default class StoreSchema {
     private productSchema: WithContext<Product> | undefined
     name: string | undefined
+    upc: string | undefined
     image: string[] = []
     price = NaN
     availability = false
@@ -10,6 +11,7 @@ export default class StoreSchema {
     constructor(schemas: string[]) {
         this.init(schemas)
         this.fetchName()
+        this.fetchUPC()
         this.fetchImage()
         this.fetchOffer()
     }
@@ -62,6 +64,12 @@ export default class StoreSchema {
     private fetchName() {
         if (this.productSchema?.name) {
             this.name = String(this.productSchema?.name)
+        }
+    }
+
+    private fetchUPC() {
+        if (this.productSchema?.gtin13) {
+            this.upc = String(this.productSchema?.gtin13)
         }
     }
 

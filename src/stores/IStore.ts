@@ -13,6 +13,7 @@ export default interface IStore {
     productIsExist(): boolean
     getPrice(): number
     getImage(): string[]
+    getUPC(): string | undefined
     getTitleClass(): ProductTitle
     getPage(): Page
     setCanonical(): void

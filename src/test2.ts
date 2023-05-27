@@ -25,7 +25,7 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const storeRes = await sourceCheck({
-            url: 'https://www.boscovs.com/product/petite-alfred-dunner-land-of-the-free-tie-dye-batik-stars-tee/758264',
+            url: 'https://www.walmart.com/ip/McCormick-Gourmet-Organic-Crystallized-Ginger-2-oz/10308057',
         })
 
         /*await keepaCheck({
@@ -45,6 +45,7 @@ export async function sourceCheck(input: { url: string }): Promise<StoreOutputTy
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Title is: ' + store.getTitleClass().getTitle())
         console.log('Source Price is: ' + store.getPrice())
+        console.log('Source UPC is: ' + store.getUPC())
         console.log('Source Image is =>')
         console.log(store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())

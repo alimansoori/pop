@@ -54,6 +54,7 @@ export default class GoogleSheets {
                 'Brand',
                 'Category',
                 'Signature',
+                'Source UPC',
                 'Product Image',
                 'IN Stock',
                 'Source Price',
@@ -166,6 +167,7 @@ export default class GoogleSheets {
                 rows[i]['Title'] = store.getTitleClass().getTitle()
                 rows[i]['Product Image'] = JSON.stringify(store.getImage())
                 rows[i]['Source URL'] = store.getUrl()
+                rows[i]['Source UPC'] = store.getUPC()
                 rows[i]['IN Stock'] = store.isAvailability() ? 'TRUE' : 'FALSE'
                 rows[i]['Source Price'] = store.getPrice()
                 await rows[i].save()

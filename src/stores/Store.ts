@@ -32,6 +32,7 @@ abstract class Store implements IStore, IProductDetails {
     protected isScrollDown = false
     protected price = NaN
     private image: string[] = []
+    private upc: string | undefined
     public error = ''
     protected selectorsPrice: TypePriceSelectors = {}
     private readonly selectorsP: ISelectors
@@ -294,7 +295,7 @@ req.abort()
             content = await this.page.$eval(input.selector, (elem: any) => elem.getAttribute('data-data'))
         }
 
-        const regex = /https:.*?\.(?:png|jpg|svg)/g
+        const regex = /https?:.*?\.(?:png|jpe?g|svg)/g
         const urls = content?.match(regex)
         if (urls) {
             this.image = [...this.image, ...urls]
@@ -662,6 +663,10 @@ req.abort()
         return this.price
     }
 
+    public getUPC(): string | undefined {
+        return this.upc
+    }
+
     protected setPrice(price: number): void {
         this.price = price
     }
@@ -995,6 +1000,7 @@ req.abort()
             const storeSchema = new StoreSchema(jsonSchemas)
             this.titleClass.setTitle(storeSchema.name ? storeSchema.name : '')
             if (!this.image.length) this.image = [...this.image, ...storeSchema.image]
+            if (!this.upc) this.upc = storeSchema.upc
             this.setPrice(storeSchema.price)
             this.setAvailability(storeSchema.availability)
         } catch (e: any) {
