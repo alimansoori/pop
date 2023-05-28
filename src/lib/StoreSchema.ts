@@ -1,7 +1,8 @@
-import { Product, WithContext } from 'schema-dts'
+import { AssessAction, Product, WithContext } from 'schema-dts'
 
 export default class StoreSchema {
     private productSchema: WithContext<Product> | undefined
+    private associatedMedia: WithContext<AssessAction> | undefined
     name: string | undefined
     upc: string | undefined
     image: string[] = []
@@ -49,8 +50,7 @@ export default class StoreSchema {
                 continue
             }
         }
-
-        // console.log(this.productSchema)
+        console.log(this.productSchema)
     }
 
     private schemaCheckIfArray(schema: any[]) {
@@ -68,8 +68,10 @@ export default class StoreSchema {
     }
 
     private fetchUPC() {
-        if (this.productSchema?.gtin13) {
+        if (!this.upc && this.productSchema?.gtin13) {
             this.upc = String(this.productSchema?.gtin13)
+        } else if (!this.upc && this.productSchema?.mpn) {
+            this.upc = String(this.productSchema?.mpn)
         }
     }
 
@@ -116,6 +118,7 @@ export default class StoreSchema {
     private offerIsObject(offer: object): boolean {
         // @ts-ignore
         this.price = StoreSchema.fetchPriceFromOffer(offer)
+        this.upc = StoreSchema.fetchUPCFromOffer(offer)
         // @ts-ignore
         const availability = offer?.['availability']
         // @ts-ignore
@@ -178,5 +181,15 @@ export default class StoreSchema {
         }
 
         return NaN
+    }
+
+    private static fetchUPCFromOffer(offer: object): string {
+        // @ts-ignore
+        if (offer?.['gtin13']) {
+            // @ts-ignore
+            return offer?.['gtin13']
+        }
+
+        return ''
     }
 }

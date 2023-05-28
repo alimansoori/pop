@@ -560,6 +560,7 @@ import Bodybuilding from './b/bodybuilding'
 import Bonton from './b/bonton'
 import Bookpal from './b/bookpal'
 import Bornshoes from './b/bornshoes'
+import Bartlettman from './b/bartlettman'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -688,6 +689,7 @@ export default class SourceSiteFactory {
             else if (domain === 'betterworldbooks') return new Betterworldbooks(url)
             else if (domain === 'bargainw') return new Bargainw(url)
             else if (domain === 'bellacor') return new Bellacor(url)
+            else if (domain === 'bartlettman') return new Bartlettman(url)
             else if (domain === 'bigpoppasmokers') return new Bigpoppasmokers(url)
             else if (domain === 'beautifiedyou') return new Beautifiedyou(url)
             else if (domain === 'bestbuy') return new Bestbuy(url)

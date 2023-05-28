@@ -25,11 +25,11 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const storeRes = await sourceCheck({
-            url: 'https://www.walmart.com/ip/McCormick-Gourmet-Organic-Crystallized-Ginger-2-oz/10308057',
+            url: 'https://bicyclewarehouse.com/products/sram-gx-eagle-12-speed-chain',
         })
 
         /*await keepaCheck({
-            asin: 'B01JK7IHIA',
+            asin: 'B00002N6T5',
             price: 5.1,
         })*/
     } catch (e: any) {
@@ -50,7 +50,7 @@ export async function sourceCheck(input: { url: string }): Promise<StoreOutputTy
         console.log(store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())
         console.log('ERROR msg: ' + store.error)
-        await store.browser?.close()
+        // await store.browser?.close()
         return {
             title: store.getTitleClass().getTitle(),
             statusCode: store.statusCode,

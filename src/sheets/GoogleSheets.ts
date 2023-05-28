@@ -128,6 +128,7 @@ export default class GoogleSheets {
                 await store.scrape()
                 await store.browser?.close()
                 console.log('Source Title is: ' + store.getTitleClass().getTitle())
+                console.log('Source UPC is: ' + store.getUPC())
                 console.log('Source Price is: ' + store.getPrice())
                 console.log('Source Image is: ' + store.getImage())
                 console.log('Source Price is: ' + store.getPrice())
