@@ -663,6 +663,10 @@ req.abort()
         return this.price
     }
 
+    public setUPC(upc: string): void {
+        this.upc = upc
+    }
+
     public getUPC(): string | undefined {
         return this.upc
     }

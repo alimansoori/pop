@@ -50,7 +50,6 @@ export default class StoreSchema {
                 continue
             }
         }
-        console.log(this.productSchema)
     }
 
     private schemaCheckIfArray(schema: any[]) {
@@ -72,6 +71,8 @@ export default class StoreSchema {
             this.upc = String(this.productSchema?.gtin13)
         } else if (!this.upc && this.productSchema?.mpn) {
             this.upc = String(this.productSchema?.mpn)
+        } else if (!this.upc && this.productSchema?.gtin) {
+            this.upc = String(this.productSchema?.gtin)
         }
     }
 
@@ -188,6 +189,18 @@ export default class StoreSchema {
         if (offer?.['gtin13']) {
             // @ts-ignore
             return offer?.['gtin13']
+        } else {
+            // @ts-ignore
+            if (offer?.['gtin']) {
+                // @ts-ignore
+                return offer?.['gtin']
+            } else {
+                // @ts-ignore
+                if (offer?.['mpn']) {
+                    // @ts-ignore
+                    return offer?.['mpn']
+                }
+            }
         }
 
         return ''

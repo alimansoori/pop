@@ -25,7 +25,7 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const storeRes = await sourceCheck({
-            url: 'https://bicyclewarehouse.com/products/sram-gx-eagle-12-speed-chain',
+            url: 'https://shop.unlimitedbiking.com/products/sram-pg-1070-cassette?variant=32979502923811',
         })
 
         /*await keepaCheck({
@@ -50,7 +50,7 @@ export async function sourceCheck(input: { url: string }): Promise<StoreOutputTy
         console.log(store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())
         console.log('ERROR msg: ' + store.error)
-        // await store.browser?.close()
+        await store.browser?.close()
         return {
             title: store.getTitleClass().getTitle(),
             statusCode: store.statusCode,
