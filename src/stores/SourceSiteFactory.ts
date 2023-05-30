@@ -582,6 +582,10 @@ import Gardenersedge from './g/gardenersedge'
 import Impactguns from './i/impactguns'
 import Natchezss from './n/natchezss'
 import Marinepartssource from './t/marinepartssource'
+import Neobits from './n/neobits'
+import Probikesupply from './p/probikesupply'
+import Bigfrogsupply from './b/bigfrogsupply'
+import Build from './b/build'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -685,6 +689,7 @@ export default class SourceSiteFactory {
             else if (domain === 'americanedgeknives') return new Americanedgeknives(url)
             else if (domain === 'backcountry') return new Backcountry(url)
             else if (domain === 'babyearth') return new Babyearth(url)
+            else if (domain === 'bigfrogsupply') return new Bigfrogsupply(url)
             else if (domain === 'bangalla') return new Bangalla(url)
             else if (domain === 'bambibaby') return new Bambibaby(url)
             else if (domain === 'basspro') return new Basspro(url)
@@ -732,6 +737,7 @@ export default class SourceSiteFactory {
             else if (domain === 'boardlandia') return new Boardlandia(url)
             else if (domain === 'boscovs') return new Boscovs(url)
             else if (domain === 'bonton') return new Bonton(url)
+            else if (domain === 'build') return new Build(url)
             else if (domain === 'bobstores') return new Bobstores(url)
             else if (domain === 'bloomingkoco') return new Bloomingkoco(url)
             else if (domain === 'bladehq') return new Bladehq(url)
@@ -982,6 +988,7 @@ export default class SourceSiteFactory {
             else if (domain === 'neweggbusiness') return new Neweggbusiness(url)
             else if (domain === 'nextwarehouse') return new Nextwarehouse(url)
             else if (domain === 'nordstrom') return new Nordstrom(url)
+            else if (domain === 'neobits') return new Neobits(url)
             else if (domain === 'northerntool') return new Northerntool(url)
             else if (domain === 'nobleknight') return new Nobleknight(url)
             else if (domain === 'nowfoods') return new Nowfoods(url)
@@ -1020,6 +1027,7 @@ export default class SourceSiteFactory {
             else if (domain === 'palmettostatearmory') return new Palmettostatearmory(url)
             else if (domain === 'parktool') return new Parktool(url)
             else if (domain === 'petedge') return new Petedge(url)
+            else if (domain === 'probikesupply') return new Probikesupply(url)
             else if (domain === 'petsense') return new Petsense(url)
             else if (domain === 'petsmart') return new Petsmart(url)
             else if (domain === 'planetcyclery') return new Planetcyclery(url)

@@ -25,7 +25,7 @@ export async function main() {
         console.log(JSON.stringify(output))*/
 
         const storeRes = await sourceCheck({
-            url: 'https://shop.unlimitedbiking.com/products/sram-pg-1070-cassette?variant=32979502923811',
+            url: 'https://www.walmart.com/ip/seort/307350222',
         })
 
         /*await keepaCheck({
