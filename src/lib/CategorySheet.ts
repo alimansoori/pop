@@ -17,6 +17,8 @@ export default class CategorySheet {
                 return EnumCatSheets.MUSICAL_INSTRUMENTS
             case 'beauty':
                 return EnumCatSheets.BEAUTY
+            case 'beauty2':
+                return EnumCatSheets.BEAUTY2
             case 'health':
                 return EnumCatSheets.HEALTH
             case 'sport':

@@ -7,6 +7,7 @@ export enum EnumCatSheets {
     KITCHEN_DINING = '1hcyIxvxUji0U9ViQoNs1Kqa7bUvxOOgrukutR4pfqs0',
     MUSICAL_INSTRUMENTS = '1B1mDd3ZRi4NiJVM9F2mT4lLIzjDiIOV8agnTqVhLZNQ',
     BEAUTY = '1fjwqjn7xHaxZx_fRIRZn1Dby4xhvs2LsU7ZCBh9kzKw',
+    BEAUTY2 = '18nuqDcdu1hp235Mw52b5VzixV0ShYE3RCVznwmKL_cQ',
     HEALTH = '1HN6A9uN5p5mQgOM7cidK8NN2fh1tMHIFTAwJCtUXWwc',
     SPORT = '1DoM-YNuyBJt0bDhPjs1qJrptgqsGJjoNK-W1CY_lKLA',
     PET = '1njgfmcaBLiLR4jfJMI4WY4rrpcmauIljxa1tZDD-ZT4',

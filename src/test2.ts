@@ -11,7 +11,6 @@ export async function main() {
                 link: 'https://hasbropulse.com/collections/all-products/products/transformers-takara-tomy-masterpiece-optimus-prime-and-tenseg-base',
             })
         )*/
-
         /*console.log(
             await dbApi.getProductByTitle({
                 search: 'Blue Buffalo',
@@ -23,11 +22,9 @@ export async function main() {
         ]
         const output = input.map((obj) => obj['images-src'])
         console.log(JSON.stringify(output))*/
-
-        const storeRes = await sourceCheck({
+        /*const storeRes = await sourceCheck({
             url: 'https://www.walmart.com/ip/seort/307350222',
-        })
-
+        })*/
         /*await keepaCheck({
             asin: 'B00002N6T5',
             price: 5.1,
