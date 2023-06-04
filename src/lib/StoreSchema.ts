@@ -1,8 +1,7 @@
-import { AssessAction, Product, WithContext } from 'schema-dts'
+import { Offer, Product, WithContext } from 'schema-dts'
 
 export default class StoreSchema {
     private productSchema: WithContext<Product> | undefined
-    private associatedMedia: WithContext<AssessAction> | undefined
     name: string | undefined
     upc: string | undefined
     image: string[] = []
@@ -73,6 +72,10 @@ export default class StoreSchema {
             this.upc = String(this.productSchema?.mpn)
         } else if (!this.upc && this.productSchema?.gtin) {
             this.upc = String(this.productSchema?.gtin)
+        } else if (!this.upc && this.productSchema?.gtin14) {
+            this.upc = String(this.productSchema?.gtin14)
+        } else if (!this.upc && this.productSchema?.gtin12) {
+            this.upc = String(this.productSchema?.gtin12)
         }
     }
 
@@ -116,22 +119,25 @@ export default class StoreSchema {
         }
     }
 
-    private offerIsObject(offer: object): boolean {
+    private offerIsObject(offer: Offer): boolean {
         // @ts-ignore
         this.price = StoreSchema.fetchPriceFromOffer(offer)
-        this.upc = StoreSchema.fetchUPCFromOffer(offer)
+        StoreSchema.fetchUPCFromOffer(offer)
+        this.name = !this.name ? StoreSchema.fetchNameFromOffer(offer) : this.name
         // @ts-ignore
-        const availability = offer?.['availability']
+        const availability = offer?.availability
         // @ts-ignore
         const itemCondition = offer?.['itemCondition']
         // @ts-ignore
         if (itemCondition && itemCondition?.toLowerCase()?.includes('new')) {
+            // @ts-ignore
             if (availability?.toLowerCase().includes('instock')) {
                 this.availability = true
             }
             return true
         }
         if (!itemCondition) {
+            // @ts-ignore
             if (availability?.toLowerCase().includes('instock')) {
                 this.availability = true
             }
@@ -139,7 +145,7 @@ export default class StoreSchema {
         return false
     }
 
-    private static fetchPriceFromOffer(offer: object): number {
+    private static fetchPriceFromOffer(offer: Offer): number {
         // @ts-ignore
         if (offer?.['price']) {
             // @ts-ignore
@@ -148,7 +154,7 @@ export default class StoreSchema {
             // @ts-ignore
             if (offer?.['priceSpecification']) {
                 // @ts-ignore
-                const priceSpecification = offer?.['priceSpecification']
+                const priceSpecification = offer?.priceSpecification
                 if (Array.isArray(priceSpecification)) {
                     let listPrice = NaN
                     let salePrice = NaN
@@ -168,7 +174,9 @@ export default class StoreSchema {
                     if (salePrice) return salePrice
                     else if (listPrice) return listPrice
                 } else {
+                    // @ts-ignore
                     if (priceSpecification['price']) {
+                        // @ts-ignore
                         return parseFloat(priceSpecification['price'])
                     }
                 }
@@ -184,23 +192,31 @@ export default class StoreSchema {
         return NaN
     }
 
-    private static fetchUPCFromOffer(offer: object): string {
+    private static fetchUPCFromOffer(offer: Offer): void {
         // @ts-ignore
-        if (offer?.['gtin13']) {
+        if (offer?.gtin13) {
             // @ts-ignore
-            return offer?.['gtin13']
-        } else {
+            this.upc = offer?.gtin13
+        } else if (offer?.gtin) {
             // @ts-ignore
-            if (offer?.['gtin']) {
-                // @ts-ignore
-                return offer?.['gtin']
-            } else {
-                // @ts-ignore
-                if (offer?.['mpn']) {
-                    // @ts-ignore
-                    return offer?.['mpn']
-                }
-            }
+            this.upc = offer?.gtin
+        } else if (offer?.gtin14) {
+            // @ts-ignore
+            this.upc = offer?.gtin14
+        } else if (offer?.gtin12) {
+            // @ts-ignore
+            this.upc = offer?.gtin12
+        } else if (offer?.mpn) {
+            // @ts-ignore
+            this.upc = offer?.mpn
+        }
+    }
+
+    private static fetchNameFromOffer(offer: Offer): string {
+        // @ts-ignore
+        if (offer?.['name']) {
+            // @ts-ignore
+            return offer?.['name']
         }
 
         return ''

@@ -586,6 +586,7 @@ import Neobits from './n/neobits'
 import Probikesupply from './p/probikesupply'
 import Bigfrogsupply from './b/bigfrogsupply'
 import Build from './b/build'
+import Brandsmartusa from './b/brandsmartusa'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -689,6 +690,7 @@ export default class SourceSiteFactory {
             else if (domain === 'americanedgeknives') return new Americanedgeknives(url)
             else if (domain === 'backcountry') return new Backcountry(url)
             else if (domain === 'babyearth') return new Babyearth(url)
+            else if (domain === 'brandsmartusa') return new Brandsmartusa(url)
             else if (domain === 'bigfrogsupply') return new Bigfrogsupply(url)
             else if (domain === 'bangalla') return new Bangalla(url)
             else if (domain === 'bambibaby') return new Bambibaby(url)

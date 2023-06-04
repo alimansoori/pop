@@ -4,27 +4,9 @@ import { StoreOutputType } from './@types/StoreOutputType'
 
 export async function main() {
     try {
-        // const dbApi = new DbApi('http://199.244.49.112:8080/api', '')
-        /*console.log(
-            await dbApi.addProduct({
-                title: 'Transformers Takara Tomy Masterpiece Optimus Prime and Tenseg Base',
-                link: 'https://hasbropulse.com/collections/all-products/products/transformers-takara-tomy-masterpiece-optimus-prime-and-tenseg-base',
-            })
-        )*/
-        /*console.log(
-            await dbApi.getProductByTitle({
-                search: 'Blue Buffalo',
-            })
-        )*/
-        /*const input = [
-            { images: '', 'images-src': '1.jpg' },
-            { images: '', 'images-src': '2.jpg' },
-        ]
-        const output = input.map((obj) => obj['images-src'])
-        console.log(JSON.stringify(output))*/
-        /*const storeRes = await sourceCheck({
-            url: 'https://www.walmart.com/ip/seort/307350222',
-        })*/
+        const storeRes = await sourceCheck({
+            url: 'https://www.brandsmartusa.com/incipio/251149/duo-for-samsung-galaxy-s21-5g.htm',
+        })
         /*await keepaCheck({
             asin: 'B00002N6T5',
             price: 5.1,
