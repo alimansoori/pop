@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Farmandfleet extends Store {
+export default class Summitracing extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -9,7 +9,14 @@ export default class Farmandfleet extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div.pdp-header')
+        await this.productExistBySelector('h1.part-detail-title')
+    }
+
+    async productTitleCalculate(): Promise<void> {
+        await this.setTitle({
+            selector: 'h1.part-detail-title',
+            render: 'text',
+        })
     }
 
     async availibilityCalculate(): Promise<void> {

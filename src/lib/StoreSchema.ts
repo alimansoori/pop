@@ -1,4 +1,4 @@
-import { Offer, Product, WithContext } from 'schema-dts'
+import { ImageObject, Offer, Product, WithContext } from 'schema-dts'
 
 export default class StoreSchema {
     private productSchema: WithContext<Product> | undefined
@@ -82,21 +82,34 @@ export default class StoreSchema {
     private fetchImage() {
         if (this.productSchema?.image) {
             if (Array.isArray(this.productSchema?.image) && this.productSchema?.image.length) {
-                this.image = this.productSchema?.image
+                for (let i = 0; i < this.productSchema?.image.length; i++) {
+                    if (typeof this.productSchema?.image[i] === 'object') {
+                        this.imageIsObject(this.productSchema?.image[i])
+                    } else {
+                        this.image.push(String(this.productSchema?.image[i]))
+                    }
+                }
             } else if (typeof this.productSchema?.image === 'object') {
-                // @ts-ignore
-                if (this.productSchema?.image['image']) {
-                    // @ts-ignore
-                    this.image.push(this.productSchema?.image['image'])
-                }
-                // @ts-ignore
-                else if (this.productSchema?.image['url']) {
-                    // @ts-ignore
-                    this.image.push(this.productSchema?.image['url'])
-                }
+                this.imageIsObject(this.productSchema?.image)
             } else {
                 this.image.push(String(this.productSchema?.image))
             }
+        }
+    }
+
+    private imageIsObject(image: any) {
+        // @ts-ignore
+        if (image['image']) {
+            // @ts-ignore
+            this.image.push(image['image'])
+        }
+        // @ts-ignore
+        else if (image['url']) {
+            // @ts-ignore
+            this.image.push(image['url'])
+        } else if (image['contentUrl']) {
+            // @ts-ignore
+            this.image.push(image['contentUrl'])
         }
     }
 

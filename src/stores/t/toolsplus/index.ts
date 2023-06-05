@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Doitbest extends Store {
+export default class Toolsplus extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -9,36 +9,35 @@ export default class Doitbest extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1.ProductTitle')
+        await this.productExistBySelector('div.product h1.page-title')
     }
 
     async productTitleCalculate(): Promise<void> {
         await this.setTitle({
-            selector: 'h1.ProductTitle',
+            selector: 'div.product h1.page-title',
             render: 'text',
         })
     }
 
     async productImageCalculate(): Promise<void> {
         await this.setImage({
-            selector: 'div[id="ProductGallery"] img',
+            selector: 'div[data-gallery-role="gallery"] img',
             render: 'src',
-            multiple: true,
         })
     }
 
     async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
-            selector: 'input[id="AddToCartForm_Submit"]',
-            render: 'value',
+            selector: 'meta[itemprop="availability"]',
+            render: 'content',
             outputArray: [],
         })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'div.ProductContent *.ProductPriceRetail',
-            render: 'text',
+            selector1: 'meta[itemprop="price"]',
+            render: 'content',
         })
     }
 }
