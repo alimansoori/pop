@@ -216,31 +216,35 @@ export default class ProfitRoiCalculate {
     }
 
     private totalAmazonReferralFeesCalculator() {
-        if (EnumCategories.AUTOMOTIVE) {
+        if (this.input.category === EnumCategories.AUTOMOTIVE) {
             if (this.input.sellPrice * 0.12 > 0.3) {
                 this.totalAmazonReferralFees = this.input.sellPrice * 0.12
             } else {
                 this.totalAmazonReferralFees = 0.3
             }
-        } else if (EnumCategories.BEAUTY || EnumCategories.HEALTH) {
+        } else if (this.input.category === EnumCategories.BEAUTY || this.input.category === EnumCategories.HEALTH) {
             if (this.input.sellPrice * 0.08 > 0.3) {
                 this.totalAmazonReferralFees = this.input.sellPrice * 0.15
             } else {
                 this.totalAmazonReferralFees = 0.3
             }
-        } else if (EnumCategories.CAMERA || EnumCategories.CELL_PHONES || EnumCategories.CONSUMER_ELECTRONIC) {
+        } else if (
+            this.input.category === EnumCategories.CAMERA ||
+            this.input.category === EnumCategories.CELL_PHONES ||
+            this.input.category === EnumCategories.CONSUMER_ELECTRONIC
+        ) {
             if (this.input.sellPrice * 0.08 > 0.3) {
                 this.totalAmazonReferralFees = this.input.sellPrice * 0.08
             } else {
                 this.totalAmazonReferralFees = 0.3
             }
-        } else if (EnumCategories.CLOTHING) {
+        } else if (this.input.category === EnumCategories.CLOTHING) {
             if (this.input.sellPrice * 0.17 > 0.3) {
                 this.totalAmazonReferralFees = this.input.sellPrice * 0.17
             } else {
                 this.totalAmazonReferralFees = 0.3
             }
-        } else if (EnumCategories.ELECTRONIC) {
+        } else if (this.input.category === EnumCategories.ELECTRONIC) {
             if (this.input.sellPrice * 0.15 > 0.15) {
                 if (this.input.sellPrice < 100) {
                     this.totalAmazonReferralFees = this.input.sellPrice * 0.15
@@ -270,7 +274,8 @@ export default class ProfitRoiCalculate {
         const freight = 0.79
         const dutiesRate = 0.07
         const warehouseFees = 0.2
-        this.landedCosts = this.input.buyCost + freight + this.input.buyCost * dutiesRate + warehouseFees
+        // this.landedCosts = this.input.buyCost + freight + this.input.buyCost * dutiesRate + warehouseFees
+        this.landedCosts = this.input.buyCost + this.input.buyCost * 0.02
     }
 
     netProfitCalculator() {

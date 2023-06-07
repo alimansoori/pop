@@ -5,8 +5,8 @@ export default class CategorySheet {
         switch (category) {
             case 'google':
                 return EnumCatSheets.GOOGLE
-            case 'toys':
-                return EnumCatSheets.TOYS
+            case 'toys1':
+                return EnumCatSheets.TOYS1
             case 'toys2':
                 return EnumCatSheets.TOYS2
             case 'toys3':
@@ -17,10 +17,12 @@ export default class CategorySheet {
                 return EnumCatSheets.KITCHEN_DINING
             case 'musical':
                 return EnumCatSheets.MUSICAL_INSTRUMENTS
-            case 'beauty':
-                return EnumCatSheets.BEAUTY
+            case 'beauty1':
+                return EnumCatSheets.BEAUTY1
             case 'beauty2':
                 return EnumCatSheets.BEAUTY2
+            case 'beauty3':
+                return EnumCatSheets.BEAUTY3
             case 'health':
                 return EnumCatSheets.HEALTH
             case 'sport':
