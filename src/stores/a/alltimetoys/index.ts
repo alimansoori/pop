@@ -9,10 +9,14 @@ export default class Alltimetoys extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1 *[itemprop="name"]')
+        await this.productExistBySelector('h1.productView-title')
     }
 
     async availibilityCalculate(): Promise<void> {
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
+    }
+
+    /*async availibilityCalculate(): Promise<void> {
         await this.checkAvailability({
             selector: 'div[title="Availability"] > span',
             render: 'text',
@@ -25,5 +29,5 @@ export default class Alltimetoys extends Store {
             selector1: 'div[class="product-info-main"] *[data-price-type="finalPrice"]',
             render: 'data-price-amount',
         })
-    }
+    }*/
 }

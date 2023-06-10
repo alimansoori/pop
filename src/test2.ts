@@ -4,13 +4,13 @@ import { StoreOutputType } from './@types/StoreOutputType'
 
 export async function main() {
     try {
-        /*const storeRes = await sourceCheck({
-            url: 'https://www.walmart.com/ip/seort/627319963',
-        })*/
-        await keepaCheck({
+        const storeRes = await sourceCheck({
+            url: 'https://alltimetoys.com/hasbro-star-wars-the-black-series-archive-darth-revan-6-figure/',
+        })
+        /*await keepaCheck({
             asin: 'B077J2GJBV',
             price: 31.74,
-        })
+        })*/
     } catch (e: any) {
         console.log(e.message)
     }
