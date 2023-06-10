@@ -4,13 +4,13 @@ import { StoreOutputType } from './@types/StoreOutputType'
 
 export async function main() {
     try {
-        const storeRes = await sourceCheck({
-            url: 'https://www.walmart.com/ip/Milwaukee-SWITCHBLADE-1-3-8-in-L-x-0-06-in-Hardened-Steel-Wood-Chiseling-Replacement-Switchbl-Case-Of-1-Each-Pack-Qty-10-Total-Items-Qty-10/44675275',
-        })
-        /*await keepaCheck({
-            asin: 'B0B19KM4QP',
-            price: 12.99,
+        /*const storeRes = await sourceCheck({
+            url: 'https://www.walmart.com/ip/seort/627319963',
         })*/
+        await keepaCheck({
+            asin: 'B077J2GJBV',
+            price: 31.74,
+        })
     } catch (e: any) {
         console.log(e.message)
     }

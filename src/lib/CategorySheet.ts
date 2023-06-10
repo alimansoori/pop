@@ -23,8 +23,10 @@ export default class CategorySheet {
                 return EnumCatSheets.BEAUTY2
             case 'beauty3':
                 return EnumCatSheets.BEAUTY3
-            case 'health':
-                return EnumCatSheets.HEALTH
+            case 'health1':
+                return EnumCatSheets.HEALTH1
+            case 'health2':
+                return EnumCatSheets.HEALTH2
             case 'sport':
                 return EnumCatSheets.SPORT
             case 'pet':
