@@ -594,6 +594,7 @@ import Toolsplus from './t/toolsplus'
 import Toolup from './t/toolup'
 import Summitracing from './s/summitracing'
 import Farmandfleet from './f/farmandfleet'
+import Hearthsong from './h/hearthsong'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -907,6 +908,7 @@ export default class SourceSiteFactory {
             else if (domain === 'hayneedle') return new Hayneedle(url)
             else if (domain === 'hottopic') return new Hottopic(url)
             else if (domain === 'hsn') return new Hsn(url)
+            else if (domain === 'hearthsong') return new Hearthsong(url)
             else if (domain === 'hotelrestaurantsupply') return new Hotelrestaurantsupply(url)
             else if (domain === 'iherb') return new Iherb(url)
             else if (domain === 'ikea') return new Ikea(url)

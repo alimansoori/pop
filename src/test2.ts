@@ -5,7 +5,7 @@ import { StoreOutputType } from './@types/StoreOutputType'
 export async function main() {
     try {
         const storeRes = await sourceCheck({
-            url: 'https://alltimetoys.com/hasbro-star-wars-the-black-series-archive-darth-revan-6-figure/',
+            url: 'https://www.target.com/p/disney-pixar-cars-lightning-mcqueen-infant-baby-boys-zip-up-cosplay-costume-coverall-red-6-12-months/-/A-85236989',
         })
         /*await keepaCheck({
             asin: 'B077J2GJBV',

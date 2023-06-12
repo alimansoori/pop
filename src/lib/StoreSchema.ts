@@ -46,6 +46,7 @@ export default class StoreSchema {
                     break
                 }
             } catch (e: any) {
+                console.log(e.message)
                 continue
             }
         }
