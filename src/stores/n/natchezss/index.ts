@@ -9,34 +9,10 @@ export default class Natchezss extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1.sc-hRLfyG')
-    }
-
-    async productTitleCalculate(): Promise<void> {
-        await this.setTitle({
-            selector: 'h1.sc-hRLfyG',
-            render: 'text',
-        })
-    }
-
-    async productImageCalculate(): Promise<void> {
-        await this.setImage({
-            selector: '',
-            render: '',
-        })
+        await this.productExistBySelector('script[type="application/ld+json"]')
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailability({
-            selector: 'sc-ezzafa',
-            render: 'text',
-        })
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPrice({
-            selector1: 'p.sc-gLwjMs',
-            render: 'text',
-        })
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

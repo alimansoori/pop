@@ -5,7 +5,7 @@ import { StoreOutputType } from './@types/StoreOutputType'
 export async function main() {
     try {
         const storeRes = await sourceCheck({
-            url: 'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
+            url: 'https://www.freshwatersystems.com/products/pentek-10-slim-line-water-filter-housing-blue-clear-w-pr?variant=13250550235179',
         })
         /*await keepaCheck({
             asin: 'B077J2GJBV',

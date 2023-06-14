@@ -1,7 +1,8 @@
 import Store from '../../Store'
+
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 
-export default class Quill extends Store {
+export default class JanSupply extends Store {
     constructor(url: string) {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
@@ -9,18 +10,21 @@ export default class Quill extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1.skuName')
+        await this.productExistBySelector('h1.product-info__title')
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
-        this.setAvailability(true)
+        await this.checkAvailability({
+            selector: 'link[itemprop="availability"]',
+            render: 'href',
+            outputArray: [],
+        })
     }
 
     async priceCalculate(): Promise<void> {
         await this.checkPrice({
-            selector1: 'div[id="dvSkuPage"] div.pricing-wrap span.price-size',
-            render: 'text',
+            selector1: '*[itemprop="price"]',
+            render: 'content',
         })
     }
 }
