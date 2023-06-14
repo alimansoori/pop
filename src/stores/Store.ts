@@ -949,7 +949,7 @@ req.abort()
     abstract productExistCalculate(): Promise<void>
 
     protected async productExistBySelector(selector: string, timeout?: number | undefined) {
-        if (!timeout) timeout = 15000
+        if (!timeout) timeout = 30000
         if (this.headlessRun) {
             if (!this.resultReq.$(selector).length) {
                 this.productExist = false

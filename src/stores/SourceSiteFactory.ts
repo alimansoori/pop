@@ -594,6 +594,7 @@ import Toolup from './t/toolup'
 import Summitracing from './s/summitracing'
 import Farmandfleet from './f/farmandfleet'
 import Hearthsong from './h/hearthsong'
+import Vitaminshoppe from './v/vitaminshoppe'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -1201,6 +1202,7 @@ export default class SourceSiteFactory {
             else if (domain === 'villeroy-boch') return new VilleroyBoch(url)
             else if (domain === 'vminnovations') return new Vminnovations(url)
             else if (domain === 'vitalitymedical') return new Vitalitymedical(url)
+            else if (domain === 'vitaminshoppe') return new Vitaminshoppe(url)
             else if (domain === 'walmart') return new Walmart(url)
             else if (domain === 'windsorbikeandsport') return new Windsorbikeandsport(url)
             else if (domain === 'walgreens') return new Walgreens(url)

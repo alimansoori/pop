@@ -1,5 +1,5 @@
 // @ts-ignore
-import puppeteer, { Browser, Page } from 'zyte-smartproxy-puppeteer'
+import puppeteer, { Page, Browser } from 'zyte-smartproxy-puppeteer'
 import fs from 'fs'
 
 export class MyPuppeteer {
@@ -31,8 +31,8 @@ export class MyPuppeteer {
             let browserP = {
                 headless: this.headless,
                 ignoreHTTPSErrors: true,
-                executablePath: 'C:\\chrome-win\\chrome.exe',
-                // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+                // executablePath: 'C:\\chrome-win\\chrome.exe',
+                executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
             }
 
             if (this.useProxy) {
