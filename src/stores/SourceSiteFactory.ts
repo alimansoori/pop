@@ -162,7 +162,6 @@ import Jcpenney from './j/jcpenney'
 import Advancedbionutritionals from './a/advancedbionutritionals'
 import Nordstrom from './n/nordstrom'
 import Legacytoys from './l/legacytoys'
-import Toygamewiz from './t/toygamewiz'
 import Petflow from './p/petflow'
 import Insanetoyshop from './i/insanetoyshop'
 import Roadrunnersports from './r/roadrunnersports'
@@ -1177,7 +1176,7 @@ export default class SourceSiteFactory {
             else if (domain === 'toytokyo') return new Toytokyo(url)
             else if (domain === 'toytooth') return new Toytooth(url)
             else if (domain === 'toyarena') return new Toyarena(url)
-            else if (domain === 'toygamewiz') return new Toygamewiz(url)
+            // else if (domain === 'toygamewiz') return new Toygamewiz(url) Scam
             else if (domain === 'thepartsbiz') return new Thepartsbiz(url)
             else if (domain === 'trisports') return new Trisports(url)
             else if (domain === 'toolmarts') return new Toolmarts(url)

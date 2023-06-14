@@ -5,7 +5,7 @@ import { StoreOutputType } from './@types/StoreOutputType'
 export async function main() {
     try {
         const storeRes = await sourceCheck({
-            url: 'https://www.target.com/p/disney-pixar-cars-lightning-mcqueen-infant-baby-boys-zip-up-cosplay-costume-coverall-red-6-12-months/-/A-85236989',
+            url: 'https://www.walmart.com/ip/Funko-POP-TV-Stranger-Things-S3-W2-Eleven/453383678',
         })
         /*await keepaCheck({
             asin: 'B077J2GJBV',
