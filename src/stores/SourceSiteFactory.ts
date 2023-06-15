@@ -604,6 +604,7 @@ import Harborfreight from './h/harborfreight'
 import JanSupply from './j/jan-supply'
 import Freshwatersystems from './f/freshwatersystems'
 import Crutchfield from './c/crutchfield'
+import Retrovgames from './r/retrovgames'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -1092,6 +1093,7 @@ export default class SourceSiteFactory {
             else if (domain === 'regowholesale') return new Regowholesale(url)
             else if (domain === 'rockler') return new Rockler(url)
             else if (domain === 'rallyhouse') return new Rallyhouse(url)
+            else if (domain === 'retrovgames') return new Retrovgames(url)
             else if (domain === 'rcwilley') return new Rcwilley(url)
             else if (domain === 'reverb') return new Reverb(url)
             else if (domain === 'restockit') return new Restockit(url)

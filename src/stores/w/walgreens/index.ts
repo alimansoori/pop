@@ -7,7 +7,7 @@ export default class Walgreens extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
-        this.excludeAssets = [
+        /*this.excludeAssets = [
             // 'https://www.wag-static.com/common/react/assets/script.min.js',
             'https://www.walgreens.com/common/react/assets/client_bundle',
             'https://www.wag-static.com/common/react/assets/client_bundle',
@@ -26,7 +26,7 @@ export default class Walgreens extends Store {
             /https:\/\/assets.adobedtm.com\/(.*).min.js/,
             'https://maps.googleapis.com/',
             'https://cdn.cookielaw.org/scripttemplates',
-        ]
+        ]*/
     }
 
     async productExistCalculate(): Promise<void> {
@@ -36,7 +36,7 @@ export default class Walgreens extends Store {
     async availibilityCalculate(): Promise<void> {
         await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
 
-        try {
+        /*try {
             await this.page.waitForSelector('ul.fulfillment__container > li:last-child', {
                 timeout: 3000,
             })
@@ -51,13 +51,6 @@ export default class Walgreens extends Store {
             })
         } catch (e: any) {
             this.setAvailability(false)
-        }
+        }*/
     }
-
-    /*async priceCalculate(): Promise<void> {
-await this.checkPrice({
-  selector1: '*[id="sales-price-info"]',
-  render: 'text',
-})
-}*/
 }
