@@ -31,8 +31,8 @@ export class MyPuppeteer {
             let browserP = {
                 headless: this.headless,
                 ignoreHTTPSErrors: true,
-                // executablePath: 'C:\\chrome-win\\chrome.exe',
-                executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+                executablePath: 'C:\\chrome-win\\chrome.exe',
+                // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
             }
 
             if (this.useProxy) {

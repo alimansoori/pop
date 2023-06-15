@@ -10,6 +10,7 @@ export default class Freshwatersystems extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('div.product-info__container h1')
+        // this.productExist = false
     }
 
     async availibilityCalculate(): Promise<void> {
