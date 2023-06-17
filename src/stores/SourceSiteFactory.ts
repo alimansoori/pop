@@ -500,7 +500,6 @@ import Lenovo from './l/lenovo'
 import Bigpoppasmokers from './b/bigpoppasmokers'
 import Bbqgalore from './b/bbqgalore'
 import Armynavyusa from './a/armynavyusa'
-import Modernbike from './m/modernbike'
 import Swissknifeshop from './s/swissknifeshop'
 import Kylesbikes from './k/kylesbikes'
 import Hotelrestaurantsupply from './h/hotelrestaurantsupply'
@@ -605,6 +604,10 @@ import JanSupply from './j/jan-supply'
 import Freshwatersystems from './f/freshwatersystems'
 import Crutchfield from './c/crutchfield'
 import Retrovgames from './r/retrovgames'
+import Strawberrynet from './s/strawberrynet'
+import ECosmetorium from './e/e-cosmetorium'
+import Elfcosmetics from './e/elfcosmetics'
+import Faucetdirect from './f/faucetdirect'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -844,6 +847,8 @@ export default class SourceSiteFactory {
             else if (domain === 'entirelypets') return new Entirelypets(url)
             else if (domain === 'etundra') return new Etundra(url)
             else if (domain === 'evo') return new Evo(url)
+            else if (domain === 'elfcosmetics') return new Elfcosmetics(url)
+            else if (domain === 'e-cosmetorium') return new ECosmetorium(url)
             else if (domain === 'eriksbikeshop') return new Eriksbikeshop(url)
             else if (domain === 'excelsports') return new Excelsports(url)
             else if (domain === 'evitamins') return new Evitamins(url)
@@ -856,6 +861,7 @@ export default class SourceSiteFactory {
             else if (domain === 'fatbraintoys') return new Fatbraintoys(url)
             else if (domain === 'foodservicedirect') return new Foodservicedirect(url)
             else if (domain === 'fastoolnow') return new Fastoolnow(url)
+            else if (domain === 'faucetdirect') return new Faucetdirect(url)
             else if (domain === 'fruitfulyield') return new Fruitfulyield(url)
             else if (domain === 'findyourhealthyplace') return new Findyourhealthyplace(url)
             else if (domain === 'focuscamera') return new Focuscamera(url)
@@ -1131,6 +1137,7 @@ export default class SourceSiteFactory {
             else if (domain === 'sierra') return new Sierra(url)
             else if (domain === 'simplicity') return new Simplicity(url)
             else if (domain === 'staples') return new Staples(url)
+            else if (domain === 'strawberrynet') return new Strawberrynet(url)
             else if (domain === 'sunrisetri') return new Sunrisetri(url)
             else if (domain === 'simplynutrients') return new Simplynutrients(url)
             else if (domain === 'supplementfirst') return new Supplementfirst(url)

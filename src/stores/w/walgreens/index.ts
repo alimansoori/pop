@@ -1,6 +1,5 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
-import { sleep } from '../../../utils/sleep'
 
 export default class Walgreens extends Store {
     constructor(url: string) {

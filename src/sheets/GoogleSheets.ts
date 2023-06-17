@@ -9,7 +9,6 @@ import { loadSetting, tomorrowDate, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 import { sleep } from '../utils/sleep'
 import { DbApi } from '../lib/db-api/DbApi'
-import { type } from 'os'
 
 export default class GoogleSheets {
     // private page

@@ -7,10 +7,10 @@ import { keys } from './keys'
 
 export async function main() {
     try {
-        await testSheet()
-        /*const storeRes = await sourceCheck({
-            url: 'https://www.myotcstore.com/store/p/37225-Revlon-Eterna-27-Moisture-Cream-With-Progenitin-2-Oz',
-        })*/
+        // await testSheet()
+        await sourceCheck({
+            url: 'https://www.michaels.com/product/mdesign-plastic-crafting-stackable-box-with-hinge-lid-5-sections-3-pack-clear-179343596818038815',
+        })
         /*await keepaCheck({
             asin: 'B077J2GJBV',
             price: 31.74,

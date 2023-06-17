@@ -16,7 +16,6 @@ import { Browser, Page } from 'puppeteer'
 import StoreSchema from '../lib/StoreSchema'
 import { textToNumber } from '../lib/helper'
 import fs from 'fs'
-import { render } from 'ejs'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
