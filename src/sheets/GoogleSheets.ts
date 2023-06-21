@@ -87,6 +87,7 @@ export default class GoogleSheets {
                 'Brand',
                 'Category',
                 'Signature',
+                'Note',
             ])
 
             await this.iterateRows(dataBaseSheet, dataBaseLeads)

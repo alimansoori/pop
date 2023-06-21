@@ -1,0 +1,97 @@
+{
+  "_id": "hasbropulse",
+  "startUrl": [
+    "https://hasbropulse.com/collections/transformers",
+    "https://hasbropulse.com/collections/gi-joe",
+    "https://hasbropulse.com/collections/power-rangers",
+    "https://hasbropulse.com/collections/star-wars",
+    "https://hasbropulse.com/collections/marvel",
+    "https://hasbropulse.com/collections/indiana-jones",
+    "https://hasbropulse.com/collections/nerf",
+    "https://hasbropulse.com/collections/dungeons-dragons",
+    "https://hasbropulse.com/collections/avalon-hill",
+    "https://hasbropulse.com/collections/starting-lineup",
+    "https://hasbropulse.com/collections/hasbro-gaming",
+    "https://hasbropulse.com/collections/magic-the-gathering"
+  ],
+  "selectors": [
+    {
+      "id": "products",
+      "parentSelectors": [
+        "_root",
+        "pagination"
+      ],
+      "type": "SelectorLink",
+      "selector": "li.ais-Hits-item a",
+      "multiple": true
+    },
+    {
+      "id": "pagination",
+      "parentSelectors": [
+        "_root",
+        "pagination"
+      ],
+      "paginationType": "auto",
+      "selector": "li.ais-Pagination-item--nextPage > a",
+      "type": "SelectorPagination"
+    },
+    {
+      "id": "title",
+      "parentSelectors": [
+        "products"
+      ],
+      "type": "SelectorText",
+      "selector": "h1",
+      "multiple": false,
+      "regex": ""
+    },
+    {
+      "id": "price",
+      "parentSelectors": [
+        "products"
+      ],
+      "type": "SelectorText",
+      "selector": "span.product-form__price-value",
+      "multiple": false,
+      "regex": ""
+    },
+    {
+      "id": "image",
+      "parentSelectors": [
+        "products"
+      ],
+      "type": "SelectorImage",
+      "selector": ".is-selected img.product-gallery__carousel-slide-image",
+      "multiple": false
+    },
+    {
+      "id": "images",
+      "parentSelectors": [
+        "products"
+      ],
+      "type": "SelectorGroup",
+      "selector": "div[data-flickity-cell=\"thumbnailMedia\"] img",
+      "extractAttribute": "src"
+    },
+    {
+      "id": "model",
+      "parentSelectors": [
+        "products"
+      ],
+      "type": "SelectorText",
+      "selector": "div.product-aside__description p:last-child",
+      "multiple": false,
+      "regex": ""
+    },
+    {
+      "id": "script",
+      "parentSelectors": [
+        "products"
+      ],
+      "type": "SelectorText",
+      "selector": "main[id=\"MainContent\"] script[type=\"application/ld+json\"]",
+      "multiple": false,
+      "regex": ""
+    }
+  ]
+}
