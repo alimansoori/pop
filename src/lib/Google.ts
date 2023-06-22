@@ -8,7 +8,7 @@ export default class Google {
     page!: Page
     browser!: Browser
     private input: GoogleInputType
-    asin: string | null = ''
+    asin: string[] = []
     amazonUrl = ''
     searchQuery = 'site:amazon.com '
 
@@ -67,8 +67,7 @@ export default class Google {
                 ) {
                     if (!Google.extractASIN(searchResults[i])) continue
                     this.amazonUrl = searchResults[i]
-                    this.asin = Google.extractASIN(searchResults[i])
-                    break
+                    this.asin.push(Google.extractASIN(searchResults[i]))
                 }
             }
 
@@ -120,29 +119,14 @@ export default class Google {
             ) {
                 if (!Google.extractASIN(searchResults[i]['link'])) continue
                 this.amazonUrl = searchResults[i]['link']
-                this.asin = Google.extractASIN(searchResults[i]['link'])
+                this.asin.push(Google.extractASIN(searchResults[i]['link']))
                 break
             }
         }
     }
 
-    async autoScroll() {
-        await this.page.evaluate(async () => {
-            await new Promise((resolve: any) => {
-                let totalHeight = 0
-                const distance = 100
-                const timer = setInterval(() => {
-                    const scrollHeight = document.body.scrollHeight
-                    window.scrollBy(0, distance)
-                    totalHeight += distance
-
-                    if (totalHeight >= scrollHeight - window.innerHeight) {
-                        clearInterval(timer)
-                        resolve()
-                    }
-                }, 3000)
-            })
-        })
+    getAsins(): string[] {
+        return this.asin
     }
 
     async createBrowser(): Promise<void> {
@@ -175,11 +159,6 @@ export default class Google {
                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
                 'X-Amzn-Trace-Id': 'Root=1-63e76bf8-75ffdab9287662da61df55bd',
             })
-
-            /*await this.page.setRequestInterception(true)
-            this.page.on('request', (request: any) => {
-                request.resourceType() === 'document' ? request.continue() : request.abort()
-            })*/
         } catch (e) {
             throw new Error('create browser faild')
         }
@@ -189,7 +168,7 @@ export default class Google {
         const ASINreg = new RegExp(/(\/dp)(?:\/)([A-Z0-9]{10})(?:$|\/|\?)/)
         const cMatch = url.match(ASINreg)
         if (cMatch === null) {
-            return null
+            return ''
         }
         return cMatch[2]
     }

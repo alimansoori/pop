@@ -4,17 +4,24 @@ import { StoreOutputType } from './@types/StoreOutputType'
 import { GoogleSpreadsheet } from 'google-spreadsheet'
 import CategorySheet from './lib/CategorySheet'
 import { keys } from './keys'
+import Google from './lib/Google'
 
 export async function main() {
     try {
         // await testSheet()
-        await sourceCheck({
+        /*await sourceCheck({
             url: 'https://www.michaels.com/product/mdesign-plastic-crafting-stackable-box-with-hinge-lid-5-sections-3-pack-clear-179343596818038815',
-        })
+        })*/
         /*await keepaCheck({
             asin: 'B077J2GJBV',
             price: 31.74,
         })*/
+
+        const google = new Google({
+            title: 'Rule One Proteins, R1 Pre Amino – Peach Mango, Anytime Energy Boost, Amino Acid Complex, Caffeine from Green Tea and Coffee Extracts, Energy, Endurance, Focus Support, 30 Servings',
+        })
+        await google.search2()
+        console.log(google.getAsins())
     } catch (e: any) {
         console.log(e.message)
     }
