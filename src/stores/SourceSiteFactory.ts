@@ -608,6 +608,9 @@ import Strawberrynet from './s/strawberrynet'
 import ECosmetorium from './e/e-cosmetorium'
 import Elfcosmetics from './e/elfcosmetics'
 import Faucetdirect from './f/faucetdirect'
+import Nfm from './n/nfm'
+import Aksysgames from './a/aksysgames'
+import Tcgplayer from './t/tcgplayer'
 
 export default class SourceSiteFactory {
     static async create(url: string): Promise<IStore> {
@@ -704,6 +707,7 @@ export default class SourceSiteFactory {
             else if (domain === 'alltimetoys') return new Alltimetoys(url)
             else if (domain === 'acedepot') return new Acedepot(url)
             else if (domain === 'als') return new Als(url)
+            else if (domain === 'aksysgames') return new Aksysgames(url)
             else if (domain === 'aventuron') return new Aventuron(url)
             else if (domain === 'agesthreeandup') return new Agesthreeandup(url)
             else if (domain === 'allstarhealth') return new Allstarhealth(url)
@@ -1016,6 +1020,7 @@ export default class SourceSiteFactory {
             else if (domain === 'newegg') return new Newegg(url)
             else if (domain === 'northtownebikes') return new Northtownebikes(url)
             else if (domain === 'nhc') return new Nhc(url)
+            else if (domain === 'nfm') return new Nfm(url)
             else if (domain === 'natchezss') return new Natchezss(url)
             else if (domain === 'nibsnook') return new Nibsnook(url)
             else if (domain === 'nashbar') return new Nashbar(url)
@@ -1167,6 +1172,7 @@ export default class SourceSiteFactory {
             else if (domain === 'tractorsupply') return new Tractorsupply(url)
             else if (domain === 'tartecosmetics') return new Tartecosmetics(url)
             else if (domain === 'tfaw') return new Tfaw(url)
+            else if (domain === 'tcgplayer') return new Tcgplayer(url)
             else if (domain === 'toyplace') return new Toyplace(url)
             else if (domain === 'treestuff') return new Treestuff(url)
             else if (domain === 'thatpetplace') return new Thatpetplace(url)

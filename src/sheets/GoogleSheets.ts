@@ -121,7 +121,6 @@ export default class GoogleSheets {
         const startFrom = this.jsonSetting.row
 
         for (let i = startFrom; i < rowsLength; i++) {
-            const lead = {}
             console.log('===================================')
             this.jsonSetting.row = i
             await writeSetting(this.jsonSetting, this.settingFile)
@@ -224,6 +223,8 @@ export default class GoogleSheets {
                 // await this.afterSave(rows[i], store.getImage())
             } catch (e: any) {
                 console.log(e.message)
+                rows[i]['Source Price'] = 0
+                await rows[i].save()
                 continue
             }
         }
