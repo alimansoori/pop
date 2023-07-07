@@ -1,16 +1,14 @@
 import app from './app'
 import dotenv from 'dotenv'
+import connectDB from './config/connectDb'
 
 dotenv.config()
 
-// const uri = `mongodb://${config.mongo_username}:${config.mongo_password}@${config.mongo_host}:${config.mongo_port}/${config.mongo_db}`
+console.log('ENV => ' + process.env.NODE_ENV)
 
 app.listen(process.env.PORT, async () => {
-    /*try {
-        await mongoose.connect(uri)
-        console.log('Connected to MongoDB')
-    } catch (e: any) {
-        console.error('Failed to connect to MongoDB', e.message)
+    /*if (process.env.NODE_ENV === 'development') {
+        await connectDB()
     }*/
     console.log(`App is running on port ${process.env.PORT}`)
 })

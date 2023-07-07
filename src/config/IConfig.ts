@@ -4,4 +4,5 @@ export interface IConfig {
     mongo_db: string
     mongo_host: string
     mongo_port: string
+    mongo_server: string
 }

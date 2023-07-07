@@ -1,4 +1,4 @@
-import { ImageObject, Offer, Product, WithContext } from 'schema-dts'
+import { Offer, Product, WithContext } from 'schema-dts'
 
 export default class StoreSchema {
     private productSchema: WithContext<Product> | undefined

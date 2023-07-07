@@ -1,21 +1,17 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 import Keepa from './lib/Keepa'
 import { StoreOutputType } from './@types/StoreOutputType'
-import { GoogleSpreadsheet } from 'google-spreadsheet'
-import CategorySheet from './lib/CategorySheet'
-import { keys } from './keys'
 
 export async function main() {
     try {
         // await testSheet()
-        await sourceCheck({
+        /*await sourceCheck({
             url: 'https://www.tcgplayer.com/product/242808/pokemon-celebrations-celebrations-collection-lances-charizard-v?country=US&utm_campaign=9549531350&utm_source=google&utm_medium=cpc&utm_content=422888779645&utm_term=&adgroupid=103661046211&gclid=CjwKCAjwi8iXBhBeEiwAKbUofU68zOTx4dFPlFJjqFUibruaDG0Z13SjImGsE3GnLI6oh9Es5dOdSBoCPQkQAvD_BwE&Language=English',
-        })
+        })*/
         /*await keepaCheck({
             asin: 'B077J2GJBV',
             price: 31.74,
         })*/
-
         /*const google = new Google({
             title: 'Rule One Proteins, R1 Pre Amino – Peach Mango, Anytime Energy Boost, Amino Acid Complex, Caffeine from Green Tea and Coffee Extracts, Energy, Endurance, Focus Support, 30 Servings',
         })
@@ -26,7 +22,7 @@ export async function main() {
     }
 }
 
-async function testSheet() {
+/*async function testSheet() {
     try {
         const leads = new GoogleSpreadsheet(CategorySheet.selectSheetKey('leads'))
 
@@ -70,7 +66,7 @@ async function testSheet() {
     } catch (e: any) {
         console.log(e.message)
     }
-}
+}*/
 
 export async function sourceCheck(input: { url: string }): Promise<StoreOutputType> {
     try {

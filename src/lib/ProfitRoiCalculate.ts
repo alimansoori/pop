@@ -271,9 +271,9 @@ export default class ProfitRoiCalculate {
     }
 
     private landedCostsCalculator() {
-        const freight = 0.79
-        const dutiesRate = 0.07
-        const warehouseFees = 0.2
+        // const freight = 0.79
+        // const dutiesRate = 0.07
+        // const warehouseFees = 0.2
         // this.landedCosts = this.input.buyCost + freight + this.input.buyCost * dutiesRate + warehouseFees
         this.landedCosts = this.input.buyCost + this.input.buyCost * 0.02
     }
