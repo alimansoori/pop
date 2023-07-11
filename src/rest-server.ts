@@ -4,17 +4,25 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import config from './config/config'
-import keepaRoutes from './api/routes/keepaRoutes'
-import sourceRoutes from './api/routes/sourceRoutes'
+
+const port = 4000
 
 app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+/*app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
+        return res.status(200).json({})
+    }
+})*/
+
 app.use('/api/1.0/leads', leadRoutes)
-app.use('/api/1.0/keepa', keepaRoutes)
-app.use('/api/1.0/source', sourceRoutes)
 
 mongoose
     .connect(config.mongo_server, {
@@ -24,8 +32,8 @@ mongoose
     })
     .then(() => {
         console.log('MongoDb Connection successful')
-        app.listen(3000)
+        app.listen(port)
     })
     .then((res) => {
-        console.log(`Server is running on port ${3000}`)
+        console.log(`Server is running on port ${port}`)
     })

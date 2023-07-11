@@ -19,6 +19,7 @@ export default interface IStore {
     getPage(): Page
     setCanonical(): void
     getUrl(): string
+    getOriginUrl(): string
     selectors(): ISelectors
     options(): IStoreOptions
     getDomain(): string | undefined

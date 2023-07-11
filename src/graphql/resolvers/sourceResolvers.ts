@@ -1,6 +1,3 @@
-import SourceModel from '../../models/SourceModel'
-import { populate } from 'dotenv'
-
 type SourceInput = {
     sourceInput: {
         title?: string
@@ -14,7 +11,7 @@ type SourceInput = {
         availability?: boolean
         images?: [string]
         statusCode?: number
-        leads?: [string]
+        // leads?: [string]
     }
 }
 
@@ -31,13 +28,15 @@ type IdType = {
 
 export const getSourceById = {
     getSourceById: async (_: any, { ID }: any) => {
-        return SourceModel.findById(ID)
+        // return SourceModel.findById(ID)
+        return 'String'
     },
 }
 
 export const getSources = {
     getSources: async (_: any, { amount }: any) => {
-        return SourceModel.find().sort({ createdAt: -1 }).limit(amount)
+        // return SourceModel.find().sort({ createdAt: -1 }).limit(amount)
+        return 'String'
     },
 }
 
@@ -50,7 +49,7 @@ export const createSource = {
                 url,
                 siteName,
                 upc,
-                leads,
+                // leads,
                 numPack,
                 brand,
                 images,
@@ -61,12 +60,12 @@ export const createSource = {
             },
         }: SourceInput
     ) => {
-        const createdSource = new SourceModel({
+        /*const createdSource = new SourceModel({
             title,
             url,
             siteName,
             upc,
-            leads,
+            // leads,
             numPack,
             brand,
             images,
@@ -96,13 +95,15 @@ export const createSource = {
                     message: err.message,
                 },
             }
-        }
+        }*/
+
+        return 'String'
     },
 }
 
 export const deleteSource = {
     deleteSource: async (_: any, { ID }: any): Promise<any> => {
-        try {
+        /*try {
             const wasDeleted = (await SourceModel.deleteOne({ _id: ID })).deletedCount
             return {
                 status: {
@@ -116,7 +117,9 @@ export const deleteSource = {
                     message: e.message,
                 },
             }
-        }
+        }*/
+
+        return 'String'
     },
 }
 
@@ -130,7 +133,7 @@ export const editSource = {
                 url,
                 siteName,
                 upc,
-                leads,
+                // leads,
                 numPack,
                 brand,
                 images,
@@ -141,7 +144,7 @@ export const editSource = {
             },
         }: IdType & SourceInput
     ) => {
-        try {
+        /*try {
             const edited = await SourceModel.updateOne(
                 { _id: ID },
                 {
@@ -161,7 +164,8 @@ export const editSource = {
                 }
             )
             const wasEdited = edited.modifiedCount
-            const updated = await SourceModel.findOne({ _id: ID }).populate('leads').exec()
+            // const updated = await SourceModel.findOne({ _id: ID }).populate('leads').exec()
+            const updated = await SourceModel.findOne({ _id: ID }).exec()
             return {
                 status: {
                     success: wasEdited !== 0,
@@ -178,6 +182,8 @@ export const editSource = {
                     message: e.message,
                 },
             }
-        }
+        }*/
+
+        return 'String'
     },
 }

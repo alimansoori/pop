@@ -9,6 +9,7 @@ import { loadSetting, tomorrowDate, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 import { sleep } from '../utils/sleep'
 import { DbApi } from '../lib/db-api/DbApi'
+import axios from 'axios'
 
 export default class GoogleSheets {
     // private page
@@ -159,6 +160,31 @@ export default class GoogleSheets {
                 console.log('Source Image is: ' + store.getImage())
                 console.log('Source Price is: ' + store.getPrice())
                 console.log('Source is in stock: ' + store.isAvailability())
+
+                try {
+                    const reqBody: any = {
+                        url: store.getOriginUrl(),
+                    }
+                    if (store?.getTitleClass()?.getTitle()) {
+                        reqBody['title'] = store?.getTitleClass()?.getTitle()
+                    }
+                    if (store?.getPrice()) {
+                        reqBody['price'] = store?.getPrice()
+                    }
+                    if (store?.getUPC()) {
+                        reqBody['upc'] = store?.getUPC()
+                    }
+                    if (store?.isAvailability()) {
+                        reqBody['availability'] = store?.isAvailability()
+                    }
+                    if (store?.getImage()) {
+                        reqBody['images'] = store?.getImage()
+                    }
+                    await axios.post('http://localhost:3000/api/1.0/source', reqBody)
+                    console.log('< Success update source >')
+                } catch (e: any) {
+                    console.log(e.message)
+                }
 
                 if (store.getPrice() > 0 && store.isAvailability()) {
                     const keepa = new Keepa({

@@ -15,7 +15,7 @@ const amazonSchema = gql`
         mSales: Int
         createdAt: String
         updatedAt: String
-        leads: [Lead!]
+        #        leads: [Lead!]
     }
 
     input AmazonInput {
@@ -31,7 +31,7 @@ const amazonSchema = gql`
         mSales: Int
         createdAt: String
         updatedAt: String
-        leads: [String!]
+        #        leads: [LeadInput]
     }
 
     input AmazonEditInput {
@@ -47,7 +47,7 @@ const amazonSchema = gql`
         mSales: Int
         createdAt: String
         updatedAt: String
-        leads: [String!]
+        #        leads: [LeadInput]
     }
 
     type CreateAmazonResponse {

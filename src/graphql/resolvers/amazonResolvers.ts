@@ -1,6 +1,3 @@
-import AmazonModel from '../../models/AmazonModel'
-import LeadModel from '../../models/LeadModel'
-
 type AmazonInput = {
     amazonInput: {
         title: string
@@ -13,7 +10,7 @@ type AmazonInput = {
         seller: string
         bsr: number
         mSales: number
-        leads: [string]
+        // leads: [string]
     }
 }
 
@@ -21,30 +18,32 @@ type IdType = {
     ID?: string
 }
 
-const leads = async (leadIds: any) => {
+/*const leads = async (leadIds: any) => {
     if (!leadIds || !leadIds?.length) {
         return []
     }
     return LeadModel.find({ _id: { $in: leadIds } })
-}
+}*/
 
 export const getAmazons = {
     getAmazons: async (_: any, { amount }: any) => {
-        const amazons = await AmazonModel.find().populate('leads').sort({ createdAt: -1 }).limit(amount).exec()
+        // const amazons = await AmazonModel.find().populate('leads').sort({ createdAt: -1 }).limit(amount).exec()
+        /*const amazons = await AmazonModel.find().sort({ createdAt: -1 }).limit(amount).exec()
         return amazons.map((amazon) => {
             return {
                 ...amazon.toObject(),
             }
-        })
+        })*/
+        return 'String'
     },
 }
 
 export const createAmazon = {
     createAmazon: async (
         _: any,
-        { amazonInput: { title, url, asin, numPack, upc, bsr, mSales, price, seller, category, leads } }: AmazonInput
+        { amazonInput: { title, url, asin, numPack, upc, bsr, mSales, price, seller, category } }: AmazonInput
     ) => {
-        try {
+        /*try {
             const createdAmazon = new AmazonModel({
                 title: title,
                 asin: asin,
@@ -70,13 +69,15 @@ export const createAmazon = {
                     message: e.message,
                 },
             }
-        }
+        }*/
+
+        return 'String'
     },
 }
 
 export const deleteAmazon = {
     deleteAmazon: async (_: any, { ID }: any): Promise<any> => {
-        try {
+        /*try {
             const wasDeleted = (await AmazonModel.deleteOne({ _id: ID })).deletedCount
             return {
                 status: {
@@ -90,7 +91,8 @@ export const deleteAmazon = {
                     message: e.message,
                 },
             }
-        }
+        }*/
+        return 'String'
     },
 }
 
@@ -99,10 +101,10 @@ export const editAmazon = {
         _: any,
         {
             ID,
-            amazonInput: { title, url, asin, numPack, upc, bsr, mSales, price, seller, category, leads },
+            amazonInput: { title, url, asin, numPack, upc, bsr, mSales, price, seller, category },
         }: IdType & AmazonInput
     ) => {
-        try {
+        /*try {
             const wasEdited = (
                 await AmazonModel.updateOne(
                     { _id: ID },
@@ -126,6 +128,8 @@ export const editAmazon = {
                     message: e.message,
                 },
             }
-        }
+        }*/
+
+        return 'String'
     },
 }

@@ -16,7 +16,7 @@ const sourceSchema = gql`
         statusCode: Int
         createdAt: String
         updatedAt: String
-        leads: [Lead!]
+        #        leads: [Lead!]
     }
 
     input SourceInput {
@@ -31,7 +31,7 @@ const sourceSchema = gql`
         availability: Boolean
         images: [String]
         statusCode: Int
-        leads: [String]
+        #        leads: [LeadInput]
     }
 
     input SourceEditInput {
@@ -46,7 +46,7 @@ const sourceSchema = gql`
         availability: Boolean
         images: [String]
         statusCode: Int
-        leadIDs: [String]
+        #        leads: [LeadInput]
     }
 
     type CreateSourceResponse {

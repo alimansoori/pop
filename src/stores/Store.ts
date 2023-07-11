@@ -23,6 +23,7 @@ abstract class Store implements IStore, IProductDetails {
     browser!: Browser
     protected resultReq: TypePostmanReq
     protected url: string
+    protected originUrl: string
     public statusCode: number | undefined = 200
     protected pageParam = 'page'
     protected categoriesUrl: string[] = []
@@ -52,6 +53,7 @@ abstract class Store implements IStore, IProductDetails {
     protected constructor(url: string) {
         this.config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'))
         this.url = url
+        this.originUrl = url
         this.selectorsP = new CssSelectors()
         this.optionsP = new StoreOptions()
         this.titleClass = new ProductTitle()
@@ -680,6 +682,10 @@ req.abort()
 
     getUrl(): string {
         return this.url
+    }
+
+    getOriginUrl(): string {
+        return this.originUrl
     }
 
     async scrape(isBan = false): Promise<void> {

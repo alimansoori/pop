@@ -3,7 +3,7 @@ export type KeepaProductType = {
     categories: number[] | null
     imagesCSV: string | null
     manufacturer: string | null
-    title: string | null
+    title: string
     asin: string
     brand: string | null
     packageHeight: number
@@ -12,11 +12,13 @@ export type KeepaProductType = {
     packageWeight: number
     packageQuantity: number
     buyBoxIsAmazon: boolean
+    upcList: [string]
     categoryTree: any[] | null
     stats: {
         buyBoxPrice: number
         buyBoxIsFBA: boolean
         buyBoxIsAmazon: boolean
         buyBoxIsUsed: boolean
+        salesRankDrops30: number
     }
 }

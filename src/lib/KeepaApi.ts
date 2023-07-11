@@ -7,20 +7,14 @@ import ProfitRoiCalculate from './ProfitRoiCalculate'
 import { EnumCategories } from '../@types/EnumCategories'
 import * as fs from 'fs'
 
-export default class Keepa {
-    private input: KeepaInputType
-    private key = '9lpb4evo4c87vkajmcnfft5dirt97imditg32d27kdp7pm0c861rqc44o6pv1tct'
-    private key2 = '42t2rfuagph4t942ccfi5l97lkkp5dh7ak0sm2brnc4a66nh4ouj82edn0pjp0on'
-    // private key = "42t2rfuagph4t942ccfi5l97lkkp5dh7ak0sm2brnc4a66nh4ouj82edn0pjp0on"
-    private apiUrl = 'https://api.keepa.com/'
-    private isKey = 1
+export default class KeepaApi {
     private readonly domain: number = 1
     private readonly stats: number = Math.ceil(Date.now() / 1000)
     private readonly days: number = 90
     private readonly buyBox: number = 1
     private keepaUrl: string
     data: KeepaOutputType | null = null
-    private product: KeepaProductType | null = null
+    public amazonProduct: KeepaProductType | null = null
     private buyboxPrice = NaN
     amazonInStock = true
     buyBoxIsAmazon: boolean | undefined = false
@@ -31,6 +25,7 @@ export default class Keepa {
     profit = NaN
     roi = NaN
     bsr = NaN
+    asin: string
     size = ''
     brand: string | null | undefined = ''
     top = false
@@ -38,17 +33,17 @@ export default class Keepa {
     image = ''
     private config: IKeepaConfig
 
-    constructor(input: KeepaInputType) {
-        this.input = input
-        this.config = JSON.parse(fs.readFileSync(input.configPath, 'utf-8'))
-        this.keepaUrl = `${this.config.keepa_api_url}product?key=${this.config.keepa_api_key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
+    constructor(asin: string) {
+        this.asin = asin
+        this.config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'))
+        this.keepaUrl = `${this.config.keepa_api_url}product?key=${this.config.keepa_api_key}&domain=${this.domain}&days=${this.days}&asin=${asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
     }
 
     setKeepaUrl(key: string) {
-        this.keepaUrl = `${this.config.keepa_api_url}product?key=${key}&domain=${this.domain}&days=${this.days}&asin=${this.input.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
+        this.keepaUrl = `${this.config.keepa_api_url}product?key=${key}&domain=${this.domain}&days=${this.days}&asin=${this.asin}&stats=${this.stats}&buybox=${this.buyBox}&offers=20`
     }
 
-    async fetchByKeepa() {
+    async fetch() {
         try {
             await axios
                 .get(this.keepaUrl)
@@ -79,61 +74,67 @@ export default class Keepa {
                 await sleep(60000)
             }
 
-            await this.fetchByKeepa()
+            await this.fetch()
         }
 
         if (this.data?.tokensLeft && this.data?.tokensLeft < 0) {
             console.log(`Wait ${this.data?.refillIn} mm`)
             await sleep(this.data?.refillIn)
-            await this.fetchByKeepa()
+            await this.fetch()
         }
 
-        this.product = this.data?.products[0]
+        this.amazonProduct = this.data?.products[0]
 
-        this.brand = this.product?.brand
+        this.brand = this.amazonProduct?.brand
         // this.buyBoxIsAmazon = this.product?.stats?.buyBoxIsAmazon
-
-        if (!this.product?.title) {
-            throw new Error('Amazon Title is not exist!')
-        }
-
-        // category
-        if (Array.isArray(this.product?.categoryTree)) {
-            this.category = this.product?.categoryTree[0].name
-        }
-
-        // BSR
-        if (
-            this.product?.csv[3] !== undefined &&
-            this.product?.csv[3] !== null &&
-            Array.isArray(this.product?.csv[3])
-        ) {
-            if (this.product?.csv[3].length) {
-                this.bsr = this.product?.csv[3][this.product?.csv[3].length - 1]
-            }
-        }
-
-        this.buyboxPrice = this.product?.stats?.buyBoxPrice > 0 ? this.product?.stats?.buyBoxPrice / 100 : NaN
-        this.fbaPrice = this.lastFbaPrice()
 
         this.amazonInStock = this.amazonInStock30Day()
         this.avgBuyBox30Day = this.buyBoxAvg30Day()
 
-        this.sellPrice = this.buyboxPrice
-            ? this.buyboxPrice
-            : this.fbaPrice
-            ? this.fbaPrice
-            : this.avgBuyBox30Day
-            ? this.avgBuyBox30Day
+        this.topCalculate()
+
+        // this.profitRoiCalculate()
+    }
+
+    getCategory(): string {
+        if (Array.isArray(this.amazonProduct?.categoryTree)) {
+            return this.amazonProduct?.categoryTree[0].name
+        }
+
+        return ''
+    }
+
+    getBSR(): number {
+        if (
+            this.amazonProduct?.csv[3] !== undefined &&
+            this.amazonProduct?.csv[3] !== null &&
+            Array.isArray(this.amazonProduct?.csv[3])
+        ) {
+            if (this.amazonProduct?.csv[3]?.length) {
+                return this.amazonProduct?.csv[3][this.amazonProduct?.csv[3]?.length - 1]
+            }
+        }
+
+        return NaN
+    }
+
+    getBuyBoxPrice(): number {
+        if (this?.amazonProduct)
+            return this?.amazonProduct?.stats?.buyBoxPrice > 0 ? this.amazonProduct?.stats?.buyBoxPrice / 100 : NaN
+
+        return NaN
+    }
+
+    getSellPrice(): number {
+        return this.getBuyBoxPrice()
+            ? this.getBuyBoxPrice()
+            : this.lastFbaPrice()
+            ? this.lastFbaPrice()
+            : this.buyBoxAvg30Day()
+            ? this.buyBoxAvg30Day()
             : this.newPrice30Day()
             ? this.newPrice30Day()
             : 0
-
-        this.keepaFirstImage()
-
-        this.topCalculate()
-
-        this.profitRoiCalculate()
     }
 
     private topCalculate() {
@@ -166,78 +167,78 @@ export default class Keepa {
         }
     }
 
-    private profitRoiCalculate() {
-        if (
-            this.product?.packageLength &&
-            this.product?.packageHeight &&
-            this.product?.packageWeight &&
-            this.product?.packageWidth
-        ) {
-            /*const profitClass = new ProfitRoiCalculate({
-                sellPrice: this.sellPrice,
-                buyCost: this.input.sourcePrice,
-                packageLength: this.product?.packageLength * 0.0393701,
-                packageWidth: this.product?.packageWidth * 0.0393701,
-                packageHeight: this.product?.packageHeight * 0.0393701,
-                packageWeight: this.product?.packageWeight * 0.00220462,
-                category: this.category,
-            })*/
+    /*private profitRoiCalculate() {
+      if (
+          this.amazonProduct?.packageLength &&
+          this.amazonProduct?.packageHeight &&
+          this.amazonProduct?.packageWeight &&
+          this.amazonProduct?.packageWidth
+      ) {
+          /!*const profitClass = new ProfitRoiCalculate({
+              sellPrice: this.sellPrice,
+              buyCost: this.input.sourcePrice,
+              packageLength: this.product?.packageLength * 0.0393701,
+              packageWidth: this.product?.packageWidth * 0.0393701,
+              packageHeight: this.product?.packageHeight * 0.0393701,
+              packageWeight: this.product?.packageWeight * 0.00220462,
+              category: this.category,
+          })*!/
 
-            // this.profit = profitClass.netProfit
-            // this.roi = profitClass.roi
+          // this.profit = profitClass.netProfit
+          // this.roi = profitClass.roi
 
-            const profitClassBuyBox = new ProfitRoiCalculate({
-                sellPrice: this.sellPrice,
-                buyCost: this.input.sourcePrice,
-                packageLength: this.product?.packageLength * 0.0393701,
-                packageWidth: this.product?.packageWidth * 0.0393701,
-                packageHeight: this.product?.packageHeight * 0.0393701,
-                packageWeight: this.product?.packageWeight * 0.00220462,
-                category: this.category,
-            })
+          const profitClassBuyBox = new ProfitRoiCalculate({
+              sellPrice: this.sellPrice,
+              buyCost: this.input.sourcePrice,
+              packageLength: this.amazonProduct?.packageLength * 0.0393701,
+              packageWidth: this.amazonProduct?.packageWidth * 0.0393701,
+              packageHeight: this.amazonProduct?.packageHeight * 0.0393701,
+              packageWeight: this.amazonProduct?.packageWeight * 0.00220462,
+              category: this.category,
+          })
 
-            this.profit = profitClassBuyBox.netProfit
-            this.roi = profitClassBuyBox.roi
-            this.size = profitClassBuyBox.size
+          this.profit = profitClassBuyBox.netProfit
+          this.roi = profitClassBuyBox.roi
+          this.size = profitClassBuyBox.size
 
-            /*const profitClassBadge = new ProfitRoiCalculate({
-                sellPrice: this.avgBuyBox30Day,
-                buyCost: this.input.sourcePrice,
-                packageLength: this.product?.packageLength * 0.0393701,
-                packageWidth: this.product?.packageWidth * 0.0393701,
-                packageHeight: this.product?.packageHeight * 0.0393701,
-                packageWeight: this.product?.packageWeight * 0.00220462,
-                category: this.category,
-            })*/
+          /!*const profitClassBadge = new ProfitRoiCalculate({
+              sellPrice: this.avgBuyBox30Day,
+              buyCost: this.input.sourcePrice,
+              packageLength: this.product?.packageLength * 0.0393701,
+              packageWidth: this.product?.packageWidth * 0.0393701,
+              packageHeight: this.product?.packageHeight * 0.0393701,
+              packageWeight: this.product?.packageWeight * 0.00220462,
+              category: this.category,
+          })*!/
 
-            if (profitClassBuyBox.netProfit > 3.8 && profitClassBuyBox.roi > 20 && this.top) {
-                this.hasBadge = true
-            }
-        }
-    }
+          if (profitClassBuyBox.netProfit > 3.8 && profitClassBuyBox.roi > 20 && this.top) {
+              this.hasBadge = true
+          }
+      }
+  }*/
 
     private lastFbaPrice(): number {
-        const data = this.product?.csv[10]
+        const data = this.amazonProduct?.csv[10]
         let price = NaN
 
         if (data === null) return price
 
-        price = data[data.length - 1]
-        if (data[data.length - 1] < 0) {
-            price = data[data.length - 3]
+        price = data[data?.length - 1]
+        if (data[data?.length - 1] < 0) {
+            price = data[data?.length - 3]
         }
 
         return price / 100
     }
 
     private amazonInStock30Day(): boolean {
-        const data = this.product?.csv[0]
+        const data = this.amazonProduct?.csv[0]
 
         if (data === null) return false
 
         let price = NaN
-        for (let i = data.length - 1; i >= 0; i--) {
-            if (data[i].toString().length < 7) {
+        for (let i = data?.length - 1; i >= 0; i--) {
+            if (data[i].toString()?.length < 7) {
                 price = data[i]
             }
             if (data[i] === -1) {
@@ -255,7 +256,7 @@ export default class Keepa {
     }
 
     private buyBoxAvg30Day(): number {
-        const data = this.product?.csv[18]
+        const data = this.amazonProduct?.csv[18]
         if (data === null) return NaN
 
         let dateTimeStamp = NaN
@@ -325,7 +326,7 @@ export default class Keepa {
     }
 
     private newPrice30Day() {
-        const data = this.product?.csv[1]
+        const data = this.amazonProduct?.csv[1]
         if (data === null) return NaN
 
         let dateTimeStamp = NaN
@@ -394,15 +395,15 @@ export default class Keepa {
         return sumPrices / 100 / days
     }
 
-    private keepaFirstImage() {
-        const str = this.product?.imagesCSV
-        if (!str) return null
+    getImages(): string[] {
+        const str = this.amazonProduct?.imagesCSV
+        if (!str) return []
         const stringSplit = str.split(',')
-        let imgUrl = ''
-        if (stringSplit[0]) {
-            imgUrl = `https://m.media-amazon.com/images/I/${stringSplit[0]}`
+        const imgUrl = []
+        for (let i = 0; i < stringSplit.length; i++) {
+            imgUrl.push(`https://m.media-amazon.com/images/I/${stringSplit[i]}`)
         }
-        this.image = `=IMAGE("${imgUrl}")`
+        return imgUrl
     }
 
     private dateDiffInDay(date1: Date, date2: Date) {

@@ -4,7 +4,7 @@ import { EnumCategories } from '../@types/EnumCategories'
 
 export default class ProfitRoiCalculate {
     private input: ProfitRoiCalculateType
-    public size: number
+    public size: string
     private fbaCost = 0
     private totalAmazonReferralFees = 0
     private storageFees = 0
@@ -24,7 +24,7 @@ export default class ProfitRoiCalculate {
         this.roiCalculator()
     }
 
-    private fbaCostCalculator(): number {
+    private fbaCostCalculator(): string {
         if (
             this.input.category === EnumCategories.CLOTHING &&
             this.input.packageWeight <= 0.375 &&

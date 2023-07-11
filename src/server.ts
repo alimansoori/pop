@@ -17,6 +17,7 @@ mongoose
     })
     .then(() => {
         console.log('MongoDb Connection successful')
+
         return server.listen({ port: 5000 })
     })
     .then((res) => {

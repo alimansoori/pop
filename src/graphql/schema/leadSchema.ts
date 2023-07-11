@@ -18,14 +18,6 @@ const leadSchema = gql`
         amazon: AmazonInput!
     }
 
-    input Lead2Input {
-        isMatch: String
-        profit: Float
-        roi: Float
-        sourceURL: String!
-        asin: String!
-    }
-
     type LeadResponse {
         totalCount: Int!
         nodes: [Lead]
