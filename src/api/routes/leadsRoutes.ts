@@ -269,7 +269,11 @@ function searchBuilder(filter: Model<any> | any, data: any) {
         const condition: any = {}
         if (criteria[i]['condition'] === '=') {
             if (criteria[i]['type'] === 'num') condition[criteria[i]['origData']] = parseInt(criteria[i]['value1'])
-            if (criteria[i]['type'] === 'string') condition[criteria[i]['origData']] = criteria[i]['value1']
+            else if (criteria[i]['type'] === 'string') condition[criteria[i]['origData']] = criteria[i]['value1']
+        } else if (criteria[i]['condition'] === 'starts') {
+            condition[criteria[i]['origData']] = new RegExp(`^${criteria[i]['value1']}`)
+        } else if (criteria[i]['condition'] === '!starts') {
+            condition[criteria[i]['origData']] = { $not: new RegExp(`^${criteria[i]['value1']}`) }
         }
         conditions.push(condition)
     }
