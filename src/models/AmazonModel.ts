@@ -112,8 +112,6 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
     ],
     seller: {
         type: String,
-        minlength: 1,
-        maxlength: 100,
     },
     bsr: Number,
     mSales: Number,

@@ -11,9 +11,12 @@ const keepaRoutes = express.Router()
 
 keepaRoutes.post('/', async (req, res, next) => {
     try {
-        const oneHourAgo = new Date()
-        oneHourAgo.setHours(oneHourAgo.getHours() - 1)
-        const firstLead = await LeadModel.findOne({ 'amazon.updatedAt': { $lt: oneHourAgo } }).exec()
+        const oneDayAgo = new Date()
+        oneDayAgo.setDate(oneDayAgo.getDate() - 1)
+        const randomIndex = Math.floor(Math.random() * 10)
+        const firstLead = await LeadModel.findOne({ 'amazon.updatedAt': { $lt: oneDayAgo } })
+            .skip(randomIndex)
+            .exec()
         if (firstLead) {
             const asin = firstLead.amazon.asin
             console.log('====================================')
@@ -32,10 +35,14 @@ keepaRoutes.post('/', async (req, res, next) => {
                 }
                 // Set Profit & ROI
                 if (leadUpdate.source?.price) {
+                    const amazonNumber: number = leadUpdate.amazon?.numPack ? leadUpdate.amazon?.numPack : 1
+                    const sourceNumber: number = leadUpdate.source?.numPack ? leadUpdate.source?.numPack : 1
+                    const numOfPack: number = parseFloat(String(amazonNumber / sourceNumber))
+
                     const profitROI = new ProfitRoiCalculate({
                         category: keepaSearch.getCategory(),
                         sellPrice: keepaSearch.getSellPrice(),
-                        buyCost: leadUpdate.source?.price,
+                        buyCost: leadUpdate.source?.price * numOfPack,
                         packageLength: keepaSearch.amazonProduct?.packageLength
                             ? keepaSearch.amazonProduct?.packageLength
                             : 1,
@@ -71,7 +78,9 @@ keepaRoutes.post('/', async (req, res, next) => {
                     leadUpdate.amazon.images = keepaSearch.getImages()
                 }
                 // Set Seller
-                keepaSearch.amazonProduct?.stats?.buyBoxIsAmazon ? (leadUpdate.amazon.seller = 'Amazon') : ''
+                keepaSearch.amazonProduct?.stats?.buyBoxIsAmazon
+                    ? (leadUpdate.amazon.seller = 'Amazon')
+                    : (leadUpdate.amazon.seller = '')
                 // Set mSales
                 if (keepaSearch.amazonProduct?.stats?.salesRankDrops30)
                     leadUpdate.amazon.mSales = keepaSearch.amazonProduct?.stats?.salesRankDrops30

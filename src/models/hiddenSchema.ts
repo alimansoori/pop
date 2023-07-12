@@ -11,5 +11,6 @@ export const hiddenSchema: Schema = new Schema<IHidden>({
     },
     days: {
         type: Number,
+        default: 0,
     },
 })

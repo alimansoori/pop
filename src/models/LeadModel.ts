@@ -3,6 +3,7 @@ import { sourceSchema, ISource } from './SourceModel'
 import { amazonSchema, IAmazon } from './AmazonModel'
 import ProfitRoiCalculate from '../lib/ProfitRoiCalculate'
 import { hiddenSchema, IHidden } from './hiddenSchema'
+import { isNumber } from 'util'
 
 export interface ILead extends Document {
     status: string
@@ -11,6 +12,8 @@ export interface ILead extends Document {
     hidden: IHidden
     source: ISource
     amazon: IAmazon
+    hiddenDays: number
+    hiddenCreatedAt: string | DateConstructor
     createdAt: string | DateConstructor
     updatedAt: string | DateConstructor
 }
@@ -27,6 +30,8 @@ export const leadSchema: Schema = new Schema<ILead>({
     },
     roi: Number,
     hidden: hiddenSchema,
+    hiddenDays: Number,
+    hiddenCreatedAt: Date,
     source: {
         type: sourceSchema,
         required: true,
@@ -57,6 +62,11 @@ leadSchema.pre('save', async function (next) {
         const duplicateLead = await LeadModel.find({ 'amazon.asin': this.amazon.asin, 'source.url': this.source.url })
         if (duplicateLead.length) {
             throw new Error('This is a repeated lead')
+        }
+
+        if (this.hiddenDays) {
+            this.hiddenDays = parseInt(this.hiddenDays)
+            if (this.hiddenDays > 0) this.hiddenCreatedAt = new Date().toISOString()
         }
     } else {
         // Edit Lead
@@ -98,6 +108,11 @@ leadSchema.pre('save', async function (next) {
                     throw new Error('This is a repeated lead')
                 }
             }
+
+            if (this.hiddenDays && this.hiddenDays !== beforeUpdateLead.hiddenDays) {
+                this.hiddenDays = parseInt(this.hiddenDays)
+                if (this.hiddenDays > 0) this.hiddenCreatedAt = new Date().toISOString()
+            }
         }
     }
 
@@ -105,6 +120,7 @@ leadSchema.pre('save', async function (next) {
 })
 
 leadSchema.pre('validate', async function () {
+    console.log(this)
     if (isNaN(this?.profit)) {
         this.profit = 0
     } else if (this?.profit) this.profit = parseInt(this.profit)
@@ -113,13 +129,21 @@ leadSchema.pre('validate', async function () {
         this.roi = 0
     } else if (this?.roi) this.roi = parseInt(this.roi)
 
-    if (this?.amazon?.price) this.amazon.price = parseInt(this.amazon.price)
-    if (this?.amazon?.bsr) this.amazon.bsr = parseInt(this.amazon.bsr)
-    if (this?.amazon?.mSales) this.amazon.mSales = parseInt(this.amazon.mSales)
-    if (this?.amazon?.numPack) this.amazon.numPack = parseInt(this.amazon.numPack)
-    if (this?.source?.price) this.source.price = parseInt(this.source.price)
-    if (this?.source?.numPack) this.source.numPack = parseInt(this.source.numPack)
-    if (this?.source?.statusCode) this.source.statusCode = parseInt(this.source.statusCode)
+    if (this?.amazon?.price)
+        this.amazon.price = isNumber(this.amazon.price) ? this.amazon.price : parseInt(this.amazon.price)
+    if (this?.amazon?.bsr) this.amazon.bsr = isNumber(this.amazon.bsr) ? this.amazon.bsr : parseInt(this.amazon.bsr)
+    if (this?.amazon?.mSales)
+        this.amazon.mSales = isNumber(this.amazon.mSales) ? this.amazon.mSales : parseInt(this.amazon.mSales)
+    if (this?.amazon?.numPack)
+        this.amazon.numPack = isNumber(this.amazon.numPack) ? this.amazon.numPack : parseInt(this.amazon.numPack)
+    if (this?.source?.price)
+        this.source.price = isNumber(this.source.price) ? this.source.price : parseInt(this.source.price)
+    if (this?.source?.numPack)
+        this.source.numPack = isNumber(this.source.numPack) ? this.source.numPack : parseInt(this.source.numPack)
+    if (this?.source?.statusCode)
+        this.source.statusCode = isNumber(this.source.statusCode)
+            ? this.source.statusCode
+            : parseInt(this.source.statusCode)
 })
 
 leadSchema.post('save', function (doc, next) {

@@ -7,7 +7,6 @@ export async function updateAmazonsByKeepa() {
             await axios.post('http://localhost:3000/api/1.0/keepa')
         } catch (e: any) {
             console.log(e.message)
-            break
         }
     }
 }

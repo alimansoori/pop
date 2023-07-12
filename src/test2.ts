@@ -1,10 +1,21 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 import Keepa from './lib/Keepa'
 import { StoreOutputType } from './@types/StoreOutputType'
+import ProfitRoiCalculate from './lib/ProfitRoiCalculate'
 
 export async function main() {
     try {
-        console.log(Math.ceil(Date.now() / 1000))
+        console.log(
+            await new ProfitRoiCalculate({
+                category: 'Toys & Games',
+                sellPrice: 21,
+                buyCost: 11,
+                packageLength: 1,
+                packageWidth: 1,
+                packageHeight: 1,
+                packageWeight: 1,
+            })
+        )
         /*await sourceCheck({
             url: 'https://www.tcgplayer.com/product/242808/pokemon-celebrations-celebrations-collection-lances-charizard-v?country=US&utm_campaign=9549531350&utm_source=google&utm_medium=cpc&utm_content=422888779645&utm_term=&adgroupid=103661046211&gclid=CjwKCAjwi8iXBhBeEiwAKbUofU68zOTx4dFPlFJjqFUibruaDG0Z13SjImGsE3GnLI6oh9Es5dOdSBoCPQkQAvD_BwE&Language=English',
         })*/

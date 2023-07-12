@@ -12,6 +12,7 @@ export enum EnumCategories {
     GROCERY = 'Grocery & Gourmet Food',
     PATIO = 'Patio, Lawn & Garden',
     ART = 'Arts, Crafts & Sewing',
+    BABY_PRODUCTS = 'Baby Products',
     BABY = 'Baby',
     BOOKS = 'Books',
     VIDEO_GAMES = 'Video Games',
@@ -23,4 +24,5 @@ export enum EnumCategories {
     INDUSTRIAL = 'Industrial & Scientific',
     CELL_PHONES = 'Cell Phones & Accessories',
     COMPUTERS = 'Computers & Accessories',
+    OTHER = 'Other',
 }
