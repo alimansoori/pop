@@ -47,14 +47,16 @@ async function getLeads(req: Request, res: Response, next: NextFunction) {
 
         const leads = await filter.exec()
 
+        const totalDocs = await LeadModel.countDocuments()
+
         res.status(200).json({
             draw: req.body.draw,
             files: [],
             options: {
                 status: statusOptions(),
             },
-            recordsFiltered: await LeadModel.countDocuments(),
-            recordsTotal: await LeadModel.countDocuments(),
+            recordsFiltered: totalDocs,
+            recordsTotal: totalDocs,
             message: 'This is GET /leads',
             data: leads.map((lead) => {
                 return {
@@ -257,9 +259,27 @@ function statusOptions() {
 }
 
 function searchBuilder(filter: Model<any> | any, data: any) {
-    // if (!data.searchBuilder) return filter
+    if (!data.searchBuilder) return filter
+    console.log(data?.searchBuilder)
 
-    // for (let i = 0; i < data.searchBuilder['criteria']; i++) {}
+    const criteria: any[] = data?.searchBuilder['criteria']
+    console.log(criteria)
+    const conditions: any[] = []
+    for (let i = 0; i < criteria.length; i++) {
+        const condition: any = {}
+        if (criteria[i]['condition'] === '=') {
+            if (criteria[i]['type'] === 'num') condition[criteria[i]['origData']] = parseInt(criteria[i]['value1'])
+            if (criteria[i]['type'] === 'string') condition[criteria[i]['origData']] = criteria[i]['value1']
+        }
+        conditions.push(condition)
+    }
+    console.log(conditions)
+
+    if (data?.searchBuilder['logic'] === 'AND') {
+        filter.and(conditions)
+    } else if (data.searchBuilder['logic'] === 'OR') {
+        filter.or(conditions)
+    }
     /*const stat = 'status'
     const profit = 'profit'
 
@@ -267,14 +287,10 @@ function searchBuilder(filter: Model<any> | any, data: any) {
     obj[stat] = 'not_checked'
 
     const objProfit: any = {}
-    objProfit[profit] = 8*/
+    objProfit[profit] = 8
 
-    /*if (data.searchBuilder?.logic === 'AND') {
-        filter.and()
-    } else if (data.searchBuilder?.logic === 'AND') {
-        filter.or([{ status: { $regex: 'not_checked', $options: 'i' } }, { profit: { $regex: 8, $options: 'i' } }])
-    }*/
-    /*console.log([obj, objProfit])
+
+    console.log([obj, objProfit])
     filter.or([obj, objProfit])*/
     return filter
 }
