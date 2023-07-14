@@ -275,7 +275,7 @@ sourceRoutes.post('/', async (req, res, next) => {
                 leadUpdate.source.siteName = body?.siteName
             }
             // Set price
-            if (body?.price) {
+            if (body?.price && body?.price > 0) {
                 leadUpdate.source.price = body?.price
             }
             // Set numPack
@@ -306,8 +306,9 @@ sourceRoutes.post('/', async (req, res, next) => {
             if (body?.statusCode) {
                 leadUpdate.source.statusCode = body?.statusCode
             }
+
             // Set Profit & ROI
-            if (leadUpdate.amazon?.price && leadUpdate.amazon?.category) {
+            if (leadUpdate.amazon?.price && leadUpdate.amazon?.category && body?.price) {
                 const amazonNumber: number = leadUpdate.amazon?.numPack ? leadUpdate.amazon?.numPack : 1
                 const sourceNumber: number = leadUpdate.source?.numPack ? leadUpdate.source?.numPack : 1
                 const numOfPack: number = parseFloat(String(amazonNumber / sourceNumber))

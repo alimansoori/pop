@@ -65,7 +65,7 @@ export default class DatabaseLeads {
     }
 
     async addToSheet(lead: ILead) {
-        if (lead.profit > 4 && lead.roi > 25) {
+        if (lead.profit > 4 && lead.roi > 25 && lead.source.availability) {
             // Add Row in DataBase Leads
             await this.dataBaseLeads.addRow({
                 Date: new Date().toLocaleDateString('en-US'),

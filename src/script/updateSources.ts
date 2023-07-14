@@ -24,6 +24,7 @@ export async function updateSources() {
             await store.browser?.close()
             console.log('Source Title is: ' + store.getTitleClass().getTitle())
             console.log('Source URL is: ' + store.getOriginUrl())
+            console.log('Source Canonical is: ' + store.getUrl())
             console.log('Source UPC is: ' + store.getUPC())
             console.log('Source Price is: ' + store.getPrice())
             console.log('Source Image is: ' + store.getImage())
@@ -32,7 +33,7 @@ export async function updateSources() {
             console.log('Error ' + store.error)
             console.log('StatusCode ' + store.statusCode)
 
-            if (store.statusCode === 200) {
+            if (store.statusCode === 200 && !store.error && store.getPrice()) {
                 await axios.post('http://localhost:3000/api/1.0/source', {
                     title: store.getTitleClass().getTitle(),
                     url: store.getUrl(),
