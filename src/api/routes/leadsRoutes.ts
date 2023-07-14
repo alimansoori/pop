@@ -41,7 +41,7 @@ async function getLeads(req: Request, res: Response, next: NextFunction) {
             filter.sort(obj)
         }
 
-        const leads = await filter.skip(start).limit(limit > 45 ? 45 : 45).exec()
+        const leads = await filter.skip(start).limit(limit).exec()
         const totalCount = await totalFilter.countDocuments()
 
         res.status(200).json({
