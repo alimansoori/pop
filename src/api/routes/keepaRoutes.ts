@@ -53,7 +53,7 @@ keepaRoutes.post('/', async (req, res, next) => {
                         leadUpdate.amazon.title = keepaSearch.amazonProduct?.title
                     }
                     // Set Profit & ROI
-                    if (leadUpdate.source?.price && keepaSearch.getSellPrice() > 0) {
+                    if (leadUpdate.source?.price > 0 && keepaSearch.getSellPrice() > 0) {
                         const amazonNumber: number = leadUpdate.amazon?.numPack ? leadUpdate.amazon?.numPack : 1
                         const sourceNumber: number = leadUpdate.source?.numPack ? leadUpdate.source?.numPack : 1
                         const numOfPack: number = parseFloat(String(amazonNumber / sourceNumber))

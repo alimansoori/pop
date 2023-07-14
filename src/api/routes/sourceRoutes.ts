@@ -308,7 +308,13 @@ sourceRoutes.post('/', async (req, res, next) => {
             }
 
             // Set Profit & ROI
-            if (leadUpdate.amazon?.price && leadUpdate.amazon?.category && body?.price) {
+            if (
+                leadUpdate.amazon?.price &&
+                leadUpdate.amazon?.price > 0 &&
+                leadUpdate.amazon?.category &&
+                body?.price &&
+                body?.price > 0
+            ) {
                 const amazonNumber: number = leadUpdate.amazon?.numPack ? leadUpdate.amazon?.numPack : 1
                 const sourceNumber: number = leadUpdate.source?.numPack ? leadUpdate.source?.numPack : 1
                 const numOfPack: number = parseFloat(String(amazonNumber / sourceNumber))
