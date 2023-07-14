@@ -1,11 +1,7 @@
-import express, { NextFunction, Request, Response } from 'express'
-import LeadModel, { ILead } from '../../models/LeadModel'
-import { error } from 'shelljs'
-import mongoose, { Document, Model, ObjectId, Query } from 'mongoose'
-import Keepa from '../../lib/Keepa'
+import express from 'express'
+import LeadModel from '../../models/LeadModel'
 import KeepaApi from '../../lib/KeepaApi'
 import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
-import { generateKeyPair } from 'crypto'
 
 const keepaRoutes = express.Router()
 
@@ -13,9 +9,31 @@ keepaRoutes.post('/', async (req, res, next) => {
     try {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
+        const tenDayAgo = new Date()
+        tenDayAgo.setDate(tenDayAgo.getDate() - 30)
         const randomIndex = Math.floor(Math.random() * 10)
-        const firstLead = await LeadModel.findOne({ 'amazon.updatedAt': { $lt: oneDayAgo } })
+        const firstLead = await LeadModel.findOne()
             .skip(randomIndex)
+            .or([
+                {
+                    $and: [
+                        { 'amazon.updatedAt': { $lt: oneDayAgo } },
+                        {
+                            $or: [
+                                { 'amazon.bsr': { $lt: 400000 } },
+                                { 'amazon.bsr': { $exists: false } },
+                                { 'amazon.bsr': 0 },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    $and: [
+                        { $or: [{ 'amazon.bsr': { $lte: 0 } }, { 'amazon.bsr': { $gt: 400000 } }] },
+                        { 'amazon.updatedAt': { $lt: oneDayAgo } },
+                    ],
+                },
+            ])
             .exec()
         if (firstLead) {
             const asin = firstLead.amazon.asin
@@ -58,6 +76,16 @@ keepaRoutes.post('/', async (req, res, next) => {
                                 : 1,
                         })
 
+                        // Source Update If be lead
+                        if (
+                            leadUpdate.profit < 5 &&
+                            profitROI.netProfit > 5 &&
+                            leadUpdate.roi < 30 &&
+                            profitROI.roi > 30
+                        ) {
+                            leadUpdate.source.updatedAt = new Date().toISOString()
+                        }
+
                         leadUpdate.profit = profitROI.netProfit
                         leadUpdate.roi = profitROI.roi
                         leadUpdate.amazon.size = profitROI.size
@@ -73,6 +101,10 @@ keepaRoutes.post('/', async (req, res, next) => {
                     //Set UPC
                     if (keepaSearch.amazonProduct?.upcList?.length) {
                         leadUpdate.amazon.upc = keepaSearch.amazonProduct.upcList
+                    }
+                    //Set Brand
+                    if (keepaSearch.amazonProduct?.brand) {
+                        leadUpdate.amazon.brand = keepaSearch.amazonProduct.brand
                     }
                     //Set Images
                     if (keepaSearch.getImages().length) {

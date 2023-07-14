@@ -39,6 +39,8 @@ async function getLeads(req: Request, res: Response, next: NextFunction) {
             const obj: any = {}
             obj[columns[req.body?.order[0]['column']]['name']] = req.body?.order[0]['dir']
             filter.sort(obj)
+        } else {
+            filter.sort({ 'source.updatedAt': -1 })
         }
 
         const leads = await filter.skip(start).limit(limit).exec()

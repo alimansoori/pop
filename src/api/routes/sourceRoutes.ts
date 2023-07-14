@@ -7,6 +7,7 @@ import KeepaApi from '../../lib/KeepaApi'
 import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
 import { generateKeyPair } from 'crypto'
 import { EnumCategories } from '../../@types/EnumCategories'
+import DatabaseLeads from '../../sheets/DatabaseLeads'
 
 const sourceRoutes = express.Router()
 
@@ -14,9 +15,17 @@ sourceRoutes.get('/', async (req, res, next) => {
     try {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
-        const randomIndex = Math.floor(Math.random() * 30)
-        console.log(randomIndex)
-        const firstLead = await LeadModel.findOne({ 'source.updatedAt': { $lt: oneDayAgo } })
+        const randomIndex = Math.floor(Math.random() * 40)
+
+        // Rand 1 & -1
+        const randomNumber = Math.random()
+        const randomSign = randomNumber < 0.5 ? -1 : 1
+
+        const firstLead = await LeadModel.findOne({
+            'source.updatedAt': { $lt: oneDayAgo },
+            status: { $ne: 'mis_match' },
+        })
+            .sort({ createdAt: randomSign })
             .or([
                 {
                     $and: [
@@ -321,7 +330,8 @@ sourceRoutes.post('/', async (req, res, next) => {
             leadUpdate.source.updatedAt = new Date().toISOString()
 
             await leadUpdate.save()
-            console.log(leadUpdate.toObject())
+
+            await updateDatabaseLeads(leadUpdate.toObject())
         }
 
         console.log(`Update success Source: ${body?.url}`)
@@ -335,5 +345,11 @@ sourceRoutes.post('/', async (req, res, next) => {
         })
     }
 })
+
+async function updateDatabaseLeads(leadUpdate: ILead) {
+    const databaseLeads = new DatabaseLeads()
+    await databaseLeads.auth()
+    await databaseLeads.addToSheet(leadUpdate)
+}
 
 export default sourceRoutes

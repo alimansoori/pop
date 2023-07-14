@@ -116,7 +116,7 @@ export default class KeepaApi {
             }
         }
 
-        return NaN
+        return -1
     }
 
     getBuyBoxPrice(): number {

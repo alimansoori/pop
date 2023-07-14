@@ -35,7 +35,7 @@ export async function updateSources() {
             if (store.statusCode === 200) {
                 await axios.post('http://localhost:3000/api/1.0/source', {
                     title: store.getTitleClass().getTitle(),
-                    url: store.getOriginUrl(),
+                    url: store.getUrl(),
                     price: store.getPrice(),
                     availability: store.isAvailability(),
                     upc: store?.getUPC(),

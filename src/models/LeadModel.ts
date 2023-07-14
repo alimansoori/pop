@@ -2,7 +2,6 @@ import { Schema, Document, model, Model } from 'mongoose'
 import { sourceSchema, ISource } from './SourceModel'
 import { amazonSchema, IAmazon } from './AmazonModel'
 import ProfitRoiCalculate from '../lib/ProfitRoiCalculate'
-import { hiddenSchema, IHidden } from './hiddenSchema'
 import { isNumber } from 'util'
 
 export interface ILead extends Document {
@@ -50,10 +49,6 @@ export const leadSchema: Schema = new Schema<ILead>({
         default: new Date().toISOString(),
     },
 })
-
-leadSchema.methods.sayHi = function () {
-    console.log(`Profit is equal ${this.profit}`)
-}
 
 leadSchema.pre('save', async function (next) {
     this.updatedAt = new Date().toISOString()
@@ -128,7 +123,7 @@ leadSchema.pre('validate', async function () {
 
     if (isNaN(this?.roi)) {
         this.roi = 0
-    } else if (this?.roi) this.roi = parseInt(this.roi)
+    }
 
     if (this?.amazon?.price)
         this.amazon.price = isNumber(this.amazon.price) ? this.amazon.price : parseInt(this.amazon.price)

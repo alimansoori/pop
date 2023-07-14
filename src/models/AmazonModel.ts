@@ -13,6 +13,7 @@ export interface IAmazon extends Document {
     bsr: number
     mSales: number
     size: string
+    brand: string
     note: string
     package: {
         length: number
@@ -61,47 +62,7 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
         type: String,
         minlength: 3,
         maxlength: 50,
-        /*enum: [
-        'Alexa Skills',
-        'Appliances',
-        'Apps & Games',
-        'Arts, Crafts & Sewing',
-        'Audible Books & Originals',
-        'Automotive',
-        'Baby Products',
-        'Baby Products',
-        'Beauty & Personal Care',
-        'Books',
-        'CDs & Vinyl',
-        'Cell Phones & Accessories',
-        'Clothing, Shoes & Jewelry',
-        'Collectibles & Fine Art',
-        'Digital Music',
-        'Electronics',
-        'Everything Else',
-        'Gift Cards',
-        'Grocery & Gourmet Food',
-        'Handmade Products',
-        'Health & Household',
-        'Home & Kitchen',
-        'Industrial & Scientific',
-        'Kindle Store',
-        'Kitchen & Dining',
-        'Magazine Subscriptions',
-        'Movies & TV',
-        'Musical Instruments',
-        'Office Products',
-        'Patio, Lawn & Garden',
-        'Pet Supplies',
-        'Software',
-        'Sports & Outdoors',
-        'Tools & Home Improvement',
-        'Toys & Games',
-        'Video Games',
-        'Video Shorts',
-        'Other',
-    ],
-    default: 'Other',*/
+        default: 'Other',
     },
     upc: [
         {
@@ -116,6 +77,7 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
     bsr: Number,
     mSales: Number,
     size: String,
+    brand: String,
     images: [
         {
             type: String,
