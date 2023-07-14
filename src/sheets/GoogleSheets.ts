@@ -171,7 +171,7 @@ export default class GoogleSheets {
                     if (store?.getPrice()) {
                         reqBody['price'] = store?.getPrice()
                     }
-                    if (store?.getUPC()) {
+                    if (store?.getUPC() && store?.getUPC()?.length === 12) {
                         reqBody['upc'] = store?.getUPC()
                     }
                     if (store?.isAvailability()) {
@@ -253,26 +253,6 @@ export default class GoogleSheets {
                 await rows[i].save()
                 continue
             }
-        }
-    }
-
-    private async afterSave(row: any, images: string[]) {
-        // Add product to DbApi
-        try {
-            const addProductFromGoogleSheetInput: IProductInput = {
-                link: row['Source URL'],
-                title: row['Title'],
-                asin: row['ASIN'],
-                src: row['Source'],
-                brand: row['Brand'],
-                category: row['Category'],
-            }
-            if (images.length > 0) {
-                addProductFromGoogleSheetInput['images'] = images
-            }
-            await DbApi.addProductFromGoogleSheet(addProductFromGoogleSheetInput)
-        } catch (e: any) {
-            console.log(e.message)
         }
     }
 }

@@ -291,7 +291,7 @@ sourceRoutes.post('/', async (req, res, next) => {
                 leadUpdate.source.model = body?.model
             }
             // Set upc
-            if (body?.upc) {
+            if (body?.upc && body?.upc.length === 12) {
                 leadUpdate.source.upc = body?.upc
             }
             // Set availability
