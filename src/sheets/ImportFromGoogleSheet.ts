@@ -79,7 +79,7 @@ export default class ImportFromGoogleSheet {
                 continue
             }*/
 
-            if (!rows[i]['Source URL'] || !rows[i]['Amazon URL']) {
+            if (!rows[i]['Source URL']) {
                 console.log(`>>>> row ${rows[i].rowIndex} Source URL OR Amazon URL not exist`)
                 continue
             }

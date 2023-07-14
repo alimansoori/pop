@@ -9,9 +9,9 @@ export interface ILead extends Document {
     status: string
     profit: number
     roi: number
-    hidden: IHidden
     source: ISource
     amazon: IAmazon
+    matchQuality: number
     hiddenDays: number
     hiddenCreatedAt: string | DateConstructor
     createdAt: string | DateConstructor
@@ -29,7 +29,7 @@ export const leadSchema: Schema = new Schema<ILead>({
         type: Number,
     },
     roi: Number,
-    hidden: hiddenSchema,
+    matchQuality: Number,
     hiddenDays: Number,
     hiddenCreatedAt: Date,
     source: {
@@ -57,10 +57,15 @@ leadSchema.methods.sayHi = function () {
 
 leadSchema.pre('save', async function (next) {
     this.updatedAt = new Date().toISOString()
-    if (!this._id) {
+    const enterLead = await LeadModel.findById(this._id)
+    if (!enterLead) {
         // Create Lead
-        const duplicateLead = await LeadModel.find({ 'amazon.asin': this.amazon.asin, 'source.url': this.source.url })
-        if (duplicateLead.length) {
+
+        const duplicateLead = await LeadModel.findOne({
+            'amazon.asin': this.amazon.asin,
+            'source.url': this.source.url,
+        })
+        if (duplicateLead) {
             throw new Error('This is a repeated lead')
         }
 
@@ -70,49 +75,46 @@ leadSchema.pre('save', async function (next) {
         }
     } else {
         // Edit Lead
-        const beforeUpdateLead = await LeadModel.findById(this._id)
 
-        // Profit ROI Calc
-        if (beforeUpdateLead) {
-            if (
-                (beforeUpdateLead.amazon.price !== this.amazon.price ||
-                    beforeUpdateLead.source.price !== this.source.price) &&
-                this.amazon?.price &&
-                this.source?.price
-            ) {
-                const calc = new ProfitRoiCalculate({
-                    sellPrice: this.amazon.price,
-                    buyCost: this.source.price,
-                    packageWeight: this.amazon?.package?.weight ? this.amazon?.package?.weight : 1,
-                    packageWidth: this.amazon?.package?.width ? this.amazon?.package?.width : 1,
-                    packageHeight: this.amazon?.package?.height ? this.amazon?.package?.height : 1,
-                    packageLength: this.amazon?.package?.length ? this.amazon?.package?.length : 1,
-                    category: this.amazon.category,
-                })
-                this.amazon.size = calc.size
-                this.profit = calc.netProfit
-                this.roi = calc.roi
+        if (
+            (enterLead.amazon.price !== this.amazon.price || enterLead.source.price !== this.source.price) &&
+            this.amazon?.price &&
+            this.source?.price
+        ) {
+            const calc = new ProfitRoiCalculate({
+                sellPrice: this.amazon.price,
+                buyCost: this.source.price,
+                packageWeight: this.amazon?.package?.weight ? this.amazon?.package?.weight : 1,
+                packageWidth: this.amazon?.package?.width ? this.amazon?.package?.width : 1,
+                packageHeight: this.amazon?.package?.height ? this.amazon?.package?.height : 1,
+                packageLength: this.amazon?.package?.length ? this.amazon?.package?.length : 1,
+                category: this.amazon.category,
+            })
+            this.amazon.size = calc.size
+            this.profit = calc.netProfit
+            this.roi = calc.roi
+        }
+
+        // Check if Duplicate
+        if (!(enterLead.amazon.asin === this.amazon.asin && enterLead.source.url === this.source.url)) {
+            const duplicateLead = await LeadModel.findOne({
+                'amazon.asin': this.amazon.asin,
+                'source.url': this.source.url,
+            })
+            if (duplicateLead) {
+                // delete duplicate lead
+                try {
+                    await LeadModel.deleteOne({ _id: this._id })
+                } catch (e: any) {
+                    throw new Error(`Error in delete a repeated lead ${this._id}`)
+                }
+                throw new Error('Delete Success, This was a repeated lead')
             }
         }
 
-        // Check is Duplicate
-        if (beforeUpdateLead) {
-            if (
-                !(beforeUpdateLead.amazon.asin === this.amazon.asin && beforeUpdateLead.source.url === this.source.url)
-            ) {
-                const duplicateLead = await LeadModel.find({
-                    'amazon.asin': this.amazon.asin,
-                    'source.url': this.source.url,
-                })
-                if (duplicateLead.length) {
-                    throw new Error('This is a repeated lead')
-                }
-            }
-
-            if (this.hiddenDays && this.hiddenDays !== beforeUpdateLead.hiddenDays) {
-                this.hiddenDays = parseInt(this.hiddenDays)
-                if (this.hiddenDays > 0) this.hiddenCreatedAt = new Date().toISOString()
-            }
+        if (this.hiddenDays && this.hiddenDays !== enterLead.hiddenDays) {
+            this.hiddenDays = parseInt(this.hiddenDays)
+            if (this.hiddenDays > 0) this.hiddenCreatedAt = new Date().toISOString()
         }
     }
 
@@ -120,7 +122,6 @@ leadSchema.pre('save', async function (next) {
 })
 
 leadSchema.pre('validate', async function () {
-    console.log(this)
     if (isNaN(this?.profit)) {
         this.profit = 0
     } else if (this?.profit) this.profit = parseInt(this.profit)

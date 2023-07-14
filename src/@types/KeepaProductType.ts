@@ -14,6 +14,10 @@ export type KeepaProductType = {
     buyBoxIsAmazon: boolean
     upcList: [string]
     categoryTree: any[] | null
+    referralFeePercent: number
+    fbaFees: {
+        pickAndPackFee: number
+    }
     stats: {
         buyBoxPrice: number
         buyBoxIsFBA: boolean

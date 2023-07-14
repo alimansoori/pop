@@ -7,4 +7,8 @@ export type KeepaOutputType = {
     tokensConsumed: number
     processingTimeInMs: number
     products: any[]
+    error: {
+        type: string
+        message: string
+    }
 }

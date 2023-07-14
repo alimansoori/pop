@@ -23,72 +23,82 @@ keepaRoutes.post('/', async (req, res, next) => {
             console.log('ASIN => ' + asin)
             const findAllLeadByAsin = await LeadModel.find({ 'amazon.asin': asin })
 
-            const keepaSearch = new KeepaApi(asin)
-            await keepaSearch.fetch()
+            try {
+                const keepaSearch = new KeepaApi(asin)
+                await keepaSearch.fetch()
 
-            for (let i = 0; i < findAllLeadByAsin.length; i++) {
-                const leadUpdate = findAllLeadByAsin[i]
-                leadUpdate.amazon.price = keepaSearch.getSellPrice()
-                leadUpdate.amazon.url = `https://amazon.com/dp/${asin}`
-                if (keepaSearch.amazonProduct?.title) {
-                    leadUpdate.amazon.title = keepaSearch.amazonProduct?.title
-                }
-                // Set Profit & ROI
-                if (leadUpdate.source?.price) {
-                    const amazonNumber: number = leadUpdate.amazon?.numPack ? leadUpdate.amazon?.numPack : 1
-                    const sourceNumber: number = leadUpdate.source?.numPack ? leadUpdate.source?.numPack : 1
-                    const numOfPack: number = parseFloat(String(amazonNumber / sourceNumber))
+                for (let i = 0; i < findAllLeadByAsin.length; i++) {
+                    const leadUpdate = findAllLeadByAsin[i]
+                    leadUpdate.amazon.price = keepaSearch.getSellPrice()
+                    leadUpdate.amazon.url = `https://amazon.com/dp/${asin}`
+                    if (keepaSearch.amazonProduct?.title) {
+                        leadUpdate.amazon.title = keepaSearch.amazonProduct?.title
+                    }
+                    // Set Profit & ROI
+                    if (leadUpdate.source?.price) {
+                        const amazonNumber: number = leadUpdate.amazon?.numPack ? leadUpdate.amazon?.numPack : 1
+                        const sourceNumber: number = leadUpdate.source?.numPack ? leadUpdate.source?.numPack : 1
+                        const numOfPack: number = parseFloat(String(amazonNumber / sourceNumber))
 
-                    const profitROI = new ProfitRoiCalculate({
-                        category: keepaSearch.getCategory(),
-                        sellPrice: keepaSearch.getSellPrice(),
-                        buyCost: leadUpdate.source?.price * numOfPack,
-                        packageLength: keepaSearch.amazonProduct?.packageLength
-                            ? keepaSearch.amazonProduct?.packageLength
-                            : 1,
-                        packageHeight: keepaSearch.amazonProduct?.packageHeight
-                            ? keepaSearch.amazonProduct?.packageHeight
-                            : 1,
-                        packageWidth: keepaSearch.amazonProduct?.packageWidth
-                            ? keepaSearch.amazonProduct?.packageWidth
-                            : 1,
-                        packageWeight: keepaSearch.amazonProduct?.packageWeight
-                            ? keepaSearch.amazonProduct?.packageWeight
-                            : 1,
-                    })
+                        const profitROI = new ProfitRoiCalculate({
+                            category: keepaSearch.getCategory(),
+                            sellPrice: keepaSearch.getSellPrice(),
+                            buyCost: leadUpdate.source?.price * numOfPack,
+                            packageLength: keepaSearch.amazonProduct?.packageLength
+                                ? keepaSearch.amazonProduct?.packageLength
+                                : 1,
+                            packageHeight: keepaSearch.amazonProduct?.packageHeight
+                                ? keepaSearch.amazonProduct?.packageHeight
+                                : 1,
+                            packageWidth: keepaSearch.amazonProduct?.packageWidth
+                                ? keepaSearch.amazonProduct?.packageWidth
+                                : 1,
+                            packageWeight: keepaSearch.amazonProduct?.packageWeight
+                                ? keepaSearch.amazonProduct?.packageWeight
+                                : 1,
+                        })
 
-                    leadUpdate.profit = profitROI.netProfit
-                    leadUpdate.roi = profitROI.roi
-                    leadUpdate.amazon.size = profitROI.size
-                }
-                // Set BSR
-                if (keepaSearch.getBSR()) {
-                    leadUpdate.amazon.bsr = keepaSearch.getBSR()
-                }
-                // Set Category
-                if (keepaSearch.getCategory()) {
-                    leadUpdate.amazon.category = keepaSearch.getCategory()
-                }
-                //Set UPC
-                if (keepaSearch.amazonProduct?.upcList?.length) {
-                    leadUpdate.amazon.upc = keepaSearch.amazonProduct.upcList
-                }
-                //Set Images
-                if (keepaSearch.getImages().length) {
-                    leadUpdate.amazon.images = keepaSearch.getImages()
-                }
-                // Set Seller
-                keepaSearch.amazonProduct?.stats?.buyBoxIsAmazon
-                    ? (leadUpdate.amazon.seller = 'Amazon')
-                    : (leadUpdate.amazon.seller = '')
-                // Set mSales
-                if (keepaSearch.amazonProduct?.stats?.salesRankDrops30)
-                    leadUpdate.amazon.mSales = keepaSearch.amazonProduct?.stats?.salesRankDrops30
-                // Set updatedAt
-                leadUpdate.amazon.updatedAt = new Date().toISOString()
+                        leadUpdate.profit = profitROI.netProfit
+                        leadUpdate.roi = profitROI.roi
+                        leadUpdate.amazon.size = profitROI.size
+                    }
+                    // Set BSR
+                    if (keepaSearch.getBSR()) {
+                        leadUpdate.amazon.bsr = keepaSearch.getBSR()
+                    }
+                    // Set Category
+                    if (keepaSearch.getCategory()) {
+                        leadUpdate.amazon.category = keepaSearch.getCategory()
+                    }
+                    //Set UPC
+                    if (keepaSearch.amazonProduct?.upcList?.length) {
+                        leadUpdate.amazon.upc = keepaSearch.amazonProduct.upcList
+                    }
+                    //Set Images
+                    if (keepaSearch.getImages().length) {
+                        leadUpdate.amazon.images = keepaSearch.getImages()
+                    }
+                    // Set Seller
+                    keepaSearch.amazonProduct?.stats?.buyBoxIsAmazon
+                        ? (leadUpdate.amazon.seller = 'Amazon')
+                        : (leadUpdate.amazon.seller = '')
+                    // Set mSales
+                    if (keepaSearch.amazonProduct?.stats?.salesRankDrops30)
+                        leadUpdate.amazon.mSales = keepaSearch.amazonProduct?.stats?.salesRankDrops30
+                    // Set updatedAt
+                    leadUpdate.amazon.updatedAt = new Date().toISOString()
 
-                await leadUpdate.save()
-                console.log(leadUpdate.toObject())
+                    await leadUpdate.save()
+                    // console.log(leadUpdate.toObject())
+                    console.log(`Update success asin: ${asin}`)
+                }
+            } catch (e: any) {
+                for (let i = 0; i < findAllLeadByAsin.length; i++) {
+                    const leadUpdate = findAllLeadByAsin[i]
+                    leadUpdate.amazon.note = e.message
+                    await leadUpdate.save()
+                    console.log(`Update failed asin: ${asin} message: ${e.message}`)
+                }
             }
 
             console.log(`Update success ASIN: ${asin}`)

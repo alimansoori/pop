@@ -41,18 +41,6 @@ async function getLeads(req: Request, res: Response, next: NextFunction) {
             filter.sort(obj)
         }
 
-        /*console.log(ret.cond)
-    const totalFilter = LeadModel.countDocuments({
-        ...ret.cond,
-    })*/
-
-        if (search) {
-            filter.or([
-                { 'amazon.title': { $regex: search, $options: 'i' } },
-                { 'source.title': { $regex: search, $options: 'i' } },
-            ])
-        }
-
         const leads = await filter.skip(start).limit(limit).exec()
         const totalCount = await totalFilter.countDocuments()
 
@@ -63,6 +51,7 @@ async function getLeads(req: Request, res: Response, next: NextFunction) {
                 status: statusOptions(),
                 'amazon.category': categoryOptions(),
                 'source.availability': availabilityOptions(),
+                'amazon.size': sizeOptions(),
             },
             recordsFiltered: totalCount,
             recordsTotal: totalCount,
@@ -78,6 +67,7 @@ async function getLeads(req: Request, res: Response, next: NextFunction) {
                     status: statusOptions(),
                     'amazon.category': categoryOptions(),
                     'source.availability': availabilityOptions(),
+                    'amazon.size': sizeOptions(),
                 },
             },
         })
@@ -145,8 +135,7 @@ async function editLead(req: Request, res: Response, next: NextFunction) {
             throw new Error('Lead for edit not exist!')
         }
 
-        console.log(data[ids[0]]['hiddenDays'])
-        console.log(lead.hiddenDays)
+        // console.log(data[ids[0]]['hiddenDays'])
         if (data[ids[0]]['hiddenDays'] !== undefined) {
             lead.hiddenDays = data[ids[0]]['hiddenDays']
         }
@@ -165,14 +154,14 @@ async function editLead(req: Request, res: Response, next: NextFunction) {
 
         if (data[ids[0]]['amazon']) {
             lead.amazon = {
-                ...lead.amazon,
+                ...lead.amazon.toObject(),
                 ...data[ids[0]]['amazon'],
             }
         }
 
         if (data[ids[0]]['source']) {
             lead.source = {
-                ...lead.source,
+                ...lead.source.toObject(),
                 ...data[ids[0]]['source'],
             }
         }
@@ -293,6 +282,99 @@ function availabilityOptions() {
         {
             label: 'Out of Stock',
             value: 0,
+        },
+    ]
+}
+
+function sizeOptions() {
+    return [
+        {
+            label: 'SMALL STANDARD SIZE LESS THAN 6OZ',
+            value: 'SMALL STANDARD SIZE LESS THAN 6OZ',
+        },
+        {
+            label: 'SMALL STANDARD SIZE 6_12OZ',
+            value: 'SMALL STANDARD SIZE 6_12OZ',
+        },
+        {
+            label: 'SMALL STANDARD SIZE 12_16OZ',
+            value: 'SMALL STANDARD SIZE 12_16OZ',
+        },
+        {
+            label: 'LARGE STANDARD SIZE LESS THAN 6OZ',
+            value: 'LARGE STANDARD SIZE LESS THAN 6OZ',
+        },
+        {
+            label: 'LARGE STANDARD SIZE 6_12OZ',
+            value: 'LARGE STANDARD SIZE 6_12OZ',
+        },
+        {
+            label: 'LARGE STANDARD SIZE 12_16OZ',
+            value: 'LARGE STANDARD SIZE 12_16OZ',
+        },
+        {
+            label: 'LARGE STANDARD SIZE 1LBS_2LBS',
+            value: 'LARGE STANDARD SIZE 1LBS_2LBS',
+        },
+        {
+            label: 'LARGE STANDARD SIZE 2LBS_3LBS',
+            value: 'LARGE STANDARD SIZE 2LBS_3LBS',
+        },
+        {
+            label: 'LARGE STANDARD SIZE OVER 3LBS',
+            value: 'LARGE STANDARD SIZE OVER 3LBS',
+        },
+        {
+            label: 'SMALL OVERSIZE',
+            value: 'SMALL OVERSIZE',
+        },
+        {
+            label: 'MEDIUM OVERSIZE',
+            value: 'MEDIUM OVERSIZE',
+        },
+        {
+            label: 'LARGE OVERSIZE',
+            value: 'LARGE OVERSIZE',
+        },
+        {
+            label: 'SPECIAL OVERSIZE',
+            value: 'SPECIAL OVERSIZE',
+        },
+        {
+            label: 'SMALL STANDARD SIZE LESS THAN 6OZ CLOTHING',
+            value: 'SMALL STANDARD SIZE LESS THAN 6OZ CLOTHING',
+        },
+        {
+            label: 'SMALL STANDARD SIZE 6_12OZ CLOTHING',
+            value: 'SMALL STANDARD SIZE 6_12OZ CLOTHING',
+        },
+        {
+            label: 'SMALL STANDARD SIZE 12_16OZ CLOTHING',
+            value: 'SMALL STANDARD SIZE 12_16OZ CLOTHING',
+        },
+        {
+            label: 'LARGE STANDARD SIZE LESS THAN 6OZ CLOTHING',
+            value: 'LARGE STANDARD SIZE LESS THAN 6OZ CLOTHING',
+        },
+        {
+            label: 'LARGE STANDARD SIZE 6_12OZ CLOTHING',
+            value: 'LARGE STANDARD SIZE 6_12OZ CLOTHING',
+        },
+        {
+            label: 'LARGE STANDARD SIZE 12_16OZ CLOTHING',
+            value: 'LARGE STANDARD SIZE 12_16OZ CLOTHING',
+        },
+        {
+            label: 'LARGE STANDARD SIZE 1LBS_2LBS CLOTHING',
+            value: 'LARGE STANDARD SIZE 1LBS_2LBS CLOTHING',
+        },
+        {
+            label: 'LARGE STANDARD SIZE 2LBS_3LBS CLOTHING',
+            value: 'LARGE STANDARD SIZE 2LBS_3LBS CLOTHING',
+        },
+        {
+            label: 'LARGE STANDARD SIZE OVER 3LBS CLOTHING',
+            value: 'LARGE STANDARD SIZE OVER 3LBS CLOTHING',
         },
     ]
 }
@@ -447,12 +529,23 @@ function categoryOptions() {
 }
 
 function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, data: any) {
-    const cond: any = {}
+    const search = data?.search?.value
+    if (search) {
+        filter.or([
+            { 'amazon.title': { $regex: search, $options: 'i' } },
+            { 'source.title': { $regex: search, $options: 'i' } },
+        ])
+        totalFilter.or([
+            { 'amazon.title': { $regex: search, $options: 'i' } },
+            { 'source.title': { $regex: search, $options: 'i' } },
+        ])
+    }
+
     if (!data.searchBuilder) return
     console.log(data?.searchBuilder)
 
     const criteria: any[] = data?.searchBuilder['criteria']
-    console.log(criteria)
+    // console.log(criteria)
     const conditions: any[] = []
     for (let i = 0; i < criteria.length; i++) {
         const condition: any = {}
@@ -504,7 +597,7 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
         }
         conditions.push(condition)
     }
-    console.log(conditions)
+    // console.log(conditions)
 
     if (data?.searchBuilder['logic'] === 'AND') {
         filter.and(conditions)

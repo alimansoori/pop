@@ -83,10 +83,11 @@ export default class KeepaApi {
             await this.fetch()
         }
 
-        this.amazonProduct = this.data?.products[0]
+        if (this.data?.error) {
+            throw new Error(this.data.error.message)
+        }
 
-        this.brand = this.amazonProduct?.brand
-        // this.buyBoxIsAmazon = this.product?.stats?.buyBoxIsAmazon
+        this.amazonProduct = this.data?.products[0]
 
         this.amazonInStock = this.amazonInStock30Day()
         this.avgBuyBox30Day = this.buyBoxAvg30Day()

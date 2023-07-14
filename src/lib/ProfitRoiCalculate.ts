@@ -5,10 +5,10 @@ import { EnumCategories } from '../@types/EnumCategories'
 export default class ProfitRoiCalculate {
     private input: ProfitRoiCalculateType
     public size: string
-    private fbaCost = 0
-    private totalAmazonReferralFees = 0
-    private storageFees = 0
-    private landedCosts = 0
+    public fbaCost = 0
+    public totalAmazonReferralFees = 0
+    public storageFees = 0
+    public landedCosts = 0
     netProfit = 0
     netProfitMargin = 0
     roi = 0

@@ -14,13 +14,15 @@ sourceRoutes.get('/', async (req, res, next) => {
     try {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
-        const randomIndex = Math.floor(Math.random() * 10)
+        const randomIndex = Math.floor(Math.random() * 30)
+        console.log(randomIndex)
         const firstLead = await LeadModel.findOne({ 'source.updatedAt': { $lt: oneDayAgo } })
             .or([
                 {
                     $and: [
                         { 'amazon.category': EnumCategories.TOYS },
                         { 'amazon.bsr': { $lt: 312000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -28,6 +30,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.SPORT },
                         { 'amazon.bsr': { $lt: 350000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -35,6 +38,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.PET },
                         { 'amazon.bsr': { $lt: 150000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -42,6 +46,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.ART },
                         { 'amazon.bsr': { $lt: 250000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -49,6 +54,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.PATIO },
                         { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -56,6 +62,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.HOME_KITCHEN },
                         { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -63,6 +70,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.VIDEO_GAMES },
                         { 'amazon.bsr': { $lt: 30000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -70,6 +78,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.INDUSTRIAL },
                         { 'amazon.bsr': { $lt: 250000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -77,6 +86,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.TOOLS },
                         { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -84,6 +94,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.OFFICE_PRODUCTS },
                         { 'amazon.bsr': { $lt: 240000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -91,6 +102,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.GROCERY },
                         { 'amazon.bsr': { $lt: 150000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -98,6 +110,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.ELECTRONIC },
                         { 'amazon.bsr': { $lt: 200000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -105,6 +118,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.CAMERA },
                         { 'amazon.bsr': { $lt: 35000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -112,6 +126,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.BEAUTY },
                         { 'amazon.bsr': { $lt: 32000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -119,6 +134,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.AUTOMOTIVE },
                         { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -126,6 +142,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.CELL_PHONES },
                         { 'amazon.bsr': { $lt: 250000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -133,6 +150,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.BOOKS },
                         { 'amazon.bsr': { $lt: 90000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -140,6 +158,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.BABY },
                         { 'amazon.bsr': { $lt: 100000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -147,6 +166,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.BABY_PRODUCTS },
                         { 'amazon.bsr': { $lt: 100000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -154,6 +174,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.CLOTHING },
                         { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -161,6 +182,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.COMPUTERS },
                         { 'amazon.bsr': { $lt: 150000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -168,6 +190,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.HEALTH },
                         { 'amazon.bsr': { $lt: 150000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -175,6 +198,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.KITCHEN_DINING },
                         { 'amazon.bsr': { $lt: 250000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -182,6 +206,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.MUSICAL_INSTRUMENTS },
                         { 'amazon.bsr': { $lt: 40000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
@@ -189,6 +214,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                     $and: [
                         { 'amazon.category': EnumCategories.OTHER },
                         { 'amazon.bsr': { $lt: 200000, $gt: 0 } },
+                        { 'amazon.price': { $gt: 15 } },
                         { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                     ],
                 },
