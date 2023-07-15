@@ -1,4 +1,5 @@
 import { Schema, Document, model, Model } from 'mongoose'
+import any = jasmine.any
 
 export interface IAmazon extends Document {
     title: string
@@ -15,6 +16,7 @@ export interface IAmazon extends Document {
     size: string
     brand: string
     note: string
+    csv: any[]
     package: {
         length: number
         width: number
@@ -84,6 +86,7 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
         },
     ],
     note: String,
+    csv: Array,
     package: {
         length: {
             type: Number,
