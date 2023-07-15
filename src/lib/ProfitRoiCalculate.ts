@@ -15,6 +15,13 @@ export default class ProfitRoiCalculate {
 
     constructor(input: ProfitRoiCalculateType) {
         this.input = input
+        this.input = {
+            ...this.input,
+            packageLength: input.packageLength / 25.4,
+            packageWidth: input.packageWidth / 25.4,
+            packageHeight: input.packageHeight / 25.4,
+            packageWeight: input.packageWeight / 453.59237,
+        }
         this.size = this.fbaCostCalculator()
         this.totalAmazonReferralFeesCalculator()
         this.storageFeesCalculator()

@@ -37,6 +37,7 @@ keepaRoutes.post('/', async (req, res, next) => {
             .exec()
         if (firstLead) {
             const asin = firstLead.amazon.asin
+            // const asin = 'B07HB4VNVP'
             console.log('====================================')
             console.log('ASIN => ' + asin)
             const findAllLeadByAsin = await LeadModel.find({ 'amazon.asin': asin })

@@ -36,6 +36,8 @@ export default class DatabaseLeads {
                 'Signature',
                 'Note',
             ])
+
+            console.log('Success to connect Database Leads')
         } catch (e: any) {
             console.log('Error to connect Database Leads')
             console.log(e.message)

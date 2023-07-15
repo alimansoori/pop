@@ -66,6 +66,7 @@ export const sourceSchema: Schema = new Schema<ISource>({
         type: Number,
         min: 1,
         max: 100,
+        default: 1,
     },
     availability: {
         type: Boolean,
