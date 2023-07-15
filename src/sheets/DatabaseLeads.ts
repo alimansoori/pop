@@ -2,18 +2,12 @@ import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadshee
 import { keys } from '../keys'
 import SourceSiteFactory from '../stores/SourceSiteFactory'
 import IStore from '../stores/IStore'
-import Keepa from '../lib/Keepa'
-import MyDate from '../lib/MyDate'
-import { tomorrowDate, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
-import { sleep } from '../utils/sleep'
-import { DbApi } from '../lib/db-api/DbApi'
-import axios from 'axios'
 import { ILead } from '../models/LeadModel'
 
 export default class DatabaseLeads {
     private leads: any = ''
-    private dataBaseLeads: any = ''
+    private dataBaseLeads: GoogleSpreadsheetWorksheet | null = null
 
     async auth() {
         try {
@@ -27,7 +21,7 @@ export default class DatabaseLeads {
             await this.leads.loadInfo()
             this.dataBaseLeads = await this.leads.sheetsByTitle.data
 
-            await this.dataBaseLeads.setHeaderRow([
+            await this.dataBaseLeads?.setHeaderRow([
                 'Date',
                 'Status',
                 'Approval',
@@ -67,7 +61,7 @@ export default class DatabaseLeads {
     async addToSheet(lead: ILead) {
         if (lead.profit > 4 && lead.roi > 25 && lead.source.availability) {
             // Add Row in DataBase Leads
-            await this.dataBaseLeads.addRow({
+            await this.dataBaseLeads?.addRow({
                 Date: new Date().toLocaleDateString('en-US'),
                 Status: lead.status === 'match' ? 'Match' : '',
                 Approval: '',
