@@ -357,6 +357,7 @@ sourceRoutes.post('/', async (req, res, next) => {
 
             await updateDatabaseLeads(leadUpdate.toObject())
             console.log(`${i + 1} Update success Source: ${body?.url}`)
+            console.log(`=============================================`)
         }
 
         if (!findSourcesByURL.length) {
