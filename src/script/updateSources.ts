@@ -1,7 +1,4 @@
 import axios from 'axios'
-import { tomorrowDate, writeSetting } from '../lib/helper'
-import MyDate from '../lib/MyDate'
-import Keepa from '../lib/Keepa'
 import IStore from '../stores/IStore'
 import SourceSiteFactory from '../stores/SourceSiteFactory'
 
@@ -36,16 +33,18 @@ export async function updateSources() {
             if (store.statusCode === 200 && !store.error && store.getPrice()) {
                 await axios.post('http://localhost:3000/api/1.0/source', {
                     title: store.getTitleClass().getTitle(),
-                    url: store.getUrl(),
+                    url: store.getOriginUrl(),
+                    canonical: store.getUrl(),
                     price: store.getPrice(),
                     availability: store.isAvailability(),
                     upc: store?.getUPC(),
                     images: store.getImage(),
+                    note: store?.error,
                 })
-                console.log('Update source successful!')
+                console.log('Update source successful!: ' + store.getUrl())
             }
         } catch (e: any) {
-            console.log(e.message)
+            console.log('Error in updateSources: ' + e.message)
         }
     }
 }
@@ -53,6 +52,7 @@ export async function updateSources() {
 async function sourceSite(url: string): Promise<IStore> {
     const store = await SourceSiteFactory.create(url)
     console.log(store.getDomain())
+    console.log(store.getUrl())
 
     return store
 }

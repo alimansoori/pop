@@ -91,8 +91,6 @@ export const sourceSchema: Schema = new Schema<ISource>({
     },
     note: {
         type: String,
-        minlength: 1,
-        maxlength: 500,
     },
 })
 

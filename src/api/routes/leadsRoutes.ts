@@ -544,7 +544,6 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
     }
 
     if (!data.searchBuilder) return
-    console.log(data?.searchBuilder)
 
     const criteria: any[] = data?.searchBuilder['criteria']
     // console.log(criteria)
