@@ -12,31 +12,36 @@ keepaRoutes.post('/', async (req, res, next) => {
         const tenDayAgo = new Date()
         tenDayAgo.setDate(tenDayAgo.getDate() - 30)
         const randomIndex = Math.floor(Math.random() * 10)
-        const firstLead = await LeadModel.findOne()
-            .skip(randomIndex)
-            .or([
-                {
-                    $and: [
-                        { 'amazon.updatedAt': { $lt: oneDayAgo } },
-                        {
-                            $or: [
-                                { 'amazon.bsr': { $lt: 400000 } },
-                                { 'amazon.bsr': { $exists: false } },
-                                { 'amazon.bsr': 0 },
-                            ],
-                        },
-                    ],
-                },
-                {
-                    $and: [
-                        { $or: [{ 'amazon.bsr': { $lte: 0 } }, { 'amazon.bsr': { $gt: 400000 } }] },
-                        { 'amazon.updatedAt': { $lt: oneDayAgo } },
-                    ],
-                },
-            ])
+
+        const orCondition = [
+            {
+                $and: [
+                    { 'amazon.updatedAt': { $lt: oneDayAgo } },
+                    {
+                        $or: [
+                            { 'amazon.bsr': { $lt: 400000 } },
+                            { 'amazon.bsr': { $exists: false } },
+                            { 'amazon.bsr': 0 },
+                        ],
+                    },
+                ],
+            },
+            {
+                $and: [
+                    { $or: [{ 'amazon.bsr': { $lte: 0 } }, { 'amazon.bsr': { $gt: 400000 } }] },
+                    { 'amazon.updatedAt': { $lt: oneDayAgo } },
+                ],
+            },
+        ]
+
+        const totalLeads = await LeadModel.find().or(orCondition).countDocuments()
+        const randLead = await LeadModel.findOne()
+            .skip(Math.floor(Math.random() * totalLeads))
+            .or(orCondition)
             .exec()
-        if (firstLead) {
-            const asin = firstLead.amazon.asin
+
+        if (randLead) {
+            const asin = randLead.amazon.asin
             // const asin = 'B07HB4VNVP'
             console.log('====================================')
             console.log('ASIN => ' + asin)
@@ -137,7 +142,7 @@ keepaRoutes.post('/', async (req, res, next) => {
             console.log(`Update success ASIN: ${asin}`)
             return res.status(200).json({
                 message: `Update success ASIN: ${asin}`,
-                data: firstLead.toObject(),
+                data: randLead.toObject(),
                 sames: findAllLeadByAsin,
             })
         }
