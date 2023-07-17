@@ -37,7 +37,7 @@ keepaRoutes.post('/', async (req, res, next) => {
         // const totalLeads = await LeadModel.find().or(orCondition).countDocuments()
         const randLead = await LeadModel.findOne()
             .skip(randomIndex)
-            .sort({ updatedAt: Math.random() < 0.5 ? -1 : 1 })
+            // .sort({ updatedAt: Math.random() < 0.5 ? -1 : 1 })
             .or(orCondition)
             .exec()
 

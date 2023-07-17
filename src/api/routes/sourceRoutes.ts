@@ -233,7 +233,7 @@ sourceRoutes.get('/', async (req, res, next) => {
             status: { $ne: 'mis_match' },
         })
             .skip(randomIndex)
-            .sort({ updatedAt: Math.random() < 0.5 ? -1 : 1 })
+            // .sort({ updatedAt: randomSign })
             .or(orCondition)
             .exec()
 
