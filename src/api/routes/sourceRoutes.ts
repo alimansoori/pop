@@ -1,14 +1,9 @@
-import express, { NextFunction, Request, Response } from 'express'
+import express from 'express'
 import LeadModel, { ILead } from '../../models/LeadModel'
-import { error } from 'shelljs'
-import mongoose, { Document, Model, ObjectId, Query } from 'mongoose'
-import Keepa from '../../lib/Keepa'
-import KeepaApi from '../../lib/KeepaApi'
 import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
-import { generateKeyPair } from 'crypto'
 import { EnumCategories } from '../../@types/EnumCategories'
 import DatabaseLeads from '../../sheets/DatabaseLeads'
-import fs from 'fs'
+import { sort } from 'shelljs'
 
 const sourceRoutes = express.Router()
 
@@ -16,6 +11,8 @@ sourceRoutes.get('/', async (req, res, next) => {
     try {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 5)
+
+        const randomIndex = Math.floor(Math.random() * 100)
 
         // Rand 1 & -1
         const randomNumber = Math.random()
@@ -224,18 +221,19 @@ sourceRoutes.get('/', async (req, res, next) => {
             },
         ]
 
-        const totalLeads = await LeadModel.find({
-            'source.updatedAt': { $lt: oneDayAgo },
-            status: { $ne: 'mis_match' },
-        })
-            .or(orCondition)
-            .countDocuments()
+        /*const totalLeads = await LeadModel.find({
+        'source.updatedAt': { $lt: oneDayAgo },
+        status: { $ne: 'mis_match' },
+    })
+        .or(orCondition)
+        .estimatedDocumentCount()*/
 
         const randLead = await LeadModel.findOne({
             'source.updatedAt': { $lt: oneDayAgo },
             status: { $ne: 'mis_match' },
         })
-            .skip(Math.floor(Math.random() * totalLeads))
+            .skip(randomIndex)
+            .sort({ updatedAt: Math.random() < 0.5 ? -1 : 1 })
             .or(orCondition)
             .exec()
 

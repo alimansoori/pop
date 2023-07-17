@@ -11,7 +11,7 @@ keepaRoutes.post('/', async (req, res, next) => {
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
         const tenDayAgo = new Date()
         tenDayAgo.setDate(tenDayAgo.getDate() - 30)
-        const randomIndex = Math.floor(Math.random() * 10)
+        const randomIndex = Math.floor(Math.random() * 40)
 
         const orCondition = [
             {
@@ -34,9 +34,10 @@ keepaRoutes.post('/', async (req, res, next) => {
             },
         ]
 
-        const totalLeads = await LeadModel.find().or(orCondition).countDocuments()
+        // const totalLeads = await LeadModel.find().or(orCondition).countDocuments()
         const randLead = await LeadModel.findOne()
-            .skip(Math.floor(Math.random() * totalLeads))
+            .skip(randomIndex)
+            .sort({ updatedAt: Math.random() < 0.5 ? -1 : 1 })
             .or(orCondition)
             .exec()
 
