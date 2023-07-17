@@ -11,9 +11,11 @@ export async function updateSources() {
 
             try {
                 if (!randLead?.data?.data?.source?.url) {
-                    console.log(`>>>> Source URL not exist`)
+                    console.log(`<<<<<<<<< Source URL not exist >>>>>>>>>`)
                     continue
                 }
+
+                console.log('Start: ' + !randLead?.data?.data?.source?.url)
 
                 const store = await sourceSite(randLead?.data?.data?.source?.url)
                 await store.createBrowser()
@@ -52,6 +54,8 @@ export async function updateSources() {
         } catch (e: any) {
             console.log('Error in updateSources: ' + e.message)
         }
+
+        console.log('<<<<<<< END >>>>>>>>>')
     }
 }
 
