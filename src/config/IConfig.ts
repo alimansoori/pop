@@ -5,4 +5,5 @@ export interface IConfig {
     mongo_host: string
     mongo_port: string
     mongo_server: string
+    keepa_api_key: string
 }

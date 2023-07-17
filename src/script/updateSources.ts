@@ -32,22 +32,20 @@ export async function updateSources() {
                 console.log('Error ' + store.error)
                 console.log('StatusCode ' + store.statusCode)
 
-                if (store.statusCode === 200 && !store.error && store.getPrice()) {
-                    await axios.post('http://localhost:3000/api/1.0/source', {
-                        title: store.getTitleClass().getTitle(),
-                        url: store.getOriginUrl(),
-                        canonical: store.getUrl(),
-                        price: store.getPrice(),
-                        availability: store.isAvailability(),
-                        upc: store?.getUPC(),
-                        images: store.getImage(),
-                        note: store?.error,
-                    })
-                    console.log('Update source successful!: ' + store.getUrl())
-                }
+                await axios.post('http://localhost:3000/api/1.0/source', {
+                    title: store.getTitleClass().getTitle(),
+                    url: store.getOriginUrl(),
+                    canonical: store.getUrl(),
+                    price: store.getPrice(),
+                    availability: store.isAvailability(),
+                    upc: store?.getUPC(),
+                    images: store.getImage(),
+                    note: store?.error,
+                })
+                console.log('Update source successful!: ' + store.getUrl())
             } catch (e: any) {
                 await axios.post('http://localhost:3000/api/1.0/source', {
-                    url: !randLead?.data?.data?.source?.url,
+                    url: randLead?.data?.data?.source?.url,
                     note: 'Error in updateSources: ' + e.message,
                 })
             }

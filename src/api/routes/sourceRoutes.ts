@@ -221,13 +221,6 @@ sourceRoutes.get('/', async (req, res, next) => {
             },
         ]
 
-        /*const totalLeads = await LeadModel.find({
-        'source.updatedAt': { $lt: oneDayAgo },
-        status: { $ne: 'mis_match' },
-    })
-        .or(orCondition)
-        .estimatedDocumentCount()*/
-
         const randLead = await LeadModel.findOne({
             'source.updatedAt': { $lt: oneDayAgo },
             status: { $ne: 'mis_match' },

@@ -11,6 +11,10 @@ export interface IAmazon extends Document {
     upc: string[]
     seller: string
     images: string[]
+    graphImage: {
+        data: Buffer
+        contentType: string
+    }
     bsr: number
     mSales: number
     size: string
@@ -85,6 +89,10 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
             type: String,
         },
     ],
+    graphImage: {
+        data: Buffer,
+        contentType: String,
+    },
     note: String,
     csv: Array,
     package: {

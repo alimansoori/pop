@@ -2,15 +2,20 @@ import express from 'express'
 import LeadModel from '../../models/LeadModel'
 import KeepaApi from '../../lib/KeepaApi'
 import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
+import util from 'util'
+import fs from 'fs'
+import config from '../../config/config'
+import axios from 'axios'
 
 const keepaRoutes = express.Router()
+const readFileAsync = util.promisify(fs.readFile)
 
 keepaRoutes.post('/', async (req, res, next) => {
     try {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
         const tenDayAgo = new Date()
-        tenDayAgo.setDate(tenDayAgo.getDate() - 30)
+        tenDayAgo.setDate(tenDayAgo.getDate() - 20)
         const randomIndex = Math.floor(Math.random() * 40)
 
         const orCondition = [
@@ -50,6 +55,8 @@ keepaRoutes.post('/', async (req, res, next) => {
             try {
                 const keepaSearch = new KeepaApi(asin)
                 await keepaSearch.fetch()
+
+                // const graphImage = await getKeepaGraph(asin)
 
                 for (let i = 0; i < findAllLeadByAsin.length; i++) {
                     const leadUpdate = findAllLeadByAsin[i]
@@ -120,7 +127,11 @@ keepaRoutes.post('/', async (req, res, next) => {
                     //Set Images
                     if (keepaSearch.getImages().length) {
                         leadUpdate.amazon.images = keepaSearch.getImages()
-                    }
+                    } /*
+                    if (graphImage) {
+                        leadUpdate.amazon.graphImage.data = graphImage
+                        leadUpdate.amazon.graphImage.contentType = 'image/png'
+                    }*/
                     // Set Seller
                     keepaSearch.amazonProduct?.stats?.buyBoxIsAmazon
                         ? (leadUpdate.amazon.seller = 'Amazon')
@@ -132,7 +143,7 @@ keepaRoutes.post('/', async (req, res, next) => {
                     leadUpdate.amazon.updatedAt = new Date().toISOString()
 
                     await leadUpdate.save()
-                    // console.log(leadUpdate.toObject())
+                    console.log(leadUpdate.toObject())
                     console.log(`Update success asin: ${asin}`)
                 }
             } catch (e: any) {
@@ -144,7 +155,7 @@ keepaRoutes.post('/', async (req, res, next) => {
                 }
             }
 
-            console.log(`Update success ASIN: ${asin}`)
+            // console.log(`Update success ASIN: ${asin}`)
             return res.status(200).json({
                 message: `Update success ASIN: ${asin}`,
                 data: randLead.toObject(),
@@ -164,5 +175,23 @@ keepaRoutes.post('/', async (req, res, next) => {
         })
     }
 })
+
+async function getKeepaGraph(asin: string): Promise<any> {
+    try {
+        const response = await axios.get(
+            `https://api.keepa.com/graphimage?key=${config.keepa_api_key}&domain=1&amazon=1&asin=${asin}&new=1&salesrank=1&bb=1&fba=1&range=90`,
+            {
+                responseType: 'arraybuffer',
+            }
+        )
+
+        const data = Buffer.from(response.data, 'binary')
+
+        return data.toString('base64')
+    } catch (err: any) {
+        console.log(err.message)
+        return null
+    }
+}
 
 export default keepaRoutes
