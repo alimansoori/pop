@@ -10,12 +10,12 @@ export async function updateSources() {
             console.log('===========================================')
 
             try {
-                if (!randLead?.data?.data?.source?.url) {
+                if (!randLead?.data?.data || !randLead?.data?.data?.source?.url) {
                     console.log(`<<<<<<<<< Source URL not exist >>>>>>>>>`)
                     continue
                 }
 
-                console.log('Start: ' + !randLead?.data?.data?.source?.url)
+                console.log('Start: ' + randLead?.data?.data?.source?.url)
 
                 const store = await sourceSite(randLead?.data?.data?.source?.url)
                 await store.createBrowser()

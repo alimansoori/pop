@@ -237,9 +237,15 @@ sourceRoutes.get('/', async (req, res, next) => {
             .or(orCondition)
             .exec()
 
-        return res.status(200).json({
-            data: randLead?.toObject(),
-        })
+        if (!randLead) {
+            return res.status(200).json({
+                data: null,
+            })
+        } else {
+            return res.status(200).json({
+                data: randLead?.toObject(),
+            })
+        }
     } catch (e: any) {
         return res.status(404).json({
             message: e.message,
@@ -318,7 +324,7 @@ sourceRoutes.post('/', async (req, res, next) => {
                 leadUpdate.source.statusCode = body?.statusCode
             }
             // Set note
-            if (body?.note && body?.note !== '') {
+            if (body?.note) {
                 leadUpdate.source.note = body.note
             }
 
