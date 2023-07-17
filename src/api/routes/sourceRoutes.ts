@@ -8,14 +8,14 @@ import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
 import { generateKeyPair } from 'crypto'
 import { EnumCategories } from '../../@types/EnumCategories'
 import DatabaseLeads from '../../sheets/DatabaseLeads'
+import fs from 'fs'
 
 const sourceRoutes = express.Router()
 
 sourceRoutes.get('/', async (req, res, next) => {
     try {
         const oneDayAgo = new Date()
-        oneDayAgo.setDate(oneDayAgo.getDate() - 2)
-        const randomIndex = Math.floor(Math.random() * 40)
+        oneDayAgo.setDate(oneDayAgo.getDate() - 5)
 
         // Rand 1 & -1
         const randomNumber = Math.random()

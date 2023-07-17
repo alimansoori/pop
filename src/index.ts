@@ -17,7 +17,8 @@ app.use('/api/1.0/keepa', keepaRoutes)
 app.use('/api/1.0/source', sourceRoutes)
 
 mongoose
-    .connect(config.mongo_server, {
+    .connect('mongodb://162.223.91.117:27017/oa', {
+        // .connect(config.mongo_server, {
         // @ts-ignore
         useNewUrlParser: true,
         useUnifiedTopology: true,

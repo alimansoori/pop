@@ -42,7 +42,6 @@ keepaRoutes.post('/', async (req, res, next) => {
 
         if (randLead) {
             const asin = randLead.amazon.asin
-            // const asin = 'B07HB4VNVP'
             console.log('====================================')
             console.log('ASIN => ' + asin)
             const findAllLeadByAsin = await LeadModel.find({ 'amazon.asin': asin })
@@ -101,9 +100,10 @@ keepaRoutes.post('/', async (req, res, next) => {
                         leadUpdate.amazon.bsr = keepaSearch.getBSR()
                     }
                     // Set CSV
-                    if (keepaSearch.amazonProduct?.csv && Array.isArray(keepaSearch.amazonProduct?.csv)) {
+                    leadUpdate.amazon.csv = []
+                    /*if (keepaSearch.amazonProduct?.csv && Array.isArray(keepaSearch.amazonProduct?.csv)) {
                         leadUpdate.amazon.csv = keepaSearch.amazonProduct.csv
-                    }
+                    }*/
                     // Set Category
                     if (keepaSearch.getCategory()) {
                         leadUpdate.amazon.category = keepaSearch.getCategory()
