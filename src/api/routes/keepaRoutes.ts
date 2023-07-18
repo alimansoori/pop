@@ -143,7 +143,6 @@ keepaRoutes.post('/', async (req, res, next) => {
                     leadUpdate.amazon.updatedAt = new Date().toISOString()
 
                     await leadUpdate.save()
-                    console.log(leadUpdate.toObject())
                     console.log(`Update success asin: ${asin}`)
                 }
             } catch (e: any) {

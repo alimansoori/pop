@@ -4,13 +4,15 @@ import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
 import { EnumCategories } from '../../@types/EnumCategories'
 import DatabaseLeads from '../../sheets/DatabaseLeads'
 import { sort } from 'shelljs'
+import MyArray from '../../lib/MyArray'
+import AmazonCategory from '../../lib/AmazonCategory'
 
 const sourceRoutes = express.Router()
 
 sourceRoutes.get('/', async (req, res, next) => {
     try {
         const oneDayAgo = new Date()
-        oneDayAgo.setDate(oneDayAgo.getDate() - 5)
+        oneDayAgo.setDate(oneDayAgo.getDate() - 6)
 
         const randomIndex = Math.floor(Math.random() * 100)
 
@@ -18,227 +20,32 @@ sourceRoutes.get('/', async (req, res, next) => {
         const randomNumber = Math.random()
         const randomSign = randomNumber < 0.5 ? -1 : 1
 
-        const orCondition = [
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.TOYS },
-                    { 'amazon.bsr': { $lt: 312000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.SPORT },
-                    { 'amazon.bsr': { $lt: 350000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.PET },
-                    { 'amazon.bsr': { $lt: 150000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.ART },
-                    { 'amazon.bsr': { $lt: 250000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.PATIO },
-                    { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.HOME_KITCHEN },
-                    { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.VIDEO_GAMES },
-                    { 'amazon.bsr': { $lt: 30000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.INDUSTRIAL },
-                    { 'amazon.bsr': { $lt: 250000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.TOOLS },
-                    { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.OFFICE_PRODUCTS },
-                    { 'amazon.bsr': { $lt: 240000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.GROCERY },
-                    { 'amazon.bsr': { $lt: 150000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.ELECTRONIC },
-                    { 'amazon.bsr': { $lt: 200000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.CAMERA },
-                    { 'amazon.bsr': { $lt: 35000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.BEAUTY },
-                    { 'amazon.bsr': { $lt: 32000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.AUTOMOTIVE },
-                    { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.CELL_PHONES },
-                    { 'amazon.bsr': { $lt: 250000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.BOOKS },
-                    { 'amazon.bsr': { $lt: 90000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.BABY },
-                    { 'amazon.bsr': { $lt: 100000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.BABY_PRODUCTS },
-                    { 'amazon.bsr': { $lt: 100000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.CLOTHING },
-                    { 'amazon.bsr': { $lt: 300000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.COMPUTERS },
-                    { 'amazon.bsr': { $lt: 150000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.HEALTH },
-                    { 'amazon.bsr': { $lt: 150000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.KITCHEN_DINING },
-                    { 'amazon.bsr': { $lt: 250000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.MUSICAL_INSTRUMENTS },
-                    { 'amazon.bsr': { $lt: 40000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-            {
-                $and: [
-                    { 'amazon.category': EnumCategories.OTHER },
-                    { 'amazon.bsr': { $lt: 200000, $gt: 0 } },
-                    { 'amazon.price': { $gt: 15 } },
-                    { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
-                ],
-            },
-        ]
-
         const randLead = await LeadModel.findOne({
-            'source.updatedAt': { $lt: oneDayAgo },
             status: { $ne: 'mis_match' },
         })
+            .lean()
+            .select(['_id', 'source.url', 'amazon.category'])
             .skip(randomIndex)
-            // .sort({ updatedAt: randomSign })
-            .or(orCondition)
+            .sort({ updatedAt: randomSign })
+            .and([
+                { 'amazon.category': MyArray.gerRandomFromArrayOfString(AmazonCategory.categoryLists()) },
+                { 'source.updatedAt': { $lt: oneDayAgo } },
+                { status: { $ne: 'mis_match' } },
+                { 'amazon.bsr': { $lt: 312000, $gt: 0 } },
+                { 'amazon.price': { $gt: 15 } },
+                { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
+            ])
             .exec()
 
-        if (!randLead) {
+        if (randLead) {
             return res.status(200).json({
-                data: null,
-            })
-        } else {
-            return res.status(200).json({
-                data: randLead?.toObject(),
+                data: randLead,
             })
         }
+
+        return res.status(200).json({
+            data: null,
+        })
     } catch (e: any) {
         return res.status(404).json({
             message: e.message,

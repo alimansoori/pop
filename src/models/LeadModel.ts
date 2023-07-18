@@ -23,11 +23,16 @@ export const leadSchema: Schema = new Schema<ILead>({
         enum: ['match', 'mis_match', 'not_checked'],
         default: 'not_checked',
         lowercase: true,
+        index: true,
     },
     profit: {
         type: Number,
+        index: true,
     },
-    roi: Number,
+    roi: {
+        type: Number,
+        index: true,
+    },
     matchQuality: Number,
     hiddenDays: Number,
     hiddenCreatedAt: Date,
@@ -43,10 +48,12 @@ export const leadSchema: Schema = new Schema<ILead>({
         type: Date,
         default: new Date().toISOString(),
         immutable: true,
+        index: true,
     },
     updatedAt: {
         type: Date,
         default: new Date().toISOString(),
+        index: true,
     },
 })
 

@@ -36,6 +36,7 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
         type: String,
         minlength: 5,
         maxlength: 500,
+        index: true,
     },
     asin: {
         type: String,
@@ -43,6 +44,7 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
         required: true,
         // minlength: 10,
         // maxlength: 10,
+        index: true,
     },
     url: {
         type: String,
@@ -56,6 +58,7 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
             },
             message: 'URL address is incorrect!',
         },
+        index: true,
     },
     price: Number,
     numPack: {
@@ -69,6 +72,7 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
         minlength: 3,
         maxlength: 50,
         default: 'Other',
+        index: true,
     },
     upc: [
         {
@@ -80,7 +84,10 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
     seller: {
         type: String,
     },
-    bsr: Number,
+    bsr: {
+        type: Number,
+        index: true,
+    },
     mSales: Number,
     size: String,
     brand: String,
@@ -113,10 +120,12 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
         type: Date,
         default: new Date().toISOString(),
         immutable: true,
+        index: true,
     },
     updatedAt: {
         type: Date,
         default: new Date().toISOString(),
+        index: true,
     },
 })
 
