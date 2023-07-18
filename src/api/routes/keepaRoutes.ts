@@ -17,12 +17,13 @@ keepaRoutes.post('/', async (req, res, next) => {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
         const tenDayAgo = new Date()
-        tenDayAgo.setDate(tenDayAgo.getDate() - 30)
+        tenDayAgo.setDate(tenDayAgo.getDate() - 6)
         const randomIndex = Math.floor(Math.random() * 40)
 
         const orCondition = [
             {
                 $and: [
+                    { 'amazon.category': MyArray.gerRandomFromArrayOfString(AmazonCategory.categoryLists()) },
                     { 'amazon.updatedAt': { $lt: oneDayAgo } },
                     {
                         $or: [{ 'amazon.bsr': { $lt: 400000, $gte: 0 } }, { 'amazon.bsr': { $exists: false } }],
@@ -31,15 +32,19 @@ keepaRoutes.post('/', async (req, res, next) => {
             },
             {
                 $and: [
-                    { $or: [{ 'amazon.bsr': { $lte: 0 } }, { 'amazon.bsr': { $gt: 400000 } }] },
+                    {
+                        $or: [
+                            { 'amazon.bsr': { $lt: 0 } },
+                            { 'amazon.bsr': { $gt: 400000 } },
+                            { 'amazon.bsr': { $exists: false } },
+                        ],
+                    },
                     { 'amazon.updatedAt': { $lt: tenDayAgo } },
                 ],
             },
         ]
 
-        const randLead = await LeadModel.findOne({
-            'amazon.category': MyArray.gerRandomFromArrayOfString(AmazonCategory.categoryLists()),
-        })
+        const randLead = await LeadModel.findOne()
             .lean()
             .select(['_id', 'source.url', 'amazon.asin', 'amazon.category'])
             .skip(randomIndex)
@@ -110,9 +115,7 @@ keepaRoutes.post('/', async (req, res, next) => {
                     }
                     // Set CSV
                     leadUpdate.amazon.csv = []
-                    /*if (keepaSearch.amazonProduct?.csv && Array.isArray(keepaSearch.amazonProduct?.csv)) {
-              leadUpdate.amazon.csv = keepaSearch.amazonProduct.csv
-          }*/
+
                     // Set Category
                     if (keepaSearch.getCategory()) {
                         leadUpdate.amazon.category = keepaSearch.getCategory()
@@ -163,9 +166,10 @@ keepaRoutes.post('/', async (req, res, next) => {
             })
         }
 
-        throw new Error('Lead for update not exist!')
+        res.status(404).json({
+            message: 'Lead for update not exist!',
+        })
     } catch (e: any) {
-        console.log(e.message)
         res.status(404).json({
             message: e.message,
         })
