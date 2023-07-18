@@ -180,7 +180,7 @@ export default class GoogleSheets {
                     if (store?.getImage()) {
                         reqBody['images'] = store?.getImage()
                     }
-                    await axios.post('http://localhost:3000/api/1.0/source', reqBody)
+                    // await axios.post('http://localhost:3000/api/1.0/source', reqBody)
                     console.log('< Success update source >')
                 } catch (e: any) {
                     console.log(e.message)
