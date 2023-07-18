@@ -20,9 +20,7 @@ sourceRoutes.get('/', async (req, res, next) => {
         const randomNumber = Math.random()
         const randomSign = randomNumber < 0.5 ? -1 : 1
 
-        const randLead = await LeadModel.findOne({
-            status: { $ne: 'mis_match' },
-        })
+        const randLead = await LeadModel.findOne()
             .lean()
             .select(['_id', 'source.url', 'amazon.category'])
             .skip(randomIndex)

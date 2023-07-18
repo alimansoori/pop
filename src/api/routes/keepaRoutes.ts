@@ -6,6 +6,8 @@ import util from 'util'
 import fs from 'fs'
 import config from '../../config/config'
 import axios from 'axios'
+import MyArray from '../../lib/MyArray'
+import AmazonCategory from '../../lib/AmazonCategory'
 
 const keepaRoutes = express.Router()
 const readFileAsync = util.promisify(fs.readFile)
@@ -15,7 +17,7 @@ keepaRoutes.post('/', async (req, res, next) => {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
         const tenDayAgo = new Date()
-        tenDayAgo.setDate(tenDayAgo.getDate() - 20)
+        tenDayAgo.setDate(tenDayAgo.getDate() - 30)
         const randomIndex = Math.floor(Math.random() * 40)
 
         const orCondition = [
@@ -23,26 +25,25 @@ keepaRoutes.post('/', async (req, res, next) => {
                 $and: [
                     { 'amazon.updatedAt': { $lt: oneDayAgo } },
                     {
-                        $or: [
-                            { 'amazon.bsr': { $lt: 400000 } },
-                            { 'amazon.bsr': { $exists: false } },
-                            { 'amazon.bsr': 0 },
-                        ],
+                        $or: [{ 'amazon.bsr': { $lt: 400000, $gte: 0 } }, { 'amazon.bsr': { $exists: false } }],
                     },
                 ],
             },
             {
                 $and: [
                     { $or: [{ 'amazon.bsr': { $lte: 0 } }, { 'amazon.bsr': { $gt: 400000 } }] },
-                    { 'amazon.updatedAt': { $lt: oneDayAgo } },
+                    { 'amazon.updatedAt': { $lt: tenDayAgo } },
                 ],
             },
         ]
 
-        // const totalLeads = await LeadModel.find().or(orCondition).countDocuments()
-        const randLead = await LeadModel.findOne()
+        const randLead = await LeadModel.findOne({
+            'amazon.category': MyArray.gerRandomFromArrayOfString(AmazonCategory.categoryLists()),
+        })
+            .lean()
+            .select(['_id', 'source.url', 'amazon.asin', 'amazon.category'])
             .skip(randomIndex)
-            // .sort({ updatedAt: Math.random() < 0.5 ? -1 : 1 })
+            .sort({ updatedAt: Math.random() < 0.5 ? -1 : 1 })
             .or(orCondition)
             .exec()
 
@@ -110,8 +111,8 @@ keepaRoutes.post('/', async (req, res, next) => {
                     // Set CSV
                     leadUpdate.amazon.csv = []
                     /*if (keepaSearch.amazonProduct?.csv && Array.isArray(keepaSearch.amazonProduct?.csv)) {
-                        leadUpdate.amazon.csv = keepaSearch.amazonProduct.csv
-                    }*/
+              leadUpdate.amazon.csv = keepaSearch.amazonProduct.csv
+          }*/
                     // Set Category
                     if (keepaSearch.getCategory()) {
                         leadUpdate.amazon.category = keepaSearch.getCategory()
@@ -157,19 +158,15 @@ keepaRoutes.post('/', async (req, res, next) => {
             // console.log(`Update success ASIN: ${asin}`)
             return res.status(200).json({
                 message: `Update success ASIN: ${asin}`,
-                data: randLead.toObject(),
-                sames: findAllLeadByAsin,
+                data: randLead,
+                // sames: findAllLeadByAsin,
             })
         }
 
-        console.log('Lead for update not exist!')
-
-        return res.status(200).json({
-            message: 'Lead for update not exist!',
-        })
+        throw new Error('Lead for update not exist!')
     } catch (e: any) {
         console.log(e.message)
-        res.status(200).json({
+        res.status(404).json({
             message: e.message,
         })
     }
