@@ -6,11 +6,21 @@ import DatabaseLeads from '../../sheets/DatabaseLeads'
 import { sort } from 'shelljs'
 import MyArray from '../../lib/MyArray'
 import AmazonCategory from '../../lib/AmazonCategory'
+import fs from 'fs'
 
 const sourceRoutes = express.Router()
 
 sourceRoutes.get('/', async (req, res, next) => {
     try {
+        /*for (let i = 1; i <= 35; i++) {
+            await insetToDB(i)
+            console.log(`insert output${i}`)
+        }
+
+        return res.status(200).json({
+            message: 'Success',
+        })*/
+
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 6)
 
@@ -182,6 +192,13 @@ async function updateDatabaseLeads(leadUpdate: ILead) {
         await databaseLeads.auth()
         await databaseLeads.addToSheet(leadUpdate)
     }
+}
+
+async function insetToDB(index: number) {
+    const data = await fs.promises.readFile(`tmp/output${index}.json`, 'utf8')
+    const jsonData = JSON.parse(data)
+
+    await LeadModel.insertMany(jsonData)
 }
 
 export default sourceRoutes
