@@ -14,7 +14,7 @@ sourceRoutes.get('/', async (req, res, next) => {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 6)
 
-        const randomIndex = Math.floor(Math.random() * 100)
+        const randomIndex = Math.floor(Math.random() * 70)
 
         // Rand 1 & -1
         const randomNumber = Math.random()

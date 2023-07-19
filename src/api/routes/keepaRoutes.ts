@@ -17,7 +17,7 @@ keepaRoutes.post('/', async (req, res, next) => {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
         const tenDayAgo = new Date()
-        tenDayAgo.setDate(tenDayAgo.getDate() - 6)
+        tenDayAgo.setDate(tenDayAgo.getDate() - 4)
         const randomIndex = Math.floor(Math.random() * 40)
 
         const orCondition = [
