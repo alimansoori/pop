@@ -95,6 +95,10 @@ leadSchema.pre('save', async function (next) {
             const calc = new ProfitRoiCalculate({
                 sellPrice: this.amazon.price,
                 buyCost: this.source.price * numOfPack,
+                fbaFees: {
+                    pickAndPackFee: this.amazon?.fbaFees?.pickAndPackFee,
+                },
+                referralFeePercent: this.amazon?.referralFeePercent,
                 packageWeight: this.amazon?.package?.weight ? this.amazon?.package?.weight : 1,
                 packageWidth: this.amazon?.package?.width ? this.amazon?.package?.width : 1,
                 packageHeight: this.amazon?.package?.height ? this.amazon?.package?.height : 1,

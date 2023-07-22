@@ -15,14 +15,14 @@ keepaRoutes.post('/', async (req, res, next) => {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
         const tenDayAgo = new Date()
-        tenDayAgo.setDate(tenDayAgo.getDate() - 10)
+        tenDayAgo.setDate(tenDayAgo.getDate() - 6)
         const randomIndex = Math.floor(Math.random() * 40)
 
         const orCondition = [
             {
                 $and: [
                     { 'amazon.category': MyArray.gerRandomFromArrayOfString(AmazonCategory.categoryLists()) },
-                    // { 'amazon.updatedAt': { $lt: oneDayAgo } },
+                    { 'amazon.updatedAt': { $lt: oneDayAgo } },
                     {
                         $or: [{ 'amazon.bsr': { $lt: 400000, $gte: 0 } }, { 'amazon.bsr': { $exists: false } }],
                     },
@@ -44,7 +44,7 @@ keepaRoutes.post('/', async (req, res, next) => {
 
         const randLead = await LeadModel.findOne()
             .lean()
-            .select(['_id', 'source.url', 'amazon.asin', 'amazon.category'])
+            .select(['_id', 'source.url', 'amazon.asin', 'amazon.category', 'amazon.updatedAt'])
             .skip(randomIndex)
             .sort({ 'amazon.updatedAt': 1 })
             .or(orCondition)

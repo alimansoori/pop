@@ -91,8 +91,6 @@ export default class KeepaApi {
         this.avgBuyBox30Day = this.buyBoxAvg30Day()
 
         this.topCalculate()
-
-        // this.profitRoiCalculate()
     }
 
     getCategory(): string {
@@ -165,56 +163,6 @@ export default class KeepaApi {
             this.top = true
         }
     }
-
-    /*private profitRoiCalculate() {
-      if (
-          this.amazonProduct?.packageLength &&
-          this.amazonProduct?.packageHeight &&
-          this.amazonProduct?.packageWeight &&
-          this.amazonProduct?.packageWidth
-      ) {
-          /!*const profitClass = new ProfitRoiCalculate({
-              sellPrice: this.sellPrice,
-              buyCost: this.input.sourcePrice,
-              packageLength: this.product?.packageLength * 0.0393701,
-              packageWidth: this.product?.packageWidth * 0.0393701,
-              packageHeight: this.product?.packageHeight * 0.0393701,
-              packageWeight: this.product?.packageWeight * 0.00220462,
-              category: this.category,
-          })*!/
-
-          // this.profit = profitClass.netProfit
-          // this.roi = profitClass.roi
-
-          const profitClassBuyBox = new ProfitRoiCalculate({
-              sellPrice: this.sellPrice,
-              buyCost: this.input.sourcePrice,
-              packageLength: this.amazonProduct?.packageLength * 0.0393701,
-              packageWidth: this.amazonProduct?.packageWidth * 0.0393701,
-              packageHeight: this.amazonProduct?.packageHeight * 0.0393701,
-              packageWeight: this.amazonProduct?.packageWeight * 0.00220462,
-              category: this.category,
-          })
-
-          this.profit = profitClassBuyBox.netProfit
-          this.roi = profitClassBuyBox.roi
-          this.size = profitClassBuyBox.size
-
-          /!*const profitClassBadge = new ProfitRoiCalculate({
-              sellPrice: this.avgBuyBox30Day,
-              buyCost: this.input.sourcePrice,
-              packageLength: this.product?.packageLength * 0.0393701,
-              packageWidth: this.product?.packageWidth * 0.0393701,
-              packageHeight: this.product?.packageHeight * 0.0393701,
-              packageWeight: this.product?.packageWeight * 0.00220462,
-              category: this.category,
-          })*!/
-
-          if (profitClassBuyBox.netProfit > 3.8 && profitClassBuyBox.roi > 20 && this.top) {
-              this.hasBadge = true
-          }
-      }
-  }*/
 
     private lastFbaPrice(): number {
         const data = this.amazonProduct?.csv[10]

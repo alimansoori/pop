@@ -173,19 +173,6 @@ export default class Keepa {
             this.product?.packageWeight &&
             this.product?.packageWidth
         ) {
-            /*const profitClass = new ProfitRoiCalculate({
-                sellPrice: this.sellPrice,
-                buyCost: this.input.sourcePrice,
-                packageLength: this.product?.packageLength * 0.0393701,
-                packageWidth: this.product?.packageWidth * 0.0393701,
-                packageHeight: this.product?.packageHeight * 0.0393701,
-                packageWeight: this.product?.packageWeight * 0.00220462,
-                category: this.category,
-            })*/
-
-            // this.profit = profitClass.netProfit
-            // this.roi = profitClass.roi
-
             const profitClassBuyBox = new ProfitRoiCalculate({
                 sellPrice: this.sellPrice,
                 buyCost: this.input.sourcePrice,
@@ -199,16 +186,6 @@ export default class Keepa {
             this.profit = profitClassBuyBox.getProfit()
             this.roi = profitClassBuyBox.getROI()
             this.size = profitClassBuyBox.getSize()
-
-            /*const profitClassBadge = new ProfitRoiCalculate({
-                sellPrice: this.avgBuyBox30Day,
-                buyCost: this.input.sourcePrice,
-                packageLength: this.product?.packageLength * 0.0393701,
-                packageWidth: this.product?.packageWidth * 0.0393701,
-                packageHeight: this.product?.packageHeight * 0.0393701,
-                packageWeight: this.product?.packageWeight * 0.00220462,
-                category: this.category,
-            })*/
 
             if (profitClassBuyBox.getProfit() > 4 && profitClassBuyBox.getROI() > 25 && this.top) {
                 this.hasBadge = true
