@@ -3,7 +3,7 @@ import { keys } from '../keys'
 import SourceSiteFactory from '../stores/SourceSiteFactory'
 import IStore from '../stores/IStore'
 import CategorySheet from '../lib/CategorySheet'
-import { ILead } from '../models/LeadModel'
+import { ILead } from '../models/lead/LeadModel'
 
 export default class DatabaseLeads {
     private leads: any = ''

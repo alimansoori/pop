@@ -1,12 +1,33 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 import Keepa from './lib/Keepa'
 import { StoreOutputType } from './@types/StoreOutputType'
+import ProfitRoiCalculate from './lib/ProfitRoiCalculate'
 
 export async function main() {
     try {
-        await sourceCheck({
-            url: 'https://www.target.com/p/13w-hd-slimline-table-lamp-white-includes-energy-efficient-light-bulb-ottlite/-/A-53664899',
+        const pr = new ProfitRoiCalculate({
+            category: 'Health & Household',
+            sellPrice: 53.27,
+            buyCost: 30,
+            packageLength: 424,
+            packageWidth: 291,
+            packageHeight: 52,
+            packageWeight: 272,
         })
+        console.log(pr.getProfit())
+        console.log(pr.getROI())
+        console.log('ref ' + pr.totalAmazonReferralFees)
+        console.log('fbaCost ' + pr.fbaCost)
+        console.log('storage ' + pr.storageFees)
+        console.log('land ' + pr.landedCosts)
+        console.log('size ' + pr.getSize())
+        console.log('packageLength ' + pr.input.packageLength)
+        console.log('packageWidth ' + pr.input.packageWidth)
+        console.log('packageHeight ' + pr.input.packageHeight)
+        console.log('packageWeight ' + pr.input.packageWeight)
+        /*await sourceCheck({
+            url: 'https://www.target.com/p/13w-hd-slimline-table-lamp-white-includes-energy-efficient-light-bulb-ottlite/-/A-53664899',
+        })*/
         /*await keepaCheck({
     asin: 'B077J2GJBV',
     price: 31.74,

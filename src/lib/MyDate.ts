@@ -5,4 +5,9 @@ export default class MyDate {
 
         return Math.floor((t1 - t2) / (24 * 3600 * 1000))
     }
+
+    static getCurrentMonth() {
+        const date = new Date()
+        return date.getMonth()
+    }
 }

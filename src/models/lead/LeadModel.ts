@@ -1,7 +1,7 @@
 import { Schema, Document, model, Model } from 'mongoose'
-import { sourceSchema, ISource } from './SourceModel'
-import { amazonSchema, IAmazon } from './AmazonModel'
-import ProfitRoiCalculate from '../lib/ProfitRoiCalculate'
+import { sourceSchema, ISource } from '../source/SourceModel'
+import { amazonSchema, IAmazon } from '../amazon/AmazonModel'
+import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
 import { isNumber } from 'util'
 
 export interface ILead extends Document {
@@ -78,23 +78,37 @@ leadSchema.pre('save', async function (next) {
     } else {
         // Edit Lead
 
+        console.log('EDIT')
         if (
-            (enterLead.amazon.price !== this.amazon.price || enterLead.source.price !== this.source.price) &&
+            (enterLead.amazon.price !== this.amazon.price ||
+                enterLead.amazon.numPack !== this.amazon.numPack ||
+                enterLead.source.price !== this.source.price ||
+                enterLead.source.numPack !== this.source.numPack) &&
             this.amazon?.price &&
             this.source?.price
         ) {
+            const amazonNumber: number = this.amazon?.numPack ? this.amazon?.numPack : 1
+            const sourceNumber: number = this.source?.numPack ? this.source?.numPack : 1
+            const numOfPack: number = parseFloat(String(amazonNumber / sourceNumber))
+
+            console.log(numOfPack)
             const calc = new ProfitRoiCalculate({
                 sellPrice: this.amazon.price,
-                buyCost: this.source.price,
+                buyCost: this.source.price * numOfPack,
                 packageWeight: this.amazon?.package?.weight ? this.amazon?.package?.weight : 1,
                 packageWidth: this.amazon?.package?.width ? this.amazon?.package?.width : 1,
                 packageHeight: this.amazon?.package?.height ? this.amazon?.package?.height : 1,
                 packageLength: this.amazon?.package?.length ? this.amazon?.package?.length : 1,
                 category: this.amazon.category,
             })
-            this.amazon.size = calc.size
-            this.profit = calc.netProfit
-            this.roi = calc.roi
+            console.log(enterLead.toObject())
+            this.amazon.size = calc.getSize()
+            this.profit = calc.getProfit()
+            this.roi = calc.getROI()
+
+            if (enterLead.profit < 4 && calc.getProfit() > 4 && enterLead.roi < 25 && calc.getROI() > 25) {
+                this.source.updatedAt = new Date().toISOString()
+            }
         }
 
         // Check if Duplicate

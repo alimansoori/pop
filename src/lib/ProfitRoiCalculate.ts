@@ -1,28 +1,23 @@
 import { ProfitRoiCalculateType } from '../@types/ProfitRoiCalculateType'
 import { SizeTier } from '../@types/EnumSizeTiers'
 import { EnumCategories } from '../@types/EnumCategories'
+import MyDate from './MyDate'
 
 export default class ProfitRoiCalculate {
-    private input: ProfitRoiCalculateType
-    public size: string
+    public input: ProfitRoiCalculateType
+    private size = ''
     public fbaCost = 0
     public totalAmazonReferralFees = 0
     public storageFees = 0
     public landedCosts = 0
-    netProfit = 0
-    netProfitMargin = 0
-    roi = 0
+    private profit = 0
+    private netProfitMargin = 0
+    private roi = 0
 
     constructor(input: ProfitRoiCalculateType) {
         this.input = input
-        this.input = {
-            ...this.input,
-            packageLength: input.packageLength / 25.4,
-            packageWidth: input.packageWidth / 25.4,
-            packageHeight: input.packageHeight / 25.4,
-            packageWeight: input.packageWeight / 453.59237,
-        }
-        this.size = this.fbaCostCalculator()
+        this.packageSizeToInch()
+        this.fbaCostCalculator()
         this.totalAmazonReferralFeesCalculator()
         this.storageFeesCalculator()
         this.landedCostsCalculator()
@@ -31,241 +26,374 @@ export default class ProfitRoiCalculate {
         this.roiCalculator()
     }
 
-    private fbaCostCalculator(): string {
-        if (
-            this.input.category === EnumCategories.CLOTHING &&
-            this.input.packageWeight <= 0.375 &&
-            this.input.packageLength <= 15 &&
-            this.input.packageWidth <= 12 &&
-            this.input.packageHeight <= 0.75
-        ) {
-            this.fbaCost = 3.27
-            return SizeTier.SMALL_STANDARD_SIZE_LESS_THAN_6OZ_CLOTHING
+    public getProfit(): number {
+        return this.profit
+    }
+
+    public getROI(): number {
+        return this.roi
+    }
+
+    public getSize(): string {
+        return this.size
+    }
+
+    private packageSizeToInch(): void {
+        this.input = {
+            ...this.input,
+            packageLength: this.input.packageLength / 25.4,
+            packageWidth: this.input.packageWidth / 25.4,
+            packageHeight: this.input.packageHeight / 25.4,
+            packageWeight: this.input.packageWeight / 453.59237,
+        }
+    }
+
+    private fbaCostCalculator(): void {
+        if (this.input?.fbaFees?.pickAndPackFee) {
+            this.fbaCost = this.input?.fbaFees?.pickAndPackFee / 100
         } else if (
             this.input.category === EnumCategories.CLOTHING &&
-            this.input.packageWeight <= 0.75 &&
+            this.input.packageWeight <= 0.25 &&
             this.input.packageLength <= 15 &&
             this.input.packageWidth <= 12 &&
             this.input.packageHeight <= 0.75
         ) {
             this.fbaCost = 3.43
-            return SizeTier.SMALL_STANDARD_SIZE_6_12OZ_CLOTHING
+            this.size = SizeTier.SMALL_STANDARD
         } else if (
             this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 0.25 &&
+            this.input.packageWeight <= 0.5 &&
+            this.input.packageLength <= 15 &&
+            this.input.packageWidth <= 12 &&
+            this.input.packageHeight <= 0.75
+        ) {
+            this.fbaCost = 3.58
+            this.size = SizeTier.SMALL_STANDARD
+        } else if (
+            this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 0.5 &&
+            this.input.packageWeight <= 0.75 &&
+            this.input.packageLength <= 15 &&
+            this.input.packageWidth <= 12 &&
+            this.input.packageHeight <= 0.75
+        ) {
+            this.fbaCost = 3.87
+            this.size = SizeTier.SMALL_STANDARD
+        } else if (
+            this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 0.75 &&
             this.input.packageWeight <= 1 &&
             this.input.packageLength <= 15 &&
             this.input.packageWidth <= 12 &&
             this.input.packageHeight <= 0.75
         ) {
-            this.fbaCost = 3.95
-            return SizeTier.SMALL_STANDARD_SIZE_12_16OZ_CLOTHING
+            this.fbaCost = 4.15
+            this.size = SizeTier.SMALL_STANDARD
         } else if (
             this.input.category === EnumCategories.CLOTHING &&
-            this.input.packageWeight <= 0.375 &&
+            this.input.packageWeight <= 0.25 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 4.22
-            return SizeTier.LARGE_STANDARD_SIZE_LESS_THAN_6OZ_CLOTHING
+            this.fbaCost = 4.43
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 0.25 &&
+            this.input.packageWeight <= 0.5 &&
+            this.input.packageLength <= 18 &&
+            this.input.packageWidth <= 14 &&
+            this.input.packageHeight <= 8
+        ) {
+            this.fbaCost = 4.63
+            this.size = SizeTier.LARGE_STANDARD
+        } else if (
+            this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 0.5 &&
             this.input.packageWeight <= 0.75 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 4.4
-            return SizeTier.LARGE_STANDARD_SIZE_6_12OZ_CLOTHING
+            this.fbaCost = 4.84
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 0.75 &&
             this.input.packageWeight <= 1 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 5.07
-            return SizeTier.LARGE_STANDARD_SIZE_12_16OZ_CLOTHING
+            this.fbaCost = 5.32
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 1 &&
+            this.input.packageWeight <= 1.5 &&
+            this.input.packageLength <= 18 &&
+            this.input.packageWidth <= 14 &&
+            this.input.packageHeight <= 8
+        ) {
+            this.fbaCost = 6.1
+            this.size = SizeTier.LARGE_STANDARD
+        } else if (
+            this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 1.5 &&
             this.input.packageWeight <= 2 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 5.81
-            return SizeTier.LARGE_STANDARD_SIZE_1LBS_2LBS_CLOTHING
+            this.fbaCost = 6.37
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 2 &&
+            this.input.packageWeight <= 2.5 &&
+            this.input.packageLength <= 18 &&
+            this.input.packageWidth <= 14 &&
+            this.input.packageHeight <= 8
+        ) {
+            this.fbaCost = 6.83
+            this.size = SizeTier.LARGE_STANDARD
+        } else if (
+            this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 2.5 &&
             this.input.packageWeight <= 3 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 6.5
-            return SizeTier.LARGE_STANDARD_SIZE_2LBS_3LBS_CLOTHING
+            this.fbaCost = 7.05
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             this.input.category === EnumCategories.CLOTHING &&
+            this.input.packageWeight > 3 &&
             this.input.packageWeight <= 20 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 6.68
+            this.fbaCost = 7.17
             const diffWeight = this.input.packageWeight - 3
             if (diffWeight > 1) {
-                this.fbaCost = 6.68 + 3 * 0.3
+                this.fbaCost = 7.17 + Math.ceil(diffWeight) * 0.16
             }
-            return SizeTier.LARGE_STANDARD_SIZE_OVER_3LBS_CLOTHING
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
-            this.input.packageWeight <= 0.375 &&
+            this.input.packageWeight <= 0.25 &&
             this.input.packageLength <= 15 &&
             this.input.packageWidth <= 12 &&
             this.input.packageHeight <= 0.75
         ) {
-            this.fbaCost = 2.92
-            return SizeTier.SMALL_STANDARD_SIZE_LESS_THAN_6OZ
+            this.fbaCost = 3.22
+            this.size = SizeTier.SMALL_STANDARD
+        } else if (
+            this.input.packageWeight <= 0.5 &&
+            this.input.packageLength <= 15 &&
+            this.input.packageWidth <= 12 &&
+            this.input.packageHeight <= 0.75
+        ) {
+            this.fbaCost = 3.4
+            this.size = SizeTier.SMALL_STANDARD
         } else if (
             this.input.packageWeight <= 0.75 &&
             this.input.packageLength <= 15 &&
             this.input.packageWidth <= 12 &&
             this.input.packageHeight <= 0.75
         ) {
-            this.fbaCost = 3.07
-            return SizeTier.SMALL_STANDARD_SIZE_6_12OZ
+            this.fbaCost = 3.58
+            this.size = SizeTier.SMALL_STANDARD
         } else if (
             this.input.packageWeight <= 1 &&
             this.input.packageLength <= 15 &&
             this.input.packageWidth <= 12 &&
             this.input.packageHeight <= 0.75
-        ) {
-            this.fbaCost = 3.59
-            return SizeTier.SMALL_STANDARD_SIZE_12_16OZ
-        } else if (
-            this.input.packageWeight <= 0.375 &&
-            this.input.packageLength <= 18 &&
-            this.input.packageWidth <= 14 &&
-            this.input.packageHeight <= 8
-        ) {
-            this.fbaCost = 3.54
-            return SizeTier.LARGE_STANDARD_SIZE_LESS_THAN_6OZ
-        } else if (
-            this.input.packageWeight <= 0.75 &&
-            this.input.packageLength <= 18 &&
-            this.input.packageWidth <= 14 &&
-            this.input.packageHeight <= 8
         ) {
             this.fbaCost = 3.77
-            return SizeTier.LARGE_STANDARD_SIZE_6_12OZ
+            this.size = SizeTier.SMALL_STANDARD
+        } else if (
+            this.input.packageWeight <= 0.25 &&
+            this.input.packageLength <= 18 &&
+            this.input.packageWidth <= 14 &&
+            this.input.packageHeight <= 8
+        ) {
+            this.fbaCost = 3.86
+            this.size = SizeTier.LARGE_STANDARD
+        } else if (
+            this.input.packageWeight <= 0.5 &&
+            this.input.packageLength <= 18 &&
+            this.input.packageWidth <= 14 &&
+            this.input.packageHeight <= 8
+        ) {
+            this.fbaCost = 4.08
+            this.size = SizeTier.LARGE_STANDARD
+        } else if (
+            this.input.packageWeight <= 0.75 &&
+            this.input.packageLength <= 18 &&
+            this.input.packageWidth <= 14 &&
+            this.input.packageHeight <= 8
+        ) {
+            console.log('OOO')
+            this.fbaCost = 4.24
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             this.input.packageWeight <= 1 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 4.52
-            return SizeTier.LARGE_STANDARD_SIZE_12_16OZ
+            this.fbaCost = 4.75
+            this.size = SizeTier.LARGE_STANDARD
+        } else if (
+            this.input.packageWeight <= 1.5 &&
+            this.input.packageLength <= 18 &&
+            this.input.packageWidth <= 14 &&
+            this.input.packageHeight <= 8
+        ) {
+            this.fbaCost = 5.4
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             this.input.packageWeight <= 2 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 5.14
-            return SizeTier.LARGE_STANDARD_SIZE_1LBS_2LBS
+            this.fbaCost = 5.69
+            this.size = SizeTier.LARGE_STANDARD
+        } else if (
+            this.input.packageWeight <= 2.5 &&
+            this.input.packageLength <= 18 &&
+            this.input.packageWidth <= 14 &&
+            this.input.packageHeight <= 8
+        ) {
+            this.fbaCost = 6.1
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             this.input.packageWeight <= 3 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 5.79
-            return SizeTier.LARGE_STANDARD_SIZE_2LBS_3LBS
+            console.log('ssss')
+            this.fbaCost = 6.39
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             this.input.packageWeight <= 20 &&
             this.input.packageLength <= 18 &&
             this.input.packageWidth <= 14 &&
             this.input.packageHeight <= 8
         ) {
-            this.fbaCost = 6.13
+            this.fbaCost = 7.17
             const diffWeight = this.input.packageWeight - 3
             if (diffWeight > 1) {
-                this.fbaCost = 6.68 + diffWeight * 0.3
+                this.fbaCost = this.fbaCost + Math.ceil(diffWeight * 2) * 0.16
             }
-            return SizeTier.LARGE_STANDARD_SIZE_OVER_3LBS
+
+            this.size = SizeTier.LARGE_STANDARD
         } else if (
             // Small Oversize
             this.input.packageWeight <= 70 &&
             this.input.packageLength <= 60 &&
             this.input.packageWidth <= 30
         ) {
-            this.fbaCost = 8.94
+            this.fbaCost = 9.73
             const diffWeight = this.input.packageWeight - 20
             if (diffWeight > 1) {
-                this.fbaCost = 8.94 + diffWeight * 0.38
+                this.fbaCost = this.fbaCost + Math.ceil(diffWeight) * 0.42
             }
-            return SizeTier.SMALL_OVERSIZE
+            this.size = SizeTier.SMALL_OVERSIZE
         } else if (this.input.packageWeight <= 150 && this.input.packageLength <= 108) {
-            this.fbaCost = 12.73
+            this.fbaCost = 19.05
             const diffWeight = this.input.packageWeight - 150
             if (diffWeight > 1) {
-                this.fbaCost = 12.73 + diffWeight * 0.44
+                this.fbaCost = this.fbaCost + Math.ceil(diffWeight) * 0.42
             }
-            return SizeTier.MEDIUM_OVERSIZE
+            this.size = SizeTier.MEDIUM_OVERSIZE
         } else {
-            this.fbaCost = 82.58
+            this.fbaCost = 89.98
             const diffWeight = this.input.packageWeight - 150
             if (diffWeight > 1) {
-                this.fbaCost = 82.58 + diffWeight * 0.79
+                this.fbaCost = 82.58 + Math.ceil(diffWeight) * 0.83
             }
-            return SizeTier.MEDIUM_OVERSIZE
+            this.size = SizeTier.LARGE_OVERSIZE
         }
     }
 
     private totalAmazonReferralFeesCalculator() {
-        if (this.input.category === EnumCategories.AUTOMOTIVE) {
-            if (this.input.sellPrice * 0.12 > 0.3) {
-                this.totalAmazonReferralFees = this.input.sellPrice * 0.12
-            } else {
-                this.totalAmazonReferralFees = 0.3
-            }
+        if (this.input?.referralFeePercent) {
+            this.totalAmazonReferralFees = this.referralCalc({
+                referralPercent1: this.input.referralFeePercent / 100,
+            })
+        } else if (this.input.category === EnumCategories.AUTOMOTIVE) {
+            this.totalAmazonReferralFees = this.referralCalc({
+                referralPercent1: 0.12,
+            })
         } else if (this.input.category === EnumCategories.BEAUTY || this.input.category === EnumCategories.HEALTH) {
-            if (this.input.sellPrice * 0.08 > 0.3) {
-                this.totalAmazonReferralFees = this.input.sellPrice * 0.15
-            } else {
-                this.totalAmazonReferralFees = 0.3
-            }
+            this.totalAmazonReferralFees = this.referralCalc({
+                referralPercent1: 0.08,
+                price: 10,
+                referralPercent2: 0.15,
+            })
         } else if (
             this.input.category === EnumCategories.CAMERA ||
             this.input.category === EnumCategories.CELL_PHONES ||
             this.input.category === EnumCategories.CONSUMER_ELECTRONIC
         ) {
-            if (this.input.sellPrice * 0.08 > 0.3) {
-                this.totalAmazonReferralFees = this.input.sellPrice * 0.08
-            } else {
-                this.totalAmazonReferralFees = 0.3
-            }
+            this.totalAmazonReferralFees = this.referralCalc({
+                referralPercent1: 0.08,
+            })
         } else if (this.input.category === EnumCategories.CLOTHING) {
-            if (this.input.sellPrice * 0.17 > 0.3) {
-                this.totalAmazonReferralFees = this.input.sellPrice * 0.17
-            } else {
-                this.totalAmazonReferralFees = 0.3
-            }
+            this.totalAmazonReferralFees = this.referralCalc({
+                referralPercent1: 0.17,
+            })
         } else if (this.input.category === EnumCategories.ELECTRONIC) {
-            if (this.input.sellPrice * 0.15 > 0.15) {
-                if (this.input.sellPrice < 100) {
-                    this.totalAmazonReferralFees = this.input.sellPrice * 0.15
+            this.totalAmazonReferralFees = this.referralCalc({
+                referralPercent1: 0.15,
+                price: 100,
+                referralPercent2: 0.08,
+            })
+        } else if (this.input.category === EnumCategories.GROCERY) {
+            this.totalAmazonReferralFees = this.referralCalc({
+                referralPercent1: 0.08,
+                price: 15,
+                referralPercent2: 0.15,
+            })
+        } else if (this.input.category === EnumCategories.OFFICE_PRODUCTS) {
+            this.totalAmazonReferralFees = this.referralCalc({
+                referralPercent1: 0.08,
+            })
+        } else {
+            this.totalAmazonReferralFees = this.referralCalc({ referralPercent1: 0.15 })
+        }
+    }
+
+    private referralCalc(input: { referralPercent1: number; price?: number; referralPercent2?: number }): number {
+        if (input?.referralPercent2 && input?.price) {
+            if (this.input.sellPrice <= input.price) {
+                const ref = this.input.sellPrice * input.referralPercent1
+                if (ref > 0.3) {
+                    return ref
                 } else {
-                    this.totalAmazonReferralFees = (this.input.sellPrice - 100) * 0.08 + 100 * 0.15
+                    return 0.3
                 }
             } else {
-                this.totalAmazonReferralFees = 0.3
+                const ref = this.input.sellPrice * input.referralPercent2
+                if (ref > 0.3) {
+                    return ref
+                } else {
+                    return 0.3
+                }
             }
         } else {
-            if (this.input.sellPrice * 0.15 > 0.3) {
-                this.totalAmazonReferralFees = this.input.sellPrice * 0.15
+            const ref = this.input.sellPrice * input.referralPercent1
+            if (ref > 0.3) {
+                return ref
             } else {
-                this.totalAmazonReferralFees = 0.3
+                return 0.3
             }
         }
     }
@@ -274,7 +402,18 @@ export default class ProfitRoiCalculate {
         const cubicInches = this.input.packageHeight * this.input.packageLength * this.input.packageWidth
         const cubicFeet = cubicInches / 1728
 
-        this.storageFees = ((2.4 * 3) / 12 + (0.75 * 9) / 12) * 3 * cubicFeet
+        let fee = 0.87
+        if (MyDate.getCurrentMonth() >= 0 && MyDate.getCurrentMonth() <= 8 && this.size.includes('Standard')) {
+            fee = 0.87
+        } else if (MyDate.getCurrentMonth() >= 0 && MyDate.getCurrentMonth() <= 8 && this.size.includes('Oversize')) {
+            fee = 0.56
+        } else if (this.size.includes('Standard')) {
+            fee = 2.4
+        } else if (this.size.includes('Oversize')) {
+            fee = 1.4
+        }
+
+        this.storageFees = fee * cubicFeet
     }
 
     private landedCostsCalculator() {
@@ -286,18 +425,18 @@ export default class ProfitRoiCalculate {
     }
 
     netProfitCalculator() {
-        this.netProfit =
-            this.input.sellPrice - this.fbaCost - this.totalAmazonReferralFees - this.storageFees - this.landedCosts
-        this.netProfit = Math.round(this.netProfit * 10) / 10
+        this.profit =
+            this.input.sellPrice - this.fbaCost - this.totalAmazonReferralFees - this.storageFees - this.input.buyCost
+        this.profit = Math.round(this.profit * 10) / 10
     }
 
     netProfitMarginCalculator() {
-        this.netProfitMargin = (this.netProfit / this.input.sellPrice) * 100
+        this.netProfitMargin = (this.profit / this.input.sellPrice) * 100
         this.netProfitMargin = Math.round(this.netProfitMargin * 10) / 10
     }
 
     roiCalculator() {
-        this.roi = (this.netProfit / this.input.buyCost) * 100
+        this.roi = (this.profit / this.input.buyCost) * 100
         this.roi = Math.round(this.roi * 10) / 10
     }
 }

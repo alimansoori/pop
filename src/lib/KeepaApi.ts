@@ -1,9 +1,7 @@
-import { KeepaInputType } from './keepa/KeepaInputType'
 import axios from 'axios'
 import { sleep } from '../utils/sleep'
 import { KeepaOutputType } from '../@types/KeepaOutputType'
 import { KeepaProductType } from '../@types/KeepaProductType'
-import ProfitRoiCalculate from './ProfitRoiCalculate'
 import { EnumCategories } from '../@types/EnumCategories'
 import * as fs from 'fs'
 

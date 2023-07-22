@@ -1,5 +1,5 @@
 import express from 'express'
-import LeadModel, { ILead } from '../../models/LeadModel'
+import LeadModel, { ILead } from '../../models/lead/LeadModel'
 import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
 import { EnumCategories } from '../../@types/EnumCategories'
 import DatabaseLeads from '../../sheets/DatabaseLeads'
@@ -150,9 +150,9 @@ sourceRoutes.post('/', async (req, res, next) => {
                     packageWeight: leadUpdate.amazon?.package?.weight ? leadUpdate.amazon?.package?.weight : 1,
                 })
 
-                leadUpdate.profit = profitROI?.netProfit ? profitROI.netProfit : 0
-                leadUpdate.roi = profitROI?.roi ? profitROI.roi : 0
-                leadUpdate.amazon.size = profitROI.size
+                leadUpdate.profit = profitROI?.getProfit() ? profitROI.getProfit() : 0
+                leadUpdate.roi = profitROI?.getROI() ? profitROI.getROI() : 0
+                leadUpdate.amazon.size = profitROI.getSize()
             }
 
             leadUpdate.source.updatedAt = new Date().toISOString()

@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express'
-import LeadModel from '../../models/LeadModel'
+import LeadModel from '../../models/lead/LeadModel'
 import mongoose, { Model } from 'mongoose'
 
 const leadRoutes = express.Router()
@@ -124,7 +124,6 @@ async function createLead(req: Request, res: Response, next: NextFunction) {
 
 async function editLead(req: Request, res: Response, next: NextFunction) {
     try {
-        // console.log(req.body?.data)
         const data = req.body?.data
         const ids = Object.keys(data)
 

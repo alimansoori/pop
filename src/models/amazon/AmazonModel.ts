@@ -1,5 +1,4 @@
-import { Schema, Document, model, Model } from 'mongoose'
-import any = jasmine.any
+import { Schema, Document } from 'mongoose'
 
 export interface IAmazon extends Document {
     title: string
@@ -26,6 +25,10 @@ export interface IAmazon extends Document {
         width: number
         height: number
         weight: number
+    }
+    referralFeePercent: number
+    fbaFees: {
+        pickAndPackFee: number
     }
     createdAt: string | DateConstructor
     updatedAt: string | DateConstructor
@@ -115,6 +118,10 @@ export const amazonSchema: Schema = new Schema<IAmazon>({
         weight: {
             type: Number,
         },
+    },
+    referralFeePercent: Number,
+    fbaFees: {
+        pickAndPackFee: Number,
     },
     createdAt: {
         type: Date,

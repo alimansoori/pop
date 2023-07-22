@@ -1,13 +1,12 @@
 import express from 'express'
-import LeadModel from '../../models/LeadModel'
+import LeadModel from '../../models/lead/LeadModel'
 import KeepaApi from '../../lib/KeepaApi'
 import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
-import util from 'util'
-import fs from 'fs'
 import config from '../../config/config'
 import axios from 'axios'
 import MyArray from '../../lib/MyArray'
 import AmazonCategory from '../../lib/AmazonCategory'
+import { KeepaProductType } from '../../@types/KeepaProductType'
 
 const keepaRoutes = express.Router()
 
@@ -70,6 +69,14 @@ keepaRoutes.post('/', async (req, res, next) => {
                     if (keepaSearch.amazonProduct?.title) {
                         leadUpdate.amazon.title = keepaSearch.amazonProduct?.title
                     }
+                    // Set FbaFee
+                    if (keepaSearch.amazonProduct?.fbaFees?.pickAndPackFee) {
+                        leadUpdate.amazon.fbaFees.pickAndPackFee = keepaSearch.amazonProduct?.fbaFees?.pickAndPackFee
+                    }
+                    // Set referralFee
+                    if (keepaSearch.amazonProduct?.referralFeePercent) {
+                        leadUpdate.amazon.referralFeePercent = keepaSearch.amazonProduct?.referralFeePercent
+                    }
                     // Set Profit & ROI
                     if (leadUpdate.source?.price > 0 && keepaSearch.getSellPrice() > 0) {
                         const amazonNumber: number = leadUpdate.amazon?.numPack ? leadUpdate.amazon?.numPack : 1
@@ -80,6 +87,10 @@ keepaRoutes.post('/', async (req, res, next) => {
                             category: keepaSearch.getCategory(),
                             sellPrice: keepaSearch.getSellPrice(),
                             buyCost: leadUpdate.source?.price * numOfPack,
+                            fbaFees: {
+                                pickAndPackFee: leadUpdate.amazon?.fbaFees.pickAndPackFee,
+                            },
+                            referralFeePercent: leadUpdate.amazon?.referralFeePercent,
                             packageLength: keepaSearch.amazonProduct?.packageLength
                                 ? keepaSearch.amazonProduct?.packageLength
                                 : 1,
@@ -96,17 +107,17 @@ keepaRoutes.post('/', async (req, res, next) => {
 
                         // Source Update If be lead
                         if (
-                            leadUpdate.profit < 5 &&
-                            profitROI.netProfit > 5 &&
-                            leadUpdate.roi < 30 &&
-                            profitROI.roi > 30
+                            leadUpdate.profit < 4 &&
+                            profitROI.getProfit() > 4 &&
+                            leadUpdate.roi < 25 &&
+                            profitROI.getROI() > 25
                         ) {
                             leadUpdate.source.updatedAt = new Date().toISOString()
                         }
 
-                        leadUpdate.profit = profitROI.netProfit
-                        leadUpdate.roi = profitROI.roi
-                        leadUpdate.amazon.size = profitROI.size
+                        leadUpdate.profit = profitROI.getProfit()
+                        leadUpdate.roi = profitROI.getROI()
+                        leadUpdate.amazon.size = profitROI.getSize()
                     }
                     // Set BSR
                     if (keepaSearch.getBSR()) {

@@ -196,9 +196,9 @@ export default class Keepa {
                 category: this.category,
             })
 
-            this.profit = profitClassBuyBox.netProfit
-            this.roi = profitClassBuyBox.roi
-            this.size = profitClassBuyBox.size
+            this.profit = profitClassBuyBox.getProfit()
+            this.roi = profitClassBuyBox.getROI()
+            this.size = profitClassBuyBox.getSize()
 
             /*const profitClassBadge = new ProfitRoiCalculate({
                 sellPrice: this.avgBuyBox30Day,
@@ -210,7 +210,7 @@ export default class Keepa {
                 category: this.category,
             })*/
 
-            if (profitClassBuyBox.netProfit > 3.8 && profitClassBuyBox.roi > 20 && this.top) {
+            if (profitClassBuyBox.getProfit() > 4 && profitClassBuyBox.getROI() > 25 && this.top) {
                 this.hasBadge = true
             }
         }
