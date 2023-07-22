@@ -39,6 +39,7 @@ abstract class Store implements IStore, IProductDetails {
     private readonly optionsP: IStoreOptions
     protected loadType: EnumLoadType = EnumLoadType.LOAD
     protected productExist = true
+    protected pageNotFound = false
     protected siteIsBlocked = false
     protected headlessRun = false
     protected viewPageSource = true
@@ -664,6 +665,10 @@ req.abort()
         return this.price
     }
 
+    public getPageNotFound(): boolean {
+        return this.pageNotFound
+    }
+
     public setUPC(upc: string): void {
         this.upc = upc
     }
@@ -709,19 +714,19 @@ req.abort()
 
             await this.productExistCalculate()
 
-            if (!this.productExist) {
-                this.error = 'Product Not Exist'
+            if (!this.productExist || this.pageNotFound) {
+                this.error = 'Product Not Exist OR Page Not Found'
             } else {
                 this.error = ''
             }
 
-            if (!this.productExist && !this.isSecond) {
-                console.log('Site is Blocked! OR Product not Exist')
+            if (!this.productExist && !this.isSecond && !this.pageNotFound) {
+                console.log('Site is Blocked!')
                 await this.runAgainPup()
                 return
             }
 
-            if (this.enableCanonical && this.productExist) {
+            if (this.enableCanonical && this.productExist && !this.pageNotFound) {
                 await this.setCanonical()
             }
 
@@ -954,7 +959,7 @@ req.abort()
     abstract productExistCalculate(): Promise<void>
 
     protected async productExistBySelector(selector: string, timeout?: number | undefined) {
-        if (!timeout) timeout = 15000
+        if (!timeout) timeout = 30000
         if (this.headlessRun) {
             if (!this.resultReq.$(selector).length) {
                 this.productExist = false
@@ -967,6 +972,15 @@ req.abort()
                 console.log(e.message)
                 this.productExist = false
             }
+        }
+    }
+    protected async pageNotFoundSelector(selector: string, timeout?: number | undefined) {
+        try {
+            await this.page.waitForSelector(selector, { timeout })
+            this.pageNotFound = true
+        } catch (e: any) {
+            console.log('Page Not Found!')
+            this.pageNotFound = false
         }
     }
 

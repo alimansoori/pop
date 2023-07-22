@@ -10,21 +10,20 @@ import MyArray from '../../lib/MyArray'
 import AmazonCategory from '../../lib/AmazonCategory'
 
 const keepaRoutes = express.Router()
-const readFileAsync = util.promisify(fs.readFile)
 
 keepaRoutes.post('/', async (req, res, next) => {
     try {
         const oneDayAgo = new Date()
         oneDayAgo.setDate(oneDayAgo.getDate() - 1)
         const tenDayAgo = new Date()
-        tenDayAgo.setDate(tenDayAgo.getDate() - 6)
+        tenDayAgo.setDate(tenDayAgo.getDate() - 10)
         const randomIndex = Math.floor(Math.random() * 40)
 
         const orCondition = [
             {
                 $and: [
                     { 'amazon.category': MyArray.gerRandomFromArrayOfString(AmazonCategory.categoryLists()) },
-                    { 'amazon.updatedAt': { $lt: oneDayAgo } },
+                    // { 'amazon.updatedAt': { $lt: oneDayAgo } },
                     {
                         $or: [{ 'amazon.bsr': { $lt: 400000, $gte: 0 } }, { 'amazon.bsr': { $exists: false } }],
                     },
@@ -48,7 +47,7 @@ keepaRoutes.post('/', async (req, res, next) => {
             .lean()
             .select(['_id', 'source.url', 'amazon.asin', 'amazon.category'])
             .skip(randomIndex)
-            .sort({ updatedAt: Math.random() < 0.5 ? -1 : 1 })
+            .sort({ 'amazon.updatedAt': 1 })
             .or(orCondition)
             .exec()
 

@@ -1,4 +1,4 @@
-import { Schema, Document, model, Model } from 'mongoose'
+import { Schema, Document } from 'mongoose'
 
 export interface IHidden extends Document {
     createdAt: string | DateConstructor

@@ -1,0 +1,26 @@
+version: "3"
+services:
+  robot:
+    build: "./"
+    image: mongodb/mongodb-atlas-kubernetes-operator:latest
+    container_name: my_robot
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - "mongo_uri='mongodb://root:pass@mango/oa?authSource=admin&retryWrites=true'"
+    depends_on:
+      - "mongo"
+  mongo:
+    image: "mongo"
+    container_name: "mongo"
+    restart: always
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME=root"
+      - "MONGO_INITDB_ROOT_PASSWORD=pass"
+    ports:
+      - "27018:27017"
+    volumes:
+      - type: "bind"
+        source: "./volumes/db"
+        target: "/data/db"

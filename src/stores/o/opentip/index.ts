@@ -10,6 +10,8 @@ export default class Opentip extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('div.product_title h1')
+        await this.pageNotFoundSelector('h1[id="error"]', 100)
+        this.setUPC(await this.page.$eval('*[itemprop="gtin12"]', (elem: any) => elem.textContent))
     }
 
     async availibilityCalculate(): Promise<void> {

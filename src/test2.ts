@@ -1,34 +1,21 @@
 import SourceSiteFactory from './stores/SourceSiteFactory'
 import Keepa from './lib/Keepa'
 import { StoreOutputType } from './@types/StoreOutputType'
-import ProfitRoiCalculate from './lib/ProfitRoiCalculate'
-import DatabaseLeads from './sheets/DatabaseLeads'
 
 export async function main() {
     try {
-        const lead = new ProfitRoiCalculate({
-            category: 'Toys & Games',
-            sellPrice: 37,
-            buyCost: 33.39,
-            packageLength: 159,
-            packageWidth: 89,
-            packageHeight: 117,
-            packageWeight: 113,
+        await sourceCheck({
+            url: 'https://www.target.com/p/13w-hd-slimline-table-lamp-white-includes-energy-efficient-light-bulb-ottlite/-/A-53664899',
         })
-        console.log(lead.netProfit)
-        console.log(lead.roi)
-        /*await sourceCheck({
-            url: 'https://www.tcgplayer.com/product/242808/pokemon-celebrations-celebrations-collection-lances-charizard-v?country=US&utm_campaign=9549531350&utm_source=google&utm_medium=cpc&utm_content=422888779645&utm_term=&adgroupid=103661046211&gclid=CjwKCAjwi8iXBhBeEiwAKbUofU68zOTx4dFPlFJjqFUibruaDG0Z13SjImGsE3GnLI6oh9Es5dOdSBoCPQkQAvD_BwE&Language=English',
-        })*/
         /*await keepaCheck({
-            asin: 'B077J2GJBV',
-            price: 31.74,
-        })*/
+    asin: 'B077J2GJBV',
+    price: 31.74,
+})*/
         /*const google = new Google({
-            title: 'Rule One Proteins, R1 Pre Amino – Peach Mango, Anytime Energy Boost, Amino Acid Complex, Caffeine from Green Tea and Coffee Extracts, Energy, Endurance, Focus Support, 30 Servings',
-        })
-        await google.search2()
-        console.log(google.getAsins())*/
+    title: 'Rule One Proteins, R1 Pre Amino – Peach Mango, Anytime Energy Boost, Amino Acid Complex, Caffeine from Green Tea and Coffee Extracts, Energy, Endurance, Focus Support, 30 Servings',
+})
+await google.search2()
+console.log(google.getAsins())*/
     } catch (e: any) {
         console.log(e.message)
     }
@@ -88,7 +75,10 @@ export async function sourceCheck(input: { url: string }): Promise<StoreOutputTy
         console.log('Status Code: ' + store.statusCode)
         console.log('Source Title is: ' + store.getTitleClass().getTitle())
         console.log('Source Price is: ' + store.getPrice())
+        if (store.getPageNotFound()) console.log('Page is not found!')
         console.log('Source UPC is: ' + store.getUPC())
+        console.log('Source URL is: ' + store.getOriginUrl())
+        console.log('Source Canonical is: ' + store.getUrl())
         console.log('Source Image is =>')
         console.log(store.getImage())
         console.log('Source is in stock: ' + store.isAvailability())

@@ -12,6 +12,7 @@ export default class Target extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[data-test="product-title"]', 30000)
+        await this.pageNotFoundSelector('div[data-test="productNotFound"]')
     }
 
     async productTitleCalculate(): Promise<void> {

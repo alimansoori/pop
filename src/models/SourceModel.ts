@@ -1,5 +1,4 @@
-import { Schema, Document, model, Model } from 'mongoose'
-import { ILead, leadSchema } from './LeadModel'
+import { Schema, Document } from 'mongoose'
 
 export interface ISource extends Document {
     title: string

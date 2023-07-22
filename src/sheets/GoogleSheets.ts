@@ -8,8 +8,6 @@ import MyDate from '../lib/MyDate'
 import { loadSetting, tomorrowDate, writeSetting } from '../lib/helper'
 import CategorySheet from '../lib/CategorySheet'
 import { sleep } from '../utils/sleep'
-import { DbApi } from '../lib/db-api/DbApi'
-import axios from 'axios'
 
 export default class GoogleSheets {
     // private page

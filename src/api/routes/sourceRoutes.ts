@@ -21,23 +21,15 @@ sourceRoutes.get('/', async (req, res, next) => {
             message: 'Success',
         })*/
 
-        const oneDayAgo = new Date()
-        oneDayAgo.setDate(oneDayAgo.getDate() - 6)
-
-        const randomIndex = Math.floor(Math.random() * 70)
-
-        // Rand 1 & -1
-        const randomNumber = Math.random()
-        const randomSign = randomNumber < 0.5 ? -1 : 1
+        const randomIndex = Math.floor(Math.random() * 50)
 
         const randLead = await LeadModel.findOne()
             .lean()
-            .select(['_id', 'source.url', 'amazon.category'])
+            .select(['_id', 'source.url', 'source.updatedAt', 'amazon.category', 'amazon.price', 'amazon.seller'])
             .skip(randomIndex)
-            .sort({ updatedAt: randomSign })
+            .sort({ 'source.updatedAt': 1 })
             .and([
                 { 'amazon.category': MyArray.gerRandomFromArrayOfString(AmazonCategory.categoryLists()) },
-                { 'source.updatedAt': { $lt: oneDayAgo } },
                 { status: { $ne: 'mis_match' } },
                 { 'amazon.bsr': { $lt: 312000, $gt: 0 } },
                 { 'amazon.price': { $gt: 15 } },

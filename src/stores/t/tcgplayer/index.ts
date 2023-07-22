@@ -6,7 +6,7 @@ export default class Tcgplayer extends Store {
         super(url)
         this.loadType = EnumLoadType.DOC_LOADED
         this.scrapUntilBlock = true
-        this.enableAssets = true
+        // this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {
