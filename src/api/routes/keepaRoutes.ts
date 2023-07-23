@@ -6,9 +6,6 @@ import config from '../../config/config'
 import axios from 'axios'
 import MyArray from '../../lib/MyArray'
 import AmazonCategory from '../../lib/AmazonCategory'
-import { KeepaProductType } from '../../@types/KeepaProductType'
-import { Schema } from 'mongoose'
-import Date = module
 
 const keepaRoutes = express.Router()
 
