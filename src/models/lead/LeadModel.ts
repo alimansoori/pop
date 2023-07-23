@@ -78,7 +78,6 @@ leadSchema.pre('save', async function (next) {
     } else {
         // Edit Lead
 
-        console.log('EDIT')
         if (
             (enterLead.amazon.price !== this.amazon.price ||
                 enterLead.amazon.numPack !== this.amazon.numPack ||
@@ -91,7 +90,6 @@ leadSchema.pre('save', async function (next) {
             const sourceNumber: number = this.source?.numPack ? this.source?.numPack : 1
             const numOfPack: number = parseFloat(String(amazonNumber / sourceNumber))
 
-            console.log(numOfPack)
             const calc = new ProfitRoiCalculate({
                 sellPrice: this.amazon.price,
                 buyCost: this.source.price * numOfPack,
@@ -105,7 +103,6 @@ leadSchema.pre('save', async function (next) {
                 packageLength: this.amazon?.package?.length ? this.amazon?.package?.length : 1,
                 category: this.amazon.category,
             })
-            console.log(enterLead.toObject())
             this.amazon.size = calc.getSize()
             this.profit = calc.getProfit()
             this.roi = calc.getROI()

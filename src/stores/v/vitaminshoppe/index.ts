@@ -1,5 +1,6 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
+import { EnumSelectorOrContent } from '../../../@types/EnumSelectorOrContent'
 
 export default class Vitaminshoppe extends Store {
     constructor(url: string) {
@@ -11,6 +12,7 @@ export default class Vitaminshoppe extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[itemprop="name"]')
+        await this.pageNotFoundSelector('div.page-not-found h1.oops-text', EnumSelectorOrContent.SELECTOR)
     }
 
     async availibilityCalculate(): Promise<void> {

@@ -2,6 +2,7 @@ import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
 import { sleep } from '../../../utils/sleep'
 import { textToNumber } from '../../../lib/helper'
+import { EnumSelectorOrContent } from '../../../@types/EnumSelectorOrContent'
 
 export default class Target extends Store {
     constructor(url: string) {
@@ -12,7 +13,7 @@ export default class Target extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1[data-test="product-title"]', 30000)
-        await this.pageNotFoundSelector('div[data-test="productNotFound"]')
+        await this.pageNotFoundSelector('div[data-test="productNotFound"]', EnumSelectorOrContent.SELECTOR)
     }
 
     async productTitleCalculate(): Promise<void> {

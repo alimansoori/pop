@@ -7,6 +7,8 @@ import axios from 'axios'
 import MyArray from '../../lib/MyArray'
 import AmazonCategory from '../../lib/AmazonCategory'
 import { KeepaProductType } from '../../@types/KeepaProductType'
+import { Schema } from 'mongoose'
+import Date = module
 
 const keepaRoutes = express.Router()
 
@@ -163,6 +165,7 @@ keepaRoutes.post('/', async (req, res, next) => {
                 for (let i = 0; i < findAllLeadByAsin.length; i++) {
                     const leadUpdate = findAllLeadByAsin[i]
                     leadUpdate.amazon.note = e.message
+                    leadUpdate.amazon.updatedAt = new Date().toISOString()
                     await leadUpdate.save()
                     console.log(`Update failed asin: ${asin} message: ${e.message}`)
                 }

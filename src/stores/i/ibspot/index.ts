@@ -1,6 +1,7 @@
 import Store from '../../Store'
 
 import { EnumLoadType } from '../../../@types/EnumLoadType'
+import { EnumSelectorOrContent } from '../../../@types/EnumSelectorOrContent'
 
 export default class Ibspot extends Store {
     constructor(url: string) {
@@ -10,7 +11,8 @@ export default class Ibspot extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('div.details-info h2')
+        await this.productExistBySelector('h1.product-details-title')
+        await this.pageNotFoundSelector("we couldn't find that page", EnumSelectorOrContent.CONTENT)
     }
 
     async availibilityCalculate(): Promise<void> {

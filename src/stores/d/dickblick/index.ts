@@ -1,7 +1,7 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
+import { MyPuppeteerCalculate } from '../../../lib/MyPuppeteerCalculate'
 
-// 1-20-2023
 export default class Dickblick extends Store {
     constructor(url: string) {
         super(url)
@@ -10,21 +10,14 @@ export default class Dickblick extends Store {
     }
 
     async productExistCalculate(): Promise<void> {
-        await this.productExistBySelector('h1[data-testid="product-name"]')
+        await this.productExistBySelector('h1[data-testid="skuname"]')
+        if (await MyPuppeteerCalculate.findElementByContent(this.page, 'Page Not Found')) {
+            this.statusCode = 404
+            this.pageNotFound = true
+        }
     }
 
     async availibilityCalculate(): Promise<void> {
-        await this.checkAvailability({
-            selector: 'p[data-testid="availability-status"]',
-            render: 'text',
-            outputArray: [],
-        })
-    }
-
-    async priceCalculate(): Promise<void> {
-        await this.checkPrice({
-            selector1: '*[data-testid="current-price"]',
-            render: 'text',
-        })
+        await this.checkMetaByClassSchemas('script[type="application/ld+json"]')
     }
 }

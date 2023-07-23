@@ -16,6 +16,8 @@ import { Browser, Page } from 'puppeteer'
 import StoreSchema from '../lib/StoreSchema'
 import { textToNumber } from '../lib/helper'
 import fs from 'fs'
+import { EnumSelectorOrContent } from '../@types/EnumSelectorOrContent'
+import { MyPuppeteerCalculate } from '../lib/MyPuppeteerCalculate'
 
 abstract class Store implements IStore, IProductDetails {
     titleClass: ProductTitle
@@ -123,29 +125,6 @@ abstract class Store implements IStore, IProductDetails {
                                     req.continue()
                                 }
                             }
-                            /*if (!this.includeAssets.length) {
-req.abort()
-} else {
-console.log(req._url)
-console.log(req.resourceType())
-let exit = false
-for (const patternAsset of this.includeAssets) {
-try {
-if (req._url.match(patternAsset)) {
-console.log('<<< Asset is match >>>')
-exit = true
-req.continue()
-break
-}
-} catch (e) {
-req.abort()
-}
-}
-if (!exit) {
-console.log('<<< Exit >>>')
-req.abort()
-}
-}*/
                         } else {
                             req.abort()
                         }
@@ -974,13 +953,19 @@ req.abort()
             }
         }
     }
-    protected async pageNotFoundSelector(selector: string, timeout?: number | undefined) {
-        try {
-            await this.page.waitForSelector(selector, { timeout })
-            this.pageNotFound = true
-        } catch (e: any) {
-            console.log('Page Not Found!')
-            this.pageNotFound = false
+    protected async pageNotFoundSelector(text: string, render: EnumSelectorOrContent, timeout?: number | undefined) {
+        if (render === EnumSelectorOrContent.CONTENT) {
+            if (await MyPuppeteerCalculate.findElementByContent(this.page, text)) {
+                this.pageNotFound = true
+            }
+        } else {
+            try {
+                await this.page.waitForSelector(text, { timeout })
+                this.pageNotFound = true
+            } catch (e: any) {
+                console.log('Page Not Found!')
+                this.pageNotFound = false
+            }
         }
     }
 
