@@ -545,18 +545,19 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
     if (!data.searchBuilder) return
 
     const criteria: any[] = data?.searchBuilder['criteria']
-    // console.log(criteria)
+    console.log(criteria)
     const conditions: any[] = []
     for (let i = 0; i < criteria.length; i++) {
         const condition: any = {}
         if (criteria[i]['condition'] === '=') {
             if (criteria[i]['type'] === 'num' || criteria[i]['type'] === 'num-fmt')
                 condition[criteria[i]['origData']] = parseInt(criteria[i]['value1'])
-            else if (criteria[i]['type'] === 'string') condition[criteria[i]['origData']] = criteria[i]['value1']
+            else if (criteria[i]['type'] === 'string' || criteria[i]['type'] === 'date')
+                condition[criteria[i]['origData']] = criteria[i]['value1']
         } else if (criteria[i]['condition'] === '!=') {
             if (criteria[i]['type'] === 'num' || criteria[i]['type'] === 'num-fmt') {
                 condition[criteria[i]['origData']] = { $ne: parseInt(criteria[i]['value1']) }
-            } else if (criteria[i]['type'] === 'string')
+            } else if (criteria[i]['type'] === 'string' || criteria[i]['type'] === 'date')
                 condition[criteria[i]['origData']] = { $ne: criteria[i]['value1'] }
         } else if (criteria[i]['condition'] === 'starts') {
             condition[criteria[i]['origData']] = new RegExp(`^${criteria[i]['value1']}`, 'i')
@@ -579,25 +580,35 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
         } else if (criteria[i]['condition'] === '<=') {
             condition[criteria[i]['origData']] = { $lte: parseInt(criteria[i]['value1']) }
         } else if (criteria[i]['condition'] === '>') {
-            condition[criteria[i]['origData']] = { $gt: parseInt(criteria[i]['value1']) }
+            condition[criteria[i]['origData']] =
+                criteria[i]['type'] === 'date'
+                    ? { $gt: criteria[i]['value1'] }
+                    : { $gt: parseInt(criteria[i]['value1']) }
         } else if (criteria[i]['condition'] === '>=') {
-            condition[criteria[i]['origData']] = { $gte: parseInt(criteria[i]['value1']) }
+            condition[criteria[i]['origData']] =
+                criteria[i]['type'] === 'date'
+                    ? { $gte: criteria[i]['value1'] }
+                    : { $gte: parseInt(criteria[i]['value1']) }
         } else if (criteria[i]['condition'] === 'between') {
             const betObj: any = {}
-            if (criteria[i]['value1']) betObj['$gt'] = parseInt(criteria[i]['value1'])
-            if (criteria[i]['value2']) betObj['$lt'] = parseInt(criteria[i]['value2'])
+            if (criteria[i]['value1'])
+                betObj['$gt'] = criteria[i]['type'] === 'date' ? criteria[i]['value1'] : parseInt(criteria[i]['value1'])
+            if (criteria[i]['value2'])
+                betObj['$lt'] = criteria[i]['type'] === 'date' ? criteria[i]['value2'] : parseInt(criteria[i]['value2'])
             condition[criteria[i]['origData']] = betObj
         } else if (criteria[i]['condition'] === '!between') {
             const betObj: any = {}
-            if (criteria[i]['value1']) betObj['$gt'] = parseInt(criteria[i]['value1'])
-            if (criteria[i]['value2']) betObj['$lt'] = parseInt(criteria[i]['value2'])
+            if (criteria[i]['value1'])
+                betObj['$gt'] = criteria[i]['type'] === 'date' ? criteria[i]['value1'] : parseInt(criteria[i]['value1'])
+            if (criteria[i]['value2'])
+                betObj['$lt'] = criteria[i]['type'] === 'date' ? criteria[i]['value2'] : parseInt(criteria[i]['value2'])
             condition[criteria[i]['origData']] = {
                 $not: betObj,
             }
         }
         conditions.push(condition)
     }
-    // console.log(conditions)
+    console.log(conditions)
 
     if (data?.searchBuilder['logic'] === 'AND') {
         filter.and(conditions)
