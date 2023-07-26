@@ -144,6 +144,10 @@ sourceRoutes.post('/', async (req, res, next) => {
                     category: leadUpdate.amazon?.category,
                     sellPrice: leadUpdate.amazon?.price ? leadUpdate.amazon?.price * numOfPack : 0,
                     buyCost: leadUpdate.source?.price ? leadUpdate.source?.price : 0,
+                    fbaFees: {
+                        pickAndPackFee: leadUpdate.amazon?.fbaFees?.pickAndPackFee,
+                    },
+                    referralFeePercent: leadUpdate.amazon?.referralFeePercent,
                     packageLength: leadUpdate.amazon?.package?.length ? leadUpdate.amazon?.package?.length : 1,
                     packageHeight: leadUpdate.amazon?.package?.height ? leadUpdate.amazon?.package?.height : 1,
                     packageWidth: leadUpdate.amazon?.package?.width ? leadUpdate.amazon?.package?.width : 1,
@@ -186,11 +190,11 @@ async function updateDatabaseLeads(leadUpdate: ILead) {
     }
 }
 
-async function insetToDB(index: number) {
+/*async function insetToDB(index: number) {
     const data = await fs.promises.readFile(`tmp/output${index}.json`, 'utf8')
     const jsonData = JSON.parse(data)
 
     await LeadModel.insertMany(jsonData)
-}
+}*/
 
 export default sourceRoutes
