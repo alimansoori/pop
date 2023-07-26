@@ -545,7 +545,7 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
     if (!data.searchBuilder) return
 
     const criteria: any[] = data?.searchBuilder['criteria']
-    console.log(criteria)
+    // console.log(criteria)
     const conditions: any[] = []
     for (let i = 0; i < criteria.length; i++) {
         const condition: any = {}
@@ -608,7 +608,7 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
         }
         conditions.push(condition)
     }
-    console.log(conditions)
+    // console.log(conditions)
 
     if (data?.searchBuilder['logic'] === 'AND') {
         filter.and(conditions)

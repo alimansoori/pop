@@ -1,12 +1,9 @@
 import express from 'express'
 import LeadModel, { ILead } from '../../models/lead/LeadModel'
 import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
-import { EnumCategories } from '../../@types/EnumCategories'
 import DatabaseLeads from '../../sheets/DatabaseLeads'
-import { sort } from 'shelljs'
 import MyArray from '../../lib/MyArray'
 import AmazonCategory from '../../lib/AmazonCategory'
-import fs from 'fs'
 
 const sourceRoutes = express.Router()
 
@@ -142,8 +139,8 @@ sourceRoutes.post('/', async (req, res, next) => {
 
                 const profitROI = new ProfitRoiCalculate({
                     category: leadUpdate.amazon?.category,
-                    sellPrice: leadUpdate.amazon?.price ? leadUpdate.amazon?.price * numOfPack : 0,
-                    buyCost: leadUpdate.source?.price ? leadUpdate.source?.price : 0,
+                    sellPrice: leadUpdate.amazon?.price ? leadUpdate.amazon?.price : 0,
+                    buyCost: leadUpdate.source?.price ? leadUpdate.source?.price * numOfPack : 0,
                     fbaFees: {
                         pickAndPackFee: leadUpdate.amazon?.fbaFees?.pickAndPackFee,
                     },
