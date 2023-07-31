@@ -97,6 +97,7 @@ export default class ImportFromGoogleSheet {
                             matchQuality: rows[i]['Amazon Number'],
                             amazon: {
                                 asin: rows[i]['ASIN'],
+                                url: rows[i]['Amazon URL'],
                             },
                             source: {
                                 url: rows[i]['Source URL'],
