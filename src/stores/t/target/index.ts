@@ -9,6 +9,7 @@ export default class Target extends Store {
         super(url)
         this.loadType = EnumLoadType.LOAD
         this.scrapUntilBlock = true
+        // this.enableAssets = true
     }
 
     async productExistCalculate(): Promise<void> {

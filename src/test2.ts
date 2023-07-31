@@ -5,7 +5,7 @@ import { StoreOutputType } from './@types/StoreOutputType'
 export async function main() {
     try {
         await sourceCheck({
-            url: 'https://ibspot.com/products/host-defense-chaga-capsules-antioxidant-and-dna-support-daily-mushroom-supplement-vegan-organic-60-capsules-30-servings',
+            url: 'https://www.target.com/p/the-oregon-trail-hunt-for-food-game/-/A-52187249',
         })
         /*await keepaCheck({
     asin: 'B077J2GJBV',

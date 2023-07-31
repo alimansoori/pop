@@ -18,6 +18,9 @@ sourceRoutes.get('/', async (req, res, next) => {
             message: 'Success',
         })*/
 
+        const lastUpdateDay = new Date()
+        lastUpdateDay.setDate(lastUpdateDay.getDate() - 10)
+
         const randomIndex = Math.floor(Math.random() * 50)
 
         const randLead = await LeadModel.findOne()
@@ -31,6 +34,24 @@ sourceRoutes.get('/', async (req, res, next) => {
                 { 'amazon.bsr': { $lt: 312000, $gt: 0 } },
                 { 'amazon.price': { $gt: 15 } },
                 { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
+                {
+                    $or: [
+                        {
+                            $and: [
+                                { profit: { $gt: 5 } },
+                                { roi: { $gt: 30 } },
+                                { 'source.availability': true },
+                                { 'source.updatedAt': { $lt: lastUpdateDay } },
+                            ],
+                        },
+                        {
+                            $and: [
+                                { $or: [{ profit: { $lte: 5 } }, { profit: { $exists: false } }] },
+                                { $or: [{ roi: { $lte: 30 } }, { roi: { $exists: false } }] },
+                            ],
+                        },
+                    ],
+                },
             ])
             .exec()
 
