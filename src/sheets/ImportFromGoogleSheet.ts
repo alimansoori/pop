@@ -94,6 +94,7 @@ export default class ImportFromGoogleSheet {
                     data: [
                         {
                             status: status,
+                            matchQuality: rows[i]['Amazon Number'],
                             amazon: {
                                 asin: rows[i]['ASIN'],
                             },
