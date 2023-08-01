@@ -21,6 +21,9 @@ sourceRoutes.get('/', async (req, res, next) => {
         const lastUpdateDay = new Date()
         lastUpdateDay.setDate(lastUpdateDay.getDate() - 10)
 
+        const oneDay = new Date()
+        oneDay.setDate(oneDay.getDate() - 2)
+
         const randomIndex = Math.floor(Math.random() * 50)
 
         const randLead = await LeadModel.findOne()
@@ -42,6 +45,14 @@ sourceRoutes.get('/', async (req, res, next) => {
                                 { roi: { $gt: 30 } },
                                 { 'source.availability': true },
                                 { 'source.updatedAt': { $lt: lastUpdateDay } },
+                            ],
+                        },
+                        {
+                            $and: [
+                                { profit: { $gt: 5 } },
+                                { roi: { $gt: 30 } },
+                                { 'source.availability': false },
+                                { 'source.updatedAt': { $lt: oneDay } },
                             ],
                         },
                         {
