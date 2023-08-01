@@ -9,10 +9,8 @@ const sourceRoutes = express.Router()
 
 sourceRoutes.get('/', async (req, res, next) => {
     try {
-        /*for (let i = 1; i <= 35; i++) {
-            await insetToDB(i)
-            console.log(`insert output${i}`)
-        }
+        /*await insetToDB()
+        console.log(`insert output`)
 
         return res.status(200).json({
             message: 'Success',
@@ -219,8 +217,8 @@ async function updateDatabaseLeads(leadUpdate: ILead) {
     }
 }
 
-/*async function insetToDB(index: number) {
-    const data = await fs.promises.readFile(`tmp/output${index}.json`, 'utf8')
+/*async function insetToDB() {
+    const data = await fs.promises.readFile(`tmp/leads.json`, 'utf8')
     const jsonData = JSON.parse(data)
 
     await LeadModel.insertMany(jsonData)

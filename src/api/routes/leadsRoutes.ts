@@ -40,7 +40,7 @@ async function getLeads(req: Request, res: Response, next: NextFunction) {
             obj[columns[req.body?.order[0]['column']]['name']] = req.body?.order[0]['dir']
             filter.sort(obj)
         } else {
-            filter.sort({ 'source.updatedAt': -1 })
+            filter.sort({ 'source.updatedAt': 1 })
         }
 
         const leads = await filter.skip(start).limit(limit).exec()
@@ -545,7 +545,22 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
     if (!data.searchBuilder) return
 
     const criteria: any[] = data?.searchBuilder['criteria']
-    // console.log(criteria)
+    console.log(data?.searchBuilder)
+
+    const conditions = criteriaCalc(criteria)
+
+    console.log(conditions)
+
+    if (data?.searchBuilder['logic'] === 'AND') {
+        filter.and(conditions)
+        totalFilter.and(conditions)
+    } else if (data.searchBuilder['logic'] === 'OR') {
+        filter.or(conditions)
+        totalFilter.or(conditions)
+    }
+}
+
+function criteriaCalc(criteria: any[]): any {
     const conditions: any[] = []
     for (let i = 0; i < criteria.length; i++) {
         const condition: any = {}
@@ -605,18 +620,17 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
             condition[criteria[i]['origData']] = {
                 $not: betObj,
             }
+        } else if (criteria[i]['logic'] && typeof criteria[i]['logic'] === 'string') {
+            if (criteria[i]['logic'] === 'AND') {
+                condition['$and'] = criteriaCalc(criteria[i]['criteria'])
+            } else if (criteria[i]['logic'] === 'OR') {
+                condition['$or'] = criteriaCalc(criteria[i]['criteria'])
+            }
         }
         conditions.push(condition)
     }
-    // console.log(conditions)
 
-    if (data?.searchBuilder['logic'] === 'AND') {
-        filter.and(conditions)
-        totalFilter.and(conditions)
-    } else if (data.searchBuilder['logic'] === 'OR') {
-        filter.or(conditions)
-        totalFilter.or(conditions)
-    }
+    return conditions
 }
 
 export default leadRoutes

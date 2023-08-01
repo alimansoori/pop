@@ -4,9 +4,9 @@ import { StoreOutputType } from './@types/StoreOutputType'
 
 export async function main() {
     try {
-        await sourceCheck({
+        /*await sourceCheck({
             url: 'https://www.target.com/p/the-oregon-trail-hunt-for-food-game/-/A-52187249',
-        })
+        })*/
         /*await keepaCheck({
     asin: 'B077J2GJBV',
     price: 31.74,
