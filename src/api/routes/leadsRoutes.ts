@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express'
 import LeadModel from '../../models/lead/LeadModel'
 import mongoose, { Model } from 'mongoose'
+import {error} from "shelljs";
 
 const leadRoutes = express.Router()
 
@@ -131,72 +132,68 @@ async function editLead(req: Request, res: Response, next: NextFunction) {
             throw new Error('Error !')
         }
 
-        const lead = await LeadModel.findById(ids[0])
-        if (!lead) {
-            throw new Error('Lead for edit not exist!')
-        }
+        const resData: any[] = []
+        const errors: any[] = []
+        for (let i = 0; i < ids.length; i++) {
+            const lead = await LeadModel.findById(ids[i])
 
-        // console.log(data[ids[0]]['hiddenDays'])
-        if (data[ids[0]]['hiddenDays'] !== undefined) {
-            lead.hiddenDays = data[ids[0]]['hiddenDays']
-        }
+            if (!lead) {
+                throw new Error('Lead for edit not exist!')
+            }
+            if (data[ids[i]]['hiddenDays'] !== undefined) {
+                lead.hiddenDays = data[ids[i]]['hiddenDays']
+            }
+            if (data[ids[i]]['status']) {
+                lead.status = data[ids[i]]['status']
+            }
+            if (data[ids[i]]['profit']) {
+                lead.profit = data[ids[i]]['profit']
+            }
+            if (data[ids[i]]['roi']) {
+                lead.roi = data[ids[i]]['roi']
+            }
+            if (data[ids[i]]['amazon']) {
+                lead.amazon = {
+                    ...lead.amazon.toObject(),
+                    ...data[ids[i]]['amazon'],
+                }
+            }
+            if (data[ids[i]]['source']) {
+                lead.source = {
+                    ...lead.source.toObject(),
+                    ...data[ids[i]]['source'],
+                }
+            }
+            const leadValidationError = lead.validateSync()
+            const leadAmazonValidationError = lead.amazon.validateSync()
+            const leadSourceValidationError = lead.source.validateSync()
 
-        if (data[ids[0]]['status']) {
-            lead.status = data[ids[0]]['status']
-        }
+            const fieldErrors = []
+            if (leadValidationError instanceof mongoose.Error.ValidationError) {
+                fieldErrors.push(...validationCalc(leadValidationError, ''))
+            }
+            if (leadAmazonValidationError instanceof mongoose.Error.ValidationError) {
+                fieldErrors.push(...validationCalc(leadAmazonValidationError, 'amazon'))
+            }
+            if (leadSourceValidationError instanceof mongoose.Error.ValidationError) {
+                fieldErrors.push(...validationCalc(leadSourceValidationError, 'source'))
+            }
 
-        if (data[ids[0]]['profit']) {
-            lead.profit = data[ids[0]]['profit']
-        }
-
-        if (data[ids[0]]['roi']) {
-            lead.roi = data[ids[0]]['roi']
-        }
-
-        if (data[ids[0]]['amazon']) {
-            lead.amazon = {
-                ...lead.amazon.toObject(),
-                ...data[ids[0]]['amazon'],
+            if (!fieldErrors.length) {
+                await lead.save()
+                resData.push({
+                    DT_RowId: lead._id,
+                    ...lead.toObject(),
+                })
+            } else {
+                errors.push(fieldErrors)
             }
         }
 
-        if (data[ids[0]]['source']) {
-            lead.source = {
-                ...lead.source.toObject(),
-                ...data[ids[0]]['source'],
-            }
-        }
-
-        const leadValidationError = lead.validateSync()
-        const leadAmazonValidationError = lead.amazon.validateSync()
-        const leadSourceValidationError = lead.source.validateSync()
-
-        const fieldErrors = []
-        if (leadValidationError instanceof mongoose.Error.ValidationError) {
-            fieldErrors.push(...validationCalc(leadValidationError, ''))
-        }
-        if (leadAmazonValidationError instanceof mongoose.Error.ValidationError) {
-            fieldErrors.push(...validationCalc(leadAmazonValidationError, 'amazon'))
-        }
-        if (leadSourceValidationError instanceof mongoose.Error.ValidationError) {
-            fieldErrors.push(...validationCalc(leadSourceValidationError, 'source'))
-        }
-        if (!fieldErrors.length) {
-            await lead.save()
-            res.status(200).json({
-                data: [
-                    {
-                        DT_RowId: lead._id,
-                        ...lead.toObject(),
-                    },
-                ],
-            })
-        } else {
-            res.status(200).json({
-                data: [],
-                fieldErrors: fieldErrors,
-            })
-        }
+        res.status(200).json({
+            data: resData,
+            fieldErrors: error(),
+        })
     } catch (e: any) {
         res.status(404).json({
             error: e.message,
@@ -545,11 +542,11 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
     if (!data.searchBuilder) return
 
     const criteria: any[] = data?.searchBuilder['criteria']
-    console.log(data?.searchBuilder)
+    // console.log(data?.searchBuilder)
 
     const conditions = criteriaCalc(criteria)
 
-    console.log(conditions)
+    // console.log(conditions)
 
     if (data?.searchBuilder['logic'] === 'AND') {
         filter.and(conditions)

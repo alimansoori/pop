@@ -1,5 +1,6 @@
 import Store from '../../Store'
-import { EnumLoadType } from '../../../@types/EnumLoadType'
+import {EnumLoadType} from '../../../@types/EnumLoadType'
+import {EnumSelectorOrContent} from "../../../@types/EnumSelectorOrContent";
 
 export default class Familyotc extends Store {
     constructor(url: string) {
@@ -10,6 +11,7 @@ export default class Familyotc extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1.product_title')
+        await this.pageNotFoundSelector('*.error-404', EnumSelectorOrContent.SELECTOR)
     }
 
     async availibilityCalculate(): Promise<void> {

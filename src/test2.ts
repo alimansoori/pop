@@ -4,13 +4,13 @@ import { StoreOutputType } from './@types/StoreOutputType'
 
 export async function main() {
     try {
-        /*await sourceCheck({
-            url: 'https://www.target.com/p/the-oregon-trail-hunt-for-food-game/-/A-52187249',
-        })*/
+        await sourceCheck({
+            url: 'https://familyotc.com/collections/vitamins/products/yumvs-diabetic-multivitamin-gummies-sugar-free-diabetes-supplement-vitamins-for-women-men-chromium-thiamine-and-magnesium-natural-raspberry-flavor-chewables-60-count',
+        })
         /*await keepaCheck({
-    asin: 'B077J2GJBV',
-    price: 31.74,
-})*/
+        asin: 'B077J2GJBV',
+        price: 31.74,
+    })*/
         /*const google = new Google({
     title: 'Rule One Proteins, R1 Pre Amino – Peach Mango, Anytime Energy Boost, Amino Acid Complex, Caffeine from Green Tea and Coffee Extracts, Energy, Endurance, Focus Support, 30 Servings',
 })
