@@ -18,7 +18,7 @@ keepaRoutes.post('/', async (req, res, next) => {
         const randomIndex = Math.floor(Math.random() * 40)
 
         const orCondition = [
-            {
+            /*{
                 $and: [
                     { 'amazon.category': MyArray.gerRandomFromArrayOfString(AmazonCategory.categoryLists()) },
                     { 'amazon.updatedAt': { $lt: oneDayAgo } },
@@ -38,16 +38,17 @@ keepaRoutes.post('/', async (req, res, next) => {
                     },
                     { 'amazon.updatedAt': { $lt: tenDayAgo } },
                 ],
-            },
+            },*/
             { 'amazon.title': { $exists: false } },
+            { 'amazon.title': '' },
         ]
 
-        const randLead = await LeadModel.findOne({'amazon.title': { $exists: false }})
+        const randLead = await LeadModel.findOne()
             .lean()
             .select(['_id', 'source.url', 'amazon.asin', 'amazon.category', 'amazon.updatedAt'])
             .skip(randomIndex)
             .sort({ 'amazon.updatedAt': 1 })
-            // .or(orCondition)
+            .or(orCondition)
             .exec()
 
         if (randLead) {
