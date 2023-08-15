@@ -5,7 +5,7 @@ import { StoreOutputType } from './@types/StoreOutputType'
 export async function main() {
     try {
         await sourceCheck({
-            url: 'https://familyotc.com/collections/vitamins/products/yumvs-diabetic-multivitamin-gummies-sugar-free-diabetes-supplement-vitamins-for-women-men-chromium-thiamine-and-magnesium-natural-raspberry-flavor-chewables-60-count',
+            url: 'https://www.tfaw.com/pop-animation-fullmetal-alchemist-wifnry.html',
         })
         /*await keepaCheck({
         asin: 'B077J2GJBV',

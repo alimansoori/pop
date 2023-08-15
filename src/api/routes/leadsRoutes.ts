@@ -546,7 +546,7 @@ function searchBuilder(filter: Model<any> | any, totalFilter: Model<any> | any, 
 
     const conditions = criteriaCalc(criteria)
 
-    // console.log(conditions)
+    console.log(conditions)
 
     if (data?.searchBuilder['logic'] === 'AND') {
         filter.and(conditions)
@@ -575,9 +575,9 @@ function criteriaCalc(criteria: any[]): any {
             condition[criteria[i]['origData']] = new RegExp(`^${criteria[i]['value1']}`, 'i')
         } else if (criteria[i]['condition'] === '!starts') {
             condition[criteria[i]['origData']] = { $not: new RegExp(`^${criteria[i]['value1']}`, 'i') }
-        } else if (criteria[i]['condition'] === 'contains') {
+        } else if (criteria[i]['condition'] === 'contains' && criteria[i]['value1']) {
             condition[criteria[i]['origData']] = { $regex: criteria[i]['value1'] }
-        } else if (criteria[i]['condition'] === '!contains') {
+        } else if (criteria[i]['condition'] === '!contains' && criteria[i]['value1']) {
             condition[criteria[i]['origData']] = { $not: new RegExp(`${criteria[i]['value1']}`, 'i') }
         } else if (criteria[i]['condition'] === 'ends') {
             condition[criteria[i]['origData']] = { $regex: new RegExp(`${criteria[i]['value1']}$`, 'i') }
@@ -588,9 +588,15 @@ function criteriaCalc(criteria: any[]): any {
         } else if (criteria[i]['condition'] === '!null') {
             condition[criteria[i]['origData']] = { $exists: true }
         } else if (criteria[i]['condition'] === '<') {
-            condition[criteria[i]['origData']] = { $lt: parseInt(criteria[i]['value1']) }
+            condition[criteria[i]['origData']] =
+              criteria[i]['type'] === 'date'
+                ? { $lt: criteria[i]['value1'] }
+                : { $lt: parseInt(criteria[i]['value1']) }
         } else if (criteria[i]['condition'] === '<=') {
-            condition[criteria[i]['origData']] = { $lte: parseInt(criteria[i]['value1']) }
+            condition[criteria[i]['origData']] =
+              criteria[i]['type'] === 'date'
+                ? { $lte: criteria[i]['value1'] }
+                : { $lte: parseInt(criteria[i]['value1']) }
         } else if (criteria[i]['condition'] === '>') {
             condition[criteria[i]['origData']] =
                 criteria[i]['type'] === 'date'

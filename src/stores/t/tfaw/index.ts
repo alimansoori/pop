@@ -1,5 +1,6 @@
 import Store from '../../Store'
 import { EnumLoadType } from '../../../@types/EnumLoadType'
+import { EnumSelectorOrContent } from '../../../@types/EnumSelectorOrContent'
 
 export default class Tfaw extends Store {
     constructor(url: string) {
@@ -10,6 +11,7 @@ export default class Tfaw extends Store {
 
     async productExistCalculate(): Promise<void> {
         await this.productExistBySelector('h1.page-title > span[data-ui-id="page-title-wrapper"]')
+        await this.pageNotFoundSelector('The page you requested was not found, and we have a fine guess why.', EnumSelectorOrContent.CONTENT)
     }
 
     async availibilityCalculate(): Promise<void> {
