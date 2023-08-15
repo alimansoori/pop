@@ -37,7 +37,7 @@ export interface IAmazon extends Document {
 export const amazonSchema: Schema = new Schema<IAmazon>({
     title: {
         type: String,
-        maxlength: 500,
+        maxlength: 1000,
         index: true,
     },
     asin: {

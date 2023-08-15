@@ -39,6 +39,7 @@ keepaRoutes.post('/', async (req, res, next) => {
                     { 'amazon.updatedAt': { $lt: tenDayAgo } },
                 ],
             },
+            { 'amazon.title': { $exists: false } },
         ]
 
         const randLead = await LeadModel.findOne()
@@ -205,4 +206,4 @@ async function getKeepaGraph(asin: string): Promise<any> {
     }
 }
 
-export default keepaRoutes
+export default keepaRoutes;

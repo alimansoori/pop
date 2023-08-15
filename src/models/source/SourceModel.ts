@@ -20,8 +20,7 @@ export interface ISource extends Document {
 export const sourceSchema: Schema = new Schema<ISource>({
     title: {
         type: String,
-        minlength: 5,
-        maxlength: 500,
+        maxlength: 1000,
         index: true,
     },
     url: {
