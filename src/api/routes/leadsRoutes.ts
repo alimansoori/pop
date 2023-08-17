@@ -428,6 +428,10 @@ function categoryOptions() {
             value: 'Clothing, Shoes & Jewelry',
         },
         {
+            label: 'Collectibles & Fine Art',
+            value: 'Collectibles & Fine Art',
+        },
+        {
             label: 'Digital Music',
             value: 'Digital Music',
         },

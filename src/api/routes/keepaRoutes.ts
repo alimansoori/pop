@@ -1,5 +1,5 @@
 import express from 'express'
-import LeadModel from '../../models/lead/LeadModel'
+import LeadModel  from "../../models/lead/LeadModel";
 import KeepaApi from '../../lib/KeepaApi'
 import ProfitRoiCalculate from '../../lib/ProfitRoiCalculate'
 import config from '../../config/config'
@@ -18,7 +18,7 @@ keepaRoutes.post('/', async (req, res, next) => {
         const randomIndex = Math.floor(Math.random() * 40)
 
         const orCondition = [
-            /*{
+            {
                 $and: [
                     { 'amazon.category': MyArray.gerRandomFromArrayOfString(AmazonCategory.categoryLists()) },
                     { 'amazon.updatedAt': { $lt: oneDayAgo } },
@@ -38,7 +38,7 @@ keepaRoutes.post('/', async (req, res, next) => {
                     },
                     { 'amazon.updatedAt': { $lt: tenDayAgo } },
                 ],
-            },*/
+            },
             { 'amazon.title': { $exists: false } },
             { 'amazon.title': '' },
         ]
@@ -51,6 +51,7 @@ keepaRoutes.post('/', async (req, res, next) => {
             .or(orCondition)
             .exec()
 
+
         if (randLead) {
             const asin = randLead.amazon.asin
             console.log('====================================')
@@ -60,8 +61,6 @@ keepaRoutes.post('/', async (req, res, next) => {
             try {
                 const keepaSearch = new KeepaApi(asin)
                 await keepaSearch.fetch()
-
-                // const graphImage = await getKeepaGraph(asin)
 
                 for (let i = 0; i < findAllLeadByAsin.length; i++) {
                     const leadUpdate = findAllLeadByAsin[i]

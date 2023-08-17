@@ -9,24 +9,17 @@ const sourceRoutes = express.Router()
 
 sourceRoutes.get('/', async (req, res, next) => {
     try {
-        /*await insetToDB()
-        console.log(`insert output`)
-
-        return res.status(200).json({
-            message: 'Success',
-        })*/
-
         const lastUpdateDay = new Date()
         lastUpdateDay.setDate(lastUpdateDay.getDate() - 10)
 
         const oneDay = new Date()
-        oneDay.setDate(oneDay.getDate() - 2)
+        oneDay.setDate(oneDay.getDate() - 3)
 
         const randomIndex = Math.floor(Math.random() * 50)
 
         const randLead = await LeadModel.findOne()
             .lean()
-            .select(['_id', 'source.url', 'source.updatedAt', 'amazon.category', 'amazon.price', 'amazon.seller'])
+            .select(['_id', 'source.url', 'source.updatedAt', 'source.statusCode', 'amazon.category', 'amazon.price', 'amazon.seller'])
             .skip(randomIndex)
             .sort({ 'source.updatedAt': 1 })
             .and([
@@ -34,6 +27,7 @@ sourceRoutes.get('/', async (req, res, next) => {
                 { status: { $ne: 'mis_match' } },
                 { 'amazon.bsr': { $lt: 312000, $gt: 0 } },
                 { 'amazon.price': { $gt: 15 } },
+                { 'source.statusCode': { $ne: 404 } },
                 { 'amazon.seller': { $not: new RegExp(`^Amazon$`, 'i') } },
                 {
                     $or: [
